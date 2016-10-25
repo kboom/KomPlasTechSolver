@@ -1,6 +1,10 @@
 package com.agh.iet.komplastech.solver;
 
-class Solution {
+import com.agh.iet.komplastech.solver.splines.Bspline1;
+import com.agh.iet.komplastech.solver.splines.Bspline2;
+import com.agh.iet.komplastech.solver.splines.Bspline3;
+
+public class Solution {
 	Solution(MeshData Mesh, double[][] Rhs){
 		m_mesh = Mesh;
 		m_rhs = Rhs;

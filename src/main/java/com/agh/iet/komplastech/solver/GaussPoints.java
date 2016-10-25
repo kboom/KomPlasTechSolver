@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
-class GaussPoints {
-    GaussPoints() {
+public class GaussPoints {
+    public GaussPoints() {
         /*
          * Wikipedia m_points = new double[6]; m_weights = new double[6];
          * m_nr_points = 5; m_points[1]=(1.0+0.0)/2.0; m_weights[1]=128.0/225.0;
@@ -50,7 +50,7 @@ class GaussPoints {
         m_weights[10] = 0.0666713443086881375935688 * 0.5;
     }
 
-    double m_points[];
-    double m_weights[];
-    int m_nr_points;
+    public double m_points[];
+    public double m_weights[];
+    public int m_nr_points;
 }

@@ -1,8 +1,11 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.productions.A;
+import com.agh.iet.komplastech.solver.productions.Agen;
+
 import java.util.concurrent.CyclicBarrier;
 
-class TestAgen {
+public class TestAgen {
     TestAgen() {
     }
 

@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.productions.*;
+
 import java.util.Arrays;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
@@ -547,8 +549,7 @@ class Executor extends Thread {
                 }
                 System.out.println();
             }
-            
-            System.exit(0);
+
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }

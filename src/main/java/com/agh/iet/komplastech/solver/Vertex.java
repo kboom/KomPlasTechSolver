@@ -1,7 +1,23 @@
 package com.agh.iet.komplastech.solver;
 
-class Vertex {
-    Vertex(Vertex Left, Vertex Middle, Vertex Right, Vertex Parent, String Lab, double Beg, double End, MeshData Mesh) {
+public class Vertex {
+
+    public String m_label;
+    public Vertex m_left;
+    public Vertex m_middle;
+    public Vertex m_right;
+    public Vertex m_parent;
+    public MeshData m_mesh;
+    public double[][] m_a;
+    public double[][] m_b;
+    public double[][] m_c;
+    public double[][] m_x;
+    public double[][] m_y;
+    public double m_beg;
+    public double m_end;
+
+
+    public Vertex(Vertex Left, Vertex Middle, Vertex Right, Vertex Parent, String Lab, double Beg, double End, MeshData Mesh) {
         this.m_left = Left;
         this.m_middle = Middle;
         this.m_right = Right;
@@ -17,37 +33,23 @@ class Vertex {
         m_y = new double[7][m_mesh.m_nelemx + m_mesh.m_norder + 1];
     }
 
-    String m_label;
-    Vertex m_left;
-    Vertex m_middle;
-    Vertex m_right;
-    Vertex m_parent;
-    MeshData m_mesh;
-    double[][] m_a;
-    double[][] m_b;
-    double[][] m_c;
-    double[][] m_x;
-    double[][] m_y;
-    double m_beg;
-    double m_end;
-
-    void set_left(Vertex Left) {
+    public void set_left(Vertex Left) {
         m_left = Left;
     }
 
-    void set_middle(Vertex Middle) {
+    public void set_middle(Vertex Middle) {
         m_middle = Middle;
     }
 
-    void set_right(Vertex Right) {
+    public void set_right(Vertex Right) {
         m_right = Right;
     }
 
-    void set_parent(Vertex Parent) {
+    public void set_parent(Vertex Parent) {
         m_parent = Parent;
     }
 
-    void set_label(String Lab) {
+    public void set_label(String Lab) {
         m_label = Lab;
     }
 }
