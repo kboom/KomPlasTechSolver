@@ -231,33 +231,6 @@ class Executor extends Thread {
                 printMatrix(bs.m_vertex, 5, mesh.m_dofsy);
                 System.out.println();
             }
-            // [BS_3_3^12]
-            // barrier = new CyclicBarrier(12+1);
-            // BS_1_3 bsa1a = new BS_1_3(p3a1.m_vertex.m_left, barrier, mesh);
-            // BS_1_3 bsa1b = new BS_1_3(p3a1.m_vertex.m_middle, barrier, mesh);
-            // BS_1_3 bsa1c = new BS_1_3(p3a1.m_vertex.m_right, barrier, mesh);
-            // BS_1_3 bsa2a = new BS_1_3(p3a2.m_vertex.m_left, barrier, mesh);
-            // BS_1_3 bsa2b = new BS_1_3(p3a2.m_vertex.m_middle, barrier, mesh);
-            // BS_1_3 bsa2c = new BS_1_3(p3a2.m_vertex.m_right, barrier, mesh);
-            // BS_1_3 bsb1a = new BS_1_3(p3b1.m_vertex.m_left, barrier, mesh);
-            // BS_1_3 bsb1b = new BS_1_3(p3b1.m_vertex.m_middle, barrier, mesh);
-            // BS_1_3 bsb1c = new BS_1_3(p3b1.m_vertex.m_right, barrier, mesh);
-            // BS_1_3 bsb2a = new BS_1_3(p3b2.m_vertex.m_left, barrier, mesh);
-            // BS_1_3 bsb2b = new BS_1_3(p3b2.m_vertex.m_middle, barrier, mesh);
-            // BS_1_3 bsb2c = new BS_1_3(p3b2.m_vertex.m_right, barrier, mesh);
-            // bsa1a.start();
-            // bsa1b.start();
-            // bsa1c.start();
-            // bsa2a.start();
-            // bsa2b.start();
-            // bsa2c.start();
-            // bsb1a.start();
-            // bsb1b.start();
-            // bsb1c.start();
-            // bsb2a.start();
-            // bsb2b.start();
-            // bsb2c.start();
-            // barrier.await();
 
             double[][] rhs = new double[n * 3 + p + 1][];
             rhs[1] = bs2a.m_vertex.m_x[1];
@@ -281,10 +254,6 @@ class Executor extends Thread {
                 }
                 System.out.println();
             }
-//            System.exit(0);
-            
-			//Solution solEval0 = new Solution(mesh,rhs);
-
 		
             // REORDER
 
@@ -315,25 +284,7 @@ class Executor extends Thread {
             p3b1y.start();
             p3b2y.start();
             barrier.await();
-            // MFS along y
 
-            // MFS along x
-            // [A^12]
-/*            
-            barrier = new CyclicBarrier(12 + 1);
-            Ay0 a1y = new Ay0(p3a1y.m_vertex.m_left, solEval0, barrier, mesh);
-            Ay0 a2y = new Ay0(p3a1y.m_vertex.m_middle, solEval0, barrier, mesh);
-            Ay0 a3y = new Ay0(p3a1y.m_vertex.m_right, solEval0, barrier, mesh);
-            Ay0 a4y = new Ay0(p3a2y.m_vertex.m_left, solEval0, barrier, mesh);
-            Ay0 a5y = new Ay0(p3a2y.m_vertex.m_middle, solEval0, barrier, mesh);
-            Ay0 a6y = new Ay0(p3a2y.m_vertex.m_right, solEval0, barrier, mesh);
-            Ay0 a7y = new Ay0(p3b1y.m_vertex.m_left, solEval0, barrier, mesh);
-            Ay0 a8y = new Ay0(p3b1y.m_vertex.m_middle, solEval0,  barrier, mesh);
-            Ay0 a9y = new Ay0(p3b1y.m_vertex.m_right, solEval0, barrier, mesh);
-            Ay0 a10y = new Ay0(p3b2y.m_vertex.m_left, solEval0, barrier, mesh);
-            Ay0 a11y = new Ay0(p3b2y.m_vertex.m_middle, solEval0, barrier, mesh);
-            Ay0 a12y = new Ay0(p3b2y.m_vertex.m_right, solEval0, barrier, mesh);
-*/            
             barrier = new CyclicBarrier(12 + 1);
             A1y a1y = new A1y(p3a1y.m_vertex.m_left, rhs, new double[]{1, 1./2, 1./3}, 0, barrier, mesh);
             Ay a2y = new Ay(p3a1y.m_vertex.m_middle, rhs, new double[]{1./2, 1./3, 1./3}, 1, barrier, mesh);
@@ -475,36 +426,6 @@ class Executor extends Thread {
             bs2c.start();
             bs2d.start();
             barrier.await();
-            // // [BS_3_3^12]
-            // barrier = new CyclicBarrier(12 + 1);
-            // bsa1a = new BS_3_3(p3a1y.m_vertex.m_left, barrier, mesh);
-            // bsa1b = new BS_3_3(p3a1y.m_vertex.m_middle, barrier, mesh);
-            // bsa1c = new BS_3_3(p3a1y.m_vertex.m_right, barrier, mesh);
-            // bsa2a = new BS_3_3(p3a2y.m_vertex.m_left, barrier, mesh);
-            // bsa2b = new BS_3_3(p3a2y.m_vertex.m_middle, barrier, mesh);
-            // bsa2c = new BS_3_3(p3a2y.m_vertex.m_right, barrier, mesh);
-            // bsb1a = new BS_3_3(p3b1y.m_vertex.m_left, barrier, mesh);
-            // bsb1b = new BS_3_3(p3b1y.m_vertex.m_middle, barrier, mesh);
-            // bsb1c = new BS_3_3(p3b1y.m_vertex.m_right, barrier, mesh);
-            // bsb2a = new BS_3_3(p3b2y.m_vertex.m_left, barrier, mesh);
-            // bsb2b = new BS_3_3(p3b2y.m_vertex.m_middle, barrier, mesh);
-            // bsb2c = new BS_3_3(p3b2y.m_vertex.m_right, barrier, mesh);
-            // bsa1a.start();
-            // bsa1b.start();
-            // bsa1c.start();
-            // bsa2a.start();
-            // bsa2b.start();
-            // bsa2c.start();
-            // bsb1a.start();
-            // bsb1b.start();
-            // bsb1c.start();
-            // bsb2a.start();
-            // bsb2b.start();
-            // bsb2c.start();
-            // barrier.await();
-
-            // tester = new TestSolution();
-            // result = tester.test(S, 0, 4, 4);
             
             rhs[1] = bs2a.m_vertex.m_x[1];
             rhs[2] = bs2a.m_vertex.m_x[2];

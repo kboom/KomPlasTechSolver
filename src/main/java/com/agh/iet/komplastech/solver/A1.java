@@ -6,7 +6,7 @@ class A1 extends A {
     A1(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
         super(Vert, Barrier, Mesh);
     }
-/*
+
     Vertex apply(Vertex T) {
         System.out.println("A1");
         T.m_a[1][1] = 1.0 / 20.0;
@@ -26,5 +26,5 @@ class A1 extends A {
         }
         return T;
     }
-*/    
+
 }

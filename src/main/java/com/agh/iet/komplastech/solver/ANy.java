@@ -5,11 +5,8 @@ import java.util.concurrent.CyclicBarrier;
 class ANy extends Ay {
     ANy(Vertex Vert, double[][] solution, double[] partition, int idx, CyclicBarrier Barrier, MeshData Mesh) {
         super(Vert, solution, partition, idx, Barrier, Mesh);
-//        this.solution = solution;
-//        this.partition = partition;
-//        this.idx = idx;
-}
-/*
+    }
+
     Vertex apply(Vertex T) {
         System.out.println("ANy");
         T.m_a[1][1] = 1.0 / 20.0;
@@ -29,8 +26,5 @@ class ANy extends Ay {
         }
         return T;
     }
-    double[][] solution;
-    double[] partition;
-    int idx;
-*/
+
 }

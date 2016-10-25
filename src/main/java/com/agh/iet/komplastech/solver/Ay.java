@@ -3,6 +3,11 @@ package com.agh.iet.komplastech.solver;
 import java.util.concurrent.CyclicBarrier;
 
 class Ay extends Production {
+
+    protected double[][] solution;
+    protected double[] partition;
+    protected int idx;
+
     Ay(Vertex Vert, double[][] solution, double[] partition, int idx, CyclicBarrier Barrier, MeshData Mesh) {
         super(Vert, Barrier, Mesh);
         this.solution = solution;
@@ -31,7 +36,4 @@ class Ay extends Production {
         return T;
     }
 
-    double[][] solution;
-    double[] partition;
-    int idx;
 }
