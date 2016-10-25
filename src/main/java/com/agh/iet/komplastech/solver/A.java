@@ -26,13 +26,6 @@ class A extends Production {
         GaussPoints gauss = new GaussPoints();
         //B-spline B_i has support over elements [i-2],[i-1],[i] restricted to [1,nelemy]
         for (int i = 1; i <= T.m_mesh.m_dofsy; i++) {
-//            for (int k=1; k<=gauss.m_nr_points; k++) {
-//                double x = gauss.m_points[k]*T.m_mesh.m_dx/T.m_mesh.m_nelemx + T.m_beg;
-//                T.m_b[1][i] += gauss.m_weights[k] * b3.get_value(gauss.m_points[k])*x;
-//                T.m_b[2][i] += gauss.m_weights[k] * b2.get_value(gauss.m_points[k])*x;
-//                T.m_b[3][i] += gauss.m_weights[k] * b1.get_value(gauss.m_points[k])*x;
-//            }
-        	//integral of B1 with B_i
         	for (int k=1; k<=gauss.m_nr_points; k++) {
            	  double x = gauss.m_points[k]*T.m_mesh.m_dx/T.m_mesh.m_nelemx + T.m_beg; //+ beginning of actual element;
           	  for (int l=1; l<=gauss.m_nr_points; l++) {

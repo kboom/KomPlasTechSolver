@@ -3,13 +3,11 @@ package com.agh.iet.komplastech.solver;
 import java.util.concurrent.CyclicBarrier;
 
 class A1y extends Ay {
+
     A1y(Vertex Vert, double[][] solution, double[] partition, int idx, CyclicBarrier Barrier, MeshData Mesh) {
         super(Vert, solution, partition, idx, Barrier, Mesh);
-//        this.solution = solution;
-//        this.partition = partition;
-//        this.idx = idx;
     }
-/*
+
     Vertex apply(Vertex T) {
         System.out.println("A1y");
         T.m_a[1][1] = 1.0 / 20.0;
@@ -29,8 +27,5 @@ class A1y extends Ay {
         }
         return T;
     }
-    double[][] solution;
-    double[] partition;
-    int idx;
-*/
+
 }
