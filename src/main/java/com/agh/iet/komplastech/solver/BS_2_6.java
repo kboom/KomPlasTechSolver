@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver;
 
-
 import java.util.concurrent.CyclicBarrier;
 
 class BS_2_6 extends PFEProduction {

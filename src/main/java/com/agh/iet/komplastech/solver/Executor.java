@@ -40,6 +40,7 @@ class Executor extends Thread {
             CyclicBarrier barrier = new CyclicBarrier(1 + 1);
             P1 p1 = new P1(S, barrier, mesh);
             p1.start();
+            System.out.println("Full: " + p1.m_vertex.m_beg + " - " + p1.m_vertex.m_end);
             barrier.await();
             // [(P2)1(P2)2]
             barrier = new CyclicBarrier(2 + 1);
@@ -62,6 +63,10 @@ class Executor extends Thread {
             p3b2.start();
             barrier.await();
 
+            System.out.println(p3a1.m_vertex.m_beg + " - " + p3a1.m_vertex.m_end);
+            System.out.println(p3a2.m_vertex.m_beg + " - " + p3a2.m_vertex.m_end);
+            System.out.println(p3b1.m_vertex.m_beg + " - " + p3b1.m_vertex.m_end);
+            System.out.println(p3b2.m_vertex.m_beg + " - " + p3b2.m_vertex.m_end);
             // MFS along x
             // [A^12]
             barrier = new CyclicBarrier(12 + 1);
@@ -77,6 +82,7 @@ class Executor extends Thread {
             A a10 = new A(p3b2.m_vertex.m_left, barrier, mesh);
             A a11 = new A(p3b2.m_vertex.m_middle, barrier, mesh);
             AN a12 = new AN(p3b2.m_vertex.m_right, barrier, mesh);
+            
             a1.start();
             a2.start();
             a3.start();
@@ -90,6 +96,20 @@ class Executor extends Thread {
             a11.start();
             a12.start();
             barrier.await();
+            
+            System.out.println(a1.m_vertex.m_beg + " - " + a1.m_vertex.m_end);
+            System.out.println(a2.m_vertex.m_beg + " - " + a2.m_vertex.m_end);
+            System.out.println(a3.m_vertex.m_beg + " - " + a3.m_vertex.m_end);
+            System.out.println(a4.m_vertex.m_beg + " - " + a4.m_vertex.m_end);
+            System.out.println(a5.m_vertex.m_beg + " - " + a5.m_vertex.m_end);
+            System.out.println(a6.m_vertex.m_beg + " - " + a6.m_vertex.m_end);
+            System.out.println(a7.m_vertex.m_beg + " - " + a7.m_vertex.m_end);
+            System.out.println(a8.m_vertex.m_beg + " - " + a8.m_vertex.m_end);
+            System.out.println(a9.m_vertex.m_beg + " - " + a9.m_vertex.m_end);
+            System.out.println(a10.m_vertex.m_beg + " - " + a10.m_vertex.m_end);
+            System.out.println(a11.m_vertex.m_beg + " - " + a11.m_vertex.m_end);
+            System.out.println(a12.m_vertex.m_beg + " - " + a12.m_vertex.m_end);
+            
             printMatrix(a1.m_vertex, 3, mesh.m_dofsy);
             System.out.println();
             printMatrix(a2.m_vertex, 3, mesh.m_dofsy);
@@ -261,7 +281,7 @@ class Executor extends Thread {
                 }
                 System.out.println();
             }
-            //System.exit(0);
+//            System.exit(0);
             
 			//Solution solEval0 = new Solution(mesh,rhs);
 
@@ -493,7 +513,7 @@ class Executor extends Thread {
             rhs[5] = bs2a.m_vertex.m_x[5];
             rhs[6] = bs2b.m_vertex.m_x[3];
             rhs[7] = bs2b.m_vertex.m_x[4];
-            rhs[8] = bs2a.m_vertex.m_x[5];
+            rhs[8] = bs2b.m_vertex.m_x[5];
             rhs[9] = bs2c.m_vertex.m_x[3];
             rhs[10] = bs2c.m_vertex.m_x[4];
             rhs[11] = bs2c.m_vertex.m_x[5];
@@ -514,15 +534,16 @@ class Executor extends Thread {
 			
 			double Dx = (mesh.m_dx/mesh.m_nelemx);			
 			double Dy = (mesh.m_dy/mesh.m_nelemy);
-			double x=Dx/2;
-			double y=Dy/2;
+			double x=-Dx/2;
+			double y=-Dy/2;
             for (int i = 1; i <= mesh.m_nelemx; ++ i) {
             	x += Dx;
-            	y = Dy/2;
+            	y = -Dy/2;
                 for (int j = 1; j <= mesh.m_nelemy; ++ j) {
                 	y += Dy;
                 	double solution = solEval.get_value(x,y);
-                    System.out.printf("%6.2f ", solution);
+                	System.out.printf("(%5.2f, %5.2f): %6.2f ", x, y, solution);
+//                    System.out.printf("%6.2f ", solution);
                 }
                 System.out.println();
             }

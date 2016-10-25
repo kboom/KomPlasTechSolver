@@ -1,5 +1,4 @@
 package com.agh.iet.komplastech.solver;
-
 /**
  * @(#)P1.java
  *

@@ -26,13 +26,19 @@ class A extends Production {
         GaussPoints gauss = new GaussPoints();
         //B-spline B_i has support over elements [i-2],[i-1],[i] restricted to [1,nelemy]
         for (int i = 1; i <= T.m_mesh.m_dofsy; i++) {
+//            for (int k=1; k<=gauss.m_nr_points; k++) {
+//                double x = gauss.m_points[k]*T.m_mesh.m_dx/T.m_mesh.m_nelemx + T.m_beg;
+//                T.m_b[1][i] += gauss.m_weights[k] * b3.get_value(gauss.m_points[k])*x;
+//                T.m_b[2][i] += gauss.m_weights[k] * b2.get_value(gauss.m_points[k])*x;
+//                T.m_b[3][i] += gauss.m_weights[k] * b1.get_value(gauss.m_points[k])*x;
+//            }
         	//integral of B1 with B_i
         	for (int k=1; k<=gauss.m_nr_points; k++) {
            	  double x = gauss.m_points[k]*T.m_mesh.m_dx/T.m_mesh.m_nelemx + T.m_beg; //+ beginning of actual element;
           	  for (int l=1; l<=gauss.m_nr_points; l++) {
           	  	if(i>2) {
            	      double y = (gauss.m_points[l]+(i-3))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-                  T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+                  T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
           	  	}
           	  	if(i>1 && (i-2)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-2))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
@@ -40,7 +46,7 @@ class A extends Production {
           	  	}
                 if((i-1)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-1))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-                  T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+                  T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
                 }
           	  }
         	}
@@ -50,7 +56,7 @@ class A extends Production {
           	  for (int l=1; l<=gauss.m_nr_points; l++) {
           	  	if(i>2) {
 	           	  double y = (gauss.m_points[l]+(i-3))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-	              T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+	              T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
           	  	}                
           	  	if(i>1 && (i-2)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-2))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
@@ -58,7 +64,7 @@ class A extends Production {
           	  	}
                 if((i-1)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-1))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-                  T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+                  T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
                 }
           	  }
         	}            
@@ -69,7 +75,7 @@ class A extends Production {
           	  	
           	  	if(i>2) {
              	  double y = (gauss.m_points[l]+(i-3))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-                  T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+                  T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
           	  	}
           	  	if(i>1 && (i-2)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-2))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
@@ -77,7 +83,7 @@ class A extends Production {
           	  	}
                 if((i-1)<T.m_mesh.m_nelemy) {
                   double y = (gauss.m_points[l]+(i-1))*T.m_mesh.m_dy/T.m_mesh.m_nelemy;
-                  T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l])*rhs.get_value(x,y);
+                  T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l])*rhs.get_value(x,y);
                 }
           	  }
         	}            
