@@ -8,8 +8,8 @@ import com.agh.iet.komplastech.solver.splines.Bspline3;
 import java.util.concurrent.CyclicBarrier;
 
 public class A extends Production {
-    public A(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public A(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex apply(Vertex T) {

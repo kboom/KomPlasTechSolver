@@ -11,8 +11,8 @@ import com.agh.iet.komplastech.solver.splines.Bspline3;
 import java.util.concurrent.CyclicBarrier;
 
 public class Agen extends Production {
-    Agen(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    Agen(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
         m_gauss = new GaussPoints();
     }
 

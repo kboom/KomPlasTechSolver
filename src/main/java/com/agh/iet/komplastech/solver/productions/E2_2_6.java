@@ -6,8 +6,8 @@ import com.agh.iet.komplastech.solver.Vertex;
 import java.util.concurrent.CyclicBarrier;
 
 public class E2_2_6 extends PFEProduction {
-    public E2_2_6(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public E2_2_6(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex apply(Vertex T) {

@@ -6,8 +6,8 @@ import com.agh.iet.komplastech.solver.Vertex;
 import java.util.concurrent.CyclicBarrier;
 
 public class ANy extends Ay {
-    public ANy(Vertex Vert, double[][] solution, double[] partition, int idx, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, solution, partition, idx, Barrier, Mesh);
+    public ANy(Vertex Vert, double[][] solution, double[] partition, int idx, MeshData Mesh) {
+        super(Vert, solution, partition, idx, Mesh);
 //        this.solution = solution;
 //        this.partition = partition;
 //        this.idx = idx;

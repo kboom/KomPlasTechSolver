@@ -6,8 +6,8 @@ import com.agh.iet.komplastech.solver.Vertex;
 import java.util.concurrent.CyclicBarrier;
 
 public class AN extends A {
-    public AN(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public AN(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 /*
     Vertex apply(Vertex T) {

@@ -7,8 +7,8 @@ import java.util.concurrent.CyclicBarrier;
 
 public class BS_1_5 extends PFEProduction {
 
-    public BS_1_5(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public BS_1_5(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex apply(Vertex T) {

@@ -13,8 +13,8 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import java.util.concurrent.CyclicBarrier;
 
 public class P1y extends Production {
-    public P1y(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public P1y(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex apply(Vertex S) {

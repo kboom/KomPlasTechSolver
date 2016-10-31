@@ -3,21 +3,13 @@ package com.agh.iet.komplastech.solver.productions;
 import com.agh.iet.komplastech.solver.MeshData;
 import com.agh.iet.komplastech.solver.Vertex;
 
-import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-/**
- * @(#)Production.java
- *
- *
- * @author
- * @version 1.00 2015/2/23
- */
 
-public abstract class Production extends Thread {
-    Production(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
+public abstract class Production {
+
+    Production(Vertex Vert, MeshData Mesh) {
         m_vertex = Vert;
-        m_barrier = Barrier;
         m_mesh = Mesh;
     }
 
@@ -28,11 +20,6 @@ public abstract class Production extends Thread {
     public void run() {
         // apply the production
         m_vertex = apply(m_vertex);
-        try {
-            m_barrier.await();
-        } catch (InterruptedException | BrokenBarrierException e) {
-            e.printStackTrace();
-        }
     }
 
     // vertex where the production will be applied

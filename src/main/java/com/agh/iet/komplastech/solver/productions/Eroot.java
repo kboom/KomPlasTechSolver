@@ -7,8 +7,8 @@ import com.agh.iet.komplastech.solver.productions.PFEProduction;
 import java.util.concurrent.CyclicBarrier;
 
 public class Eroot extends PFEProduction {
-    public Eroot(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    public Eroot(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex apply(Vertex T) {

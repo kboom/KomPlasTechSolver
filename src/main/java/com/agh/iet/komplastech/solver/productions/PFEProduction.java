@@ -7,8 +7,8 @@ import java.util.concurrent.CyclicBarrier;
 
 public class PFEProduction extends Production {
 
-    PFEProduction(Vertex Vert, CyclicBarrier Barrier, MeshData Mesh) {
-        super(Vert, Barrier, Mesh);
+    PFEProduction(Vertex Vert, MeshData Mesh) {
+        super(Vert, Mesh);
     }
 
     Vertex partial_forward_elimination(Vertex T, int elim, int size, int nrhs) {
