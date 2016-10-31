@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
 import java.util.concurrent.CyclicBarrier;
@@ -8,7 +8,7 @@ import java.util.concurrent.CyclicBarrier;
 
 public abstract class Production {
 
-    Production(Vertex Vert, MeshData Mesh) {
+    Production(Vertex Vert, Mesh Mesh) {
         m_vertex = Vert;
         m_mesh = Mesh;
     }
@@ -27,7 +27,7 @@ public abstract class Production {
     // productions counter
     public CyclicBarrier m_barrier;
     // mesh data
-    public MeshData m_mesh;
+    public Mesh m_mesh;
 
     protected void swapDofs(int a, int b, int size, int nrhs) {
         for (int i = 1; i <= size; i++) {

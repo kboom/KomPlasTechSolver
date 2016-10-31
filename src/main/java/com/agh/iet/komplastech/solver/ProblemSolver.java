@@ -4,13 +4,18 @@ import com.agh.iet.komplastech.solver.productions.*;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
-import java.util.concurrent.CyclicBarrier;
 
 class ProblemSolver {
 
     private Logger logger = Logger.getLogger(ProblemSolver.class);
 
+    private final Mesh mesh;
+
     private ProductionLauncherFactory launcherFactory = new ProductionLauncherFactory();
+
+    ProblemSolver(Mesh meshData) {
+        this.mesh = meshData;
+    }
 
     private static void printMatrix(final Vertex v, int size, int nrhs) {
         for (int i = 1; i <= size; ++i) {
@@ -28,17 +33,11 @@ class ProblemSolver {
         }
     }
 
-    public Solution solveProblem() throws Exception {
+    Solution solveProblem() throws Exception {
         // BUILDING ELEMENT PARTITION TREE
 
-        int n = 12; // number of elements along x axis
-        int m = 12; // number of elements along y axis
-        double dx = 12.0; // mesh size along x
-        double dy = 12.0; // mesh size along y
-        int p = 2; // polynomial order of approximation
-        // Mesh
-        MeshData mesh = new MeshData(dx, dy, n, m, p);
-        Vertex S = new Vertex(null, null, null, null, "Sx", 0, dx, mesh);
+
+        Vertex S = new Vertex(null, null, null, null, "Sx", 0, mesh.getResolutionX(), mesh);
 
         // Build tree along x
         // [(P1)]
@@ -101,13 +100,13 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a2a.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2a.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2b.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2b.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2c.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2c.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2d.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2d.m_vertex, 5, mesh.getDofsY());
 
         E2_1_5 e2a = new E2_1_5(p3a1.m_vertex, mesh);
         E2_1_5 e2b = new E2_1_5(p3a2.m_vertex, mesh);
@@ -119,13 +118,13 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a2a.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2a.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2b.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2b.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2c.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2c.m_vertex, 5, mesh.getDofsY());
 
-        printMatrix(a2d.m_vertex, 5, mesh.m_dofsy);
+        printMatrix(a2d.m_vertex, 5, mesh.getDofsY());
 
         A2_2 a22a = new A2_2(p2a.m_vertex, mesh);
         A2_2 a22b = new A2_2(p2b.m_vertex, mesh);
@@ -135,9 +134,9 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a22a.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22a.m_vertex, 6, mesh.getDofsY());
 
-        printMatrix(a22b.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22b.m_vertex, 6, mesh.getDofsY());
 
         E2_2_6 e26a = new E2_2_6(p2a.m_vertex, mesh);
         E2_2_6 e26b = new E2_2_6(p2b.m_vertex, mesh);
@@ -147,9 +146,9 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a22a.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22a.m_vertex, 6, mesh.getDofsY());
 
-        printMatrix(a22b.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22b.m_vertex, 6, mesh.getDofsY());
 
         // [Aroot]
         Aroot aroot = new Aroot(p1.m_vertex, mesh);
@@ -159,7 +158,7 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(aroot.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(aroot.m_vertex, 6, mesh.getDofsY());
 
         Eroot eroot = new Eroot(p1.m_vertex, mesh);
         launcherFactory
@@ -167,7 +166,7 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(eroot.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(eroot.m_vertex, 6, mesh.getDofsY());
 
         BS_2_6 bs1a = new BS_2_6(p2a.m_vertex, mesh);
         BS_2_6 bs1b = new BS_2_6(p2b.m_vertex, mesh);
@@ -189,11 +188,11 @@ class ProblemSolver {
 
 
         for (BS_1_5 bs : Arrays.asList(bs2a, bs2b, bs2c, bs2d)) {
-            printMatrix(bs.m_vertex, 5, mesh.m_dofsy);
+            printMatrix(bs.m_vertex, 5, mesh.getDofsY());
 
         }
 
-        double[][] rhs = new double[n * 3 + p + 1][];
+        double[][] rhs = new double[mesh.getElementsX() * 3 + mesh.getSplineOrder() + 1][];
         rhs[1] = bs2a.m_vertex.m_x[1];
         rhs[2] = bs2a.m_vertex.m_x[2];
         rhs[3] = bs2a.m_vertex.m_x[3];
@@ -209,14 +208,14 @@ class ProblemSolver {
         rhs[13] = bs2d.m_vertex.m_x[4];
         rhs[14] = bs2d.m_vertex.m_x[5];
 
-        for (int i = 1; i <= mesh.m_dofsx; ++i) {
-            for (int j = 1; j <= mesh.m_dofsy; ++j) {
+        for (int i = 1; i <= mesh.getDofsX(); ++i) {
+            for (int j = 1; j <= mesh.getDofsY(); ++j) {
                 System.out.printf("%6.2f ", rhs[i][j]);
             }
 
         }
 
-        S = new Vertex(null, null, null, null, "Sy", 0, dy, mesh);
+        S = new Vertex(null, null, null, null, "Sy", 0, mesh.getResolutionY(), mesh);
 
 
         P1y p1y = new P1y(S, mesh);
@@ -266,29 +265,29 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a1y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a1y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a2y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a2y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a3y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a3y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a4y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a4y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a5y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a5y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a6y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a6y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a7y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a7y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a8y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a8y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a9y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a9y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a10y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a10y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a11y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a11y.m_vertex, 3, mesh.getDofsX());
 
-        printMatrix(a12y.m_vertex, 3, mesh.m_dofsx);
+        printMatrix(a12y.m_vertex, 3, mesh.getDofsX());
 
         a2a = new A2_3(p3a1y.m_vertex, mesh);
         a2b = new A2_3(p3a2y.m_vertex, mesh);
@@ -300,13 +299,13 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a2a.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2a.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2b.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2b.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2c.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2c.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2d.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2d.m_vertex, 5, mesh.getDofsX());
 
         e2a = new E2_1_5(p3a1y.m_vertex, mesh);
         e2b = new E2_1_5(p3a2y.m_vertex, mesh);
@@ -318,13 +317,13 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a2a.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2a.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2b.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2b.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2c.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2c.m_vertex, 5, mesh.getDofsX());
 
-        printMatrix(a2d.m_vertex, 5, mesh.m_dofsx);
+        printMatrix(a2d.m_vertex, 5, mesh.getDofsX());
 
 
         a22a = new A2_2(p2ay.m_vertex, mesh);
@@ -335,9 +334,9 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(a22a.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22a.m_vertex, 6, mesh.getDofsY());
 
-        printMatrix(a22b.m_vertex, 6, mesh.m_dofsy);
+        printMatrix(a22b.m_vertex, 6, mesh.getDofsY());
 
 
         e26a = new E2_2_6(p2ay.m_vertex, mesh);
@@ -349,9 +348,9 @@ class ProblemSolver {
 
 
 
-        printMatrix(a22a.m_vertex, 6, mesh.m_dofsx);
+        printMatrix(a22a.m_vertex, 6, mesh.getDofsX());
 
-        printMatrix(a22b.m_vertex, 6, mesh.m_dofsx);
+        printMatrix(a22b.m_vertex, 6, mesh.getDofsX());
 
         aroot = new Aroot(p1y.m_vertex, mesh);
         launcherFactory
@@ -359,7 +358,7 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(aroot.m_vertex, 6, mesh.m_dofsx);
+        printMatrix(aroot.m_vertex, 6, mesh.getDofsX());
 
 
         eroot = new Eroot(p1y.m_vertex, mesh);
@@ -369,7 +368,7 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        printMatrix(aroot.m_vertex, 6, mesh.m_dofsx);
+        printMatrix(aroot.m_vertex, 6, mesh.getDofsX());
 
 
         bs1a = new BS_2_6(p2ay.m_vertex, mesh);
@@ -405,8 +404,8 @@ class ProblemSolver {
         rhs[13] = bs2d.m_vertex.m_x[4];
         rhs[14] = bs2d.m_vertex.m_x[5];
 
-        for (int i = 1; i <= mesh.m_dofsx; ++i) {
-            for (int j = 1; j <= mesh.m_dofsy; ++j) {
+        for (int i = 1; i <= mesh.getDofsX(); ++i) {
+            for (int j = 1; j <= mesh.getDofsY(); ++j) {
                 System.out.printf("%6.2f ", rhs[i][j]);
             }
         }

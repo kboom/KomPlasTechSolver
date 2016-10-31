@@ -1,12 +1,10 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
-import java.util.concurrent.CyclicBarrier;
-
 public class Ay extends Production {
-    public Ay(Vertex Vert, double[][] solution, double[] partition, int idx, MeshData Mesh) {
+    public Ay(Vertex Vert, double[][] solution, double[] partition, int idx, Mesh Mesh) {
         super(Vert, Mesh);
         this.solution = solution;
         this.partition = partition;
@@ -26,7 +24,7 @@ public class Ay extends Production {
         T.m_a[3][3] = 1.0 / 20.0;
         
         // multiple right-hand sides
-        for (int i = 1; i <= T.m_mesh.m_dofsx; i++) {
+        for (int i = 1; i <= T.m_mesh.getDofsX(); i++) {
             T.m_b[1][i] = partition[0] * solution[i][idx + 1];
             T.m_b[2][i] = partition[1] * solution[i][idx + 2];
             T.m_b[3][i] = partition[2] * solution[i][idx + 3];

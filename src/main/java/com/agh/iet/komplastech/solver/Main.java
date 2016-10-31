@@ -1,11 +1,16 @@
 package com.agh.iet.komplastech.solver;
 
+import static com.agh.iet.komplastech.solver.Mesh.aMesh;
+
 public class Main {
 
     public static void main(String[] args) {
-
-        // BUILDING ELEMENT PARTITION TREE AND RUNNING THE SOLVER
-        ProblemSolver s = new ProblemSolver();
+        ProblemSolver s = new ProblemSolver(aMesh()
+                .withSizeX(12)
+                .withSizeY(12)
+                .withResolutionX(12d)
+                .withResolutionY(12d)
+                .withOrder(2).build());
         try {
             s.solveProblem();
         } catch (Exception e) {

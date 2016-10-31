@@ -1,17 +1,15 @@
 package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.GaussPoints;
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.RightHandSide;
 import com.agh.iet.komplastech.solver.Vertex;
 import com.agh.iet.komplastech.solver.splines.Bspline1;
 import com.agh.iet.komplastech.solver.splines.Bspline2;
 import com.agh.iet.komplastech.solver.splines.Bspline3;
 
-import java.util.concurrent.CyclicBarrier;
-
 public class Agen extends Production {
-    Agen(Vertex Vert, MeshData Mesh) {
+    Agen(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
         m_gauss = new GaussPoints();
     }
@@ -60,11 +58,11 @@ public class Agen extends Production {
             T.m_a[3][3] += m_gauss.m_weights[i] * b3.get_value(m_gauss.m_points[i]) * b3.get_value(m_gauss.m_points[i]);
 
         // multiple right-hand sides
-        for (int j = 1; j <= T.m_mesh.m_nelemy; j++) {
+        for (int j = 1; j <= T.m_mesh.getElementsY(); j++) {
             // b[1][j] integral B1*f over row ******************** along element
             // ex1 (length = mesh size along y)
             T.m_b[1][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.m_nelemx; i++) {
+            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
                 for (int k = 1; k <= m_gauss.m_nr_points; k++) {
                     for (int l = 1; l <= m_gauss.m_nr_points; l++) {
                         T.m_b[1][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b1.get_value(m_gauss.m_points[k])
@@ -74,7 +72,7 @@ public class Agen extends Production {
             }
             // b[2][j] integral B2*f
             T.m_b[2][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.m_nelemx; i++) {
+            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
                 for (int k = 1; k <= m_gauss.m_nr_points; k++) {
                     for (int l = 1; l <= m_gauss.m_nr_points; l++) {
                         T.m_b[2][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b2.get_value(m_gauss.m_points[k])
@@ -84,7 +82,7 @@ public class Agen extends Production {
             }
             // b[3][j] integral B3*f
             T.m_b[3][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.m_nelemx; i++) {
+            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
                 for (int k = 1; k <= m_gauss.m_nr_points; k++) {
                     for (int l = 1; l <= m_gauss.m_nr_points; l++) {
                         T.m_b[3][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b3.get_value(m_gauss.m_points[k])

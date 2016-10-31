@@ -9,7 +9,7 @@ public class TestAgen {
     TestAgen() {
     }
 
-    boolean Test(A a, Agen agen, CyclicBarrier Barrier, MeshData Mesh) {
+    boolean Test(A a, Agen agen, CyclicBarrier Barrier, Mesh Mesh) {
 
         // System.out.println(agen.m_gauss.m_points[1]+","+agen.m_gauss.m_points[2]+","+agen.m_gauss.m_points[3]+","+agen.m_gauss.m_points[4]+","+agen.m_gauss.m_points[5]);
         // System.out.println(agen.m_gauss.m_weights[1]+","+agen.m_gauss.m_weights[2]+","+agen.m_gauss.m_weights[3]+","+agen.m_gauss.m_weights[4]+","+agen.m_gauss.m_weights[5]);
@@ -46,7 +46,7 @@ public class TestAgen {
          */
         System.out.println("diff_mat:" + diff_mat);
         double diff_vect = 0.0;
-        for (int i = 1; i < Mesh.m_nelemy; i++)
+        for (int i = 1; i < Mesh.getElementsY(); i++)
             diff_vect += Math.pow(a.m_vertex.m_b[1][i] - agen.m_vertex.m_b[1][i], 2)
                     + Math.pow(a.m_vertex.m_b[2][i] - agen.m_vertex.m_b[2][i], 2)
                     + Math.pow(a.m_vertex.m_b[3][i] - agen.m_vertex.m_b[3][i], 2);

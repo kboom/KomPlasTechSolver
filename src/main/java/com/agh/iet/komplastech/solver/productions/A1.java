@@ -1,12 +1,10 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
-import java.util.concurrent.CyclicBarrier;
-
 public class A1 extends A {
-    public A1(Vertex Vert, MeshData Mesh) {
+    public A1(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
     }
 
@@ -22,7 +20,7 @@ public class A1 extends A {
         T.m_a[3][2] = 13.0 / 120.0;
         T.m_a[3][3] = 1.0 / 20.0;
         // multiple right-hand sides
-        for (int i = 1; i <= T.m_mesh.m_dofsy; i++) {
+        for (int i = 1; i <= T.m_mesh.getDofsY(); i++) {
             T.m_b[1][i] = 1.0;
             T.m_b[2][i] = 1.0;
             T.m_b[3][i] = 1.0;

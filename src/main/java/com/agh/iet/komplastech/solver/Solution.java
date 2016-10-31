@@ -5,16 +5,16 @@ import com.agh.iet.komplastech.solver.splines.Bspline2;
 import com.agh.iet.komplastech.solver.splines.Bspline3;
 
 public class Solution {
-	Solution(MeshData Mesh, double[][] Rhs){
+	Solution(Mesh Mesh, double[][] Rhs){
 		m_mesh = Mesh;
 		m_rhs = Rhs;
 	}
 	public double get_value(double x, double y){
 //	    System.out.println("Global: " + x + ", " + y);
-		int ielemx = (int)(x / (m_mesh.m_dx/m_mesh.m_nelemx)) + 1;
-		int ielemy = (int)(y / (m_mesh.m_dy/m_mesh.m_nelemy)) + 1;
-		double localx = x-(m_mesh.m_dx/m_mesh.m_nelemx)*(ielemx - 1);
-		double localy = y-(m_mesh.m_dy/m_mesh.m_nelemy)*(ielemy - 1);
+		int ielemx = (int)(x / (m_mesh.getResolutionX()/m_mesh.getElementsX())) + 1;
+		int ielemy = (int)(y / (m_mesh.getResolutionY()/m_mesh.getElementsY())) + 1;
+		double localx = x-(m_mesh.getResolutionX()/m_mesh.getElementsX())*(ielemx - 1);
+		double localy = y-(m_mesh.getResolutionY()/m_mesh.getElementsY())*(ielemy - 1);
 //		System.out.println("Local: " + localx + ", " + localy);
 		//we have ielemx-2,ielemx-1,ilemex B-splines along x 
 		//and ielemy-2,ielemy-1,ilemey B-splines along y over the element where the point is located
@@ -35,15 +35,15 @@ public class Solution {
 	}
 
 	public SolutionGrid getSolutionGrid() {
-		double Dx = (m_mesh.m_dx/m_mesh.m_nelemx);
-		double Dy = (m_mesh.m_dy/m_mesh.m_nelemy);
+		double Dx = (m_mesh.getResolutionX()/m_mesh.getElementsX());
+		double Dy = (m_mesh.getResolutionY()/m_mesh.getElementsY());
 		double x=-Dx/2;
 		double y=-Dy/2;
 		SolutionGrid solutionGrid = new SolutionGrid();
-		for (int i = 1; i <= m_mesh.m_nelemx; ++ i) {
+		for (int i = 1; i <= m_mesh.getElementsX(); ++ i) {
 			x += Dx;
 			y = -Dy/2;
-			for (int j = 1; j <= m_mesh.m_nelemy; ++ j) {
+			for (int j = 1; j <= m_mesh.getElementsY(); ++ j) {
 				y += Dy;
 				Point point = new Point(x, y, get_value(x,y));
 				solutionGrid.addPoint(point);
@@ -53,10 +53,10 @@ public class Solution {
 	}
 
 
-	MeshData m_mesh;
+	Mesh m_mesh;
 	double[][] m_rhs;
 
-	public MeshData getM_mesh() {
+	public Mesh getM_mesh() {
 		return m_mesh;
 	}
 

@@ -1,13 +1,11 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
-
-import java.util.concurrent.CyclicBarrier;
 
 public class PFEProduction extends Production {
 
-    PFEProduction(Vertex Vert, MeshData Mesh) {
+    PFEProduction(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
     }
 

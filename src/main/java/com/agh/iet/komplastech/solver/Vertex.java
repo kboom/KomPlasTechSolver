@@ -7,7 +7,7 @@ public class Vertex {
     public Vertex m_middle;
     public Vertex m_right;
     public Vertex m_parent;
-    public MeshData m_mesh;
+    public Mesh m_mesh;
     public double[][] m_a;
     public double[][] m_b;
     public double[][] m_c;
@@ -17,7 +17,7 @@ public class Vertex {
     public double m_end;
 
 
-    public Vertex(Vertex Left, Vertex Middle, Vertex Right, Vertex Parent, String Lab, double Beg, double End, MeshData Mesh) {
+    public Vertex(Vertex Left, Vertex Middle, Vertex Right, Vertex Parent, String Lab, double Beg, double End, Mesh Mesh) {
         this.m_left = Left;
         this.m_middle = Middle;
         this.m_right = Right;
@@ -27,10 +27,10 @@ public class Vertex {
         this.m_beg = Beg;
         this.m_end = End;
         m_a = new double[7][7];
-        m_b = new double[7][m_mesh.m_nelemy + m_mesh.m_norder + 1];
-        m_c = new double[7][m_mesh.m_nelemx + m_mesh.m_norder + 1];
-        m_x = new double[7][m_mesh.m_nelemy + m_mesh.m_norder + 1];
-        m_y = new double[7][m_mesh.m_nelemx + m_mesh.m_norder + 1];
+        m_b = new double[7][m_mesh.getElementsY() + m_mesh.getSplineOrder() + 1];
+        m_c = new double[7][m_mesh.getElementsX() + m_mesh.getSplineOrder() + 1];
+        m_x = new double[7][m_mesh.getElementsY() + m_mesh.getSplineOrder() + 1];
+        m_y = new double[7][m_mesh.getElementsX() + m_mesh.getSplineOrder() + 1];
     }
 
     public void set_left(Vertex Left) {

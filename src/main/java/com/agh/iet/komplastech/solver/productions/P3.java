@@ -1,12 +1,10 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.MeshData;
+import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
-import java.util.concurrent.CyclicBarrier;
-
 public class P3 extends Production {
-    public P3(Vertex Vert, MeshData Mesh) {
+    public P3(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
     }
 
