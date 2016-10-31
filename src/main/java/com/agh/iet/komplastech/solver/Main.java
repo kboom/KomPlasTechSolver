@@ -6,7 +6,11 @@ public class Main {
 
         // BUILDING ELEMENT PARTITION TREE AND RUNNING THE SOLVER
         ProblemSolver s = new ProblemSolver();
-        s.solveProblem();
+        try {
+            s.solveProblem();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
