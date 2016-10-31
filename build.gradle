@@ -18,4 +18,5 @@ targetCompatibility = 1.8
 
 dependencies {
     testCompile "junit:junit:4.12"
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
 }

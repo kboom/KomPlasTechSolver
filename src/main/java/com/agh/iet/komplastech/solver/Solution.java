@@ -33,6 +33,34 @@ public class Solution {
 		solution += b3.get_value(localx)*b3.get_value(localy)*m_rhs[ielemx+2][ielemy+2];
 		return solution;
 	}
+
+	public SolutionGrid getSolutionGrid() {
+		double Dx = (m_mesh.m_dx/m_mesh.m_nelemx);
+		double Dy = (m_mesh.m_dy/m_mesh.m_nelemy);
+		double x=-Dx/2;
+		double y=-Dy/2;
+		SolutionGrid solutionGrid = new SolutionGrid();
+		for (int i = 1; i <= m_mesh.m_nelemx; ++ i) {
+			x += Dx;
+			y = -Dy/2;
+			for (int j = 1; j <= m_mesh.m_nelemy; ++ j) {
+				y += Dy;
+				Point point = new Point(x, y, get_value(x,y));
+				solutionGrid.addPoint(point);
+			}
+		}
+		return solutionGrid;
+	}
+
+
 	MeshData m_mesh;
 	double[][] m_rhs;
+
+	public MeshData getM_mesh() {
+		return m_mesh;
+	}
+
+	public double[][] getM_rhs() {
+		return m_rhs;
+	}
 }

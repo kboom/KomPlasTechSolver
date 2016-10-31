@@ -24,7 +24,7 @@ public abstract class Production extends Thread {
     // returns first vertex from the left
     abstract Vertex apply(Vertex v);
 
-    // run the thread
+    // solveProblem the thread
     public void run() {
         // apply the production
         m_vertex = apply(m_vertex);
