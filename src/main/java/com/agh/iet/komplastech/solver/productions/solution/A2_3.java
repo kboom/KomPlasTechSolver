@@ -1,7 +1,8 @@
-package com.agh.iet.komplastech.solver.productions;
+package com.agh.iet.komplastech.solver.productions.solution;
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.productions.Production;
 
 public class A2_3 extends Production {
     public A2_3(Vertex Vert, Mesh Mesh) {

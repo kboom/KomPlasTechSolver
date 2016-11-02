@@ -29,7 +29,7 @@ public abstract class Production {
     // mesh data
     public Mesh m_mesh;
 
-    void swapDofs(int a, int b, int size, int nrhs) {
+    protected void swapDofs(int a, int b, int size, int nrhs) {
         for (int i = 1; i <= size; i++) {
             double temp = m_vertex.m_a[a][i];
             m_vertex.m_a[a][i] = m_vertex.m_a[b][i];

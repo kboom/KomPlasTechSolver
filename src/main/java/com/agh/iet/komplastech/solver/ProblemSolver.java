@@ -6,6 +6,7 @@ import com.agh.iet.komplastech.solver.productions.construction.P1y;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
 import com.agh.iet.komplastech.solver.productions.initialization.*;
+import com.agh.iet.komplastech.solver.productions.solution.*;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
