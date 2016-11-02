@@ -21,9 +21,9 @@ public class P2 extends Production {
     private void setLeftChild(Vertex node) {
         node.setLeftChild(
                 aVertex()
-                        .withMesh(node.m_mesh)
-                        .withBeggining(node.m_beg)
-                        .withEnding(node.m_beg + (node.m_end - node.m_beg) * 0.5)
+                        .withMesh(node.mesh)
+                        .withBeggining(node.beginning)
+                        .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
                         .build()
         );
     }
@@ -31,9 +31,9 @@ public class P2 extends Production {
     private void setRightChild(Vertex node) {
         node.setRightChild(
                 aVertex()
-                        .withMesh(node.m_mesh)
-                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) * 0.5)
-                        .withEnding(node.m_end)
+                        .withMesh(node.mesh)
+                        .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
+                        .withEnding(node.ending)
                         .build()
         );
     }

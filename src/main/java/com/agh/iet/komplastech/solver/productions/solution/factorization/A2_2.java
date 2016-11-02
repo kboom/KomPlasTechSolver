@@ -16,14 +16,14 @@ public class A2_2 extends Production {
                 T.m_a[i][j] += T.leftChild.m_a[i + 1][j + 1];
                 T.m_a[i + 2][j + 2] += T.rightChild.m_a[i + 1][j + 1];
             }
-            for (int j = 1; j <= T.m_mesh.getDofsY(); j++) {
+            for (int j = 1; j <= T.mesh.getDofsY(); j++) {
                 T.m_b[i][j] += T.leftChild.m_b[i + 1][j];
                 T.m_b[i + 2][j] += T.rightChild.m_b[i + 1][j];
             }
         }
         // exchange 1st,2nd and 3rd,4rd rows and columns
-        swapDofs(1, 3, 6, T.m_mesh.getDofsY());
-        swapDofs(2, 4, 6, T.m_mesh.getDofsY());
+        swapDofs(1, 3, 6, T.mesh.getDofsY());
+        swapDofs(2, 4, 6, T.mesh.getDofsY());
         return T;
     }
 }

@@ -59,11 +59,11 @@ public class Agen extends Production {
             T.m_a[3][3] += GAUSS_POINT_WEIGHTS[i] * b3.getValue(GAUSS_POINTS[i]) * b3.getValue(GAUSS_POINTS[i]);
 
         // multiple right-hand sides
-        for (int j = 1; j <= T.m_mesh.getElementsY(); j++) {
+        for (int j = 1; j <= T.mesh.getElementsY(); j++) {
             // b[1][j] integral B1*f over row ******************** along element
             // ex1 (length = mesh size along y)
             T.m_b[1][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
+            for (int i = 1; i <= T.mesh.getElementsX(); i++) {
                 for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
                     for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                         T.m_b[1][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k])
@@ -73,7 +73,7 @@ public class Agen extends Production {
             }
             // b[2][j] integral B2*f
             T.m_b[2][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
+            for (int i = 1; i <= T.mesh.getElementsX(); i++) {
                 for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
                     for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                         T.m_b[2][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k])
@@ -83,7 +83,7 @@ public class Agen extends Production {
             }
             // b[3][j] integral B3*f
             T.m_b[3][j] = 0.0;
-            for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
+            for (int i = 1; i <= T.mesh.getElementsX(); i++) {
                 for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
                     for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                         T.m_b[3][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k])

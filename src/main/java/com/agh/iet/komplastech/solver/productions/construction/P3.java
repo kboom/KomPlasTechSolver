@@ -22,9 +22,9 @@ public class P3 extends Production {
     private void setLeftChild(Vertex node) {
         node.setLeftChild(
                 aVertex()
-                        .withMesh(node.m_mesh)
-                        .withBeggining(node.m_beg)
-                        .withEnding(node.m_beg + (node.m_end - node.m_beg) / 3.0)
+                        .withMesh(node.mesh)
+                        .withBeggining(node.beginning)
+                        .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
                         .build()
         );
     }
@@ -32,9 +32,9 @@ public class P3 extends Production {
     private void setMiddleChild(Vertex node) {
         node.setMiddleChild(
                 aVertex()
-                        .withMesh(node.m_mesh)
-                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) / 3.0)
-                        .withEnding(node.m_end - (node.m_end - node.m_beg) / 3.0)
+                        .withMesh(node.mesh)
+                        .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
+                        .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
                         .build()
         );
     }
@@ -42,9 +42,9 @@ public class P3 extends Production {
     private void setRightChild(Vertex node) {
         node.setRightChild(
                 aVertex()
-                        .withMesh(node.m_mesh)
-                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) * 2.0 / 3.0)
-                        .withEnding(node.m_end)
+                        .withMesh(node.mesh)
+                        .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
+                        .withEnding(node.ending)
                         .build()
         );
     }

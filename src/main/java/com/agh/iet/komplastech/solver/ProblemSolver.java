@@ -72,7 +72,7 @@ class ProblemSolver {
                 .createLauncherFor(p1)
                 .launchProductions();
 
-        logger.debug("Full: " + p1.m_vertex.m_beg + " - " + p1.m_vertex.m_end);
+        logger.debug("Full: " + p1.m_vertex.beginning + " - " + p1.m_vertex.ending);
 
         logger.debug("p1.m_vertex.leftChild" + p1.m_vertex.leftChild);
         logger.debug("p1.m_vertex.rightChild" + p1.m_vertex.rightChild);
@@ -92,10 +92,10 @@ class ProblemSolver {
                 .createLauncherFor(p3a1, p3a2, p3b1, p3b2)
                 .launchProductions();
 
-        logger.debug(p3a1.m_vertex.m_beg + " - " + p3a1.m_vertex.m_end);
-        logger.debug(p3a2.m_vertex.m_beg + " - " + p3a2.m_vertex.m_end);
-        logger.debug(p3b1.m_vertex.m_beg + " - " + p3b1.m_vertex.m_end);
-        logger.debug(p3b2.m_vertex.m_beg + " - " + p3b2.m_vertex.m_end);
+        logger.debug(p3a1.m_vertex.beginning + " - " + p3a1.m_vertex.ending);
+        logger.debug(p3a2.m_vertex.beginning + " - " + p3a2.m_vertex.ending);
+        logger.debug(p3b1.m_vertex.beginning + " - " + p3b1.m_vertex.ending);
+        logger.debug(p3b2.m_vertex.beginning + " - " + p3b2.m_vertex.ending);
 
 
         A1 a1 = new A1(p3a1.m_vertex.leftChild, mesh);

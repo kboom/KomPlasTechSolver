@@ -5,14 +5,14 @@ public class Vertex {
     public Vertex leftChild;
     public Vertex middleChild;
     public Vertex rightChild;
-    public Mesh m_mesh;
+    public Mesh mesh;
 
     public double[][] m_a;
     public double[][] m_b;
     public double[][] m_x;
 
-    public double m_beg;
-    public double m_end;
+    public double beginning;
+    public double ending;
 
     private Vertex() {
     }
@@ -54,24 +54,24 @@ public class Vertex {
         }
 
         public VertexBuilder withBeggining(double beggining) {
-            vertex.m_beg = beggining;
+            vertex.beginning = beggining;
             return this;
         }
 
         public VertexBuilder withEnding(double ending) {
-            vertex.m_end = ending;
+            vertex.ending = ending;
             return this;
         }
 
         public VertexBuilder withMesh(Mesh mesh) {
-            vertex.m_mesh = mesh;
+            vertex.mesh = mesh;
             return this;
         }
 
         public Vertex build() {
             vertex.m_a = new double[7][7];
-            vertex.m_b = new double[7][vertex.m_mesh.getElementsY() + vertex.m_mesh.getSplineOrder() + 1];
-            vertex.m_x = new double[7][vertex.m_mesh.getElementsY() + vertex.m_mesh.getSplineOrder() + 1];
+            vertex.m_b = new double[7][vertex.mesh.getElementsY() + vertex.mesh.getSplineOrder() + 1];
+            vertex.m_x = new double[7][vertex.mesh.getElementsY() + vertex.mesh.getSplineOrder() + 1];
             return vertex;
         }
 

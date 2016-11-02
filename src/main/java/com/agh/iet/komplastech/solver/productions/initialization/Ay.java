@@ -26,7 +26,7 @@ public class Ay extends Production {
     }
 
     private void initializeRightHandSides(Vertex node) {
-        for (int i = 1; i <= node.m_mesh.getDofsX(); i++) {
+        for (int i = 1; i <= node.mesh.getDofsX(); i++) {
             node.m_b[1][i] = partition[0] * solution[i][idx + 1];
             node.m_b[2][i] = partition[1] * solution[i][idx + 2];
             node.m_b[3][i] = partition[2] * solution[i][idx + 3];

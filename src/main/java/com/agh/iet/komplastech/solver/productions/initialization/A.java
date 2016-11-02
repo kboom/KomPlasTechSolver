@@ -36,7 +36,7 @@ public class A extends Production {
     }
 
     private void initializeRightHandSides(Vertex node) {
-        for (int i = 1; i <= node.m_mesh.getDofsY(); i++) {
+        for (int i = 1; i <= node.mesh.getDofsY(); i++) {
             fillRightHandSide(node, spline3, 1, i);
             fillRightHandSide(node, spline2, 2, i);
             fillRightHandSide(node, spline1, 3, i);
@@ -45,18 +45,18 @@ public class A extends Production {
 
     private void fillRightHandSide(Vertex node, Spline spline, int r, int i) {
         for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
-            double x = GAUSS_POINTS[k] * node.m_mesh.getElementsX() / node.m_mesh.getElementsX() + node.m_beg;
+            double x = GAUSS_POINTS[k] * node.mesh.getElementsX() / node.mesh.getElementsX() + node.beginning;
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                 if (i > 2) {
-                    double y = (GAUSS_POINTS[l] + (i - 3)) * node.m_mesh.getResolutionY() / node.m_mesh.getElementsY();
+                    double y = (GAUSS_POINTS[l] + (i - 3)) * node.mesh.getResolutionY() / node.mesh.getElementsY();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * spline.getValue(GAUSS_POINTS[k]) * spline1.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
-                if (i > 1 && (i - 2) < node.m_mesh.getElementsY()) {
-                    double y = (GAUSS_POINTS[l] + (i - 2)) * node.m_mesh.getResolutionY() / node.m_mesh.getElementsY();
+                if (i > 1 && (i - 2) < node.mesh.getElementsY()) {
+                    double y = (GAUSS_POINTS[l] + (i - 2)) * node.mesh.getResolutionY() / node.mesh.getElementsY();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * spline.getValue(GAUSS_POINTS[k]) * spline2.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
-                if ((i - 1) < node.m_mesh.getElementsY()) {
-                    double y = (GAUSS_POINTS[l] + (i - 1)) * node.m_mesh.getResolutionY() / node.m_mesh.getElementsY();
+                if ((i - 1) < node.mesh.getElementsY()) {
+                    double y = (GAUSS_POINTS[l] + (i - 1)) * node.mesh.getResolutionY() / node.mesh.getElementsY();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * spline.getValue(GAUSS_POINTS[k]) * spline3.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
             }
