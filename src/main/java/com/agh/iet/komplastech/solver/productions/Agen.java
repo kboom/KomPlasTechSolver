@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.GaussPoints;
+import com.agh.iet.komplastech.solver.constants.GaussPoints;
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.RightHandSide;
 import com.agh.iet.komplastech.solver.Vertex;
@@ -8,8 +8,8 @@ import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
 
-import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
-import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
+import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
+import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 
 public class Agen extends Production {
     Agen(Vertex Vert, Mesh Mesh) {

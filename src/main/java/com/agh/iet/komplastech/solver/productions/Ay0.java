@@ -1,12 +1,13 @@
 package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.*;
+import com.agh.iet.komplastech.solver.constants.GaussPoints;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
 
-import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
-import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
+import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
+import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 
 public class Ay0 extends Production {
     Ay0(Vertex Vert, Solution SolEval0, Mesh Mesh) {
