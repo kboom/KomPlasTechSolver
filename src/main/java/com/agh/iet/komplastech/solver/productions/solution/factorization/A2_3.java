@@ -13,14 +13,14 @@ public class A2_3 extends Production {
         System.out.println("A2_3");
         for (int i = 1; i <= 3; i++) {
             for (int j = 1; j <= 3; j++) {
-                T.m_a[i][j] += T.m_left.m_a[i][j];
-                T.m_a[i + 1][j + 1] += T.m_middle.m_a[i][j];
-                T.m_a[i + 2][j + 2] += T.m_right.m_a[i][j];
+                T.m_a[i][j] += T.leftChild.m_a[i][j];
+                T.m_a[i + 1][j + 1] += T.middleChild.m_a[i][j];
+                T.m_a[i + 2][j + 2] += T.rightChild.m_a[i][j];
             }
             for (int j = 1; j <= T.m_mesh.getDofsY(); j++) {
-                T.m_b[i][j] += T.m_left.m_b[i][j];
-                T.m_b[i + 1][j] += T.m_middle.m_b[i][j];
-                T.m_b[i + 2][j] += T.m_right.m_b[i][j];
+                T.m_b[i][j] += T.leftChild.m_b[i][j];
+                T.m_b[i + 1][j] += T.middleChild.m_b[i][j];
+                T.m_b[i + 2][j] += T.rightChild.m_b[i][j];
             }
         }
         // bring 3rd degree of freedom to the front

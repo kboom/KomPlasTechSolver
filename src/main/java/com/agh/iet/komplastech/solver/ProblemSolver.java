@@ -74,19 +74,19 @@ class ProblemSolver {
 
         logger.debug("Full: " + p1.m_vertex.m_beg + " - " + p1.m_vertex.m_end);
 
-        logger.debug("p1.m_vertex.m_left" + p1.m_vertex.m_left);
-        logger.debug("p1.m_vertex.m_right" + p1.m_vertex.m_right);
-        P2 p2a = new P2(p1.m_vertex.m_left, mesh);
-        P2 p2b = new P2(p1.m_vertex.m_right, mesh);
+        logger.debug("p1.m_vertex.leftChild" + p1.m_vertex.leftChild);
+        logger.debug("p1.m_vertex.rightChild" + p1.m_vertex.rightChild);
+        P2 p2a = new P2(p1.m_vertex.leftChild, mesh);
+        P2 p2b = new P2(p1.m_vertex.rightChild, mesh);
 
         launcherFactory
                 .createLauncherFor(p2a, p2b)
                 .launchProductions();
 
-        P3 p3a1 = new P3(p2a.m_vertex.m_left, mesh);
-        P3 p3a2 = new P3(p2a.m_vertex.m_right, mesh);
-        P3 p3b1 = new P3(p2b.m_vertex.m_left, mesh);
-        P3 p3b2 = new P3(p2b.m_vertex.m_right, mesh);
+        P3 p3a1 = new P3(p2a.m_vertex.leftChild, mesh);
+        P3 p3a2 = new P3(p2a.m_vertex.rightChild, mesh);
+        P3 p3b1 = new P3(p2b.m_vertex.leftChild, mesh);
+        P3 p3b2 = new P3(p2b.m_vertex.rightChild, mesh);
 
         launcherFactory
                 .createLauncherFor(p3a1, p3a2, p3b1, p3b2)
@@ -98,18 +98,18 @@ class ProblemSolver {
         logger.debug(p3b2.m_vertex.m_beg + " - " + p3b2.m_vertex.m_end);
 
 
-        A1 a1 = new A1(p3a1.m_vertex.m_left, mesh);
-        A a2 = new A(p3a1.m_vertex.m_middle, mesh);
-        A a3 = new A(p3a1.m_vertex.m_right, mesh);
-        A a4 = new A(p3a2.m_vertex.m_left, mesh);
-        A a5 = new A(p3a2.m_vertex.m_middle, mesh);
-        A a6 = new A(p3a2.m_vertex.m_right, mesh);
-        A a7 = new A(p3b1.m_vertex.m_left, mesh);
-        A a8 = new A(p3b1.m_vertex.m_middle, mesh);
-        A a9 = new A(p3b1.m_vertex.m_right, mesh);
-        A a10 = new A(p3b2.m_vertex.m_left, mesh);
-        A a11 = new A(p3b2.m_vertex.m_middle, mesh);
-        AN a12 = new AN(p3b2.m_vertex.m_right, mesh);
+        A1 a1 = new A1(p3a1.m_vertex.leftChild, mesh);
+        A a2 = new A(p3a1.m_vertex.middleChild, mesh);
+        A a3 = new A(p3a1.m_vertex.rightChild, mesh);
+        A a4 = new A(p3a2.m_vertex.leftChild, mesh);
+        A a5 = new A(p3a2.m_vertex.middleChild, mesh);
+        A a6 = new A(p3a2.m_vertex.rightChild, mesh);
+        A a7 = new A(p3b1.m_vertex.leftChild, mesh);
+        A a8 = new A(p3b1.m_vertex.middleChild, mesh);
+        A a9 = new A(p3b1.m_vertex.rightChild, mesh);
+        A a10 = new A(p3b2.m_vertex.leftChild, mesh);
+        A a11 = new A(p3b2.m_vertex.middleChild, mesh);
+        AN a12 = new AN(p3b2.m_vertex.rightChild, mesh);
 
         launcherFactory
                 .createLauncherFor(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12)
@@ -253,38 +253,38 @@ class ProblemSolver {
                 .launchProductions();
 
 
-        logger.debug("p1y.m_vertex.m_left" + p1y.m_vertex.m_left);
-        logger.debug("p1y.m_vertex.m_right" + p1y.m_vertex.m_right);
-        P2 p2ay = new P2(p1y.m_vertex.m_left, mesh);
-        P2 p2by = new P2(p1y.m_vertex.m_right, mesh);
+        logger.debug("p1y.m_vertex.leftChild" + p1y.m_vertex.leftChild);
+        logger.debug("p1y.m_vertex.rightChild" + p1y.m_vertex.rightChild);
+        P2 p2ay = new P2(p1y.m_vertex.leftChild, mesh);
+        P2 p2by = new P2(p1y.m_vertex.rightChild, mesh);
 
         launcherFactory
                 .createLauncherFor(p2ay, p2by)
                 .launchProductions();
 
 
-        P3 p3a1y = new P3(p2ay.m_vertex.m_left, mesh);
-        P3 p3a2y = new P3(p2ay.m_vertex.m_right, mesh);
-        P3 p3b1y = new P3(p2by.m_vertex.m_left, mesh);
-        P3 p3b2y = new P3(p2by.m_vertex.m_right, mesh);
+        P3 p3a1y = new P3(p2ay.m_vertex.leftChild, mesh);
+        P3 p3a2y = new P3(p2ay.m_vertex.rightChild, mesh);
+        P3 p3b1y = new P3(p2by.m_vertex.leftChild, mesh);
+        P3 p3b2y = new P3(p2by.m_vertex.rightChild, mesh);
 
         launcherFactory
                 .createLauncherFor(p3a1y, p3a2y, p3b1y, p3b2y)
                 .launchProductions();
 
 
-        A1y a1y = new A1y(p3a1y.m_vertex.m_left, rhs, new double[]{1, 1. / 2, 1. / 3}, 0, mesh);
-        Ay a2y = new Ay(p3a1y.m_vertex.m_middle, rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, 1, mesh);
-        Ay a3y = new Ay(p3a1y.m_vertex.m_right, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 2, mesh);
-        Ay a4y = new Ay(p3a2y.m_vertex.m_left, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3, mesh);
-        Ay a5y = new Ay(p3a2y.m_vertex.m_middle, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 4, mesh);
-        Ay a6y = new Ay(p3a2y.m_vertex.m_right, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 5, mesh);
-        Ay a7y = new Ay(p3b1y.m_vertex.m_left, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 6, mesh);
-        Ay a8y = new Ay(p3b1y.m_vertex.m_middle, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 7, mesh);
-        Ay a9y = new Ay(p3b1y.m_vertex.m_right, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 8, mesh);
-        Ay a10y = new Ay(p3b2y.m_vertex.m_left, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 9, mesh);
-        Ay a11y = new Ay(p3b2y.m_vertex.m_middle, rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, 10, mesh);
-        ANy a12y = new ANy(p3b2y.m_vertex.m_right, rhs, new double[]{1. / 3, 1. / 2, 1}, 11, mesh);
+        A1y a1y = new A1y(p3a1y.m_vertex.leftChild, rhs, new double[]{1, 1. / 2, 1. / 3}, 0, mesh);
+        Ay a2y = new Ay(p3a1y.m_vertex.middleChild, rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, 1, mesh);
+        Ay a3y = new Ay(p3a1y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 2, mesh);
+        Ay a4y = new Ay(p3a2y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3, mesh);
+        Ay a5y = new Ay(p3a2y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 4, mesh);
+        Ay a6y = new Ay(p3a2y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 5, mesh);
+        Ay a7y = new Ay(p3b1y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 6, mesh);
+        Ay a8y = new Ay(p3b1y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 7, mesh);
+        Ay a9y = new Ay(p3b1y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 8, mesh);
+        Ay a10y = new Ay(p3b2y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 9, mesh);
+        Ay a11y = new Ay(p3b2y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, 10, mesh);
+        ANy a12y = new ANy(p3b2y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 2, 1}, 11, mesh);
 
         launcherFactory
                 .createLauncherFor(a1y, a2y, a3y, a4y, a5y, a6y, a7y, a8y, a9y, a10y, a11y, a12y)

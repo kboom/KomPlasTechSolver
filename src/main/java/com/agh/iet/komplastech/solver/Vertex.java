@@ -2,9 +2,9 @@ package com.agh.iet.komplastech.solver;
 
 public class Vertex {
 
-    public Vertex m_left;
-    public Vertex m_middle;
-    public Vertex m_right;
+    public Vertex leftChild;
+    public Vertex middleChild;
+    public Vertex rightChild;
     public Mesh m_mesh;
 
     public double[][] m_a;
@@ -18,15 +18,15 @@ public class Vertex {
     }
 
     public void setLeftChild(Vertex leftChild) {
-        m_left = leftChild;
+        this.leftChild = leftChild;
     }
 
     public void setMiddleChild(Vertex middleChild) {
-        m_middle = middleChild;
+        this.middleChild = middleChild;
     }
 
     public void setRightChild(Vertex rightChild) {
-        m_right = rightChild;
+        this.rightChild = rightChild;
     }
 
     public static VertexBuilder aVertex() {
@@ -38,18 +38,18 @@ public class Vertex {
         private Vertex vertex = new Vertex();
 
         public VertexBuilder withLeftChild(Vertex leftChild) {
-            vertex.m_left = leftChild;
+            vertex.leftChild = leftChild;
             return this;
         }
 
         public VertexBuilder withMiddleChild(Vertex middleChild) {
-            vertex.m_middle = middleChild;
+            vertex.middleChild = middleChild;
             return this;
         }
 
 
         public VertexBuilder withRightChild(Vertex rightChild) {
-            vertex.m_right = rightChild;
+            vertex.rightChild = rightChild;
             return this;
         }
 

@@ -15,8 +15,8 @@ public class BS_2_6 extends PFEProduction {
         swapDofs(2, 4, 6, T.m_mesh.getDofsY());
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= T.m_mesh.getDofsY(); j++) {
-                T.m_left.m_x[i + 1][j] = T.m_x[i][j];
-                T.m_right.m_x[i + 1][j] = T.m_x[i + 2][j];
+                T.leftChild.m_x[i + 1][j] = T.m_x[i][j];
+                T.rightChild.m_x[i + 1][j] = T.m_x[i + 2][j];
             }
         }
 

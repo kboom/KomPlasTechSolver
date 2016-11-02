@@ -15,8 +15,8 @@ public class Eroot extends PFEProduction {
 
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= T.m_mesh.getDofsY(); j++) {
-                T.m_left.m_x[i + 2][j] = T.m_x[i][j];
-                T.m_right.m_x[i + 2][j] = T.m_x[i + 2][j];
+                T.leftChild.m_x[i + 2][j] = T.m_x[i][j];
+                T.rightChild.m_x[i + 2][j] = T.m_x[i + 2][j];
             }
         }
 
