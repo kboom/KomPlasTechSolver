@@ -1,9 +1,4 @@
 package com.agh.iet.komplastech.solver.productions.construction;
-/**
- * @(#)P1.java
- * @author
- * @version 1.00 2015/2/23
- */
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
