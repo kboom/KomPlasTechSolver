@@ -5,6 +5,7 @@ import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
 
 import static com.agh.iet.komplastech.solver.Point.solutionPoint;
+import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 
 class Solution {
 
@@ -21,7 +22,7 @@ class Solution {
         double Dy = (m_mesh.getResolutionY() / m_mesh.getElementsY());
         double x = -Dx / 2;
         double y = -Dy / 2;
-        SolutionGrid solutionGrid = new SolutionGrid();
+        SolutionGrid solutionGrid = solutionGrid();
         for (int i = 1; i <= m_mesh.getElementsX(); ++i) {
             x += Dx;
             y = -Dy / 2;
