@@ -16,9 +16,8 @@ public class P1 extends Production {
 
     Vertex apply(Vertex S) {
         System.out.println("p1");
-        S.m_left = new Vertex(null, null, null, S, "T", 0, S.m_mesh.getElementsX() / 2, S.m_mesh);
-        S.m_right = new Vertex(null, null, null, S, "T", S.m_mesh.getElementsX() / 2, S.m_mesh.getElementsX(), S.m_mesh);
-        S.set_label("root x");
+        S.m_left = new Vertex(null, null, null, 0, S.m_mesh.getElementsX() / 2, S.m_mesh);
+        S.m_right = new Vertex(null, null, null, S.m_mesh.getElementsX() / 2, S.m_mesh.getElementsX(), S.m_mesh);
         return S;
     }
 }

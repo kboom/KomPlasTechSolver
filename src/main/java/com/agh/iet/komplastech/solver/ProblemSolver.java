@@ -48,7 +48,7 @@ class ProblemSolver {
     }
 
     private void solveInHorizontalDirection() {
-        Vertex S = new Vertex(null, null, null, null, "Sx", 0, mesh.getResolutionX(), mesh);
+        Vertex S = new Vertex(null, null, null, 0, mesh.getResolutionX(), mesh);
 
         P1 p1 = new P1(S, mesh);
 
@@ -224,7 +224,7 @@ class ProblemSolver {
         BS_1_5 bs2c;
         BS_1_5 bs2d;
 
-        S = new Vertex(null, null, null, null, "Sy", 0, mesh.getResolutionY(), mesh);
+        S = new Vertex(null, null, null, 0, mesh.getResolutionY(), mesh);
 
 
         P1y p1y = new P1y(S, mesh);
