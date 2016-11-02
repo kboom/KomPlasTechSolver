@@ -8,7 +8,7 @@ public class BS_2_6 extends PFEProduction {
         super(Vert, Mesh);
     }
 
-    Vertex apply(Vertex T) {
+    public Vertex apply(Vertex T) {
         System.out.println("BS_2_6");
         T = partial_backward_substitution(T, 2, 6, m_mesh.getDofsY());
         swapDofs(1, 3, 6, T.m_mesh.getDofsY());

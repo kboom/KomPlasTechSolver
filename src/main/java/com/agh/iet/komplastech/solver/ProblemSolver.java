@@ -1,6 +1,10 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.productions.*;
+import com.agh.iet.komplastech.solver.productions.initialization.P1;
+import com.agh.iet.komplastech.solver.productions.initialization.P1y;
+import com.agh.iet.komplastech.solver.productions.initialization.P2;
+import com.agh.iet.komplastech.solver.productions.initialization.P3;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;

@@ -8,13 +8,13 @@ import java.util.concurrent.CyclicBarrier;
 
 public abstract class Production {
 
-    Production(Vertex Vert, Mesh Mesh) {
+    public Production(Vertex Vert, Mesh Mesh) {
         m_vertex = Vert;
         m_mesh = Mesh;
     }
 
     // returns first vertex from the left
-    abstract Vertex apply(Vertex v);
+    public abstract Vertex apply(Vertex v);
 
     // solveProblem the thread
     public void run() {
@@ -29,7 +29,7 @@ public abstract class Production {
     // mesh data
     public Mesh m_mesh;
 
-    protected void swapDofs(int a, int b, int size, int nrhs) {
+    void swapDofs(int a, int b, int size, int nrhs) {
         for (int i = 1; i <= size; i++) {
             double temp = m_vertex.m_a[a][i];
             m_vertex.m_a[a][i] = m_vertex.m_a[b][i];

@@ -16,7 +16,7 @@ public class Agen extends Production {
         super(Vert, Mesh);
     }
 
-    Vertex apply(Vertex T) {
+    public Vertex apply(Vertex T) {
         System.out.println("Agen");
         BSpline1 b1 = new BSpline1();
         BSpline2 b2 = new BSpline2();

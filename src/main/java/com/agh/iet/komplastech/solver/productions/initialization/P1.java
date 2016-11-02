@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver.productions;
+package com.agh.iet.komplastech.solver.productions.initialization;
 /**
  * @(#)P1.java
  * @author
@@ -7,6 +7,7 @@ package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.productions.Production;
 
 import static com.agh.iet.komplastech.solver.Vertex.aVertex;
 
@@ -16,7 +17,7 @@ public class P1 extends Production {
         super(node, mesh);
     }
 
-    Vertex apply(Vertex node) {
+    public Vertex apply(Vertex node) {
         setLeftChild(node);
         setRightChild(node);
         return node;

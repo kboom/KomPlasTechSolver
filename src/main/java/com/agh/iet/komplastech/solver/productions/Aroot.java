@@ -4,11 +4,12 @@ import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
 public class Aroot extends Production {
+
     public Aroot(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
     }
 
-    Vertex apply(Vertex T) {
+    public Vertex apply(Vertex T) {
         System.out.println("Aroot");
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 4; j++) {
@@ -22,4 +23,5 @@ public class Aroot extends Production {
         }
         return T;
     }
+
 }

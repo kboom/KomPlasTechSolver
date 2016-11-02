@@ -8,7 +8,7 @@ public class A2_2 extends Production {
         super(Vert, Mesh);
     }
 
-    Vertex apply(Vertex T) {
+    public Vertex apply(Vertex T) {
         System.out.println("A2_2");
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 4; j++) {

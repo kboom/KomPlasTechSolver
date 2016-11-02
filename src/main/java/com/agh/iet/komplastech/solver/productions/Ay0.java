@@ -15,7 +15,7 @@ public class Ay0 extends Production {
         m_sol = SolEval0;
     }
 
-    Vertex apply(Vertex T) {
+    public Vertex apply(Vertex T) {
         System.out.println("A");
         T.m_a[1][1] = 1.0 / 20.0;
         T.m_a[1][2] = 13.0 / 120;

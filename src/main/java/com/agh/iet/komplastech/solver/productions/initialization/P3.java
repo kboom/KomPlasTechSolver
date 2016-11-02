@@ -1,7 +1,8 @@
-package com.agh.iet.komplastech.solver.productions;
+package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.productions.Production;
 
 import static com.agh.iet.komplastech.solver.Vertex.aVertex;
 
@@ -11,7 +12,7 @@ public class P3 extends Production {
         super(node, mesh);
     }
 
-    Vertex apply(Vertex node) {
+    public Vertex apply(Vertex node) {
         setLeftChild(node);
         setMiddleChild(node);
         setRightChild(node);

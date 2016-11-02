@@ -44,7 +44,8 @@ public class PFEProduction extends Production {
         return T;
     }
 
-    Vertex apply(Vertex v) {
+    public Vertex apply(Vertex v) {
         return null;
-    };
+    }
+
 }
