@@ -6,14 +6,14 @@ import com.agh.iet.komplastech.solver.splines.BSpline3;
 
 import static com.agh.iet.komplastech.solver.Point.solutionPoint;
 
-public class Solution {
+class Solution {
 
     private Mesh m_mesh;
     private double[][] m_rhs;
 
-    Solution(Mesh Mesh, double[][] Rhs) {
-        m_mesh = Mesh;
-        m_rhs = Rhs;
+    Solution(Mesh mesh, double[][] rhs) {
+        m_mesh = mesh;
+        m_rhs = rhs;
     }
 
     SolutionGrid getSolutionGrid() {
@@ -32,10 +32,6 @@ public class Solution {
             }
         }
         return solutionGrid;
-    }
-
-    public Mesh getM_mesh() {
-        return m_mesh;
     }
 
     private double getValue(double x, double y) {
