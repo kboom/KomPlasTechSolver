@@ -6,8 +6,8 @@ import com.agh.iet.komplastech.solver.productions.initialization.Ay;
 
 public class ANy extends Ay {
 
-    public ANy(Vertex Vert, double[][] solution, double[] partition, int idx, Mesh Mesh) {
-        super(Vert, solution, partition, idx, Mesh);
+    public ANy(Vertex node, double[][] solution, double[] partition, int idx, Mesh mesh) {
+        super(node, solution, partition, idx, mesh);
     }
 
 }

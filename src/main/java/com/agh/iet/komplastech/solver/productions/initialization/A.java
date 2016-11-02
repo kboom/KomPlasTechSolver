@@ -12,6 +12,7 @@ import com.agh.iet.komplastech.solver.splines.Spline;
 
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
+import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class A extends Production {
 
@@ -31,15 +32,7 @@ public class A extends Production {
     }
 
     private void initializeCoefficientsMatrix(Vertex node) {
-        node.m_a[1][1] = 1.0 / 20.0;
-        node.m_a[1][2] = 13.0 / 120;
-        node.m_a[1][3] = 1.0 / 120;
-        node.m_a[2][1] = 13.0 / 120.0;
-        node.m_a[2][2] = 45.0 / 100.0;
-        node.m_a[2][3] = 13.0 / 120.0;
-        node.m_a[3][1] = 1.0 / 120.0;
-        node.m_a[3][2] = 13.0 / 120.0;
-        node.m_a[3][3] = 1.0 / 20.0;
+        useArbitraryCoefficients(node);
     }
 
     private void initializeRightHandSides(Vertex node) {
