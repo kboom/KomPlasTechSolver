@@ -6,7 +6,10 @@ import com.agh.iet.komplastech.solver.productions.construction.P1y;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
 import com.agh.iet.komplastech.solver.productions.initialization.*;
-import com.agh.iet.komplastech.solver.productions.solution.*;
+import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
+import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
+import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
+import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;

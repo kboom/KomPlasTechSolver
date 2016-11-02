@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver.productions.solution;
+package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
