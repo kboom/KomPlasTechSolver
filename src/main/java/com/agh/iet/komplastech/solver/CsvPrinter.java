@@ -2,11 +2,11 @@ package com.agh.iet.komplastech.solver;
 
 import java.util.List;
 
-public class CsvPrinter {
+class CsvPrinter {
 
-    public static final String NEWLINE = "\r\n";
+    private static final String NEWLINE = "\r\n";
 
-    public String convertToCsv(SolutionGrid solutionGrid) {
+    String convertToCsv(SolutionGrid solutionGrid) {
         List<Point> points = solutionGrid.getPoints();
         StringBuilder sb = new StringBuilder();
         sb.append("x,y,val");

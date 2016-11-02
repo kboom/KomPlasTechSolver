@@ -19,12 +19,12 @@ class ProductionLauncher {
 
     private ExecutorService threadPoolExecutor;
 
-    public ProductionLauncher(ExecutorService threadPoolExecutor, Collection<Production> productionsToExecute) {
+    ProductionLauncher(ExecutorService threadPoolExecutor, Collection<Production> productionsToExecute) {
         this.threadPoolExecutor = threadPoolExecutor;
         this.productionsToExecute.addAll(productionsToExecute);
     }
 
-    public void launchProductions() {
+    void launchProductions() {
         try {
             threadPoolExecutor.invokeAll(productionsToExecute.stream().map(
                     (Function<Production, Callable<Void>>) ProductionCallable::new
