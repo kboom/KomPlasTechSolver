@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.execution;
 
 import com.agh.iet.komplastech.solver.productions.Production;
 
@@ -7,12 +7,12 @@ import java.util.concurrent.ExecutorService;
 
 import static java.util.concurrent.Executors.newCachedThreadPool;
 
-class ProductionLauncherFactory {
+public class ProductionExecutorFactory {
 
     private ExecutorService executorService = newCachedThreadPool();
 
-    ProductionLauncher createLauncherFor(Production... productions) {
-        return new ProductionLauncher(executorService, Arrays.asList(productions));
+    public ProductionExecutor createLauncherFor(Production... productions) {
+        return new ProductionExecutor(executorService, Arrays.asList(productions));
     }
 
 }

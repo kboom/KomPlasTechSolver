@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.productions.*;
 import com.agh.iet.komplastech.solver.productions.construction.P1;
 import com.agh.iet.komplastech.solver.productions.construction.P1y;
@@ -26,7 +27,7 @@ class ProblemSolver {
 
     private Map<String, Production> productionMap = new HashMap<>();
 
-    private ProductionLauncherFactory launcherFactory = new ProductionLauncherFactory();
+    private ProductionExecutorFactory launcherFactory = new ProductionExecutorFactory();
 
     ProblemSolver(Mesh meshData) {
         this.mesh = meshData;

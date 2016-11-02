@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.execution;
 
 import com.agh.iet.komplastech.solver.productions.Production;
 import org.apache.log4j.Logger;
@@ -11,20 +11,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-class ProductionLauncher {
+public class ProductionExecutor {
 
-    private Logger logger = Logger.getLogger(ProductionLauncher.class);
+    private Logger logger = Logger.getLogger(ProductionExecutor.class);
 
     private List<Production> productionsToExecute = new ArrayList<>();
 
     private ExecutorService threadPoolExecutor;
 
-    ProductionLauncher(ExecutorService threadPoolExecutor, Collection<Production> productionsToExecute) {
+    ProductionExecutor(ExecutorService threadPoolExecutor, Collection<Production> productionsToExecute) {
         this.threadPoolExecutor = threadPoolExecutor;
         this.productionsToExecute.addAll(productionsToExecute);
     }
 
-    void launchProductions() {
+    public void launchProductions() {
         try {
             threadPoolExecutor.invokeAll(productionsToExecute.stream().map(
                     (Function<Production, Callable<Void>>) ProductionCallable::new
