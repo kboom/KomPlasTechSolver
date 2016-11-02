@@ -18,7 +18,6 @@ public class A extends Production {
     private static final Spline spline1 = new BSpline1();
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
-
     private static final RightHandSide rhs = new RightHandSide();
 
     public A(Vertex node, Mesh mesh) {
@@ -27,7 +26,6 @@ public class A extends Production {
 
     public Vertex apply(Vertex node) {
         initializeCoefficientsMatrix(node);
-
         initializeRightHandSides(node);
         return node;
     }
@@ -54,7 +52,7 @@ public class A extends Production {
 
     private void fillRightHandSide(Vertex node, Spline spline, int r, int i) {
         for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
-            double x = GAUSS_POINTS[k] * node.m_mesh.getElementsX() / node.m_mesh.getElementsX() + node.m_beg; //+ beginning of actual element;
+            double x = GAUSS_POINTS[k] * node.m_mesh.getElementsX() / node.m_mesh.getElementsX() + node.m_beg;
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                 if (i > 2) {
                     double y = (GAUSS_POINTS[l] + (i - 3)) * node.m_mesh.getResolutionY() / node.m_mesh.getElementsY();
