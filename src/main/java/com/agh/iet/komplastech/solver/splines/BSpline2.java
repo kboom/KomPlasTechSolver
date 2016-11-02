@@ -1,13 +1,13 @@
 package com.agh.iet.komplastech.solver.splines;
 
-public class Bspline1 extends Spline {
+public class BSpline2 extends Spline {
 
-    public Bspline1() {
+    public BSpline2() {
         super(0, 1);
     }
 
     protected double getFunctionValue(double x) {
-        return 0.5 * x * x;
+        return (-2 * (x + 1) * (x + 1) + 6 * (x + 1) - 3) * 0.5;
     }
 
 }

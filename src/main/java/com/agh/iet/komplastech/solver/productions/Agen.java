@@ -4,9 +4,9 @@ import com.agh.iet.komplastech.solver.GaussPoints;
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.RightHandSide;
 import com.agh.iet.komplastech.solver.Vertex;
-import com.agh.iet.komplastech.solver.splines.Bspline1;
-import com.agh.iet.komplastech.solver.splines.Bspline2;
-import com.agh.iet.komplastech.solver.splines.Bspline3;
+import com.agh.iet.komplastech.solver.splines.BSpline1;
+import com.agh.iet.komplastech.solver.splines.BSpline2;
+import com.agh.iet.komplastech.solver.splines.BSpline3;
 
 import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
@@ -18,9 +18,9 @@ public class Agen extends Production {
 
     Vertex apply(Vertex T) {
         System.out.println("Agen");
-        Bspline1 b1 = new Bspline1();
-        Bspline2 b2 = new Bspline2();
-        Bspline3 b3 = new Bspline3();
+        BSpline1 b1 = new BSpline1();
+        BSpline2 b2 = new BSpline2();
+        BSpline3 b3 = new BSpline3();
         RightHandSide rhs = new RightHandSide();
         // a[1][1] integral B1*B1
         T.m_a[1][1] = 0.0;

@@ -1,9 +1,9 @@
 package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.*;
-import com.agh.iet.komplastech.solver.splines.Bspline1;
-import com.agh.iet.komplastech.solver.splines.Bspline2;
-import com.agh.iet.komplastech.solver.splines.Bspline3;
+import com.agh.iet.komplastech.solver.splines.BSpline1;
+import com.agh.iet.komplastech.solver.splines.BSpline2;
+import com.agh.iet.komplastech.solver.splines.BSpline3;
 
 import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
@@ -26,9 +26,9 @@ public class Ay0 extends Production {
         T.m_a[3][2] = 13.0 / 120.0;
         T.m_a[3][3] = 1.0 / 20.0;
         // multiple right-hand sides
-        Bspline1 b1 = new Bspline1();
-        Bspline2 b2 = new Bspline2();
-        Bspline3 b3 = new Bspline3();
+        BSpline1 b1 = new BSpline1();
+        BSpline2 b2 = new BSpline2();
+        BSpline3 b3 = new BSpline3();
         RightHandSide m_sol = new RightHandSide();
         //B-spline B_i has support over elements [i-2],[i-1],[i] restricted to [1,nelemy]
         for (int i = 1; i <= T.m_mesh.getDofsX(); i++) {

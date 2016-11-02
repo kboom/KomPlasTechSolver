@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.splines.Bspline1;
-import com.agh.iet.komplastech.solver.splines.Bspline2;
-import com.agh.iet.komplastech.solver.splines.Bspline3;
+import com.agh.iet.komplastech.solver.splines.BSpline1;
+import com.agh.iet.komplastech.solver.splines.BSpline2;
+import com.agh.iet.komplastech.solver.splines.BSpline3;
 
 public class Solution {
 	Solution(Mesh Mesh, double[][] Rhs){
@@ -18,9 +18,9 @@ public class Solution {
 //		System.out.println("Local: " + localx + ", " + localy);
 		//we have ielemx-2,ielemx-1,ilemex B-splines along x 
 		//and ielemy-2,ielemy-1,ilemey B-splines along y over the element where the point is located
-		Bspline1 b1 = new Bspline1();
-		Bspline2 b2 = new Bspline2();
-		Bspline3 b3 = new Bspline3();
+		BSpline1 b1 = new BSpline1();
+		BSpline2 b2 = new BSpline2();
+		BSpline3 b3 = new BSpline3();
 		double solution = 0.0;
 		solution += b1.getValue(localx)*b1.getValue(localy)*m_rhs[ielemx][ielemy];
 		solution += b1.getValue(localx)*b2.getValue(localy)*m_rhs[ielemx][ielemy+1];

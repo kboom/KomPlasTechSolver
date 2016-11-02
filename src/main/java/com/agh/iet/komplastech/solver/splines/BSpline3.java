@@ -1,10 +1,10 @@
 package com.agh.iet.komplastech.solver.splines;
 
-public class Bspline3 extends Spline {
+public class BSpline3 extends Spline {
 
     private static final int VALUE_FOR_UNDEFINED = 0;
 
-    public Bspline3() {
+    public BSpline3() {
         super(0, 1);
     }
 
