@@ -4,6 +4,8 @@ import com.agh.iet.komplastech.solver.productions.*;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 class ProblemSolver {
 
@@ -11,36 +13,43 @@ class ProblemSolver {
 
     private final Mesh mesh;
 
+    private Map<String, Production> productionMap = new HashMap<>();
+
     private ProductionLauncherFactory launcherFactory = new ProductionLauncherFactory();
 
     ProblemSolver(Mesh meshData) {
         this.mesh = meshData;
     }
 
-    private static void printMatrix(final Vertex v, int size, int nrhs) {
-        for (int i = 1; i <= size; ++i) {
-            for (int j = 1; j <= size; ++j) {
-                System.out.printf("%6.3f ", v.m_a[i][j]);
-            }
-            System.out.printf("  |  ");
-            for (int j = 1; j <= nrhs; ++j) {
-                System.out.printf("%6.3f ", v.m_b[i][j]);
-            }
-            System.out.printf("  |  ");
-            for (int j = 1; j <= nrhs; ++j) {
-                System.out.printf("%6.3f ", v.m_x[i][j]);
-            }
-        }
+    Solution solveProblem() throws Exception {
+        solveInHorizontalDirection();
+        double[][] rhs = getRightHandSideForVerticalDirection();
+        solveInVerticalDirection(rhs);
+        return new Solution(mesh, rhs);
     }
 
-    Solution solveProblem() throws Exception {
-        // BUILDING ELEMENT PARTITION TREE
+    private double[][] getRightHandSideForVerticalDirection() {
+        double[][] rhs = new double[mesh.getElementsX() * 3 + mesh.getSplineOrder() + 1][];
+        rhs[1] = getProduction("bs2a").m_vertex.m_x[1];
+        rhs[2] = getProduction("bs2a").m_vertex.m_x[2];
+        rhs[3] = getProduction("bs2a").m_vertex.m_x[3];
+        rhs[4] = getProduction("bs2a").m_vertex.m_x[4];
+        rhs[5] = getProduction("bs2a").m_vertex.m_x[5];
+        rhs[6] = getProduction("bs2b").m_vertex.m_x[3];
+        rhs[7] = getProduction("bs2b").m_vertex.m_x[4];
+        rhs[8] = getProduction("bs2b").m_vertex.m_x[5];
+        rhs[9] = getProduction("bs2c").m_vertex.m_x[3];
+        rhs[10] = getProduction("bs2c").m_vertex.m_x[4];
+        rhs[11] = getProduction("bs2c").m_vertex.m_x[5];
+        rhs[12] = getProduction("bs2d").m_vertex.m_x[3];
+        rhs[13] = getProduction("bs2d").m_vertex.m_x[4];
+        rhs[14] = getProduction("bs2d").m_vertex.m_x[5];
+        return rhs;
+    }
 
-
+    private void solveInHorizontalDirection() {
         Vertex S = new Vertex(null, null, null, null, "Sx", 0, mesh.getResolutionX(), mesh);
 
-        // Build tree along x
-        // [(P1)]
         P1 p1 = new P1(S, mesh);
 
         launcherFactory
@@ -176,44 +185,44 @@ class ProblemSolver {
                 .launchProductions();
 
 
-
-        BS_1_5 bs2a = new BS_1_5(p3a1.m_vertex, mesh);
-        BS_1_5 bs2b = new BS_1_5(p3a2.m_vertex, mesh);
-        BS_1_5 bs2c = new BS_1_5(p3b1.m_vertex, mesh);
-        BS_1_5 bs2d = new BS_1_5(p3b2.m_vertex, mesh);
+        Production bs2a = saveProduction("bs2a", new BS_1_5(p3a1.m_vertex, mesh));
+        Production bs2b = saveProduction("bs2b", new BS_1_5(p3a2.m_vertex, mesh));
+        Production bs2c = saveProduction("bs2c", new BS_1_5(p3b1.m_vertex, mesh));
+        Production bs2d = saveProduction("bs2d", new BS_1_5(p3b2.m_vertex, mesh));
 
         launcherFactory
                 .createLauncherFor(bs2a, bs2b, bs2c, bs2d)
                 .launchProductions();
 
 
-        for (BS_1_5 bs : Arrays.asList(bs2a, bs2b, bs2c, bs2d)) {
+        for (Production bs : Arrays.asList(bs2a, bs2b, bs2c, bs2d)) {
             printMatrix(bs.m_vertex, 5, mesh.getDofsY());
-
         }
 
-        double[][] rhs = new double[mesh.getElementsX() * 3 + mesh.getSplineOrder() + 1][];
-        rhs[1] = bs2a.m_vertex.m_x[1];
-        rhs[2] = bs2a.m_vertex.m_x[2];
-        rhs[3] = bs2a.m_vertex.m_x[3];
-        rhs[4] = bs2a.m_vertex.m_x[4];
-        rhs[5] = bs2a.m_vertex.m_x[5];
-        rhs[6] = bs2b.m_vertex.m_x[3];
-        rhs[7] = bs2b.m_vertex.m_x[4];
-        rhs[8] = bs2b.m_vertex.m_x[5];
-        rhs[9] = bs2c.m_vertex.m_x[3];
-        rhs[10] = bs2c.m_vertex.m_x[4];
-        rhs[11] = bs2c.m_vertex.m_x[5];
-        rhs[12] = bs2d.m_vertex.m_x[3];
-        rhs[13] = bs2d.m_vertex.m_x[4];
-        rhs[14] = bs2d.m_vertex.m_x[5];
+    }
 
-        for (int i = 1; i <= mesh.getDofsX(); ++i) {
-            for (int j = 1; j <= mesh.getDofsY(); ++j) {
-                System.out.printf("%6.2f ", rhs[i][j]);
-            }
-
-        }
+    private void solveInVerticalDirection(double[][] rhs) {
+        Vertex S;
+        A2_3 a2a;
+        A2_3 a2b;
+        A2_3 a2c;
+        A2_3 a2d;
+        E2_1_5 e2a;
+        E2_1_5 e2b;
+        E2_1_5 e2c;
+        E2_1_5 e2d;
+        A2_2 a22a;
+        A2_2 a22b;
+        E2_2_6 e26a;
+        E2_2_6 e26b;
+        Aroot aroot;
+        Eroot eroot;
+        BS_2_6 bs1a;
+        BS_2_6 bs1b;
+        BS_1_5 bs2a;
+        BS_1_5 bs2b;
+        BS_1_5 bs2c;
+        BS_1_5 bs2d;
 
         S = new Vertex(null, null, null, null, "Sy", 0, mesh.getResolutionY(), mesh);
 
@@ -235,7 +244,6 @@ class ProblemSolver {
                 .launchProductions();
 
 
-
         P3 p3a1y = new P3(p2ay.m_vertex.m_left, mesh);
         P3 p3a2y = new P3(p2ay.m_vertex.m_right, mesh);
         P3 p3b1y = new P3(p2by.m_vertex.m_left, mesh);
@@ -244,7 +252,6 @@ class ProblemSolver {
         launcherFactory
                 .createLauncherFor(p3a1y, p3a2y, p3b1y, p3b2y)
                 .launchProductions();
-
 
 
         A1y a1y = new A1y(p3a1y.m_vertex.m_left, rhs, new double[]{1, 1. / 2, 1. / 3}, 0, mesh);
@@ -347,7 +354,6 @@ class ProblemSolver {
                 .launchProductions();
 
 
-
         printMatrix(a22a.m_vertex, 6, mesh.getDofsX());
 
         printMatrix(a22b.m_vertex, 6, mesh.getDofsX());
@@ -409,7 +415,31 @@ class ProblemSolver {
                 System.out.printf("%6.2f ", rhs[i][j]);
             }
         }
-
-        return new Solution(mesh, rhs);
     }
+
+    private Production saveProduction(String key, Production production) {
+        productionMap.put(key, production);
+        return production;
+    }
+
+    private Production getProduction(String key) {
+        return productionMap.get(key);
+    }
+
+    private static void printMatrix(final Vertex v, int size, int nrhs) {
+        for (int i = 1; i <= size; ++i) {
+            for (int j = 1; j <= size; ++j) {
+                System.out.printf("%6.3f ", v.m_a[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_b[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_x[i][j]);
+            }
+        }
+    }
+
 }
