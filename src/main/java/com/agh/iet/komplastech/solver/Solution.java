@@ -22,15 +22,15 @@ public class Solution {
 		Bspline2 b2 = new Bspline2();
 		Bspline3 b3 = new Bspline3();
 		double solution = 0.0;
-		solution += b1.get_value(localx)*b1.get_value(localy)*m_rhs[ielemx][ielemy];
-		solution += b1.get_value(localx)*b2.get_value(localy)*m_rhs[ielemx][ielemy+1];
-		solution += b1.get_value(localx)*b3.get_value(localy)*m_rhs[ielemx][ielemy+2];
-		solution += b2.get_value(localx)*b1.get_value(localy)*m_rhs[ielemx+1][ielemy];
-		solution += b2.get_value(localx)*b2.get_value(localy)*m_rhs[ielemx+1][ielemy+1];
-		solution += b2.get_value(localx)*b3.get_value(localy)*m_rhs[ielemx+1][ielemy+2];
-		solution += b3.get_value(localx)*b1.get_value(localy)*m_rhs[ielemx+2][ielemy];
-		solution += b3.get_value(localx)*b2.get_value(localy)*m_rhs[ielemx+2][ielemy+1];
-		solution += b3.get_value(localx)*b3.get_value(localy)*m_rhs[ielemx+2][ielemy+2];
+		solution += b1.getValue(localx)*b1.getValue(localy)*m_rhs[ielemx][ielemy];
+		solution += b1.getValue(localx)*b2.getValue(localy)*m_rhs[ielemx][ielemy+1];
+		solution += b1.getValue(localx)*b3.getValue(localy)*m_rhs[ielemx][ielemy+2];
+		solution += b2.getValue(localx)*b1.getValue(localy)*m_rhs[ielemx+1][ielemy];
+		solution += b2.getValue(localx)*b2.getValue(localy)*m_rhs[ielemx+1][ielemy+1];
+		solution += b2.getValue(localx)*b3.getValue(localy)*m_rhs[ielemx+1][ielemy+2];
+		solution += b3.getValue(localx)*b1.getValue(localy)*m_rhs[ielemx+2][ielemy];
+		solution += b3.getValue(localx)*b2.getValue(localy)*m_rhs[ielemx+2][ielemy+1];
+		solution += b3.getValue(localx)*b3.getValue(localy)*m_rhs[ielemx+2][ielemy+2];
 		return solution;
 	}
 

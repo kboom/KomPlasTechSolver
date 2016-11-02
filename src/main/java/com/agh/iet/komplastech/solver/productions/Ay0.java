@@ -38,15 +38,15 @@ public class Ay0 extends Production {
                 for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                     if (i > 2) {
                         double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                 }
             }
@@ -56,15 +56,15 @@ public class Ay0 extends Production {
                 for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                     if (i > 2) {
                         double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                 }
             }
@@ -75,15 +75,15 @@ public class Ay0 extends Production {
 
                     if (i > 2) {
                         double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
                         double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l]) * m_sol.getValue(x, y);
                     }
                 }
             }

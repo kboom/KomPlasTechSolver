@@ -36,9 +36,9 @@ public class A extends Production {
         for (int i = 1; i <= T.m_mesh.getDofsY(); i++) {
 //            for (int k=1; k<=gauss.GAUSS_POINT_COUNT; k++) {
 //                double x = gauss.GAUSS_POINTS[k]*T.m_mesh.m_dx/T.m_mesh.m_nelemx + T.m_beg;
-//                T.m_b[1][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b3.get_value(gauss.GAUSS_POINTS[k])*x;
-//                T.m_b[2][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b2.get_value(gauss.GAUSS_POINTS[k])*x;
-//                T.m_b[3][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b1.get_value(gauss.GAUSS_POINTS[k])*x;
+//                T.m_b[1][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b3.getValue(gauss.GAUSS_POINTS[k])*x;
+//                T.m_b[2][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b2.getValue(gauss.GAUSS_POINTS[k])*x;
+//                T.m_b[3][i] += gauss.GAUSS_POINT_WEIGHTS[k] * b1.getValue(gauss.GAUSS_POINTS[k])*x;
 //            }
         	//integral of B1 with B_i
         	for (int k = 1; k<= GaussPoints.GAUSS_POINT_COUNT; k++) {
@@ -46,15 +46,15 @@ public class A extends Production {
           	  for (int l = 1; l<= GaussPoints.GAUSS_POINT_COUNT; l++) {
           	  	if(i>2) {
            	      double y = (GAUSS_POINTS[l]+(i-3))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
           	  	if(i>1 && (i-2)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-2))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
                 if((i-1)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-1))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
                 }
           	  }
         	}
@@ -64,15 +64,15 @@ public class A extends Production {
           	  for (int l = 1; l<= GaussPoints.GAUSS_POINT_COUNT; l++) {
           	  	if(i>2) {
 	           	  double y = (GAUSS_POINTS[l]+(i-3))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-	              T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+	              T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
           	  	if(i>1 && (i-2)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-2))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
                 if((i-1)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-1))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
                 }
           	  }
         	}
@@ -83,15 +83,15 @@ public class A extends Production {
 
           	  	if(i>2) {
              	  double y = (GAUSS_POINTS[l]+(i-3))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b1.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
           	  	if(i>1 && (i-2)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-2))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b2.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
           	  	}
                 if((i-1)<T.m_mesh.getElementsY()) {
                   double y = (GAUSS_POINTS[l]+(i-1))*T.m_mesh.getResolutionY()/T.m_mesh.getElementsY();
-                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l])*rhs.get_value(x,y);
+                  T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.getValue(GAUSS_POINTS[k]) * b3.getValue(GAUSS_POINTS[l])*rhs.getValue(x,y);
                 }
           	  }
         	}
