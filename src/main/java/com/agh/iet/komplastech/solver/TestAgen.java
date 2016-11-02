@@ -11,8 +11,8 @@ public class TestAgen {
 
     boolean Test(A a, Agen agen, CyclicBarrier Barrier, Mesh Mesh) {
 
-        // System.out.println(agen.m_gauss.m_points[1]+","+agen.m_gauss.m_points[2]+","+agen.m_gauss.m_points[3]+","+agen.m_gauss.m_points[4]+","+agen.m_gauss.m_points[5]);
-        // System.out.println(agen.m_gauss.m_weights[1]+","+agen.m_gauss.m_weights[2]+","+agen.m_gauss.m_weights[3]+","+agen.m_gauss.m_weights[4]+","+agen.m_gauss.m_weights[5]);
+        // System.out.println(agen.m_gauss.GAUSS_POINTS[1]+","+agen.m_gauss.GAUSS_POINTS[2]+","+agen.m_gauss.GAUSS_POINTS[3]+","+agen.m_gauss.GAUSS_POINTS[4]+","+agen.m_gauss.GAUSS_POINTS[5]);
+        // System.out.println(agen.m_gauss.GAUSS_POINT_WEIGHTS[1]+","+agen.m_gauss.GAUSS_POINT_WEIGHTS[2]+","+agen.m_gauss.GAUSS_POINT_WEIGHTS[3]+","+agen.m_gauss.GAUSS_POINT_WEIGHTS[4]+","+agen.m_gauss.GAUSS_POINT_WEIGHTS[5]);
 
         System.out.println("A matrix:");
         System.out.println(a.m_vertex.m_a[1][1] + "," + a.m_vertex.m_a[1][2] + "," + a.m_vertex.m_a[1][3]);

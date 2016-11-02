@@ -5,6 +5,9 @@ import com.agh.iet.komplastech.solver.splines.Bspline1;
 import com.agh.iet.komplastech.solver.splines.Bspline2;
 import com.agh.iet.komplastech.solver.splines.Bspline3;
 
+import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
+import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
+
 public class Ay0 extends Production {
     Ay0(Vertex Vert, Solution SolEval0, Mesh Mesh) {
         super(Vert, Mesh);
@@ -27,61 +30,60 @@ public class Ay0 extends Production {
         Bspline2 b2 = new Bspline2();
         Bspline3 b3 = new Bspline3();
         RightHandSide m_sol = new RightHandSide();
-        GaussPoints gauss = new GaussPoints();
         //B-spline B_i has support over elements [i-2],[i-1],[i] restricted to [1,nelemy]
         for (int i = 1; i <= T.m_mesh.getDofsX(); i++) {
             //integral of B1 with B_i
-            for (int k = 1; k <= gauss.m_nr_points; k++) {
-                double x = gauss.m_points[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
-                for (int l = 1; l <= gauss.m_nr_points; l++) {
+            for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                double x = GAUSS_POINTS[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
+                for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                     if (i > 2) {
-                        double y = (gauss.m_points[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b2.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[1][i] += gauss.m_weights[k] * gauss.m_weights[l] * b1.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[1][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                 }
             }
             //integral of B2 with B_i
-            for (int k = 1; k <= gauss.m_nr_points; k++) {
-                double x = gauss.m_points[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
-                for (int l = 1; l <= gauss.m_nr_points; l++) {
+            for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                double x = GAUSS_POINTS[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
+                for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                     if (i > 2) {
-                        double y = (gauss.m_points[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b2.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[2][i] += gauss.m_weights[k] * gauss.m_weights[l] * b2.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[2][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                 }
             }
             //integral of B3 with B_i
-            for (int k = 1; k <= gauss.m_nr_points; k++) {
-                double x = gauss.m_points[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
-                for (int l = 1; l <= gauss.m_nr_points; l++) {
+            for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                double x = GAUSS_POINTS[k] * T.m_mesh.getResolutionY() / T.m_mesh.getElementsY() + T.m_beg; //+ beginning of actual element;
+                for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
 
                     if (i > 2) {
-                        double y = (gauss.m_points[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b1.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 3)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b1.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if (i > 1 && (i - 2) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b2.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 2)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b2.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                     if ((i - 1) < T.m_mesh.getElementsX()) {
-                        double y = (gauss.m_points[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
-                        T.m_b[3][i] += gauss.m_weights[k] * gauss.m_weights[l] * b3.get_value(gauss.m_points[k]) * b3.get_value(gauss.m_points[l]) * m_sol.get_value(x, y);
+                        double y = (GAUSS_POINTS[l] + (i - 1)) * T.m_mesh.getResolutionX() / T.m_mesh.getElementsX();
+                        T.m_b[3][i] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k]) * b3.get_value(GAUSS_POINTS[l]) * m_sol.get_value(x, y);
                     }
                 }
             }

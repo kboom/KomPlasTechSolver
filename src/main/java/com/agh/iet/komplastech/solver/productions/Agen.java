@@ -8,13 +8,13 @@ import com.agh.iet.komplastech.solver.splines.Bspline1;
 import com.agh.iet.komplastech.solver.splines.Bspline2;
 import com.agh.iet.komplastech.solver.splines.Bspline3;
 
+import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINTS;
+import static com.agh.iet.komplastech.solver.GaussPoints.GAUSS_POINT_WEIGHTS;
+
 public class Agen extends Production {
     Agen(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
-        m_gauss = new GaussPoints();
     }
-
-    GaussPoints m_gauss;
 
     Vertex apply(Vertex T) {
         System.out.println("Agen");
@@ -24,38 +24,38 @@ public class Agen extends Production {
         RightHandSide rhs = new RightHandSide();
         // a[1][1] integral B1*B1
         T.m_a[1][1] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++) {
-            T.m_a[1][1] += m_gauss.m_weights[i] * b1.get_value(m_gauss.m_points[i]) * b1.get_value(m_gauss.m_points[i]);
-            // System.out.println("m_gauss.m_weights[i]:"+m_gauss.m_weights[i]);
-            // System.out.println("m_gauss.m_points[i]:"+m_gauss.m_points[i]);
-            // System.out.println("b1.get_value("+m_gauss.m_points[i]+")="+b1.get_value(m_gauss.m_points[i]));
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++) {
+            T.m_a[1][1] += GAUSS_POINT_WEIGHTS[i] * b1.get_value(GAUSS_POINTS[i]) * b1.get_value(GAUSS_POINTS[i]);
+            // System.out.println("m_gauss.GAUSS_POINT_WEIGHTS[i]:"+m_gauss.GAUSS_POINT_WEIGHTS[i]);
+            // System.out.println("m_gauss.GAUSS_POINTS[i]:"+m_gauss.GAUSS_POINTS[i]);
+            // System.out.println("b1.get_value("+m_gauss.GAUSS_POINTS[i]+")="+b1.get_value(m_gauss.GAUSS_POINTS[i]));
         }
         // a[1][2] integral B1*B2
         T.m_a[1][2] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++)
-            T.m_a[1][2] += m_gauss.m_weights[i] * b1.get_value(m_gauss.m_points[i]) * b2.get_value(m_gauss.m_points[i]);
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++)
+            T.m_a[1][2] += GAUSS_POINT_WEIGHTS[i] * b1.get_value(GAUSS_POINTS[i]) * b2.get_value(GAUSS_POINTS[i]);
         // a[1][3] integral B1*B3
         T.m_a[1][3] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++)
-            T.m_a[1][3] += m_gauss.m_weights[i] * b1.get_value(m_gauss.m_points[i]) * b3.get_value(m_gauss.m_points[i]);
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++)
+            T.m_a[1][3] += GAUSS_POINT_WEIGHTS[i] * b1.get_value(GAUSS_POINTS[i]) * b3.get_value(GAUSS_POINTS[i]);
         // a[2][1] integral B2*B1
         T.m_a[2][1] = T.m_a[1][2];
         // a[2][2] integral B2*B2
         T.m_a[2][2] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++)
-            T.m_a[2][2] += m_gauss.m_weights[i] * b2.get_value(m_gauss.m_points[i]) * b2.get_value(m_gauss.m_points[i]);
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++)
+            T.m_a[2][2] += GAUSS_POINT_WEIGHTS[i] * b2.get_value(GAUSS_POINTS[i]) * b2.get_value(GAUSS_POINTS[i]);
         // a[2][3] integral B2*B3
         T.m_a[2][3] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++)
-            T.m_a[2][3] += m_gauss.m_weights[i] * b2.get_value(m_gauss.m_points[i]) * b3.get_value(m_gauss.m_points[i]);
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++)
+            T.m_a[2][3] += GAUSS_POINT_WEIGHTS[i] * b2.get_value(GAUSS_POINTS[i]) * b3.get_value(GAUSS_POINTS[i]);
         // a[3][1] integral B3*B1
         T.m_a[3][1] = T.m_a[1][3];
         // a[3][2] integral B3*B2
         T.m_a[3][2] = T.m_a[2][3];
         // a[3][3] integral B3*B3
         T.m_a[3][3] = 0.0;
-        for (int i = 1; i <= m_gauss.m_nr_points; i++)
-            T.m_a[3][3] += m_gauss.m_weights[i] * b3.get_value(m_gauss.m_points[i]) * b3.get_value(m_gauss.m_points[i]);
+        for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++)
+            T.m_a[3][3] += GAUSS_POINT_WEIGHTS[i] * b3.get_value(GAUSS_POINTS[i]) * b3.get_value(GAUSS_POINTS[i]);
 
         // multiple right-hand sides
         for (int j = 1; j <= T.m_mesh.getElementsY(); j++) {
@@ -63,30 +63,30 @@ public class Agen extends Production {
             // ex1 (length = mesh size along y)
             T.m_b[1][j] = 0.0;
             for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
-                for (int k = 1; k <= m_gauss.m_nr_points; k++) {
-                    for (int l = 1; l <= m_gauss.m_nr_points; l++) {
-                        T.m_b[1][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b1.get_value(m_gauss.m_points[k])
-                                * rhs.get_value((i - 1) + m_gauss.m_points[k], (j - 1) + m_gauss.m_points[l]);
+                for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                    for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
+                        T.m_b[1][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b1.get_value(GAUSS_POINTS[k])
+                                * rhs.get_value((i - 1) + GAUSS_POINTS[k], (j - 1) + GAUSS_POINTS[l]);
                     }
                 }
             }
             // b[2][j] integral B2*f
             T.m_b[2][j] = 0.0;
             for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
-                for (int k = 1; k <= m_gauss.m_nr_points; k++) {
-                    for (int l = 1; l <= m_gauss.m_nr_points; l++) {
-                        T.m_b[2][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b2.get_value(m_gauss.m_points[k])
-                                * rhs.get_value((i - 1) + m_gauss.m_points[k], (j - 1) + m_gauss.m_points[l]);
+                for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                    for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
+                        T.m_b[2][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b2.get_value(GAUSS_POINTS[k])
+                                * rhs.get_value((i - 1) + GAUSS_POINTS[k], (j - 1) + GAUSS_POINTS[l]);
                     }
                 }
             }
             // b[3][j] integral B3*f
             T.m_b[3][j] = 0.0;
             for (int i = 1; i <= T.m_mesh.getElementsX(); i++) {
-                for (int k = 1; k <= m_gauss.m_nr_points; k++) {
-                    for (int l = 1; l <= m_gauss.m_nr_points; l++) {
-                        T.m_b[3][j] += m_gauss.m_weights[k] * m_gauss.m_weights[l] * b3.get_value(m_gauss.m_points[k])
-                                * rhs.get_value((i - 1) + m_gauss.m_points[k], (j - 1) + m_gauss.m_points[l]);
+                for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
+                    for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
+                        T.m_b[3][j] += GAUSS_POINT_WEIGHTS[k] * GAUSS_POINT_WEIGHTS[l] * b3.get_value(GAUSS_POINTS[k])
+                                * rhs.get_value((i - 1) + GAUSS_POINTS[k], (j - 1) + GAUSS_POINTS[l]);
                     }
                 }
             }
