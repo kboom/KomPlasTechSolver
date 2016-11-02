@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver.productions;
+package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;

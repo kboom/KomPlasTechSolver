@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver.productions.initialization;
+package com.agh.iet.komplastech.solver.productions.construction;
 /**
  * @(#)P1.java
  * @author

@@ -1,7 +1,8 @@
-package com.agh.iet.komplastech.solver.productions;
+package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.*;
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
+import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
