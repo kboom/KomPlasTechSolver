@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="Made constant out of gaussian points.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Spline.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Function1D.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Function2D.java" afterPath="" />
+    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="renamed splines">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Agen.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Agen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java" />
     </list>
     <ignored path="KomPlasTechSolver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,34 +48,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RightHandSide.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java">
+      <file leaf-file-name="ProblemSolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-              <folding>
-                <element signature="e#118#119#0" expanded="true" />
-                <element signature="e#146#147#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Ay0.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="421">
-              <caret line="77" column="131" selection-start-line="77" selection-start-column="131" selection-end-line="77" selection-end-column="131" />
+            <state relative-caret-position="170">
+              <caret line="258" column="0" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A.java">
+      <file leaf-file-name="Production.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1348">
-              <caret line="93" column="94" selection-start-line="93" selection-start-column="94" selection-end-line="93" selection-end-column="94" />
+            <state relative-caret-position="178">
+              <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,79 +70,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bspline1.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java">
+      <file leaf-file-name="Vertex.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="600">
+              <caret line="44" column="44" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="44" />
               <folding>
-                <element signature="e#111#112#0" expanded="true" />
-                <element signature="e#138#139#0" expanded="true" />
-                <element signature="e#189#190#0" expanded="true" />
-                <element signature="e#223#224#0" expanded="true" />
+                <element signature="e#558#559#0" expanded="true" />
+                <element signature="e#594#595#0" expanded="true" />
+                <element signature="e#639#640#0" expanded="true" />
+                <element signature="e#681#682#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+      <file leaf-file-name="P3.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#282#283#0" expanded="true" />
+                <element signature="e#315#316#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="P1.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bspline2.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java">
+      <file leaf-file-name="P2.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-              <folding>
-                <element signature="e#111#112#0" expanded="true" />
-                <element signature="e#138#139#0" expanded="true" />
-                <element signature="e#189#190#0" expanded="true" />
-                <element signature="e#260#261#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bspline3.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-              <folding>
-                <element signature="e#166#167#0" expanded="true" />
-                <element signature="e#193#194#0" expanded="true" />
-                <element signature="e#244#245#0" expanded="true" />
-                <element signature="e#290#291#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Agen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Agen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="67" column="100" selection-start-line="67" selection-start-column="100" selection-end-line="67" selection-end-column="100" />
+            <state relative-caret-position="90">
+              <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Spline.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Spline.java">
+      <file leaf-file-name="P1y.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="61" selection-start-line="24" selection-start-column="61" selection-end-line="24" selection-end-column="61" />
+            <state relative-caret-position="196">
+              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
               <folding>
-                <element signature="e#654#655#0" expanded="true" />
-                <element signature="e#723#724#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#284#285#0" expanded="true" />
+                <element signature="e#317#318#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -496,24 +463,15 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestSolution.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/A1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/A.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Executor.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ExecutorTests.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Point.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/CsvPrinter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java" />
         <option value="$PROJECT_DIR$/src/test/resources/test-results1.txt" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionSetLauncher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncherFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/PFEProduction.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/AN.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A1y.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ANy.java" />
         <option value="$PROJECT_DIR$/src/test/resources/test-results1.csv" />
@@ -524,29 +482,38 @@
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/E2_2_6.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/E2_1_5.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Eroot.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestAgen.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Aroot.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A2_3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/BS_1_5.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/BS_2_6.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A2_2.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Mesh.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/GaussPoints.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Spline.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Agen.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/A.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline3.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncher.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Point.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestAgen.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/CsvPrinter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/constants/GaussPoints.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java" />
       </list>
     </option>
   </component>
@@ -711,7 +678,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="splines" />
+              <option name="myItemId" value="productions" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -782,7 +749,7 @@
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.agh.iet.komplastech.solver.*" />
+          <option name="PATTERN" value="com.agh.iet.komplastech.solver.constants.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -802,7 +769,7 @@
     <configuration default="false" name="ProblemSolverTests.solvesProblem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.agh.iet.komplastech.solver.*" />
+          <option name="PATTERN" value="com.agh.iet.komplastech.solver.constants.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -828,7 +795,7 @@
     <configuration default="false" name="ProblemSolverTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.agh.iet.komplastech.solver.*" />
+          <option name="PATTERN" value="com.agh.iet.komplastech.solver.constants.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -1351,7 +1318,7 @@
       <workItem from="1477897857781" duration="3230000" />
       <workItem from="1477904535916" duration="8141000" />
       <workItem from="1477927689327" duration="4978000" />
-      <workItem from="1477942053605" duration="2853000" />
+      <workItem from="1477942053605" duration="4989000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented integration test case.">
       <created>1477922706907</created>
@@ -1381,43 +1348,78 @@
       <option name="project" value="LOCAL" />
       <updated>1478106937953</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Refactoring functions (splines)">
+      <created>1478107921974</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1478107921974</updated>
+    </task>
+    <task id="LOCAL-00006" summary="renamed splines">
+      <created>1478108024529</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1478108024529</updated>
+    </task>
+    <task id="LOCAL-00007" summary="cleaning up">
+      <created>1478108395622</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1478108395622</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Moved GaussPoints to constants package.">
+      <created>1478108469580</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1478108469580</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Refactoring Vertex class">
+      <created>1478108828730</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1478108828730</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.10.31 at 20h 27m 58s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 35m 17s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.10.31 at 20h 29m 52s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 36m 50s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.10.31 at 20h 45m 04s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 38m 39s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.10.31 at 20h 45m 22s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 40m 54s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.10.31 at 20h 45m 49s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 43m 30s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 08m 15s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 46m 53s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 15m 22s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 19h 04m 35s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 19m 14s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 19h 06m 40s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 25m 44s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 19h 07m 23s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 18h 31m 46s.xml">
+    <history-entry file="ProblemSolverTests_solvesProblem - 2016.11.02 at 19h 07m 43s.xml">
       <configuration name="ProblemSolverTests.solvesProblem" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20411000" />
+    <option name="totallyTimeSpent" value="22547000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1428,9 +1430,9 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3253012" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3253012" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3253012" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42409638" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1487,7 +1489,12 @@
     <MESSAGE value="Introduced logger" />
     <MESSAGE value="Refactoring problem solver" />
     <MESSAGE value="Made constant out of gaussian points." />
-    <option name="LAST_COMMIT_MESSAGE" value="Made constant out of gaussian points." />
+    <MESSAGE value="Refactoring functions (splines)" />
+    <MESSAGE value="renamed splines" />
+    <MESSAGE value="cleaning up" />
+    <MESSAGE value="Moved GaussPoints to constants package." />
+    <MESSAGE value="Refactoring Vertex class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring Vertex class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1506,29 +1513,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/A.java" />
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/internal/runners/model/ReflectiveCallable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradlew">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Point.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-          <folding>
-            <element signature="e#427#428#0" expanded="true" />
-            <element signature="e#451#452#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1544,14 +1532,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/CsvPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="25" selection-start-line="4" selection-start-column="25" selection-end-line="4" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1577,26 +1557,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncherFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/PFEProduction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -1606,22 +1566,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/AN.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
@@ -1649,14 +1593,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2160">
           <caret line="144" column="16" selection-start-line="144" selection-start-column="16" selection-end-line="144" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1710,26 +1646,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="109" selection-start-line="19" selection-start-column="109" selection-end-line="19" selection-end-column="109" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Eroot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestAgen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="488">
-          <caret line="48" column="47" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
           <folding />
         </state>
       </provider>
@@ -1746,14 +1666,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1790,45 +1702,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="38" column="24" selection-start-line="38" selection-start-column="24" selection-end-line="38" selection-end-column="24" />
-          <folding>
-            <element signature="e#515#516#0" expanded="true" />
-            <element signature="e#551#552#0" expanded="true" />
-            <element signature="e#13975#13976#0" expanded="true" />
-            <element signature="e#14020#14021#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/GaussPoints.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="43" selection-start-line="4" selection-start-column="31" selection-end-line="4" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Function2D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -1845,56 +1718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-          <folding>
-            <element signature="e#118#119#0" expanded="true" />
-            <element signature="e#146#147#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline1.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#111#112#0" expanded="true" />
-            <element signature="e#138#139#0" expanded="true" />
-            <element signature="e#189#190#0" expanded="true" />
-            <element signature="e#223#224#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding>
-            <element signature="e#111#112#0" expanded="true" />
-            <element signature="e#138#139#0" expanded="true" />
-            <element signature="e#189#190#0" expanded="true" />
-            <element signature="e#260#261#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Bspline3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding>
-            <element signature="e#166#167#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-            <element signature="e#244#245#0" expanded="true" />
-            <element signature="e#290#291#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/Spline.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
@@ -1903,14 +1726,6 @@
             <element signature="e#654#655#0" expanded="true" />
             <element signature="e#723#724#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1934,9 +1749,217 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
+        <state relative-caret-position="1065">
           <caret line="77" column="131" selection-start-line="77" selection-start-column="131" selection-end-line="77" selection-end-column="131" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+          <folding>
+            <element signature="e#166#167#0" expanded="true" />
+            <element signature="e#193#194#0" expanded="true" />
+            <element signature="e#244#245#0" expanded="true" />
+            <element signature="e#290#291#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+          <folding>
+            <element signature="e#111#112#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#189#190#0" expanded="true" />
+            <element signature="e#260#261#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+          <folding>
+            <element signature="e#111#112#0" expanded="true" />
+            <element signature="e#138#139#0" expanded="true" />
+            <element signature="e#189#190#0" expanded="true" />
+            <element signature="e#223#224#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/GraphDrawer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-52">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProductionLauncherFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding>
+            <element signature="e#118#119#0" expanded="true" />
+            <element signature="e#146#147#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="29" column="35" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Point.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
+          <folding>
+            <element signature="e#407#408#0" expanded="true" />
+            <element signature="e#431#432#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestAgen.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestSolution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-292">
+          <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/CsvPrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/constants/GaussPoints.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Vertex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="44" column="44" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="44" />
+          <folding>
+            <element signature="e#558#559#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+            <element signature="e#639#640#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P3.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="41" column="27" selection-start-line="41" selection-start-column="27" selection-end-line="41" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#282#283#0" expanded="true" />
+            <element signature="e#315#316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="35" column="27" selection-start-line="35" selection-start-column="27" selection-end-line="35" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="258" column="0" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/P1y.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#284#285#0" expanded="true" />
+            <element signature="e#317#318#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

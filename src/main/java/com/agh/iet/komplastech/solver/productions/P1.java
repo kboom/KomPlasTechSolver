@@ -1,23 +1,45 @@
 package com.agh.iet.komplastech.solver.productions;
 /**
  * @(#)P1.java
- *
- *
- * @author 
+ * @author
  * @version 1.00 2015/2/23
  */
+
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
+import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+
 public class P1 extends Production {
-    public P1(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+
+    public P1(Vertex node, Mesh mesh) {
+        super(node, mesh);
     }
 
-    Vertex apply(Vertex S) {
-        System.out.println("p1");
-        S.m_left = new Vertex(null, null, null, 0, S.m_mesh.getElementsX() / 2, S.m_mesh);
-        S.m_right = new Vertex(null, null, null, S.m_mesh.getElementsX() / 2, S.m_mesh.getElementsX(), S.m_mesh);
-        return S;
+    Vertex apply(Vertex node) {
+        setLeftChild(node);
+        setRightChild(node);
+        return node;
     }
+
+    private void setLeftChild(Vertex node) {
+        node.setLeftChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(0)
+                        .withEnding(node.m_mesh.getElementsX() / 2)
+                        .build()
+        );
+    }
+
+    private void setRightChild(Vertex node) {
+        node.setRightChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_mesh.getElementsX() / 2)
+                        .withEnding(node.m_mesh.getElementsX())
+                        .build()
+        );
+    }
+
 }

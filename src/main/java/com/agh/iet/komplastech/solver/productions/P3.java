@@ -3,20 +3,49 @@ package com.agh.iet.komplastech.solver.productions;
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
+import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+
 public class P3 extends Production {
-    public P3(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+
+    public P3(Vertex node, Mesh mesh) {
+        super(node, mesh);
     }
 
-    Vertex apply(Vertex T) {
-        System.out.println("p3");
-        Vertex T1 = new Vertex(null, null, null, T.m_beg, T.m_beg + (T.m_end - T.m_beg) / 3.0, T.m_mesh);
-        Vertex T2 = new Vertex(null, null, null, T.m_beg + (T.m_end - T.m_beg) / 3.0,
-                T.m_end - (T.m_end - T.m_beg) / 3.0, T.m_mesh);
-        Vertex T3 = new Vertex(null, null, null, T.m_beg + (T.m_end - T.m_beg) * 2.0 / 3.0, T.m_end, T.m_mesh);
-        T.setLeftChild(T1);
-        T.setMiddleChild(T2);
-        T.setRightChild(T3);
-        return T;
+    Vertex apply(Vertex node) {
+        setLeftChild(node);
+        setMiddleChild(node);
+        setRightChild(node);
+        return node;
     }
+
+    private void setLeftChild(Vertex node) {
+        node.setLeftChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_beg)
+                        .withEnding(node.m_beg + (node.m_end - node.m_beg) / 3.0)
+                        .build()
+        );
+    }
+
+    private void setMiddleChild(Vertex node) {
+        node.setMiddleChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) / 3.0)
+                        .withEnding(node.m_end - (node.m_end - node.m_beg) / 3.0)
+                        .build()
+        );
+    }
+
+    private void setRightChild(Vertex node) {
+        node.setRightChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) * 2.0 / 3.0)
+                        .withEnding(node.m_end)
+                        .build()
+        );
+    }
+
 }

@@ -3,17 +3,38 @@ package com.agh.iet.komplastech.solver.productions;
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.Vertex;
 
+import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+
 public class P2 extends Production {
-    public P2(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+
+    public P2(Vertex node, Mesh mesh) {
+        super(node, mesh);
     }
 
-    Vertex apply(Vertex T) {
-        System.out.println("p2");
-        Vertex T1 = new Vertex(null, null, null, T.m_beg, T.m_beg + (T.m_end - T.m_beg) * 0.5, T.m_mesh);
-        Vertex T2 = new Vertex(null, null, null, T.m_beg + (T.m_end - T.m_beg) * 0.5, T.m_end, T.m_mesh);
-        T.setLeftChild(T1);
-        T.setRightChild(T2);
-        return T;
+    Vertex apply(Vertex node) {
+        setLeftChild(node);
+        setRightChild(node);
+        return node;
     }
+
+    private void setLeftChild(Vertex node) {
+        node.setLeftChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_beg)
+                        .withEnding(node.m_beg + (node.m_end - node.m_beg) * 0.5)
+                        .build()
+        );
+    }
+
+    private void setRightChild(Vertex node) {
+        node.setRightChild(
+                aVertex()
+                        .withMesh(node.m_mesh)
+                        .withBeggining(node.m_beg + (node.m_end - node.m_beg) * 0.5)
+                        .withEnding(node.m_end)
+                        .build()
+        );
+    }
+
 }

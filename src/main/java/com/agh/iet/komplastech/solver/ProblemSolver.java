@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+
 class ProblemSolver {
 
     private Logger logger = Logger.getLogger(ProblemSolver.class);
@@ -48,7 +50,12 @@ class ProblemSolver {
     }
 
     private void solveInHorizontalDirection() {
-        Vertex S = new Vertex(null, null, null, 0, mesh.getResolutionX(), mesh);
+        Vertex S = aVertex()
+                .withMesh(mesh)
+                .withBeggining(0)
+                .withEnding(mesh.getResolutionX())
+                .build();
+
 
         P1 p1 = new P1(S, mesh);
 
@@ -224,8 +231,11 @@ class ProblemSolver {
         BS_1_5 bs2c;
         BS_1_5 bs2d;
 
-        S = new Vertex(null, null, null, 0, mesh.getResolutionY(), mesh);
-
+        S = aVertex()
+                .withMesh(mesh)
+                .withBeggining(0)
+                .withEnding(mesh.getResolutionX())
+                .build();
 
         P1y p1y = new P1y(S, mesh);
 

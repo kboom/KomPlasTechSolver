@@ -7,23 +7,14 @@ public class Vertex {
     public Vertex m_right;
     public Mesh m_mesh;
 
-    public final double[][] m_a;
-    public final double[][] m_b;
-    public final double[][] m_x;
+    public double[][] m_a;
+    public double[][] m_b;
+    public double[][] m_x;
 
     public double m_beg;
     public double m_end;
 
-    public Vertex(Vertex Left, Vertex Middle, Vertex Right, double Beg, double End, Mesh Mesh) {
-        this.m_left = Left;
-        this.m_middle = Middle;
-        this.m_right = Right;
-        this.m_mesh = Mesh;
-        this.m_beg = Beg;
-        this.m_end = End;
-        m_a = new double[7][7];
-        m_b = new double[7][m_mesh.getElementsY() + m_mesh.getSplineOrder() + 1];
-        m_x = new double[7][m_mesh.getElementsY() + m_mesh.getSplineOrder() + 1];
+    private Vertex() {
     }
 
     public void setLeftChild(Vertex leftChild) {
@@ -36,6 +27,54 @@ public class Vertex {
 
     public void setRightChild(Vertex rightChild) {
         m_right = rightChild;
+    }
+
+    public static VertexBuilder aVertex() {
+        return new VertexBuilder();
+    }
+
+    public static class VertexBuilder {
+
+        private Vertex vertex = new Vertex();
+
+        public VertexBuilder withLeftChild(Vertex leftChild) {
+            vertex.m_left = leftChild;
+            return this;
+        }
+
+        public VertexBuilder withMiddleChild(Vertex middleChild) {
+            vertex.m_middle = middleChild;
+            return this;
+        }
+
+
+        public VertexBuilder withRightChild(Vertex rightChild) {
+            vertex.m_right = rightChild;
+            return this;
+        }
+
+        public VertexBuilder withBeggining(double beggining) {
+            vertex.m_beg = beggining;
+            return this;
+        }
+
+        public VertexBuilder withEnding(double ending) {
+            vertex.m_end = ending;
+            return this;
+        }
+
+        public VertexBuilder withMesh(Mesh mesh) {
+            vertex.m_mesh = mesh;
+            return this;
+        }
+
+        public Vertex build() {
+            vertex.m_a = new double[7][7];
+            vertex.m_b = new double[7][vertex.m_mesh.getElementsY() + vertex.m_mesh.getSplineOrder() + 1];
+            vertex.m_x = new double[7][vertex.m_mesh.getElementsY() + vertex.m_mesh.getSplineOrder() + 1];
+            return vertex;
+        }
+
     }
 
 }
