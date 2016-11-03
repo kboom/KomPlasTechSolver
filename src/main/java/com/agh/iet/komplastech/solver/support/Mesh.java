@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.support;
 
 public class Mesh {
 
@@ -18,15 +18,15 @@ public class Mesh {
 
     private Mesh() {}
 
-    double getResolutionX() {
+    public double getResolutionX() {
         return resolutionX;
     }
 
-    double getDx() {
+    public double getDx() {
         return resolutionX / elementsX;
     }
 
-    double getDy() {
+    public double getDy() {
         return resolutionY / elementsY;
     }
 
@@ -54,40 +54,40 @@ public class Mesh {
         return dofsY;
     }
 
-    static MeshBuilder aMesh() {
+    public static MeshBuilder aMesh() {
         return new MeshBuilder();
     }
 
-    static class MeshBuilder {
+    public static class MeshBuilder {
 
         private Mesh mesh = new Mesh();
 
-        MeshBuilder withResolutionX(double resolutionX) {
+        public MeshBuilder withResolutionX(double resolutionX) {
             mesh.resolutionX = resolutionX;
             return this;
         }
 
-        MeshBuilder withResolutionY(double resolutionY) {
+        public MeshBuilder withResolutionY(double resolutionY) {
             mesh.resolutionY = resolutionY;
             return this;
         }
 
-        MeshBuilder withSizeX(int sizeX) {
+        public MeshBuilder withSizeX(int sizeX) {
             mesh.elementsX = sizeX;
             return this;
         }
 
-        MeshBuilder withSizeY(int sizeY) {
+        public MeshBuilder withSizeY(int sizeY) {
             mesh.elementsY = sizeY;
             return this;
         }
 
-        MeshBuilder withOrder(int order) {
+        public MeshBuilder withOrder(int order) {
             mesh.splineOrder = order;
             return this;
         }
 
-        Mesh build() {
+        public Mesh build() {
             mesh.dofsX = mesh.elementsX + mesh.splineOrder;
             mesh.dofsY = mesh.elementsY + mesh.splineOrder;
             return mesh;

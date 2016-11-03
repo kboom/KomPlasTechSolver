@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
-import com.agh.iet.komplastech.solver.Mesh;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class BS_1_5 extends PFEProduction {

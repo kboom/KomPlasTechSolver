@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
-import static com.agh.iet.komplastech.solver.Mesh.aMesh;
+import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
 public class Main {
 

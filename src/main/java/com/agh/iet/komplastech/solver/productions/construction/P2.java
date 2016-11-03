@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
-import com.agh.iet.komplastech.solver.Mesh;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.productions.Production;
 

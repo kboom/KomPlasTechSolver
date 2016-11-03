@@ -1,7 +1,5 @@
 package com.agh.iet.komplastech.solver.support;
 
-import com.agh.iet.komplastech.solver.Mesh;
-
 public class Vertex {
 
     public Vertex leftChild;

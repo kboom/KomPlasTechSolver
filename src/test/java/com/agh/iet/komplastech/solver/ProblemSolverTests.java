@@ -1,12 +1,13 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import org.junit.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import static com.agh.iet.komplastech.solver.Mesh.aMesh;
+import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ProblemSolverTests {

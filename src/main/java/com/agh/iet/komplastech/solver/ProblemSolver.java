@@ -11,6 +11,7 @@ import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.apache.log4j.Logger;
 
