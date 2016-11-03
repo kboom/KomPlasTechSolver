@@ -18,8 +18,16 @@ public class Mesh {
 
     private Mesh() {}
 
-    public double getResolutionX() {
+    double getResolutionX() {
         return resolutionX;
+    }
+
+    double getDx() {
+        return resolutionX / elementsX;
+    }
+
+    double getDy() {
+        return resolutionY / elementsY;
     }
 
     public double getResolutionY() {
@@ -34,7 +42,7 @@ public class Mesh {
         return elementsY;
     }
 
-    public int getSplineOrder() {
+    int getSplineOrder() {
         return splineOrder;
     }
 
@@ -46,40 +54,40 @@ public class Mesh {
         return dofsY;
     }
 
-    public static MeshBuilder aMesh() {
+    static MeshBuilder aMesh() {
         return new MeshBuilder();
     }
 
-    public static class MeshBuilder {
+    static class MeshBuilder {
 
         private Mesh mesh = new Mesh();
 
-        public MeshBuilder withResolutionX(double resolutionX) {
+        MeshBuilder withResolutionX(double resolutionX) {
             mesh.resolutionX = resolutionX;
             return this;
         }
 
-        public MeshBuilder withResolutionY(double resolutionY) {
+        MeshBuilder withResolutionY(double resolutionY) {
             mesh.resolutionY = resolutionY;
             return this;
         }
 
-        public MeshBuilder withSizeX(int sizeX) {
+        MeshBuilder withSizeX(int sizeX) {
             mesh.elementsX = sizeX;
             return this;
         }
 
-        public MeshBuilder withSizeY(int sizeY) {
+        MeshBuilder withSizeY(int sizeY) {
             mesh.elementsY = sizeY;
             return this;
         }
 
-        public MeshBuilder withOrder(int order) {
+        MeshBuilder withOrder(int order) {
             mesh.splineOrder = order;
             return this;
         }
 
-        public Mesh build() {
+        Mesh build() {
             mesh.dofsX = mesh.elementsX + mesh.splineOrder;
             mesh.dofsY = mesh.elementsY + mesh.splineOrder;
             return mesh;
