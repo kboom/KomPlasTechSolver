@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.support.Point;
+
 import java.util.List;
 
 class CsvPrinter {

@@ -3,8 +3,9 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
+import com.agh.iet.komplastech.solver.support.Point;
 
-import static com.agh.iet.komplastech.solver.Point.solutionPoint;
+import static com.agh.iet.komplastech.solver.support.Point.solutionPoint;
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 
 class Solution {

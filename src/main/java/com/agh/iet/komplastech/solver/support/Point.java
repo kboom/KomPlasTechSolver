@@ -1,6 +1,6 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.support;
 
-class Point {
+public class Point {
 
     private final double x;
 
@@ -8,7 +8,7 @@ class Point {
 
     private final double value;
 
-    static Point solutionPoint(double x, double y, double value) {
+    public static Point solutionPoint(double x, double y, double value) {
         return new Point(x, y, value);
     }
 
@@ -18,15 +18,15 @@ class Point {
         this.value = value;
     }
 
-    double getX() {
+    public double getX() {
         return x;
     }
 
-    double getY() {
+    public double getY() {
         return y;
     }
 
-    double getValue() {
+    public double getValue() {
         return value;
     }
 
