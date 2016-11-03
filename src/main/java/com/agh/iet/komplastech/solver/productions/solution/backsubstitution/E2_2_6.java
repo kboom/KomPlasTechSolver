@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
 import com.agh.iet.komplastech.solver.Mesh;
-import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class E2_2_6 extends PFEProduction {
     public E2_2_6(Vertex Vert, Mesh Mesh) {

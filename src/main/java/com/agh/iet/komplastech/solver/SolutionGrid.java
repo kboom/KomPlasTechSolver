@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import static java.util.Arrays.stream;
 
-class SolutionGrid {
+public class SolutionGrid {
 
     private Set<Point> points = new HashSet<>();
 
@@ -19,7 +19,7 @@ class SolutionGrid {
         this.points.addAll(points);
     }
 
-    List<Point> getPoints() {
+    public List<Point> getPoints() {
         List<Point> listOfPoints = points.stream().collect(Collectors.toList());
         Collections.sort(listOfPoints, NATURAL_POINT_ORDER_COMPARATOR);
         return listOfPoints;

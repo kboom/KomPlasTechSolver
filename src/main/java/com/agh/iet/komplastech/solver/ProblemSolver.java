@@ -11,13 +11,14 @@ import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
+import com.agh.iet.komplastech.solver.support.Vertex;
 import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
 class ProblemSolver {
 

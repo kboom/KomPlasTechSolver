@@ -3,7 +3,7 @@ package com.agh.iet.komplastech.solver.productions.solution.factorization;
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
 import com.agh.iet.komplastech.solver.Mesh;
 import com.agh.iet.komplastech.solver.RightHandSide;
-import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;

@@ -1,10 +1,10 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.Mesh;
-import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.productions.Production;
 
-import static com.agh.iet.komplastech.solver.Vertex.aVertex;
+import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
 public class P1y extends Production {
 

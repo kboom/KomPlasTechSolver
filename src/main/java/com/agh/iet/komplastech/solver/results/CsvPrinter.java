@@ -1,14 +1,15 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.results;
 
+import com.agh.iet.komplastech.solver.SolutionGrid;
 import com.agh.iet.komplastech.solver.support.Point;
 
 import java.util.List;
 
-class CsvPrinter {
+public class CsvPrinter {
 
     private static final String NEWLINE = "\r\n";
 
-    String convertToCsv(SolutionGrid solutionGrid) {
+    public String convertToCsv(SolutionGrid solutionGrid) {
         List<Point> points = solutionGrid.getPoints();
         StringBuilder sb = new StringBuilder();
         sb.append("x,y,val");

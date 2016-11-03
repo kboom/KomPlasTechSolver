@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
-import com.agh.iet.komplastech.solver.Vertex;
+import com.agh.iet.komplastech.solver.support.Vertex;
 
 class SampleCoefficients {
 

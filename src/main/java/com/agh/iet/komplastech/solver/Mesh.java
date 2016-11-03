@@ -42,7 +42,7 @@ public class Mesh {
         return elementsY;
     }
 
-    int getSplineOrder() {
+    public int getSplineOrder() {
         return splineOrder;
     }
 

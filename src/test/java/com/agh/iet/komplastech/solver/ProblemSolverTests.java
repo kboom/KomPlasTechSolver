@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import org.junit.Test;
 
 import java.nio.file.Files;
