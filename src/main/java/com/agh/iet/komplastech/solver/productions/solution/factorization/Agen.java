@@ -18,7 +18,6 @@ public class Agen extends Production {
     }
 
     public Vertex apply(Vertex T) {
-        System.out.println("Agen");
         BSpline1 b1 = new BSpline1();
         BSpline2 b2 = new BSpline2();
         BSpline3 b3 = new BSpline3();
@@ -27,9 +26,6 @@ public class Agen extends Production {
         T.m_a[1][1] = 0.0;
         for (int i = 1; i <= GaussPoints.GAUSS_POINT_COUNT; i++) {
             T.m_a[1][1] += GAUSS_POINT_WEIGHTS[i] * b1.getValue(GAUSS_POINTS[i]) * b1.getValue(GAUSS_POINTS[i]);
-            // System.out.println("m_gauss.GAUSS_POINT_WEIGHTS[i]:"+m_gauss.GAUSS_POINT_WEIGHTS[i]);
-            // System.out.println("m_gauss.GAUSS_POINTS[i]:"+m_gauss.GAUSS_POINTS[i]);
-            // System.out.println("b1.getValue("+m_gauss.GAUSS_POINTS[i]+")="+b1.getValue(m_gauss.GAUSS_POINTS[i]));
         }
         // a[1][2] integral B1*B2
         T.m_a[1][2] = 0.0;
