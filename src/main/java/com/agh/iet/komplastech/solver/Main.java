@@ -5,7 +5,7 @@ import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 public class Main {
 
     public static void main(String[] args) {
-        ProblemSolver s = new ProblemSolver(aMesh()
+        TwoDimensionalProblemSolver s = new TwoDimensionalProblemSolver(aMesh()
                 .withElementsX(12)
                 .withElementsY(12)
                 .withResolutionX(12d)

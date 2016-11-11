@@ -1,5 +1,6 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.initialization;
 
+import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.initialization.A1y;
 import com.agh.iet.komplastech.solver.productions.initialization.ANy;
@@ -10,13 +11,13 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 
-class VerticalLeafInitializer implements LeafInitializer {
+public class VerticalLeafInitializer implements LeafInitializer {
 
     private final Mesh mesh;
 
     private final Solution horizontalSolution;
 
-    VerticalLeafInitializer(Mesh mesh, Solution horizontalSolution) {
+    public VerticalLeafInitializer(Mesh mesh, Solution horizontalSolution) {
         this.mesh = mesh;
         this.horizontalSolution = horizontalSolution;
     }

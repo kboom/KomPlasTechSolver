@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.initialization;
 
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.initialization.A;
@@ -10,11 +10,11 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 import java.util.ArrayList;
 import java.util.List;
 
-class HorizontalLeafInitializer implements LeafInitializer {
+public class HorizontalLeafInitializer implements LeafInitializer {
 
     private Mesh mesh;
 
-    HorizontalLeafInitializer(Mesh mesh) {
+    public HorizontalLeafInitializer(Mesh mesh) {
         this.mesh = mesh;
     }
 

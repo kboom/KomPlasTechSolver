@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
+import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -14,7 +15,7 @@ import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
-class SingleDirectionSolver {
+class DirectionSolver {
 
     private static final int ROOT_LEVEL_HEIGHT = 1;
     private static final int LEAF_LEVEL_HEIGHT = 1;
@@ -30,9 +31,9 @@ class SingleDirectionSolver {
 
     private LeafInitializer leafInitializer;
 
-    SingleDirectionSolver(ProductionFactory productionFactory,
-                          LeafInitializer leafInitializer,
-                          Mesh meshData) {
+    DirectionSolver(ProductionFactory productionFactory,
+                    LeafInitializer leafInitializer,
+                    Mesh meshData) {
         this.productionFactory = productionFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;

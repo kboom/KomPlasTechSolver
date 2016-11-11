@@ -1,11 +1,11 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.initialization;
 
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 import java.util.List;
 
-interface LeafInitializer {
+public interface LeafInitializer {
 
     List<Production> initializeLeaves(List<Vertex> leafLevelVertices);
 

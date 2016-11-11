@@ -23,7 +23,7 @@ public class ProblemSolverTests {
                 .withResolutionY(12d)
                 .withOrder(2).build();
 
-        ProblemSolver problemSolver = new ProblemSolver(mesh);
+        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(mesh);
 
         Solution solution = problemSolver.solveProblem();
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("test-results1.csv"));
