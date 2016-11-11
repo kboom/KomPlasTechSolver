@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="Working in horizontal direction">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java" />
+    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="Extracting Single direction solvers. Created production factory.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/HorizontalLeafInitializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/LeafInitializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalLeafInitializer.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/HorizontalProductionFactory.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/VerticalProductionFactory.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java" />
     </list>
     <ignored path="KomPlasTechSolver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,11 +51,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="VerticalProductionFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/VerticalProductionFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+              <folding>
+                <element signature="e#718#719#0" expanded="true" />
+                <element signature="e#762#763#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ProblemSolver.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+            <state relative-caret-position="495">
+              <caret line="35" column="102" selection-start-line="35" selection-start-column="102" selection-end-line="35" selection-end-column="102" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -59,36 +76,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatrixPrinter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java">
+      <file leaf-file-name="VerticalLeafInitializer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalLeafInitializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state relative-caret-position="252">
+              <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="A1y.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A1y.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
-              <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-              <folding>
-                <element signature="e#2568#2569#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SingleDirectionSolver.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2070">
-              <caret line="86" column="5" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -96,54 +101,67 @@
       <file leaf-file-name="ProductionFactory.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+            <state relative-caret-position="165">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SingleDirectionSolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="470">
+              <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#982#983#0" expanded="true" />
-                <element signature="e#1014#1015#0" expanded="true" />
-                <element signature="e#1079#1080#0" expanded="true" />
-                <element signature="e#1126#1127#0" expanded="true" />
-                <element signature="e#1198#1199#0" expanded="true" />
-                <element signature="e#1244#1245#0" expanded="true" />
-                <element signature="e#1309#1310#0" expanded="true" />
-                <element signature="e#1355#1356#0" expanded="true" />
-                <element signature="e#1427#1428#0" expanded="true" />
-                <element signature="e#1473#1474#0" expanded="true" />
-                <element signature="e#1539#1540#0" expanded="true" />
-                <element signature="e#1586#1587#0" expanded="true" />
-                <element signature="e#1660#1661#0" expanded="true" />
-                <element signature="e#1707#1708#0" expanded="true" />
-                <element signature="e#1769#1770#0" expanded="true" />
-                <element signature="e#1814#1815#0" expanded="true" />
-                <element signature="e#1880#1881#0" expanded="true" />
-                <element signature="e#1927#1928#0" expanded="true" />
-                <element signature="e#1995#1996#0" expanded="true" />
-                <element signature="e#2040#2041#0" expanded="true" />
-                <element signature="e#2112#2113#0" expanded="true" />
-                <element signature="e#2159#2160#0" expanded="true" />
-                <element signature="e#2220#2221#0" expanded="true" />
-                <element signature="e#2266#2267#0" expanded="true" />
-                <element signature="e#2335#2336#0" expanded="true" />
-                <element signature="e#2381#2382#0" expanded="true" />
-                <element signature="e#2462#2463#0" expanded="true" />
-                <element signature="e#2509#2510#0" expanded="true" />
-                <element signature="e#2584#2585#0" expanded="true" />
-                <element signature="e#2631#2632#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RightHandSide.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/RightHandSide.java">
+      <file leaf-file-name="HorizontalLeafInitializer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/HorizontalLeafInitializer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+            <state relative-caret-position="188">
+              <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
               <folding>
-                <element signature="e#118#119#0" expanded="true" />
-                <element signature="e#146#147#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#595#596#0" expanded="true" />
+                <element signature="e#627#628#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HorizontalProductionFactory.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/HorizontalProductionFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="8">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LeafInitializer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/LeafInitializer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="P1y.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1y.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="30">
+              <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -153,6 +171,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -478,12 +497,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Agen.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ANy.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Aroot.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Ay0.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/BS_1_3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/BS_1_5.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/BS_2_6.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/E2_2_6.java" />
@@ -524,11 +537,17 @@
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1y.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/support/Vertex.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalProductionFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/VerticalProductionFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/LeafInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalLeafInitializer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/HorizontalLeafInitializer.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/HorizontalProductionFactory.java" />
       </list>
     </option>
   </component>
@@ -713,14 +732,17 @@
     <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.agh.iet.komplastech.solver.productions" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.agh.iet.komplastech.solver.productions.solution" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver" />
-    </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.agh.iet.komplastech.solver" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver" />
     </key>
   </component>
   <component name="RunManager" selected="JUnit.ProblemSolverTests">
@@ -1334,7 +1356,7 @@
       <workItem from="1477927689327" duration="4978000" />
       <workItem from="1477942053605" duration="9620000" />
       <workItem from="1478808180003" duration="1233000" />
-      <workItem from="1478850539710" duration="12799000" />
+      <workItem from="1478850539710" duration="16187000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented integration test case.">
       <created>1477922706907</created>
@@ -1560,22 +1582,17 @@
       <option name="project" value="LOCAL" />
       <updated>1478870866618</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Extracting Single direction solvers. Created production factory.">
+      <created>1478873907675</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1478873907676</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 00m 56s.xml">
-      <configuration name="ProblemSolverTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 02m 44s.xml">
-      <configuration name="ProblemSolverTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 03m 47s.xml">
-      <configuration name="ProblemSolverTests" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 05m 56s.xml">
-      <configuration name="ProblemSolverTests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 07m 55s.xml">
       <configuration name="ProblemSolverTests" configurationId="JUnit" />
     </history-entry>
@@ -1594,9 +1611,21 @@
     <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 18m 01s.xml">
       <configuration name="ProblemSolverTests" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 48m 00s.xml">
+      <configuration name="ProblemSolverTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 49m 54s.xml">
+      <configuration name="ProblemSolverTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProblemSolverTests - 2016.11.11 at 15h 53m 53s.xml">
+      <configuration name="ProblemSolverTests" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ProblemSolverTests - 2016.11.11 at 16h 26m 51s.xml">
+      <configuration name="ProblemSolverTests" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41210000" />
+    <option name="totallyTimeSpent" value="44598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1609,7 +1638,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3253012" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3253012" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3253012" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42409638" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1662,7 +1691,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented integration test case." />
     <MESSAGE value="Introduced logger" />
     <MESSAGE value="Refactoring problem solver" />
     <MESSAGE value="Made constant out of gaussian points." />
@@ -1687,7 +1715,8 @@
     <MESSAGE value="Setting child node node parents." />
     <MESSAGE value="multiple levels in horizontal direction - debugging" />
     <MESSAGE value="Working in horizontal direction" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working in horizontal direction" />
+    <MESSAGE value="Extracting Single direction solvers. Created production factory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Extracting Single direction solvers. Created production factory." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1711,35 +1740,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline3.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-          <folding>
-            <element signature="e#166#167#0" expanded="false" />
-            <element signature="e#193#194#0" expanded="false" />
-            <element signature="e#244#245#0" expanded="false" />
-            <element signature="e#290#291#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline2.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-          <folding>
-            <element signature="e#111#112#0" expanded="false" />
-            <element signature="e#138#139#0" expanded="false" />
-            <element signature="e#189#190#0" expanded="false" />
-            <element signature="e#260#261#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/GraphDrawer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestAgen.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TestSolution.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/constants/GaussPoints.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -1749,16 +1749,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/splines/BSpline1.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -1767,14 +1757,6 @@
             <element signature="e#111#112#0" expanded="false" />
             <element signature="e#138#139#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/SampleCoefficients.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1849,6 +1831,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="11" column="8" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1905,16 +1888,6 @@
         <state relative-caret-position="400">
           <caret line="74" column="40" selection-start-line="74" selection-start-column="40" selection-end-line="74" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1y.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2027,10 +2000,10 @@
         <state relative-caret-position="165">
           <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
           <folding>
-            <element signature="e#1175#1176#0" expanded="true" />
-            <element signature="e#1208#1209#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
-            <element signature="e#1467#1468#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="false" />
+            <element signature="e#1208#1209#0" expanded="false" />
+            <element signature="e#1421#1422#0" expanded="false" />
+            <element signature="e#1467#1468#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2054,18 +2027,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/Ay.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A1y.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="26" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+        <state relative-caret-position="315">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -2081,81 +2046,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/SampleCoefficients.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
-          <caret line="61" column="32" selection-start-line="61" selection-start-column="32" selection-end-line="61" selection-end-column="32" />
-          <folding>
-            <element signature="e#2568#2569#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state relative-caret-position="90">
+          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/Ay.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="29" column="46" selection-start-line="29" selection-start-column="46" selection-end-line="29" selection-end-column="46" />
+        <state relative-caret-position="60">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/Production.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="31" column="13" selection-start-line="31" selection-start-column="13" selection-end-line="31" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#2555#2556#0" expanded="true" />
+            <element signature="e#2582#2583#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1y.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="78" column="0" selection-start-line="78" selection-start-column="0" selection-end-line="78" selection-end-column="0" />
+        <state relative-caret-position="30">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/VerticalProductionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding>
+            <element signature="e#718#719#0" expanded="true" />
+            <element signature="e#762#763#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/LeafInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#982#983#0" expanded="true" />
-            <element signature="e#1014#1015#0" expanded="true" />
-            <element signature="e#1079#1080#0" expanded="true" />
-            <element signature="e#1126#1127#0" expanded="true" />
-            <element signature="e#1198#1199#0" expanded="true" />
-            <element signature="e#1244#1245#0" expanded="true" />
-            <element signature="e#1309#1310#0" expanded="true" />
-            <element signature="e#1355#1356#0" expanded="true" />
-            <element signature="e#1427#1428#0" expanded="true" />
-            <element signature="e#1473#1474#0" expanded="true" />
-            <element signature="e#1539#1540#0" expanded="true" />
-            <element signature="e#1586#1587#0" expanded="true" />
-            <element signature="e#1660#1661#0" expanded="true" />
-            <element signature="e#1707#1708#0" expanded="true" />
-            <element signature="e#1769#1770#0" expanded="true" />
-            <element signature="e#1814#1815#0" expanded="true" />
-            <element signature="e#1880#1881#0" expanded="true" />
-            <element signature="e#1927#1928#0" expanded="true" />
-            <element signature="e#1995#1996#0" expanded="true" />
-            <element signature="e#2040#2041#0" expanded="true" />
-            <element signature="e#2112#2113#0" expanded="true" />
-            <element signature="e#2159#2160#0" expanded="true" />
-            <element signature="e#2220#2221#0" expanded="true" />
-            <element signature="e#2266#2267#0" expanded="true" />
-            <element signature="e#2335#2336#0" expanded="true" />
-            <element signature="e#2381#2382#0" expanded="true" />
-            <element signature="e#2462#2463#0" expanded="true" />
-            <element signature="e#2509#2510#0" expanded="true" />
-            <element signature="e#2584#2585#0" expanded="true" />
-            <element signature="e#2631#2632#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2070">
-          <caret line="86" column="5" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+        <state relative-caret-position="470">
+          <caret line="44" column="27" selection-start-line="44" selection-start-column="27" selection-end-line="44" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A1y.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/ProductionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/HorizontalLeafInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#595#596#0" expanded="true" />
+            <element signature="e#627#628#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalLeafInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="18" column="4" selection-start-line="18" selection-start-column="4" selection-end-line="18" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="35" column="102" selection-start-line="35" selection-start-column="102" selection-end-line="35" selection-end-column="102" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/HorizontalProductionFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

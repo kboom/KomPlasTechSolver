@@ -1,80 +1,29 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.productions.construction.P1;
-import com.agh.iet.komplastech.solver.productions.construction.P2;
-import com.agh.iet.komplastech.solver.productions.construction.P3;
-import com.agh.iet.komplastech.solver.productions.initialization.A;
-import com.agh.iet.komplastech.solver.productions.initialization.A1;
-import com.agh.iet.komplastech.solver.productions.initialization.AN;
-import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
-import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
-import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
-import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
-import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-public class ProductionFactory {
+public interface ProductionFactory {
 
-    private Mesh mesh;
+    Production createRootProduction(Vertex vertex);
 
-    public ProductionFactory(Mesh mesh) {
-        this.mesh = mesh;
-    }
+    Production createIntermediateProduction(Vertex vertex);
 
-    public Production createRootProduction(Vertex rootVertex) {
-        return new P1(rootVertex, mesh);
-    }
+    Production createLeafProductions(Vertex vertex);
 
-    public Production createIntermediateProduction(Vertex leftChild) {
-        return new P2(leftChild, mesh);
-    }
+    Production mergeLeavesProduction(Vertex vertex);
 
-    public Production createLeafProductions(Vertex leftChild) {
-        return new P3(leftChild, mesh);
-    }
+    Production eliminateLeavesProduction(Vertex vertex);
 
-    public Production initializeLeftMostProduction(Vertex leftChild) {
-        return new A1(leftChild, mesh);
-    }
+    Production mergeIntermediateProduction(Vertex vertex);
 
-    public Production initializeProduction(Vertex middleChild) {
-        return new A(middleChild, mesh);
-    }
+    Production eliminateIntermediateProduction(Vertex vertex);
 
-    public Production initializeRightMostProduction(Vertex rightChild) {
-        return new AN(rightChild, mesh);
-    }
+    Production rootSolverProduction(Vertex vertex);
 
-    public Production mergeLeavesProduction(Vertex vertex) {
-        return new A2_3(vertex, mesh);
-    }
+    Production backwardSubstituteProduction(Vertex vertex);
 
-    public Production eliminateLeavesProduction(Vertex vertex) {
-        return new E2_1_5(vertex, mesh);
-    }
+    Production backwardSubstituteIntermediateProduction(Vertex vertex);
 
-    public Production mergeIntermediateProduction(Vertex vertex) {
-        return new A2_2(vertex, mesh);
-    }
-
-    public Production eliminateIntermediateProduction(Vertex vertex) {
-        return new E2_2_6(vertex, mesh);
-    }
-
-    public Production rootSolverProduction(Vertex vertex) {
-        return new Aroot(vertex, mesh);
-    }
-
-    public Production backwardSubstituteProduction(Vertex vertex) {
-        return new Eroot(vertex, mesh);
-    }
-
-    public Production backwardSubstituteIntermediateProduction(Vertex vertex) {
-        return new BS_2_6(vertex, mesh);
-    }
-
-    public Production backwardSubstituteLeavesProduction(Vertex vertex) {
-        return new BS_1_5(vertex, mesh);
-    }
+    Production backwardSubstituteLeavesProduction(Vertex vertex);
 
 }

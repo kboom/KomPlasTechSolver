@@ -9,7 +9,7 @@ import com.agh.iet.komplastech.solver.support.Point;
 import static com.agh.iet.komplastech.solver.support.Point.solutionPoint;
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 
-class Solution {
+public class Solution {
 
     private static final BSpline1 b1 = new BSpline1();
     private static final BSpline2 b2 = new BSpline2();
@@ -18,7 +18,7 @@ class Solution {
     private Mesh mesh;
     private double[][] mRHS;
 
-    Solution(Mesh mesh, double[][] rhs) {
+    public Solution(Mesh mesh, double[][] rhs) {
         this.mesh = mesh;
         mRHS = rhs;
     }

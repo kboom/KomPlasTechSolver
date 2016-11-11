@@ -1,13 +1,12 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
+import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
+import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.construction.P1y;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
-import com.agh.iet.komplastech.solver.productions.initialization.A1y;
-import com.agh.iet.komplastech.solver.productions.initialization.ANy;
-import com.agh.iet.komplastech.solver.productions.initialization.Ay;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
@@ -28,12 +27,16 @@ class ProblemSolver {
     }
 
     Solution solveProblem() throws Exception {
-        ProductionFactory horizontalProductionFactory = new ProductionFactory(mesh);
-        SingleDirectionSolver horizontalProblemSolver = new SingleDirectionSolver(horizontalProductionFactory, mesh);
-        Solution solution = horizontalProblemSolver.solveInHorizontalDirection();
-        double[][] rhs = solution.getRhs();
-        solveInVerticalDirection(rhs);
-        return new Solution(mesh, rhs);
+        ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
+        LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh);
+        SingleDirectionSolver horizontalProblemSolver = new SingleDirectionSolver(horizontalProductionFactory, horizontalLeafInitializer, mesh);
+        Solution horizontalSolution = horizontalProblemSolver.solveInHorizontalDirection();
+
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
+        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
+        SingleDirectionSolver verticalProblemSolver = new SingleDirectionSolver(verticalProductionFactory, verticalLeafInitializer, mesh);
+
+        return verticalProblemSolver.solveInHorizontalDirection();
     }
 
     private void solveInVerticalDirection(double[][] rhs) {
@@ -89,23 +92,6 @@ class ProblemSolver {
                 .createLauncherFor(p3a1y, p3a2y, p3b1y, p3b2y)
                 .launchProductions();
 
-
-        A1y a1y = new A1y(p3a1y.m_vertex.leftChild, rhs, new double[]{1, 1. / 2, 1. / 3}, 0, mesh);
-        Ay a2y = new Ay(p3a1y.m_vertex.middleChild, rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, 1, mesh);
-        Ay a3y = new Ay(p3a1y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 2, mesh);
-        Ay a4y = new Ay(p3a2y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3, mesh);
-        Ay a5y = new Ay(p3a2y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 4, mesh);
-        Ay a6y = new Ay(p3a2y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 5, mesh);
-        Ay a7y = new Ay(p3b1y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 6, mesh);
-        Ay a8y = new Ay(p3b1y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 7, mesh);
-        Ay a9y = new Ay(p3b1y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 8, mesh);
-        Ay a10y = new Ay(p3b2y.m_vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 9, mesh);
-        Ay a11y = new Ay(p3b2y.m_vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, 10, mesh);
-        ANy a12y = new ANy(p3b2y.m_vertex.rightChild, rhs, new double[]{1. / 3, 1. / 2, 1}, 11, mesh);
-
-        launcherFactory
-                .createLauncherFor(a1y, a2y, a3y, a4y, a5y, a6y, a7y, a8y, a9y, a10y, a11y, a12y)
-                .launchProductions();
 
         a2a = new A2_3(p3a1y.m_vertex, mesh);
         a2b = new A2_3(p3a2y.m_vertex, mesh);

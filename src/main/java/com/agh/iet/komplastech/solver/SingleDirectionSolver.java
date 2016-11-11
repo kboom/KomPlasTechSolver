@@ -28,8 +28,13 @@ class SingleDirectionSolver {
 
     private ProductionFactory productionFactory;
 
-    SingleDirectionSolver(ProductionFactory productionFactory, Mesh meshData) {
+    private LeafInitializer leafInitializer;
+
+    SingleDirectionSolver(ProductionFactory productionFactory,
+                          LeafInitializer leafInitializer,
+                          Mesh meshData) {
         this.productionFactory = productionFactory;
+        this.leafInitializer = leafInitializer;
         this.mesh = meshData;
     }
 
@@ -45,6 +50,12 @@ class SingleDirectionSolver {
         backwardSubstituteIntermediate(root);
         backwardSubstituteLeaves();
         return new Solution(mesh, getRhs());
+    }
+
+    private void initializeLeaves() {
+        launcherFactory
+                .createLauncherFor(leafInitializer.initializeLeaves(leafLevelVertices))
+                .launchProductions();
     }
 
     private int log2(double value) {
@@ -186,33 +197,6 @@ class SingleDirectionSolver {
                 .createLauncherFor(leafLevelVertices.stream().map(vertex
                         -> productionFactory.eliminateLeavesProduction(vertex))
                         .collect(toList()))
-                .launchProductions();
-    }
-
-    private void initializeLeaves() {
-        List<Production> initializationProductions = new ArrayList<>(leafLevelVertices.size());
-
-        Vertex firstVertex = leafLevelVertices.get(0);
-        initializationProductions.add(productionFactory.initializeLeftMostProduction(firstVertex.leftChild));
-        initializationProductions.add(productionFactory.initializeProduction(firstVertex.middleChild));
-        initializationProductions.add(productionFactory.initializeProduction(firstVertex.rightChild));
-
-
-        for (int i = 1; i < leafLevelVertices.size() - 1; i++) {
-            Vertex vertex = leafLevelVertices.get(i);
-            initializationProductions.add(productionFactory.initializeProduction(vertex.leftChild));
-            initializationProductions.add(productionFactory.initializeProduction(vertex.middleChild));
-            initializationProductions.add(productionFactory.initializeProduction(vertex.rightChild));
-        }
-
-
-        Vertex lastVertex = leafLevelVertices.get(leafLevelVertices.size() - 1);
-        initializationProductions.add(productionFactory.initializeProduction(lastVertex.leftChild));
-        initializationProductions.add(productionFactory.initializeProduction(lastVertex.middleChild));
-        initializationProductions.add(productionFactory.initializeRightMostProduction(lastVertex.rightChild));
-
-        launcherFactory
-                .createLauncherFor(initializationProductions)
                 .launchProductions();
     }
 
