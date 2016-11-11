@@ -228,7 +228,7 @@ class DirectionSolver {
     }
 
     private int getIntermediateLevelsCount() {
-        return log2(mesh.getElementsX()) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
+        return log2(2 * mesh.getElementsX() / 3) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
     }
 
     private List<Vertex> buildLeaves() {

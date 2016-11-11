@@ -32,10 +32,10 @@ public class ProblemSolverTests {
     @Test
     public void solvesBiggerProblem() throws Exception {
         Mesh mesh = aMesh()
-                .withElementsX(12)
-                .withElementsY(12)
-                .withResolutionX(12d)
-                .withResolutionY(12d)
+                .withElementsX(16)
+                .withElementsY(16)
+                .withResolutionX(16d)
+                .withResolutionY(16d)
                 .withOrder(2).build();
 
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(mesh);
