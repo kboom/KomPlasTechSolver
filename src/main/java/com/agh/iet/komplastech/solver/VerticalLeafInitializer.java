@@ -23,6 +23,7 @@ class VerticalLeafInitializer implements LeafInitializer {
 
     @Override
     public List<Production> initializeLeaves(List<Vertex> leafLevelVertices) {
+        final int leafCount = leafLevelVertices.size();
         double[][] rhs = horizontalSolution.getRhs();
         List<Production> initializationProductions = new ArrayList<>(leafLevelVertices.size());
 
@@ -31,19 +32,18 @@ class VerticalLeafInitializer implements LeafInitializer {
         initializationProductions.add(new Ay(firstVertex.middleChild, rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, 1, mesh));
         initializationProductions.add(new Ay(firstVertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 2, mesh));
 
-
-        for (int i = 1; i < leafLevelVertices.size() - 1; i++) {
+        for (int i = 1; i < leafCount - 1; i++) {
             Vertex vertex = leafLevelVertices.get(i);
-            initializationProductions.add(new Ay(vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3, mesh));
-            initializationProductions.add(new Ay(vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 4, mesh));
-            initializationProductions.add(new Ay(vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 5, mesh));
+            initializationProductions.add(new Ay(vertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3 * i, mesh));
+            initializationProductions.add(new Ay(vertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3 * i + 1, mesh));
+            initializationProductions.add(new Ay(vertex.rightChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 3 * i + 2, mesh));
         }
 
 
-        Vertex lastVertex = leafLevelVertices.get(leafLevelVertices.size() - 1);
-        initializationProductions.add(new Ay(lastVertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, 9, mesh));
-        initializationProductions.add(new Ay(lastVertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, 10, mesh));
-        initializationProductions.add(new ANy(lastVertex.rightChild, rhs, new double[]{1. / 3, 1. / 2, 1}, 11, mesh));
+        Vertex lastVertex = leafLevelVertices.get(leafCount - 1);
+        initializationProductions.add(new Ay(lastVertex.leftChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, leafCount * 3 - 3, mesh));
+        initializationProductions.add(new Ay(lastVertex.middleChild, rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, leafCount * 3 - 2, mesh));
+        initializationProductions.add(new ANy(lastVertex.rightChild, rhs, new double[]{1. / 3, 1. / 2, 1}, leafCount * 3 - 1, mesh));
 
         return initializationProductions;
     }
