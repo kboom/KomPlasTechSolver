@@ -1,5 +1,10 @@
 package com.agh.iet.komplastech.solver.support;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class Vertex {
 
     private Vertex parent;
@@ -40,6 +45,11 @@ public class Vertex {
 
     public Vertex getParent() {
         return parent;
+    }
+
+    public List<Vertex> getChildren() {
+        return Stream.of(leftChild, middleChild, rightChild)
+                .filter(val -> val != null).collect(Collectors.toList());
     }
 
     public static class VertexBuilder {
