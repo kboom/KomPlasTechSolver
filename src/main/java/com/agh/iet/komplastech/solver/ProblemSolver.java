@@ -1,37 +1,23 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
-import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.productions.construction.P1;
+import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.construction.P1y;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
-import com.agh.iet.komplastech.solver.productions.initialization.*;
+import com.agh.iet.komplastech.solver.productions.initialization.A1y;
+import com.agh.iet.komplastech.solver.productions.initialization.ANy;
+import com.agh.iet.komplastech.solver.productions.initialization.Ay;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import org.apache.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
-import static java.util.Collections.singletonList;
-import static java.util.stream.Collectors.toList;
 
 class ProblemSolver {
-
-    private static final int ROOT_LEVEL_HEIGHT = 1;
-    private static final int LEAF_LEVEL_HEIGHT = 1;
-
-    private Logger logger = Logger.getLogger(ProblemSolver.class);
-
-    List<Vertex> lastLevelVertices;
-    List<Vertex> leafLevelVertices;
 
     private final Mesh mesh;
 
@@ -42,239 +28,12 @@ class ProblemSolver {
     }
 
     Solution solveProblem() throws Exception {
-        solveInHorizontalDirection();
-        double[][] rhs = getRightHandSideForVerticalDirection();
+        ProductionFactory horizontalProductionFactory = new ProductionFactory(mesh);
+        SingleDirectionSolver horizontalProblemSolver = new SingleDirectionSolver(horizontalProductionFactory, mesh);
+        Solution solution = horizontalProblemSolver.solveInHorizontalDirection();
+        double[][] rhs = solution.getRhs();
         solveInVerticalDirection(rhs);
         return new Solution(mesh, rhs);
-    }
-
-    private double[][] getRightHandSideForVerticalDirection() {
-        // fixed for now
-        double[][] rhs = new double[mesh.getElementsX() * 3 + mesh.getSplineOrder() + 1][];
-        Vertex a = leafLevelVertices.get(0);
-        Vertex b = leafLevelVertices.get(1);
-        Vertex c = leafLevelVertices.get(2);
-        Vertex d = leafLevelVertices.get(3);
-
-        rhs[1] = a.m_x[1];
-        rhs[2] = a.m_x[2];
-        rhs[3] = a.m_x[3];
-        rhs[4] = a.m_x[4];
-        rhs[5] = a.m_x[5];
-        rhs[6] = b.m_x[3];
-        rhs[7] = b.m_x[4];
-        rhs[8] = b.m_x[5];
-        rhs[9] = c.m_x[3];
-        rhs[10] = c.m_x[4];
-        rhs[11] = c.m_x[5];
-        rhs[12] = d.m_x[3];
-        rhs[13] = d.m_x[4];
-        rhs[14] = d.m_x[5];
-        return rhs;
-    }
-
-    private int log2(double value) {
-        return (int) Math.floor(Math.log(value) / Math.log(2));
-    }
-
-    private void solveInHorizontalDirection() {
-        Vertex root = createRoot();
-        lastLevelVertices = buildIntermediateLevels(root);
-        leafLevelVertices = buildLeaves();
-        initializeLeaves();
-        mergeLeaves();
-        eliminateLeaves();
-        factorizeTree();
-        solveRoot(root);
-        backwardSubstituteIntermediate(root);
-        backwardSubstituteLeaves();
-    }
-
-    private void backwardSubstituteLeaves() {
-        launcherFactory
-                .createLauncherFor(
-                        leafLevelVertices.stream().map(vertex
-                                -> new BS_1_5(vertex, mesh))
-                                .collect(toList())
-                )
-                .launchProductions();
-    }
-
-    private void backwardSubstituteIntermediate(Vertex root) {
-        List<Vertex> verticesAtLevel = root.getChildren();
-        for (int level = 0; level < getIntermediateLevelsCount(); level++) {
-            launcherFactory
-                    .createLauncherFor(
-                            verticesAtLevel.stream().map(vertex
-                                    -> new BS_2_6(vertex, mesh))
-                                    .collect(toList())
-                    )
-                    .launchProductions();
-
-            verticesAtLevel = collectChildren(verticesAtLevel);
-        }
-    }
-
-    private List<Vertex> collectChildren(List<Vertex> parents) {
-        List<Vertex> childVertices = new ArrayList<>();
-        for (Vertex vertex : parents) {
-            childVertices.addAll(vertex.getChildren());
-        }
-        return childVertices;
-    }
-
-    private Vertex createRoot() {
-        Vertex rootVertex = aVertex()
-                .withMesh(mesh)
-                .withBeggining(0)
-                .withEnding(mesh.getResolutionX())
-                .build();
-
-
-        P1 p1 = new P1(rootVertex, mesh);
-
-        launcherFactory
-                .createLauncherFor(p1)
-                .launchProductions();
-        return rootVertex;
-    }
-
-    private void factorizeTree() {
-        List<Vertex> verticesAtLevel = lastLevelVertices;
-
-        while (verticesAtLevel.size() > 1) {
-            launcherFactory
-                    .createLauncherFor(
-                            verticesAtLevel.stream().map(vertex
-                                    -> new A2_2(vertex, mesh))
-                                    .collect(toList())
-                    )
-                    .launchProductions();
-
-            launcherFactory
-                    .createLauncherFor(
-                            verticesAtLevel.stream().map(vertex
-                                    -> new E2_2_6(vertex, mesh))
-                                    .collect(toList())
-                    )
-                    .launchProductions();
-
-            verticesAtLevel = collectParents(verticesAtLevel);
-        }
-    }
-
-    private void solveRoot(Vertex root) {
-        Aroot aroot = new Aroot(root, mesh);
-
-        launcherFactory
-                .createLauncherFor(aroot)
-                .launchProductions();
-
-        Eroot eroot = new Eroot(root, mesh);
-        launcherFactory
-                .createLauncherFor(eroot)
-                .launchProductions();
-    }
-
-    private List<Vertex> collectParents(List<Vertex> verticesAtLevel) {
-        List<Vertex> parentVertices = new ArrayList<>();
-        for (Vertex vertex : verticesAtLevel) {
-            Vertex parentVertex = vertex.getParent();
-            if (!parentVertices.contains(parentVertex)) {
-                parentVertices.add(parentVertex);
-            }
-        }
-        return parentVertices;
-    }
-
-    private void eliminateLeaves() {
-        launcherFactory
-                .createLauncherFor(leafLevelVertices.stream().map(vertex
-                        -> new E2_1_5(vertex, mesh))
-                        .collect(toList()))
-                .launchProductions();
-    }
-
-    private void mergeLeaves() {
-        launcherFactory
-                .createLauncherFor(leafLevelVertices.stream().map(vertex
-                        -> new A2_3(vertex, mesh))
-                        .collect(toList()))
-                .launchProductions();
-    }
-
-    private void initializeLeaves() {
-        List<Production> initializationProductions = new ArrayList<>(leafLevelVertices.size());
-
-        Vertex firstVertex = leafLevelVertices.get(0);
-        initializationProductions.add(new A1(firstVertex.leftChild, mesh));
-        initializationProductions.add(new A(firstVertex.middleChild, mesh));
-        initializationProductions.add(new A(firstVertex.rightChild, mesh));
-
-
-        for (int i = 1; i < leafLevelVertices.size() - 1; i++) {
-            Vertex vertex = leafLevelVertices.get(i);
-            initializationProductions.add(new A(vertex.leftChild, mesh));
-            initializationProductions.add(new A(vertex.middleChild, mesh));
-            initializationProductions.add(new A(vertex.rightChild, mesh));
-        }
-
-
-        Vertex lastVertex = leafLevelVertices.get(leafLevelVertices.size() - 1);
-        initializationProductions.add(new A(lastVertex.leftChild, mesh));
-        initializationProductions.add(new A(lastVertex.middleChild, mesh));
-        initializationProductions.add(new AN(lastVertex.rightChild, mesh));
-
-        launcherFactory
-                .createLauncherFor(initializationProductions)
-                .launchProductions();
-    }
-
-    private List<Vertex> buildIntermediateLevels(Vertex root) {
-        List<Vertex> previousLevelVertices = singletonList(root);
-        int intermediateTreeLevelCount = getIntermediateLevelsCount();
-        for (int i = 0; i < intermediateTreeLevelCount; i++) {
-            int elementsAtPrevious = (int) Math.pow(2, i);
-            List<Production> newLevelProductions = new ArrayList<>(2 * elementsAtPrevious);
-            List<Vertex> newLevelVertices = new ArrayList<>(2 * elementsAtPrevious);
-            for (int j = 0; j < elementsAtPrevious; j++) {
-                Vertex previousVertex = previousLevelVertices.get(j);
-                P2 leftChildProduction = new P2(previousVertex.leftChild, mesh);
-                newLevelVertices.add(previousVertex.leftChild);
-                newLevelProductions.add(leftChildProduction);
-                P2 rightChildProduction = new P2(previousVertex.rightChild, mesh);
-                newLevelVertices.add(previousVertex.rightChild);
-                newLevelProductions.add(rightChildProduction);
-            }
-            previousLevelVertices = newLevelVertices;
-
-            launcherFactory
-                    .createLauncherFor(newLevelProductions)
-                    .launchProductions();
-        }
-
-        return previousLevelVertices;
-    }
-
-    private int getIntermediateLevelsCount() {
-        return log2(mesh.getElementsX()) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
-    }
-
-    private List<Vertex> buildLeaves() {
-        int leafLevelCount = lastLevelVertices.size();
-        List<Production> leafInitializationProductions = new ArrayList<>(leafLevelCount);
-        for (Vertex vertex : lastLevelVertices) {
-            P3 leftChildProduction = new P3(vertex.leftChild, mesh);
-            leafInitializationProductions.add(leftChildProduction);
-            P3 rightChildProduction = new P3(vertex.rightChild, mesh);
-            leafInitializationProductions.add(rightChildProduction);
-        }
-
-        launcherFactory
-                .createLauncherFor(leafInitializationProductions)
-                .launchProductions();
-
-        return leafInitializationProductions.stream().map(production -> production.m_vertex).collect(Collectors.toList());
     }
 
     private void solveInVerticalDirection(double[][] rhs) {
@@ -428,22 +187,6 @@ class ProblemSolver {
         rhs[12] = bs2d.m_vertex.m_x[3];
         rhs[13] = bs2d.m_vertex.m_x[4];
         rhs[14] = bs2d.m_vertex.m_x[5];
-    }
-
-    private static void printMatrix(final Vertex v, int size, int nrhs) {
-        for (int i = 1; i <= size; ++i) {
-            for (int j = 1; j <= size; ++j) {
-                System.out.printf("%6.3f ", v.m_a[i][j]);
-            }
-            System.out.printf("  |  ");
-            for (int j = 1; j <= nrhs; ++j) {
-                System.out.printf("%6.3f ", v.m_b[i][j]);
-            }
-            System.out.printf("  |  ");
-            for (int j = 1; j <= nrhs; ++j) {
-                System.out.printf("%6.3f ", v.m_x[i][j]);
-            }
-        }
     }
 
 }

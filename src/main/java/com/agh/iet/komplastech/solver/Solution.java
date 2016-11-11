@@ -59,4 +59,7 @@ class Solution {
         return solution;
     }
 
+    public double[][] getRhs() {
+        return mRHS;
+    }
 }
