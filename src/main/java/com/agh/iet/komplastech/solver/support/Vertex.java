@@ -2,15 +2,16 @@ package com.agh.iet.komplastech.solver.support;
 
 public class Vertex {
 
+    private Vertex parent;
     public Vertex leftChild;
     public Vertex middleChild;
     public Vertex rightChild;
-    public Mesh mesh;
 
+    public Mesh mesh;
     public double[][] m_a;
     public double[][] m_b;
-    public double[][] m_x;
 
+    public double[][] m_x;
     public double beginning;
     public double ending;
 
@@ -31,6 +32,14 @@ public class Vertex {
 
     public static VertexBuilder aVertex() {
         return new VertexBuilder();
+    }
+
+    public void setParent(Vertex parent) {
+        this.parent = parent;
+    }
+
+    public Vertex getParent() {
+        return parent;
     }
 
     public static class VertexBuilder {

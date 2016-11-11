@@ -6,8 +6,8 @@ public class Main {
 
     public static void main(String[] args) {
         ProblemSolver s = new ProblemSolver(aMesh()
-                .withSizeX(12)
-                .withSizeY(12)
+                .withElementsX(12)
+                .withElementsY(12)
                 .withResolutionX(12d)
                 .withResolutionY(12d)
                 .withOrder(2).build());

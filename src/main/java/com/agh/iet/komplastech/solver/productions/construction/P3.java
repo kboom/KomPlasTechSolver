@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
+import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.productions.Production;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
@@ -20,33 +20,33 @@ public class P3 extends Production {
     }
 
     private void setLeftChild(Vertex node) {
-        node.setLeftChild(
-                aVertex()
-                        .withMesh(node.mesh)
-                        .withBeggining(node.beginning)
-                        .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
-                        .build()
-        );
+        Vertex leftChild = aVertex()
+                .withMesh(node.mesh)
+                .withBeggining(node.beginning)
+                .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
+                .build();
+        node.setLeftChild(leftChild);
+        leftChild.setParent(node);
     }
 
     private void setMiddleChild(Vertex node) {
-        node.setMiddleChild(
-                aVertex()
-                        .withMesh(node.mesh)
-                        .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
-                        .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
-                        .build()
-        );
+        Vertex middleChild = aVertex()
+                .withMesh(node.mesh)
+                .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
+                .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
+                .build();
+        node.setMiddleChild(middleChild);
+        middleChild.setParent(node);
     }
 
     private void setRightChild(Vertex node) {
-        node.setRightChild(
-                aVertex()
-                        .withMesh(node.mesh)
-                        .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
-                        .withEnding(node.ending)
-                        .build()
-        );
+        Vertex rightChild = aVertex()
+                .withMesh(node.mesh)
+                .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
+                .withEnding(node.ending)
+                .build();
+        node.setRightChild(rightChild);
+        rightChild.setParent(node);
     }
 
 }

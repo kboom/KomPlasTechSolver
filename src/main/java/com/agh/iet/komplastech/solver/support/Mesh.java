@@ -72,13 +72,13 @@ public class Mesh {
             return this;
         }
 
-        public MeshBuilder withSizeX(int sizeX) {
-            mesh.elementsX = sizeX;
+        public MeshBuilder withElementsX(int elementsX) {
+            mesh.elementsX = elementsX;
             return this;
         }
 
-        public MeshBuilder withSizeY(int sizeY) {
-            mesh.elementsY = sizeY;
+        public MeshBuilder withElementsY(int elementsY) {
+            mesh.elementsY = elementsY;
             return this;
         }
 

@@ -17,8 +17,8 @@ public class ProblemSolverTests {
     @Test
     public void solvesProblem() throws Exception {
         Mesh mesh = aMesh()
-                .withSizeX(12)
-                .withSizeY(12)
+                .withElementsX(12)
+                .withElementsY(12)
                 .withResolutionX(12d)
                 .withResolutionY(12d)
                 .withOrder(2).build();

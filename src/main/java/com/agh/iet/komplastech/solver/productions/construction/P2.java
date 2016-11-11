@@ -19,23 +19,23 @@ public class P2 extends Production {
     }
 
     private void setLeftChild(Vertex node) {
-        node.setLeftChild(
-                aVertex()
-                        .withMesh(node.mesh)
-                        .withBeggining(node.beginning)
-                        .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
-                        .build()
-        );
+        Vertex leftChild = aVertex()
+                .withMesh(node.mesh)
+                .withBeggining(node.beginning)
+                .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
+                .build();
+        node.setLeftChild(leftChild);
+        leftChild.setParent(node);
     }
 
     private void setRightChild(Vertex node) {
-        node.setRightChild(
-                aVertex()
-                        .withMesh(node.mesh)
-                        .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
-                        .withEnding(node.ending)
-                        .build()
-        );
+        Vertex rightChild = aVertex()
+                .withMesh(node.mesh)
+                .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
+                .withEnding(node.ending)
+                .build();
+        node.setRightChild(rightChild);
+        rightChild.setParent(node);
     }
 
 }

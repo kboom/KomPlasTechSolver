@@ -74,8 +74,17 @@ class ProblemSolver {
                 .createLauncherFor(p1)
                 .launchProductions();
 
+
+        
+
+
         P2 p2a = new P2(p1.m_vertex.leftChild, mesh);
         P2 p2b = new P2(p1.m_vertex.rightChild, mesh);
+
+
+
+
+
 
         launcherFactory
                 .createLauncherFor(p2a, p2b)
