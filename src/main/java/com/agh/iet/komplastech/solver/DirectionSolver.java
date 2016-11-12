@@ -39,7 +39,7 @@ class DirectionSolver {
         this.mesh = meshData;
     }
 
-    Solution solveInHorizontalDirection() {
+    Solution solve() {
         Vertex root = createRoot();
         lastLevelVertices = buildIntermediateLevels(root);
         leafLevelVertices = buildLeaves();
@@ -65,26 +65,24 @@ class DirectionSolver {
 
     private double[][] getRhs() {
         // fixed for now
-        double[][] rhs = new double[mesh.getElementsX() * 3 + mesh.getSplineOrder() + 1][];
-        Vertex a = leafLevelVertices.get(0);
-        Vertex b = leafLevelVertices.get(1);
-        Vertex c = leafLevelVertices.get(2);
-        Vertex d = leafLevelVertices.get(3);
+        double[][] rhs = new double[mesh.getElementsX() + mesh.getSplineOrder() + 1][];
 
-        rhs[1] = a.m_x[1];
-        rhs[2] = a.m_x[2];
-        rhs[3] = a.m_x[3];
-        rhs[4] = a.m_x[4];
-        rhs[5] = a.m_x[5];
-        rhs[6] = b.m_x[3];
-        rhs[7] = b.m_x[4];
-        rhs[8] = b.m_x[5];
-        rhs[9] = c.m_x[3];
-        rhs[10] = c.m_x[4];
-        rhs[11] = c.m_x[5];
-        rhs[12] = d.m_x[3];
-        rhs[13] = d.m_x[4];
-        rhs[14] = d.m_x[5];
+        int i = 0;
+        for(Vertex vertex : leafLevelVertices) {
+            if(i == 0) {
+                rhs[1] = vertex.m_x[1];
+                rhs[2] = vertex.m_x[2];
+                rhs[3] = vertex.m_x[3];
+                rhs[4] = vertex.m_x[4];
+                rhs[5] = vertex.m_x[5];
+            } else {
+                int offset = 6 + (i - 1) * 3;
+                rhs[offset] = vertex.m_x[3];
+                rhs[offset + 1] = vertex.m_x[4];
+                rhs[offset + 2] = vertex.m_x[5];
+            }
+            i++;
+        }
         return rhs;
     }
 

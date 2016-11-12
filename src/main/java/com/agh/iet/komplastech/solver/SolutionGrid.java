@@ -36,7 +36,7 @@ public class SolutionGrid {
             return 1;
         } else if (o1.getX() < o2.getX()) {
             return -1;
-        } else if (o1.getX() > o1.getX()) {
+        } else if (o1.getX() > o2.getX()) {
             return 1;
         } else return 0;
     };
