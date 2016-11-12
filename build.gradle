@@ -11,10 +11,18 @@ repositories {
 jar {
     baseName = 'komplastechsolver'
     version = '0.1.0'
+    manifest {
+        attributes 'Main-Class': 'com.agh.iet.komplastech.solver.Main'
+    }
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+task packageToSource(type: Copy) {
+    from 'build/distributions'
+    into 'dist'
+}
 
 dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
