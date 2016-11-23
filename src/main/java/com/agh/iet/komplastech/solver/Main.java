@@ -8,10 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
         TwoDimensionalProblemSolver s = new TwoDimensionalProblemSolver(aMesh()
-                .withElementsX(12)
-                .withElementsY(12)
-                .withResolutionX(12d)
-                .withResolutionY(12d)
+                .withElementsX(24)
+                .withElementsY(24)
+                .withResolutionX(24d)
+                .withResolutionY(24d)
                 .withOrder(2).build());
         try {
             Solution solution = s.solveProblem();

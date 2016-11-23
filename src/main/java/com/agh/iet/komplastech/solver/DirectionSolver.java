@@ -44,19 +44,74 @@ class DirectionSolver {
         lastLevelVertices = buildIntermediateLevels(root);
         leafLevelVertices = buildLeaves();
         initializeLeaves();
+
+
+        // ok up to here
+
+
         mergeLeaves();
+
+        System.out.println("LEAF MATRIX");
+        for(Vertex vertex : leafLevelVertices) {
+            printMatrix(vertex, 6, mesh.getDofsY());
+            System.out.println("----");
+        }
+        System.out.println("LEAF MATRIX");
+
+
         eliminateLeaves();
+
+        System.out.println("LEAF MATRIX ELIM");
+        for(Vertex vertex : leafLevelVertices) {
+            printMatrix(vertex, 6, mesh.getDofsY());
+            System.out.println("----");
+        }
+        System.out.println("LEAF MATRIX ELIM");
+
+
+
         factorizeTree();
         solveRoot(root);
+
+
+
         backwardSubstituteIntermediate(root);
         backwardSubstituteLeaves();
         return new Solution(mesh, getRhs());
+    }
+
+    private static void printMatrix(final Vertex v, int size, int nrhs) {
+        for (int i = 1; i <= size; ++i) {
+            for (int j = 1; j <= size; ++j) {
+                System.out.printf("%6.3f ", v.m_a[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_b[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_x[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     private void initializeLeaves() {
         launcherFactory
                 .createLauncherFor(leafInitializer.initializeLeaves(leafLevelVertices))
                 .launchProductions();
+
+        for(Vertex vertex : leafLevelVertices) {
+            printMatrix(vertex.leftChild, 3, mesh.getDofsY());
+            System.out.println();
+            printMatrix(vertex.middleChild, 3, mesh.getDofsY());
+            System.out.println();
+            printMatrix(vertex.rightChild, 3, mesh.getDofsY());
+            System.out.println();
+
+        }
+
     }
 
     private int log2(double value) {
@@ -67,22 +122,42 @@ class DirectionSolver {
         // fixed for now
         double[][] rhs = new double[mesh.getElementsX() + mesh.getSplineOrder() + 1][];
 
-        int i = 0;
-        for(Vertex vertex : leafLevelVertices) {
-            if(i == 0) {
-                rhs[1] = vertex.m_x[1];
-                rhs[2] = vertex.m_x[2];
-                rhs[3] = vertex.m_x[3];
-                rhs[4] = vertex.m_x[4];
-                rhs[5] = vertex.m_x[5];
-            } else {
-                int offset = 6 + (i - 1) * 3;
-                rhs[offset] = vertex.m_x[3];
-                rhs[offset + 1] = vertex.m_x[4];
-                rhs[offset + 2] = vertex.m_x[5];
+        // for 24 elements, rhs[8,14,20,26] = [ 0, 0, ..., 0 ], for 12 elements no such case
+
+        {
+            int i = 0;
+            for (Vertex vertex : leafLevelVertices) {
+                if (i == 0) {
+                    rhs[1] = vertex.m_x[1];
+                    rhs[2] = vertex.m_x[2];
+                    rhs[3] = vertex.m_x[3];
+                    rhs[4] = vertex.m_x[4];
+                    rhs[5] = vertex.m_x[5];
+                } else {
+                    int offset = 6 + (i - 1) * 3;
+                    rhs[offset] = vertex.m_x[3];
+                    rhs[offset + 1] = vertex.m_x[4];
+                    rhs[offset + 2] = vertex.m_x[5];
+                }
+                i++;
+
+
+
+
             }
-            i++;
+
         }
+
+
+        for (int i = 1; i <= mesh.getDofsX(); ++ i) {
+            for (int j = 1; j <= mesh.getDofsY(); ++ j) {
+                System.out.printf("%6.2f ", rhs[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println("---------");
+
         return rhs;
     }
 
@@ -147,6 +222,13 @@ class DirectionSolver {
                     )
                     .launchProductions();
 
+            System.out.println("INT MATRIX");
+            for(Vertex vertex : verticesAtLevel) {
+                printMatrix(vertex, 6, mesh.getDofsY());
+                System.out.println("----");
+            }
+            System.out.println("INT MATRIX");
+
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
@@ -154,6 +236,13 @@ class DirectionSolver {
                                     .collect(toList())
                     )
                     .launchProductions();
+
+            System.out.println("INT MATRIX ELIM");
+            for(Vertex vertex : verticesAtLevel) {
+                printMatrix(vertex, 6, mesh.getDofsY());
+                System.out.println("----");
+            }
+            System.out.println("INT MATRIX ELIM");
 
             verticesAtLevel = collectParents(verticesAtLevel);
         }
@@ -170,6 +259,12 @@ class DirectionSolver {
         launcherFactory
                 .createLauncherFor(eroot)
                 .launchProductions();
+
+
+        System.out.println("ROOT SOLUTION");
+        printMatrix(aroot.m_vertex, 4, mesh.getDofsY());
+        System.out.println("/ROOT SOLUTION END");
+
     }
 
     private List<Vertex> collectParents(List<Vertex> verticesAtLevel) {

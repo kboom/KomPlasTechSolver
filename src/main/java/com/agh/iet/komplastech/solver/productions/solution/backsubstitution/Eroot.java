@@ -9,6 +9,7 @@ public class Eroot extends PFEProduction {
     }
 
     public Vertex apply(Vertex T) {
+        System.out.println("Eroot");
         T = partial_forward_elimination(T, 6, 6, m_mesh.getDofsY());
         T = partial_backward_substitution(T, 6, 6, m_mesh.getDofsY());
 

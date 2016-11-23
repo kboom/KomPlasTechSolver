@@ -10,6 +10,7 @@ public class A2_3 extends Production {
     }
 
     public Vertex apply(Vertex T) {
+        System.out.println("A2_3");
         for (int i = 1; i <= 3; i++) {
             for (int j = 1; j <= 3; j++) {
                 T.m_a[i][j] += T.leftChild.m_a[i][j];

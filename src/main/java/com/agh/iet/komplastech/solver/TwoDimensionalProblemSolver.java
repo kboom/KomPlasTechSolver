@@ -22,11 +22,12 @@ class TwoDimensionalProblemSolver {
         DirectionSolver horizontalProblemSolver = new DirectionSolver(horizontalProductionFactory, horizontalLeafInitializer, mesh);
         Solution horizontalSolution = horizontalProblemSolver.solve();
 
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
-        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
-        DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, verticalLeafInitializer, mesh);
-
-        return verticalProblemSolver.solve();
+//        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
+//        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
+//        DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, verticalLeafInitializer, mesh);
+//
+//        return verticalProblemSolver.solve();
+        return horizontalSolution;
     }
 
 }
