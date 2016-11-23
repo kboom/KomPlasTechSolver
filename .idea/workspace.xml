@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="bumped version">
+    <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/KomPlasTechSolver.tar" afterPath="$PROJECT_DIR$/dist/KomPlasTechSolver.tar" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/KomPlasTechSolver.zip" afterPath="$PROJECT_DIR$/dist/KomPlasTechSolver.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java" />
     </list>
@@ -191,8 +193,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+            <state relative-caret-position="255">
+              <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -890,7 +892,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Gradle.KomPlasTechSolver [distZip]">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1495,7 +1497,7 @@
       <workItem from="1478808180003" duration="1233000" />
       <workItem from="1478850539710" duration="18423000" />
       <workItem from="1478939570148" duration="3238000" />
-      <workItem from="1479888003171" duration="3444000" />
+      <workItem from="1479888003171" duration="3984000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented integration test case.">
       <created>1477922706907</created>
@@ -1812,7 +1814,21 @@
       <option name="project" value="LOCAL" />
       <updated>1479891932770</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="hiding results">
+      <created>1479892411400</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1479892411400</updated>
+    </task>
+    <task id="LOCAL-00047" summary="bumped version">
+      <created>1479892498357</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1479892498358</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1848,7 +1864,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="54934000" />
+    <option name="totallyTimeSpent" value="55474000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1861,7 +1877,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3253012" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32409638" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32409638" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42409638" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1914,7 +1930,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="renamed vertex fields" />
     <MESSAGE value="execution package" />
     <MESSAGE value="solution grid" />
     <MESSAGE value="Moved caluculation of dx inside mesh class itself" />
@@ -1938,6 +1953,7 @@
     <MESSAGE value="Using CRLF line endings" />
     <MESSAGE value="Using CRLF line endings, bumped version" />
     <MESSAGE value="performance tests" />
+    <MESSAGE value="hiding results" />
     <MESSAGE value="bumped version" />
     <option name="LAST_COMMIT_MESSAGE" value="bumped version" />
   </component>
@@ -2364,8 +2380,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="21" column="9" selection-start-line="21" selection-start-column="9" selection-end-line="21" selection-end-column="9" />
+        <state relative-caret-position="255">
+          <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

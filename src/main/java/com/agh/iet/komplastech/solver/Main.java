@@ -34,7 +34,7 @@ public class Main {
             long startMillis = System.currentTimeMillis();
             Solution solution = s.solveProblem();
             long endMillis = System.currentTimeMillis();
-            System.out.println("Took (ms): " + (endMillis - startMillis));
+            System.out.print(endMillis - startMillis);
 
             if(args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
                 CsvPrinter csvPrinter = new CsvPrinter();
