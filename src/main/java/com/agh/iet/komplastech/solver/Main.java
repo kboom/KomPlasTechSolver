@@ -13,6 +13,8 @@ public class Main {
 
     public static void main(String[] args) {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
+        TimeLogger timeLogger = new TimeLogger();
+
         int problemSize = 12;
         if(args.length > 0) {
             problemSize = Integer.parseInt(args[PROBLEM_SIZE_INDEX]);
@@ -31,10 +33,13 @@ public class Main {
                 .withResolutionY(problemSize)
                 .withOrder(2).build());
         try {
-            long startMillis = System.currentTimeMillis();
-            Solution solution = s.solveProblem();
-            long endMillis = System.currentTimeMillis();
-            System.out.print(endMillis - startMillis);
+            Solution solution = s.solveProblem(timeLogger);
+            System.out.print(String.format("%d,%d,%d,%d",
+                    timeLogger.getTotalCreationMs(),
+                    timeLogger.getTotalInitializationMs(),
+                    timeLogger.getTotalFactorizationMs(),
+                    timeLogger.getTotalSolutionMs()
+            ));
 
             if(args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
                 CsvPrinter csvPrinter = new CsvPrinter();

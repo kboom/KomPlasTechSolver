@@ -27,7 +27,7 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
 
-        Solution solution = problemSolver.solveProblem();
+        Solution solution = problemSolver.solveProblem(timeLogger);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
     }
 
@@ -42,7 +42,7 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
 
-        Solution solution = problemSolver.solveProblem();
+        Solution solution = problemSolver.solveProblem(timeLogger);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));
     }
 

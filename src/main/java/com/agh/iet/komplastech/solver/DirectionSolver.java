@@ -41,17 +41,22 @@ class DirectionSolver {
         this.mesh = meshData;
     }
 
-    Solution solve() {
+    Solution solve(TimeLogger timeLogger) {
+        timeLogger.logCreation();
         Vertex root = createRoot();
         lastLevelVertices = buildIntermediateLevels(root);
         leafLevelVertices = buildLeaves();
+        timeLogger.logInitialization();
         initializeLeaves();
+        timeLogger.logFactorization();
         mergeLeaves();
         eliminateLeaves();
         factorizeTree();
         solveRoot(root);
+        timeLogger.logBackwardSubstitution();
         backwardSubstituteIntermediate(root);
         backwardSubstituteLeaves();
+        timeLogger.logSolution();
         return new Solution(mesh, getRhs());
     }
 
