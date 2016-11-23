@@ -25,16 +25,18 @@ class DirectionSolver {
 
     private final Mesh mesh;
 
-    private final ProductionExecutorFactory launcherFactory = new ProductionExecutorFactory();
+    private ProductionExecutorFactory launcherFactory;
 
     private ProductionFactory productionFactory;
 
     private LeafInitializer leafInitializer;
 
     DirectionSolver(ProductionFactory productionFactory,
+                    ProductionExecutorFactory launcherFactory,
                     LeafInitializer leafInitializer,
                     Mesh meshData) {
         this.productionFactory = productionFactory;
+        this.launcherFactory = launcherFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
     }

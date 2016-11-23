@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import org.junit.Test;
@@ -13,6 +14,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class ProblemSolverTests {
 
     private CsvPrinter csvPrinter = new CsvPrinter();
+    private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
 
     @Test
     public void solvesSmallerProblem() throws Exception {
@@ -23,7 +25,7 @@ public class ProblemSolverTests {
                 .withResolutionY(12d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(mesh);
+        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
 
         Solution solution = problemSolver.solveProblem();
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
@@ -38,7 +40,7 @@ public class ProblemSolverTests {
                 .withResolutionY(24d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(mesh);
+        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
 
         Solution solution = problemSolver.solveProblem();
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));

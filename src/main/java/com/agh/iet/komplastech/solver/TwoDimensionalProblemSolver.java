@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.initialization.HorizontalLeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.VerticalLeafInitializer;
@@ -12,19 +13,24 @@ class TwoDimensionalProblemSolver {
 
     private final Mesh mesh;
 
-    TwoDimensionalProblemSolver(Mesh meshData) {
+    private final ProductionExecutorFactory launcherFactory;
+
+    TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
+                                Mesh meshData) {
+        this.launcherFactory = launcherFactory;
         this.mesh = meshData;
     }
 
     Solution solveProblem() throws Exception {
         ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
         LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh);
-        DirectionSolver horizontalProblemSolver = new DirectionSolver(horizontalProductionFactory, horizontalLeafInitializer, mesh);
+
+        DirectionSolver horizontalProblemSolver = new DirectionSolver(horizontalProductionFactory, launcherFactory, horizontalLeafInitializer, mesh);
         Solution horizontalSolution = horizontalProblemSolver.solve();
 
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
-        DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, verticalLeafInitializer, mesh);
+        DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, launcherFactory, verticalLeafInitializer, mesh);
 
         return verticalProblemSolver.solve();
     }
