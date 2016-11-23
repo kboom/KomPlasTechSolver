@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="101ce4f4-e603-47f5-8c86-f9793467948b" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/dist/KomPlasTechSolver.zip" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/KomPlasTechSolver.tar" afterPath="$PROJECT_DIR$/dist/KomPlasTechSolver.tar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/KomPlasTechSolver.zip" afterPath="$PROJECT_DIR$/dist/KomPlasTechSolver.zip" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/big_problem_results.csv" afterPath="$PROJECT_DIR$/src/test/resources/big_problem_results.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/small_problem_results.csv" afterPath="$PROJECT_DIR$/src/test/resources/small_problem_results.csv" />
     </list>
     <ignored path="KomPlasTechSolver.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -164,74 +162,100 @@
       <file leaf-file-name="ProblemSolverTests.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ProblemSolverTests.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="42" column="111" selection-start-line="42" selection-start-column="111" selection-end-line="42" selection-end-column="111" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Solution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DirectionSolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="33" column="19" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="443">
+              <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SolutionGrid.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CsvPrinter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/CsvPrinter.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
-              <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
+              <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A.java">
+      <file leaf-file-name="TwoDimensionalProblemSolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TwoDimensionalProblemSolver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
-              <folding>
-                <element signature="e#1175#1176#0" expanded="true" />
-                <element signature="e#1208#1209#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="A1.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A1.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-              <folding>
-                <element signature="e#359#360#0" expanded="true" />
-                <element signature="e#392#393#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AN.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/AN.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="150">
+              <caret line="17" column="31" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="A1y.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/initialization/A1y.java">
+      <file leaf-file-name="ProductionExecutorFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="315">
+              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="big_problem_results.csv" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/big_problem_results.csv">
+      <file leaf-file-name="Executors.java" pinned="false" current-in-tab="false">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
+            <state relative-caret-position="-979">
+              <caret line="214" column="34" selection-start-line="214" selection-start-column="34" selection-end-line="214" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="small_problem_results.csv" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/small_problem_results.csv">
+      <file leaf-file-name="ProductionExecutor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+            <state relative-caret-position="102">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -592,7 +616,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P3.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/construction/P1y.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/MatrixPrinter.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalProductionFactory.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java" />
@@ -604,21 +627,22 @@
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SingleDirectionSolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/VerticalLeafInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/ProblemSolver.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TwoDimensionalProblemSolver.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/initialization/LeafInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/initialization/HorizontalLeafInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/initialization/VerticalLeafInitializer.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/support/Vertex.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java" />
-        <option value="$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ProblemSolverTests.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java" />
         <option value="$PROJECT_DIR$/plots/vistri.m" />
         <option value="$PROJECT_DIR$/plots/sample3.csv" />
-        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java" />
         <option value="$PROJECT_DIR$/plots/sample96.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/big_problem_results.csv" />
         <option value="$PROJECT_DIR$/src/test/resources/small_problem_results.csv" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TwoDimensionalProblemSolver.java" />
+        <option value="$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ProblemSolverTests.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java" />
       </list>
     </option>
   </component>
@@ -783,41 +807,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="productions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KomPlasTechSolver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KomPlasTechSolver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="solver" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="productions" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="initialization" />
+              <option name="myItemId" value="execution" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -890,6 +880,7 @@
       <recent name="com.agh.iet.komplastech.solver.productions.solution" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dist" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
@@ -900,7 +891,7 @@
       <recent name="$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.KomPlasTechSolver [distTar]">
+  <component name="RunManager" selected="Gradle.KomPlasTechSolver [distZip]">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -909,9 +900,9 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="com.agh.iet.komplastech.solver.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="12 1" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
@@ -919,32 +910,6 @@
       <option name="PASS_PARENT_ENVS" value="true" />
       <module name="KomPlasTechSolver_main" />
       <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="ProblemSolverTests.solvesSmallerProblem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.agh.iet.komplastech.solver.constants.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="KomPlasTechSolver_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.agh.iet.komplastech.solver" />
-      <option name="MAIN_CLASS_NAME" value="com.agh.iet.komplastech.solver.ProblemSolverTests" />
-      <option name="METHOD_NAME" value="solvesSmallerProblem" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
       <method />
     </configuration>
     <configuration default="false" name="KomPlasTechSolver [distTar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -999,6 +964,32 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="false" name="ProblemSolverTests.solvesSmallerProblem" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.agh.iet.komplastech.solver.constants.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="KomPlasTechSolver_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="com.agh.iet.komplastech.solver" />
+      <option name="MAIN_CLASS_NAME" value="com.agh.iet.komplastech.solver.ProblemSolverTests" />
+      <option name="METHOD_NAME" value="solvesSmallerProblem" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
       <method />
     </configuration>
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -1462,18 +1453,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Main" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.ProblemSolverTests.solvesSmallerProblem" />
-      <item index="2" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distTar]" />
-      <item index="3" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [installDist]" />
-      <item index="4" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distZip]" />
+      <item index="1" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distTar]" />
+      <item index="2" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [installDist]" />
+      <item index="3" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distZip]" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.ProblemSolverTests.solvesSmallerProblem" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distZip]" />
-        <item index="1" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [installDist]" />
-        <item index="2" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distTar]" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.ProblemSolverTests.solvesSmallerProblem" />
-        <item index="4" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Main" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.ProblemSolverTests.solvesSmallerProblem" />
+        <item index="2" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distZip]" />
+        <item index="3" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [installDist]" />
+        <item index="4" class="java.lang.String" itemvalue="Gradle.KomPlasTechSolver [distTar]" />
       </list>
     </recent_temporary>
   </component>
@@ -1505,7 +1496,7 @@
       <workItem from="1478808180003" duration="1233000" />
       <workItem from="1478850539710" duration="18423000" />
       <workItem from="1478939570148" duration="3238000" />
-      <workItem from="1479888003171" duration="350000" />
+      <workItem from="1479888003171" duration="3180000" />
     </task>
     <task id="LOCAL-00001" summary="Implemented integration test case.">
       <created>1477922706907</created>
@@ -1801,13 +1792,24 @@
       <option name="project" value="LOCAL" />
       <updated>1478945639058</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Using CRLF line endings, bumped version">
+      <created>1479888368099</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1479888368099</updated>
+    </task>
+    <task id="LOCAL-00044" summary="performance tests">
+      <created>1479891839608</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1479891839609</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ProblemSolverTests - 2016.11.12 at 10h 44m 40s.xml">
-      <configuration name="ProblemSolverTests" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="ProblemSolverTests_solvesBiggerProblem - 2016.11.12 at 10h 27m 20s.xml">
       <configuration name="ProblemSolverTests.solvesBiggerProblem" configurationId="JUnit" />
     </history-entry>
@@ -1835,9 +1837,12 @@
     <history-entry file="ProblemSolverTests_solvesSmallerProblem - 2016.11.23 at 09h 01m 34s.xml">
       <configuration name="ProblemSolverTests.solvesSmallerProblem" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ProblemSolverTests_solvesSmallerProblem - 2016.11.23 at 09h 19m 01s.xml">
+      <configuration name="ProblemSolverTests.solvesSmallerProblem" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51840000" />
+    <option name="totallyTimeSpent" value="54670000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1850,9 +1855,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3253012" sideWeight="0.5028612" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32409638" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32409638" sideWeight="0.49713877" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42409638" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25751072" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1903,8 +1908,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactoring production A" />
-    <MESSAGE value="refactoring other initialization productions" />
     <MESSAGE value="removed unused production" />
     <MESSAGE value="renamed vertex fields" />
     <MESSAGE value="execution package" />
@@ -1928,35 +1931,31 @@
     <MESSAGE value="Added plots." />
     <MESSAGE value="trimesh visualization" />
     <MESSAGE value="Using CRLF line endings" />
-    <option name="LAST_COMMIT_MESSAGE" value="Using CRLF line endings" />
+    <MESSAGE value="Using CRLF line endings, bumped version" />
+    <MESSAGE value="performance tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="performance tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java</url>
-          <line>85</line>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java</url>
+          <line>28</line>
           <properties />
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java</url>
-          <line>40</line>
+          <url>file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java</url>
+          <line>18</line>
           <properties />
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java</url>
-          <line>22</line>
-          <properties />
-          <option name="timeStamp" value="26" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
       <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception">
+        <breakpoint type="java-exception">
           <properties>
             <option name="class-filters-enabled" value="true" />
             <class-filters>
@@ -1965,7 +1964,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="28" />
+      <option name="time" value="33" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1974,20 +1973,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/solution/factorization/Aroot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/productions/solution/factorization/Agen.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="24" column="15" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/support/Mesh.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="400">
@@ -2013,13 +1998,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="328">
           <caret line="291" column="25" selection-start-line="291" selection-start-column="25" selection-end-line="291" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="19" column="68" selection-start-line="19" selection-start-column="68" selection-end-line="19" selection-end-column="68" />
         </state>
       </provider>
     </entry>
@@ -2199,52 +2177,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TwoDimensionalProblemSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/internal/runners/model/ReflectiveCallable.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/CsvPrinter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2280,16 +2216,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/plots/sample96.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -2319,8 +2245,8 @@
         <state relative-caret-position="75">
           <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
           <folding>
-            <element signature="e#359#360#0" expanded="true" />
-            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="false" />
+            <element signature="e#392#393#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2330,17 +2256,9 @@
         <state relative-caret-position="76">
           <caret line="23" column="11" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
           <folding>
-            <element signature="e#1175#1176#0" expanded="true" />
-            <element signature="e#1208#1209#0" expanded="true" />
+            <element signature="e#1175#1176#0" expanded="false" />
+            <element signature="e#1208#1209#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ProblemSolverTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2354,9 +2272,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/resources/small_problem_results.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="16" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
+        <state relative-caret-position="375">
+          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/DirectionSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/TwoDimensionalProblemSolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="17" column="31" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_101.jdk/Contents/Home/src.zip!/java/util/concurrent/Executors.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-979">
+          <caret line="214" column="34" selection-start-line="214" selection-start-column="34" selection-end-line="214" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/agh/iet/komplastech/solver/ProblemSolverTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="42" column="111" selection-start-line="42" selection-start-column="111" selection-end-line="42" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Solution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/results/CsvPrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/SolutionGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/execution/ProductionExecutorFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/agh/iet/komplastech/solver/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="32" column="19" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
