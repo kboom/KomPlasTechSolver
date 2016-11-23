@@ -9,6 +9,7 @@ public class Main {
 
     private static final int PROBLEM_SIZE_INDEX = 0;
     private static final int AVAILABLE_THREADS_INDEX = 1;
+    private static final int LOG_RESULTS = 2;
 
     public static void main(String[] args) {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -35,8 +36,10 @@ public class Main {
             long endMillis = System.currentTimeMillis();
             System.out.println("Took (ms): " + (endMillis - startMillis));
 
-            CsvPrinter csvPrinter = new CsvPrinter();
-            System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
+            if(args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
+                CsvPrinter csvPrinter = new CsvPrinter();
+                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
