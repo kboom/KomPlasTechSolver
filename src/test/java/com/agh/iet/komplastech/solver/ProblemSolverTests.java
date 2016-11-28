@@ -15,6 +15,7 @@ public class ProblemSolverTests {
 
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
+    private TimeLogger timeLogger = new TimeLogger();
 
     @Test
     public void solvesSmallerProblem() throws Exception {

@@ -20,7 +20,6 @@ public class A2_2 extends Production {
                 T.m_b[i + 2][j] += T.rightChild.m_b[i + 1][j];
             }
         }
-        // exchange 1st,2nd and 3rd,4rd rows and columns
         swapDofs(1, 3, 6, T.mesh.getDofsY());
         swapDofs(2, 4, 6, T.mesh.getDofsY());
         return T;
