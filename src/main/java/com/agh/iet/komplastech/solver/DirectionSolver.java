@@ -15,7 +15,7 @@ import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
-class DirectionSolver {
+public class DirectionSolver {
 
     private static final int ROOT_LEVEL_HEIGHT = 1;
     private static final int LEAF_LEVEL_HEIGHT = 1;
@@ -80,7 +80,7 @@ class DirectionSolver {
         return new Solution(mesh, getRhs());
     }
 
-    private static void printMatrix(final Vertex v, int size, int nrhs) {
+    public static void printMatrix(final Vertex v, int size, int nrhs) {
         for (int i = 1; i <= size; ++i) {
             for (int j = 1; j <= size; ++j) {
                 System.out.printf("%6.3f ", v.m_a[i][j]);
@@ -169,21 +169,47 @@ class DirectionSolver {
                                 .collect(toList())
                 )
                 .launchProductions();
+
+        System.out.println("LEAF BS");
+        for(Vertex vertex : leafLevelVertices) {
+            printMatrix(vertex, 6, mesh.getDofsY());
+            System.out.println("----");
+        }
+        System.out.println("LEAF BS");
+
     }
 
     private void backwardSubstituteIntermediate(Vertex root) {
         List<Vertex> verticesAtLevel = root.getChildren();
-        for (int level = 0; level < getIntermediateLevelsCount(); level++) {
+
+        for (int level = 0; level < getIntermediateLevelsCount() - 1; level++) {
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
-                                    -> productionFactory.backwardSubstituteIntermediateProduction(vertex))
+                                    -> productionFactory.backwardSubstituteUpProduction(vertex))
                                     .collect(toList())
                     )
                     .launchProductions();
 
             verticesAtLevel = collectChildren(verticesAtLevel);
+
+            System.out.println("INT BS");
+            for(Vertex vertex : verticesAtLevel) {
+                printMatrix(vertex, 6, mesh.getDofsY());
+                System.out.println("----");
+            }
+            System.out.println("INT BS");
+
         }
+
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.backwardSubstituteIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
     }
 
     private List<Vertex> collectChildren(List<Vertex> parents) {
@@ -213,11 +239,34 @@ class DirectionSolver {
     private void factorizeTree() {
         List<Vertex> verticesAtLevel = lastLevelVertices;
 
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.mergeIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.eliminateIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
+        verticesAtLevel = collectParents(verticesAtLevel);
+
+
+
+
+
+
         while (verticesAtLevel.size() > 1) {
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
-                                    -> productionFactory.mergeIntermediateProduction(vertex))
+                                    -> productionFactory.mergeUpProduction(vertex))
                                     .collect(toList())
                     )
                     .launchProductions();
@@ -255,15 +304,19 @@ class DirectionSolver {
                 .createLauncherFor(aroot)
                 .launchProductions();
 
+        System.out.println("ROOT SOLUTION");
+        printMatrix(aroot.m_vertex, 6, mesh.getDofsY());
+        System.out.println("/ROOT SOLUTION END");
+
         Production eroot = productionFactory.backwardSubstituteProduction(root);
         launcherFactory
                 .createLauncherFor(eroot)
                 .launchProductions();
 
 
-        System.out.println("ROOT SOLUTION");
-        printMatrix(aroot.m_vertex, 4, mesh.getDofsY());
-        System.out.println("/ROOT SOLUTION END");
+        System.out.println("ROOT SOLUTION ELIM");
+        printMatrix(aroot.m_vertex, 6, mesh.getDofsY());
+        System.out.println("/ROOT SOLUTION ELIM END");
 
     }
 

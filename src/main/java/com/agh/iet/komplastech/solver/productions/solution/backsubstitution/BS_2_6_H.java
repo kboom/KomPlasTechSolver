@@ -4,8 +4,9 @@ import com.agh.iet.komplastech.solver.DirectionSolver;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-public class Eroot extends PFEProduction {
-    public Eroot(Vertex Vert, Mesh Mesh) {
+public class BS_2_6_H extends PFEProduction {
+
+    public BS_2_6_H(Vertex Vert, Mesh Mesh) {
         super(Vert, Mesh);
     }
 

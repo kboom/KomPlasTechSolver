@@ -8,6 +8,7 @@ import com.agh.iet.komplastech.solver.productions.initialization.A1;
 import com.agh.iet.komplastech.solver.productions.initialization.AN;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
+import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -72,8 +73,18 @@ public class HorizontalProductionFactory implements ProductionFactory {
     }
 
     @Override
+    public Production backwardSubstituteUpProduction(Vertex vertex) {
+        return new BS_2_6_H(vertex, mesh);
+    }
+
+    @Override
     public Production backwardSubstituteLeavesProduction(Vertex vertex) {
         return new BS_1_5(vertex, mesh);
+    }
+
+    @Override
+    public Production mergeUpProduction(Vertex vertex) {
+        return new A2_2_H(vertex, mesh);
     }
 
 }
