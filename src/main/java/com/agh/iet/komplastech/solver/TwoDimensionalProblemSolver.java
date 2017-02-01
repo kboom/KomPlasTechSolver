@@ -28,7 +28,7 @@ class TwoDimensionalProblemSolver {
         DirectionSolver horizontalProblemSolver = new DirectionSolver(horizontalProductionFactory, launcherFactory, horizontalLeafInitializer, mesh);
         Solution horizontalSolution = horizontalProblemSolver.solve(timeLogger);
 
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh);
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
         DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, launcherFactory, verticalLeafInitializer, mesh);
 
