@@ -16,6 +16,8 @@ public interface ProductionFactory {
 
     Production mergeIntermediateProduction(Vertex vertex);
 
+    Production mergeUpProduction(Vertex vertex);
+
     Production eliminateIntermediateProduction(Vertex vertex);
 
     Production rootSolverProduction(Vertex vertex);
@@ -23,6 +25,8 @@ public interface ProductionFactory {
     Production backwardSubstituteProduction(Vertex vertex);
 
     Production backwardSubstituteIntermediateProduction(Vertex vertex);
+
+    Production backwardSubstituteUpProduction(Vertex vertex);
 
     Production backwardSubstituteLeavesProduction(Vertex vertex);
 

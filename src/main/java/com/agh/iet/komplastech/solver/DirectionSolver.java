@@ -15,7 +15,7 @@ import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
-class DirectionSolver {
+public class DirectionSolver {
 
     private static final int ROOT_LEVEL_HEIGHT = 1;
     private static final int LEAF_LEVEL_HEIGHT = 1;
@@ -58,6 +58,23 @@ class DirectionSolver {
         backwardSubstituteLeaves();
         timeLogger.logSolution();
         return new Solution(mesh, getRhs());
+    }
+
+    public static void printMatrix(final Vertex v, int size, int nrhs) {
+        for (int i = 1; i <= size; ++i) {
+            for (int j = 1; j <= size; ++j) {
+                System.out.printf("%6.3f ", v.m_a[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_b[i][j]);
+            }
+            System.out.printf("  |  ");
+            for (int j = 1; j <= nrhs; ++j) {
+                System.out.printf("%6.3f ", v.m_x[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     private void initializeLeaves() {
@@ -105,17 +122,27 @@ class DirectionSolver {
 
     private void backwardSubstituteIntermediate(Vertex root) {
         List<Vertex> verticesAtLevel = root.getChildren();
-        for (int level = 0; level < getIntermediateLevelsCount(); level++) {
+
+        for (int level = 0; level < getIntermediateLevelsCount() - 1; level++) {
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
-                                    -> productionFactory.backwardSubstituteIntermediateProduction(vertex))
+                                    -> productionFactory.backwardSubstituteUpProduction(vertex))
                                     .collect(toList())
                     )
                     .launchProductions();
 
             verticesAtLevel = collectChildren(verticesAtLevel);
         }
+
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.backwardSubstituteIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
     }
 
     private List<Vertex> collectChildren(List<Vertex> parents) {
@@ -145,11 +172,34 @@ class DirectionSolver {
     private void factorizeTree() {
         List<Vertex> verticesAtLevel = lastLevelVertices;
 
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.mergeIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
+        launcherFactory
+                .createLauncherFor(
+                        verticesAtLevel.stream().map(vertex
+                                -> productionFactory.eliminateIntermediateProduction(vertex))
+                                .collect(toList())
+                )
+                .launchProductions();
+
+        verticesAtLevel = collectParents(verticesAtLevel);
+
+
+
+
+
+
         while (verticesAtLevel.size() > 1) {
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
-                                    -> productionFactory.mergeIntermediateProduction(vertex))
+                                    -> productionFactory.mergeUpProduction(vertex))
                                     .collect(toList())
                     )
                     .launchProductions();
