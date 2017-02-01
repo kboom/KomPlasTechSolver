@@ -23,7 +23,7 @@ public class Solution {
         mRHS = rhs;
     }
 
-    SolutionGrid getSolutionGrid() {
+    public SolutionGrid getSolutionGrid() {
         double Dx = mesh.getDx();
         double Dy = mesh.getDy();
         double x = -Dx / 2;
@@ -41,7 +41,7 @@ public class Solution {
         return solutionGrid;
     }
 
-    private double getValue(double x, double y) {
+    public double getValue(double x, double y) {
         int ielemx = (int) (x / mesh.getDx()) + 1;
         int ielemy = (int) (y / mesh.getDy()) + 1;
         double localx = x - mesh.getDx() * (ielemx - 1);

@@ -56,7 +56,7 @@ public class Main {
 
             ChartFrame plot = new ChartFrame(aChart()
                     .withMapper(fromSolution(solution))
-                    .withSquareRange(new Range(0, problemSize))
+                    .withSquareRange(new Range(0, problemSize - 1))
                     .withSteps(problemSize).build());
             plot.setVisible(true);
 
