@@ -11,9 +11,7 @@ public class BS_2_6_H extends PFEProduction {
     }
 
     public Vertex apply(Vertex T) {
-        System.out.println("Eroot");
         T = partial_forward_elimination(T, 6, 6, m_mesh.getDofsY());
-        DirectionSolver.printMatrix(T, 6, m_mesh.getDofsY());
         T = partial_backward_substitution(T, 6, 6, m_mesh.getDofsY());
 
         for (int i = 1; i <= 4; i++) {

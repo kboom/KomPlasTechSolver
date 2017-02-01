@@ -9,7 +9,6 @@ public class E2_2_6 extends PFEProduction {
     }
 
     public Vertex apply(Vertex T) {
-        System.out.println("E2_2_6");
         T = partial_forward_elimination(T, 2, 6, m_mesh.getDofsY());
         return T;
     }
