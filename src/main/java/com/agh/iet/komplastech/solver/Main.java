@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
+import com.agh.iet.komplastech.solver.results.visualization.PlotIn3D;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
@@ -50,6 +51,9 @@ public class Main {
         }
 
         productionExecutorFactory.joinAll();
+
+        PlotIn3D plot = new PlotIn3D();
+        plot.open();
 
     }
 

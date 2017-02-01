@@ -6,6 +6,9 @@ mainClassName = 'com.agh.iet.komplastech.solver.Main'
 
 repositories {
     mavenCentral()
+    maven {
+        url 'http://maven.jzy3d.org/releases'
+    }
 }
 
 jar {
@@ -25,11 +28,12 @@ task packageToSource(type: Copy) {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/commons-io/commons-io
+    compile 'org.jzy3d:jzy3d-api:0.9.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
-// https://mvnrepository.com/artifact/log4j/log4j
+    compile "org.jogamp.gluegen:gluegen-rt:2.2.4"
+    compile "org.jogamp.jogl:jogl-all:2.2.4"
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
 
-    testCompile "junit:junit:4.12"
+    testCompile "junit:junt:4.12"
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
 }
