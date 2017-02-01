@@ -53,11 +53,11 @@ public class Main {
                 System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
 
 
-                ChartFrame plot = new ChartFrame(aChart()
-                        .withMapper(fromSolution(solution))
-                        .withSquareRange(new Range(0, problemSize - 1))
-                        .withSteps(problemSize).build());
-                plot.setVisible(true);
+//                ChartFrame plot = new ChartFrame(aChart()
+//                        .withMapper(fromSolution(solution))
+//                        .withSquareRange(new Range(0, problemSize - 1))
+//                        .withSteps(problemSize).build());
+//                plot.setVisible(true);
             }
 
         } catch (Exception e) {
