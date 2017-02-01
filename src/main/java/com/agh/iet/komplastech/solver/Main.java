@@ -2,9 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.ChartBuilder;
 import com.agh.iet.komplastech.solver.results.visualization.ChartFrame;
-import com.agh.iet.komplastech.solver.results.visualization.SolutionMapper;
 import org.jzy3d.maths.Range;
 
 import static com.agh.iet.komplastech.solver.results.visualization.ChartBuilder.aChart;
@@ -47,18 +45,20 @@ public class Main {
                     timeLogger.getTotalSolutionMs()
             ));
 
-            if(args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
-                CsvPrinter csvPrinter = new CsvPrinter();
-                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
-            }
 
             productionExecutorFactory.joinAll();
 
-            ChartFrame plot = new ChartFrame(aChart()
-                    .withMapper(fromSolution(solution))
-                    .withSquareRange(new Range(0, problemSize - 1))
-                    .withSteps(problemSize).build());
-            plot.setVisible(true);
+            if(args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
+                CsvPrinter csvPrinter = new CsvPrinter();
+                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
+
+
+                ChartFrame plot = new ChartFrame(aChart()
+                        .withMapper(fromSolution(solution))
+                        .withSquareRange(new Range(0, problemSize - 1))
+                        .withSteps(problemSize).build());
+                plot.setVisible(true);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
