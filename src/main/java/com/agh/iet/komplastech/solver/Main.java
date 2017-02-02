@@ -3,6 +3,7 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.ChartFrame;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import org.jzy3d.maths.Range;
 
 import static com.agh.iet.komplastech.solver.results.visualization.ChartBuilder.aChart;
@@ -28,14 +29,19 @@ public class Main {
         }
 
 
-        TwoDimensionalProblemSolver s = new TwoDimensionalProblemSolver(
-                productionExecutorFactory,
-                aMesh()
+        Mesh mesh = aMesh()
                 .withElementsX(problemSize)
                 .withElementsY(problemSize)
                 .withResolutionX(problemSize)
                 .withResolutionY(problemSize)
-                .withOrder(2).build());
+                .withOrder(2).build();
+
+        TwoDimensionalProblemSolver s = new TwoDimensionalProblemSolver(
+                productionExecutorFactory,
+                mesh,
+                new ConsoleSolutionLogger(mesh)
+        );
+
         try {
             Solution solution = s.solveProblem(timeLogger);
             System.out.print(String.format("%d,%d,%d,%d",

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
+import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
@@ -31,14 +32,18 @@ public class DirectionSolver {
 
     private LeafInitializer leafInitializer;
 
+    private SolutionLogger solutionLogger;
+
     DirectionSolver(ProductionFactory productionFactory,
                     ProductionExecutorFactory launcherFactory,
                     LeafInitializer leafInitializer,
-                    Mesh meshData) {
+                    Mesh meshData,
+                    SolutionLogger solutionLogger) {
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
+        this.solutionLogger = solutionLogger;
     }
 
     Solution solve(TimeLogger timeLogger) {
@@ -64,6 +69,8 @@ public class DirectionSolver {
         launcherFactory
                 .createLauncherFor(leafInitializer.initializeLeaves(leafLevelVertices))
                 .launchProductions();
+
+        solutionLogger.logValuesOfChildren(leafLevelVertices, "Initializing leaves");
     }
 
     private int log2(double value) {
@@ -101,12 +108,14 @@ public class DirectionSolver {
                                 .collect(toList())
                 )
                 .launchProductions();
+
+        solutionLogger.logMatrixValues(leafLevelVertices, "Backwards substituting leaves");
     }
 
     private void backwardSubstituteIntermediate(Vertex root) {
         List<Vertex> verticesAtLevel = root.getChildren();
 
-        for (int level = 0; level < getIntermediateLevelsCount() - 1; level++) {
+        for (int level = 1; level < getIntermediateLevelsCount(); level++) {
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
@@ -114,6 +123,8 @@ public class DirectionSolver {
                                     .collect(toList())
                     )
                     .launchProductions();
+
+            solutionLogger.logMatrixValues(verticesAtLevel, format("Backward substituting at (%d)", level));
 
             verticesAtLevel = collectChildren(verticesAtLevel);
         }
@@ -125,6 +136,8 @@ public class DirectionSolver {
                                 .collect(toList())
                 )
                 .launchProductions();
+
+        solutionLogger.logMatrixValues(verticesAtLevel, "Backward substituting one up the leaves");
 
     }
 
@@ -163,6 +176,8 @@ public class DirectionSolver {
                 )
                 .launchProductions();
 
+        solutionLogger.logMatrixValues(verticesAtLevel, "Merging one level up the leaves");
+
         launcherFactory
                 .createLauncherFor(
                         verticesAtLevel.stream().map(vertex
@@ -173,10 +188,7 @@ public class DirectionSolver {
 
         verticesAtLevel = collectParents(verticesAtLevel);
 
-
-
-
-
+        solutionLogger.logMatrixValues(verticesAtLevel, "Eliminating one level up the leaves");
 
         while (verticesAtLevel.size() > 1) {
             launcherFactory
@@ -187,13 +199,19 @@ public class DirectionSolver {
                     )
                     .launchProductions();
 
+            solutionLogger.logMatrixValues(verticesAtLevel,
+                    format("Merging intermediate (%f)", Math.log(verticesAtLevel.size())));
+
             launcherFactory
                     .createLauncherFor(
                             verticesAtLevel.stream().map(vertex
-                                    -> productionFactory.eliminateIntermediateProduction(vertex))
+                                    -> productionFactory.eliminateIntermediateProduction(vertex)) // todo is this a bug? Should be the same?
                                     .collect(toList())
                     )
                     .launchProductions();
+
+            solutionLogger.logMatrixValues(verticesAtLevel,
+                    format("Eliminating intermediate (%f)", Math.log(verticesAtLevel.size())));
 
             verticesAtLevel = collectParents(verticesAtLevel);
         }
@@ -206,21 +224,14 @@ public class DirectionSolver {
                 .createLauncherFor(aroot)
                 .launchProductions();
 
+        solutionLogger.logMatrixValuesAt(root, "Merging  root");
+
         Production eroot = productionFactory.backwardSubstituteProduction(root);
         launcherFactory
                 .createLauncherFor(eroot)
                 .launchProductions();
-    }
 
-    private List<Vertex> collectParents(List<Vertex> verticesAtLevel) {
-        List<Vertex> parentVertices = new ArrayList<>();
-        for (Vertex vertex : verticesAtLevel) {
-            Vertex parentVertex = vertex.getParent();
-            if (!parentVertices.contains(parentVertex)) {
-                parentVertices.add(parentVertex);
-            }
-        }
-        return parentVertices;
+        solutionLogger.logMatrixValuesAt(root, "Eliminating  root");
     }
 
     private void mergeLeaves() {
@@ -229,6 +240,8 @@ public class DirectionSolver {
                         -> productionFactory.mergeLeavesProduction(vertex))
                         .collect(toList()))
                 .launchProductions();
+
+        solutionLogger.logMatrixValues(leafLevelVertices, "Merging leaves");
     }
 
     private void eliminateLeaves() {
@@ -237,6 +250,8 @@ public class DirectionSolver {
                         -> productionFactory.eliminateLeavesProduction(vertex))
                         .collect(toList()))
                 .launchProductions();
+
+        solutionLogger.logMatrixValues(leafLevelVertices, "Eliminating leaves");
     }
 
     private List<Vertex> buildIntermediateLevels(Vertex root) {
@@ -260,13 +275,10 @@ public class DirectionSolver {
             launcherFactory
                     .createLauncherFor(newLevelProductions)
                     .launchProductions();
+
         }
 
         return previousLevelVertices;
-    }
-
-    private int getIntermediateLevelsCount() {
-        return log2(2 * mesh.getElementsX() / 3) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
     }
 
     private List<Vertex> buildLeaves() {
@@ -284,6 +296,21 @@ public class DirectionSolver {
                 .launchProductions();
 
         return leafInitializationProductions.stream().map(production -> production.m_vertex).collect(Collectors.toList());
+    }
+
+    private int getIntermediateLevelsCount() {
+        return log2(2 * mesh.getElementsX() / 3) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
+    }
+
+    private List<Vertex> collectParents(List<Vertex> verticesAtLevel) {
+        List<Vertex> parentVertices = new ArrayList<>();
+        for (Vertex vertex : verticesAtLevel) {
+            Vertex parentVertex = vertex.getParent();
+            if (!parentVertices.contains(parentVertex)) {
+                parentVertices.add(parentVertex);
+            }
+        }
+        return parentVertices;
     }
 
 }

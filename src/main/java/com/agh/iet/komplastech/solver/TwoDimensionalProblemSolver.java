@@ -15,22 +15,38 @@ class TwoDimensionalProblemSolver {
 
     private final ProductionExecutorFactory launcherFactory;
 
+    private final SolutionLogger solutionLogger;
+
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
-                                Mesh meshData) {
+                                Mesh meshData,
+                                SolutionLogger solutionLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
+        this.solutionLogger = solutionLogger;
     }
 
     Solution solveProblem(TimeLogger timeLogger) throws Exception {
         ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
         LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh);
 
-        DirectionSolver horizontalProblemSolver = new DirectionSolver(horizontalProductionFactory, launcherFactory, horizontalLeafInitializer, mesh);
+        DirectionSolver horizontalProblemSolver = new DirectionSolver(
+                horizontalProductionFactory,
+                launcherFactory,
+                horizontalLeafInitializer,
+                mesh,
+                solutionLogger
+        );
         Solution horizontalSolution = horizontalProblemSolver.solve(timeLogger);
 
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh);
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
-        DirectionSolver verticalProblemSolver = new DirectionSolver(verticalProductionFactory, launcherFactory, verticalLeafInitializer, mesh);
+        DirectionSolver verticalProblemSolver = new DirectionSolver(
+                verticalProductionFactory,
+                launcherFactory,
+                verticalLeafInitializer,
+                mesh,
+                solutionLogger
+        );
 
         return verticalProblemSolver.solve(timeLogger);
     }
