@@ -11,6 +11,8 @@ public class BS_2_6_H extends PFEProduction {
 
     public Vertex apply(Vertex T) {
         T = partial_backward_substitution(T, 2, 6, m_mesh.getDofsY());
+        swapDofs(1, 3, 6, T.mesh.getDofsY());
+        swapDofs(2, 4, 6, T.mesh.getDofsY());
 
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= T.mesh.getDofsY(); j++) {
