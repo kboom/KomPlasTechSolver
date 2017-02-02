@@ -13,6 +13,8 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ProblemSolverTests {
 
+    private static final SolutionLogger DUMMY_SOLUTION_LOGGER = new NoopSolutionLogger();
+
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
     private TimeLogger timeLogger = new TimeLogger();
@@ -26,7 +28,7 @@ public class ProblemSolverTests {
                 .withResolutionY(12d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
+        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh, DUMMY_SOLUTION_LOGGER);
 
         Solution solution = problemSolver.solveProblem(timeLogger);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
@@ -41,7 +43,7 @@ public class ProblemSolverTests {
                 .withResolutionY(24d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh);
+        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh, DUMMY_SOLUTION_LOGGER);
 
         Solution solution = problemSolver.solveProblem(timeLogger);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));
