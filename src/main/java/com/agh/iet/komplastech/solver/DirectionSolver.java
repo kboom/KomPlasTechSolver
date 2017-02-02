@@ -186,9 +186,10 @@ public class DirectionSolver {
                 )
                 .launchProductions();
 
+        solutionLogger.logMatrixValues(verticesAtLevel, "Eliminating one level up the leaves");
+
         verticesAtLevel = collectParents(verticesAtLevel);
 
-        solutionLogger.logMatrixValues(verticesAtLevel, "Eliminating one level up the leaves");
 
         while (verticesAtLevel.size() > 1) {
             launcherFactory

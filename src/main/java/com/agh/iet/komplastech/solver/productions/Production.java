@@ -16,17 +16,11 @@ public abstract class Production {
     // returns first vertex from the left
     public abstract Vertex apply(Vertex v);
 
-    // solveProblem the thread
     public void run() {
-        // apply the production
         m_vertex = apply(m_vertex);
     }
 
-    // vertex where the production will be applied
     public Vertex m_vertex;
-    // productions counter
-    public CyclicBarrier m_barrier;
-    // mesh data
     public Mesh m_mesh;
 
     protected void swapDofs(int a, int b, int size, int nrhs) {
