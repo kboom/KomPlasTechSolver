@@ -3,7 +3,11 @@ package com.agh.iet.komplastech.solver.results.visualization;
 import com.agh.iet.komplastech.solver.SolutionsInTime;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.ANIMATION_DISPLAY;
 import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.SNAPSHOT;
@@ -18,7 +22,7 @@ public class TimeLapseViewer extends JFrame {
     private JSlider frameSlider;
     private ChartFrame chartView;
 
-    private volatile DisplayState displayState = ANIMATION_DISPLAY;
+    private volatile DisplayState displayState = SNAPSHOT;
 
     private Thread animationThread;
 
@@ -83,13 +87,39 @@ public class TimeLapseViewer extends JFrame {
     private void buildChart() {
         chartView = new ChartFrame(surfaceFactory);
         getContentPane().add(chartView, BorderLayout.CENTER);
-        addButton("test");
+        getContentPane().add(addButton("toggle animation", this::toggleAnimation), BorderLayout.NORTH);
         pack();
     }
 
-    private void addButton(String text) {
-        JButton button = new JButton(text);
-        getContentPane().add(button, BorderLayout.NORTH);
+    private void toggleAnimation(ActionEvent e) {
+        JToggleButton button = (JToggleButton) e.getSource();
+        boolean selected = button.isSelected();
+        if(selected) {
+            startAnimation();
+        } else {
+            stopAnimation();
+        }
+    }
+
+    private void startAnimation() {
+        displayState = DisplayState.ANIMATION_DISPLAY;
+        animationThread.start();
+    }
+
+    private void stopAnimation() {
+        displayState = DisplayState.STOPPING;
+        try {
+            animationThread.join();
+            displayState = DisplayState.SNAPSHOT;
+        } catch (InterruptedException e1) {
+            throw new IllegalStateException(e1);
+        }
+    }
+
+    private JToggleButton addButton(String text, ActionListener changeListener) {
+        JToggleButton button = new JToggleButton(text);
+        button.addActionListener(changeListener);
+        return button;
     }
 
     private void animate() {
@@ -110,17 +140,11 @@ public class TimeLapseViewer extends JFrame {
                 }
             }
         });
-        animationThread.start();
     }
 
     public void close() {
-        try {
-            displayState = DisplayState.STOPPING;
-            animationThread.join();
-            System.exit(0);
-        } catch (InterruptedException e) {
-
-        }
+        stopAnimation();
+        System.exit(0);
     }
 
 }
