@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
+import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import org.junit.Test;

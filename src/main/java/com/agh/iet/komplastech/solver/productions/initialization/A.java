@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.RightHandSide;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
 import com.agh.iet.komplastech.solver.productions.Production;
@@ -20,9 +20,9 @@ public class A extends Production {
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
 
-    private final RightHandSide rhs;
+    private final Problem rhs;
 
-    public A(Vertex node, Mesh mesh, RightHandSide rhs) {
+    public A(Vertex node, Mesh mesh, Problem rhs) {
         super(node, mesh);
         this.rhs = rhs;
     }

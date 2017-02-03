@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.initialization;
 
-import com.agh.iet.komplastech.solver.RightHandSide;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.initialization.A;
 import com.agh.iet.komplastech.solver.productions.initialization.A1;
@@ -15,9 +15,9 @@ public class HorizontalLeafInitializer implements LeafInitializer {
 
     private Mesh mesh;
 
-    private RightHandSide rhs;
+    private Problem rhs;
 
-    public HorizontalLeafInitializer(Mesh mesh, RightHandSide rhs) {
+    public HorizontalLeafInitializer(Mesh mesh, Problem rhs) {
         this.mesh = mesh;
         this.rhs = rhs;
     }

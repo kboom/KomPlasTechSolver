@@ -1,10 +1,10 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.logger;
 
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 import java.util.Collection;
 
-interface SolutionLogger {
+public interface SolutionLogger {
 
     void logMatrixValues(Iterable<Vertex> vertices, String comment);
 

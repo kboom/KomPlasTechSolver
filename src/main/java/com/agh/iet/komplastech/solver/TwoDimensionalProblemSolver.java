@@ -4,6 +4,8 @@ import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.initialization.HorizontalLeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.VerticalLeafInitializer;
+import com.agh.iet.komplastech.solver.logger.SolutionLogger;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
@@ -30,7 +32,7 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(RightHandSide rhs) {
+    public Solution solveProblem(Problem rhs) {
         ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
         LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
 

@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.logger;
 
 import com.agh.iet.komplastech.solver.support.Vertex;
 

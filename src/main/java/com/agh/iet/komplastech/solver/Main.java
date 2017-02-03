@@ -1,6 +1,9 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
+import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
+import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.ChartFrame;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -55,13 +58,13 @@ public class Main {
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
 
                 @Override
-                double getInitialValue(double x, double y) {
+                protected double getInitialValue(double x, double y) {
                     double dist = (x - 6) * (x - 6) + (y - 6) * (y - 6);
                     return dist < 3 ? 4.0 - dist : 0;
                 }
 
                 @Override
-                double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
+                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
                     double value = currentSolution.getValue(x, y);
                     return value + delta * currentSolution.getLaplacian(x, y);
                 }

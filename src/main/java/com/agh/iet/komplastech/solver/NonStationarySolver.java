@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+
 import static com.agh.iet.komplastech.solver.SolutionsInTime.solutionsInTime;
 
 class NonStationarySolver {

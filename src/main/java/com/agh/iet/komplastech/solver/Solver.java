@@ -1,7 +1,9 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.problem.Problem;
+
 public interface Solver {
 
-    Solution solveProblem(RightHandSide rightHandSide);
+    Solution solveProblem(Problem problem);
 
 }

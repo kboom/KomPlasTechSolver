@@ -1,11 +1,13 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.problem;
 
-abstract class NonStationaryProblem implements RightHandSide {
+import com.agh.iet.komplastech.solver.Solution;
+
+public abstract class NonStationaryProblem implements Problem {
 
     private double delta;
     private Solution currentSolution;
 
-    NonStationaryProblem(double delta) {
+    public NonStationaryProblem(double delta) {
         this.delta = delta;
     }
 
@@ -20,7 +22,7 @@ abstract class NonStationaryProblem implements RightHandSide {
                 getValueAtTime(x, y, currentSolution, delta);
     }
 
-    abstract double getInitialValue(double x, double y);
-    abstract double getValueAtTime(double x, double y, Solution currentSolution, double delta);
+    protected abstract double getInitialValue(double x, double y);
+    protected abstract double getValueAtTime(double x, double y, Solution currentSolution, double delta);
 
 }

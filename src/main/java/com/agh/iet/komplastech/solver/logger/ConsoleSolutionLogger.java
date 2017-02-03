@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver;
+package com.agh.iet.komplastech.solver.logger;
 
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-class ConsoleSolutionLogger implements SolutionLogger {
+public class ConsoleSolutionLogger implements SolutionLogger {
 
     private final Mesh mesh;
 

@@ -2,6 +2,8 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
+import com.agh.iet.komplastech.solver.logger.SolutionLogger;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -51,7 +53,7 @@ public class DirectionSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(RightHandSide rightHandSide) {
+    public Solution solveProblem(Problem problem) {
         timeLogger.logCreation();
         Vertex root = createRoot();
         lastLevelVertices = buildIntermediateLevels(root);
