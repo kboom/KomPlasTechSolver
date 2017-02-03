@@ -21,6 +21,8 @@ public abstract class Spline {
 
     protected abstract double getFunctionValue(double x);
 
+    public abstract double getSecondDerivativeValueAt(double x);
+
     private boolean belongsToDomain(double x) {
         return x >= lowerDomainBound && x <= upperDomainBound;
     }

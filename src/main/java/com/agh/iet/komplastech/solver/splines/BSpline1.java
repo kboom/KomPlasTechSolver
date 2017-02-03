@@ -10,4 +10,9 @@ public class BSpline1 extends Spline {
         return 0.5 * x * x;
     }
 
+    @Override
+    public double getSecondDerivativeValueAt(double x) {
+        return x < 0 || x > 1 ? 0 : 1.0;
+    }
+
 }
