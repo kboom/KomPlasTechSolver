@@ -4,7 +4,6 @@ import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.controllers.mouse.camera.AWTCameraMouseController;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
 import org.jzy3d.chart.factories.IChartComponentFactory;
-import org.jzy3d.plot3d.primitives.*;
 import org.jzy3d.plot3d.primitives.Shape;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
@@ -15,12 +14,12 @@ class ChartFrame extends JPanel {
 
     private static final Dimension PREFERRED_SIZE = new Dimension(600, 600);
 
-    private final ChartManager chartManager;
+    private final SurfaceFactory surfaceFactory;
 
     private Chart chart;
 
-    ChartFrame(ChartManager chartManager) {
-        this.chartManager = chartManager;
+    ChartFrame(SurfaceFactory surfaceFactory) {
+        this.surfaceFactory = surfaceFactory;
         initialize();
     }
 
@@ -41,9 +40,10 @@ class ChartFrame extends JPanel {
         addMouseWheelListener(controller);
     }
 
-    public void redraw() {
-        Shape newSurface = chartManager.createSurface();
+    void redraw() {
+        Shape newSurface = surfaceFactory.createSurface();
         chart.getScene().getGraph().getAll().clear();
         chart.getScene().getGraph().add(newSurface);
     }
+
 }

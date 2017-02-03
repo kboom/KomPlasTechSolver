@@ -5,24 +5,44 @@ import com.agh.iet.komplastech.solver.SolutionsInTime;
 import javax.swing.*;
 import java.awt.*;
 
+import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.ANIMATION_DISPLAY;
 import static com.agh.iet.komplastech.solver.results.visualization.SolutionMapper.fromSolution;
 
 public class TimeLapseViewer extends JFrame {
 
     private final SolutionsInTime solutionsInTime;
     private final SolutionMapper solutionMapper;
-    private ChartManager chartManager;
+    private SurfaceFactory surfaceFactory;
 
     private JSlider frameSlider;
     private ChartFrame chartView;
 
+    private volatile DisplayState displayState = ANIMATION_DISPLAY;
+
+    private Thread animationThread;
+
     public TimeLapseViewer(SolutionsInTime solutionsInTime) {
         this.solutionsInTime = solutionsInTime;
         solutionMapper = fromSolution(solutionsInTime);
-        chartManager = new ChartManager(solutionMapper, solutionsInTime);
+        surfaceFactory = new SurfaceFactory(solutionMapper, solutionsInTime);
         initialize();
         initializeSlider();
         animate();
+        handleClose();
+    }
+
+    private void handleClose() {
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(TimeLapseViewer.this,
+                        "Are you sure to close this window?", "Really Closing?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    close();
+                }
+            }
+        });
     }
 
     private void initializeSlider() {
@@ -57,11 +77,23 @@ public class TimeLapseViewer extends JFrame {
         redrawFrame();
     }
 
+    private void buildChart() {
+        chartView = new ChartFrame(surfaceFactory);
+        getContentPane().add(chartView, BorderLayout.CENTER);
+        addButton("test");
+        pack();
+    }
+
+    private void addButton(String text) {
+        JButton button = new JButton(text);
+        getContentPane().add(button, BorderLayout.NORTH);
+    }
+
     private void animate() {
-        new Thread(() -> {
+        animationThread = new Thread(() -> {
             final int timeStepCount = solutionsInTime.getTimeStepCount();
             int timeStep = 0;
-            while(true) {
+            while(displayState == ANIMATION_DISPLAY) {
                 if(timeStep >= timeStepCount) {
                     timeStep = 0;
                 }
@@ -74,19 +106,18 @@ public class TimeLapseViewer extends JFrame {
 
                 }
             }
-        }).start();
+        });
+        animationThread.start();
     }
 
-    private void buildChart() {
-        chartView = new ChartFrame(chartManager);
-        getContentPane().add(chartView, BorderLayout.CENTER);
-        addButton("test");
-        pack();
-    }
+    public void close() {
+        try {
+            displayState = DisplayState.SNAPSHOT;
+            animationThread.join();
+            System.exit(0);
+        } catch (InterruptedException e) {
 
-    private void addButton(String text) {
-        JButton button = new JButton(text);
-        getContentPane().add(button, BorderLayout.NORTH);
+        }
     }
 
 }
