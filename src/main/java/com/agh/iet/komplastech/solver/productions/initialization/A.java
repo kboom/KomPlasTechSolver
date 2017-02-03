@@ -19,10 +19,12 @@ public class A extends Production {
     private static final Spline spline1 = new BSpline1();
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
-    private static final RightHandSide rhs = new RightHandSide();
 
-    public A(Vertex node, Mesh mesh) {
+    private final RightHandSide rhs;
+
+    public A(Vertex node, Mesh mesh, RightHandSide rhs) {
         super(node, mesh);
+        this.rhs = rhs;
     }
 
     public Vertex apply(Vertex node) {

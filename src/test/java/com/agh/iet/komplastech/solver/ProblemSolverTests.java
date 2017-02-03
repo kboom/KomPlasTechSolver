@@ -14,10 +14,10 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class ProblemSolverTests {
 
     private static final SolutionLogger DUMMY_SOLUTION_LOGGER = new NoopSolutionLogger();
+    private static final TimeLogger DUMMY_TIME_LOGGER = new TimeLogger();
 
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
-    private TimeLogger timeLogger = new TimeLogger();
 
     @Test
     public void solvesSmallerProblem() throws Exception {
@@ -28,9 +28,9 @@ public class ProblemSolverTests {
                 .withResolutionY(12d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh, DUMMY_SOLUTION_LOGGER);
+        TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem(timeLogger);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
     }
 
@@ -43,10 +43,19 @@ public class ProblemSolverTests {
                 .withResolutionY(24d)
                 .withOrder(2).build();
 
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(productionExecutorFactory, mesh, DUMMY_SOLUTION_LOGGER);
+        TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem(timeLogger);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));
+    }
+
+    private TwoDimensionalProblemSolver createSolver(Mesh mesh) {
+        return new TwoDimensionalProblemSolver(
+                productionExecutorFactory,
+                mesh,
+                DUMMY_SOLUTION_LOGGER,
+                DUMMY_TIME_LOGGER
+        );
     }
 
     private String readTestFile(String path) throws Exception {

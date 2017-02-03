@@ -24,7 +24,7 @@ public class ATest {
     @Test
     public void fillsWithQuadraturePoints() {
         Vertex leafNode = aVertex().withMesh(DUMMY_MESH).build();
-        A a = new A(leafNode, DUMMY_MESH);
+        A a = new A(leafNode, DUMMY_MESH, (x, y) -> x + y);
         a.apply(leafNode);
         assertThat(deepToString(leafNode.m_b)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +

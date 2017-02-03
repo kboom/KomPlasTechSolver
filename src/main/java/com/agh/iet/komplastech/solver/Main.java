@@ -39,11 +39,13 @@ public class Main {
         TwoDimensionalProblemSolver s = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
-                new ConsoleSolutionLogger(mesh)
+                new ConsoleSolutionLogger(mesh),
+                timeLogger
         );
 
         try {
-            Solution solution = s.solveProblem(timeLogger);
+            Solution solution = s.solveProblem((x, y) -> x + y);
+
             System.out.print(String.format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),

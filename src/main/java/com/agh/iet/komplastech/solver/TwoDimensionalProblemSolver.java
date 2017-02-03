@@ -17,17 +17,21 @@ class TwoDimensionalProblemSolver {
 
     private final SolutionLogger solutionLogger;
 
+    private final TimeLogger timeLogger;
+
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
-                                SolutionLogger solutionLogger) {
+                                SolutionLogger solutionLogger,
+                                TimeLogger timeLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
+        this.timeLogger = timeLogger;
         this.solutionLogger = solutionLogger;
     }
 
-    Solution solveProblem(TimeLogger timeLogger) throws Exception {
+    Solution solveProblem(RightHandSide rhs) throws Exception {
         ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
-        LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh);
+        LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
 
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 horizontalProductionFactory,

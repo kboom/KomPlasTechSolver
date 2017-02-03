@@ -1,13 +1,14 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.RightHandSide;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class A1 extends A {
-    public A1(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+    public A1(Vertex Vert, Mesh Mesh, RightHandSide rhs) {
+        super(Vert, Mesh, rhs);
     }
 
 //    public Vertex apply(Vertex node) {
