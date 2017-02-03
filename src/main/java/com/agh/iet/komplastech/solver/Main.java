@@ -5,12 +5,9 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.ChartFrame;
+import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import org.jzy3d.maths.Range;
 
-import static com.agh.iet.komplastech.solver.results.visualization.ChartBuilder.aChart;
-import static com.agh.iet.komplastech.solver.results.visualization.SolutionMapper.fromSolution;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
 public class Main {
@@ -52,7 +49,7 @@ public class Main {
 
         try {
             NonStationarySolver nonStationarySolver =
-                    new NonStationarySolver(timeStepCount, delta, problemSolver);
+                    new NonStationarySolver(timeStepCount, delta, problemSolver, mesh);
 
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
@@ -87,11 +84,8 @@ public class Main {
                 CsvPrinter csvPrinter = new CsvPrinter();
                 System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
 
-                ChartFrame plot = new ChartFrame(aChart()
-                        .withMapper(fromSolution(solution))
-                        .withSquareRange(new Range(0, problemSize - 1))
-                        .withSteps(problemSize).build());
-                plot.setVisible(true);
+                TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
+                timeLapseViewer.setVisible(true);
             }
 
         } catch (Exception e) {

@@ -6,22 +6,24 @@ import org.jzy3d.chart.controllers.mouse.camera.AWTCameraMouseController;
 import javax.swing.*;
 import java.awt.*;
 
-public class ChartFrame extends JFrame {
+class ChartFrame extends JPanel {
+
+    private static final Dimension PREFERRED_SIZE = new Dimension(600, 600);
 
     private final Chart chart;
 
-    public ChartFrame(Chart chart) {
+    ChartFrame(Chart chart) {
         this.chart = chart;
         initialize();
     }
 
     private void initialize() {
-        setTitle("Simple example");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        add((Component) chart.getCanvas());
-        setSize(800, 800);
-        setLocationRelativeTo(null);
-        setTitle("test");
+        Component canvas = (Component) chart.getCanvas();
+        canvas.setPreferredSize(PREFERRED_SIZE);
+        add(canvas);
+        setVisible(true);
+        setPreferredSize(PREFERRED_SIZE);
+        canvas.setBounds(getBounds());
         AWTCameraMouseController controller = new AWTCameraMouseController(chart);
         addMouseListener(controller);
         addMouseMotionListener(controller);

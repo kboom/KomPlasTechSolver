@@ -1,23 +1,22 @@
 package com.agh.iet.komplastech.solver.results.visualization;
 
-import com.agh.iet.komplastech.solver.Solution;
-import org.jzy3d.plot3d.builder.Mapper;
+import com.agh.iet.komplastech.solver.SolutionsInTime;
 
-public class SolutionMapper extends Mapper {
+public class SolutionMapper extends ParameterizedMapper {
 
-    private final Solution solution;
+    private final SolutionsInTime solutionsInTime;
 
-    public SolutionMapper(Solution solution) {
-        this.solution = solution;
+    public SolutionMapper(SolutionsInTime solutionsInTime) {
+        this.solutionsInTime = solutionsInTime;
     }
 
     @Override
-    public double f(double x, double y) {
-        return solution.getValue(x, y);
+    protected double fAtTimeStep(double x, double y, int timeStep) {
+        return solutionsInTime.getSolutionAt(timeStep).getValue(x, y);
     }
 
-    public static SolutionMapper fromSolution(Solution solution) {
-        return new SolutionMapper(solution);
+    public static SolutionMapper fromSolution(SolutionsInTime solutionsInTime) {
+        return new SolutionMapper(solutionsInTime);
     }
 
 }
