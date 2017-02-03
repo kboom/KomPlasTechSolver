@@ -1,26 +1,29 @@
 package com.agh.iet.komplastech.solver.results.visualization;
 
 import com.agh.iet.komplastech.solver.SolutionsInTime;
+import org.jzy3d.chart.Chart;
 import org.jzy3d.maths.Range;
 
 import javax.swing.*;
 
 import java.awt.*;
 
-import static com.agh.iet.komplastech.solver.results.visualization.ChartBuilder.aChart;
+import static com.agh.iet.komplastech.solver.results.visualization.SurfaceBuilder.aSurface;
 import static com.agh.iet.komplastech.solver.results.visualization.SolutionMapper.fromSolution;
 
 public class TimeLapseViewer extends JFrame {
 
     private final SolutionsInTime solutionsInTime;
     private final SolutionMapper solutionMapper;
-    private JSlider frameSlider;
+    private ChartManager chartManager;
 
-    private ChartFrame plot;
+    private JSlider frameSlider;
+    private ChartFrame chartView;
 
     public TimeLapseViewer(SolutionsInTime solutionsInTime) {
         this.solutionsInTime = solutionsInTime;
         solutionMapper = fromSolution(solutionsInTime);
+        chartManager = new ChartManager(solutionMapper, solutionsInTime);
         initialize();
         initializeSlider();
     }
@@ -43,7 +46,7 @@ public class TimeLapseViewer extends JFrame {
     }
 
     private void redrawFrame() {
-        plot.redraw();
+        chartView.redraw();
     }
 
     private void initialize() {
@@ -53,15 +56,13 @@ public class TimeLapseViewer extends JFrame {
         setLocationRelativeTo(null);
         setTitle("test");
         setLayout(new BorderLayout());
-        showFrame();
+        buildChart();
+        redrawFrame();
     }
 
-    private void showFrame() {
-        plot = new ChartFrame(aChart()
-                .withMapper(solutionMapper)
-                .withSquareRange(new Range(0, solutionsInTime.getProblemSize() - 1))
-                .withSteps(solutionsInTime.getProblemSize()).build());
-        getContentPane().add(plot, BorderLayout.CENTER);
+    private void buildChart() {
+        chartView = new ChartFrame(chartManager);
+        getContentPane().add(chartView, BorderLayout.CENTER);
         addButton("test");
         pack();
     }
