@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.ANIMATION_DISPLAY;
+import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.SNAPSHOT;
 import static com.agh.iet.komplastech.solver.results.visualization.SolutionMapper.fromSolution;
 
 public class TimeLapseViewer extends JFrame {
@@ -53,11 +54,13 @@ public class TimeLapseViewer extends JFrame {
         frameSlider.setPaintLabels(true);
         frameSlider.setVisible(true);
         frameSlider.addChangeListener((e) -> {
-//            JSlider source = (JSlider) e.getSource();
-//            if(!source.getValueIsAdjusting()) {
-//                solutionMapper.setStep(source.getValue());
-//                redrawFrame();
-//            }
+            if(displayState == SNAPSHOT) {
+                JSlider source = (JSlider) e.getSource();
+                if(!source.getValueIsAdjusting()) {
+                    solutionMapper.setStep(source.getValue());
+                    redrawFrame();
+                }
+            }
         });
         getContentPane().add(frameSlider, BorderLayout.SOUTH);
     }
@@ -112,7 +115,7 @@ public class TimeLapseViewer extends JFrame {
 
     public void close() {
         try {
-            displayState = DisplayState.SNAPSHOT;
+            displayState = DisplayState.STOPPING;
             animationThread.join();
             System.exit(0);
         } catch (InterruptedException e) {
