@@ -9,6 +9,7 @@ import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static java.lang.Math.log;
 
 public class Main {
 
@@ -52,12 +53,15 @@ public class Main {
                     new NonStationarySolver(timeStepCount, delta, problemSolver, mesh);
 
 
+            int finalProblemSize = problemSize;
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
 
                 @Override
                 protected double getInitialValue(double x, double y) {
-                    double dist = (x - 6) * (x - 6) + (y - 6) * (y - 6);
-                    return dist < 3 ? 4.0 - dist : 0;
+                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
+                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
+
+                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
                 }
 
                 @Override

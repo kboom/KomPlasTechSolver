@@ -15,6 +15,7 @@ public class Mesh {
     private int dofsX;
 
     private int dofsY;
+    private int centerY;
 
     private Mesh() {}
 
@@ -56,6 +57,14 @@ public class Mesh {
 
     public static MeshBuilder aMesh() {
         return new MeshBuilder();
+    }
+
+    public int getCenterX() {
+        return elementsX / 2;
+    }
+
+    public int getCenterY() {
+        return elementsY / 2;
     }
 
     public static class MeshBuilder {
