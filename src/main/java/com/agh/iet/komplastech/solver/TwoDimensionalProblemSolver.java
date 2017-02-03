@@ -9,7 +9,7 @@ import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
-class TwoDimensionalProblemSolver {
+class TwoDimensionalProblemSolver implements Solver {
 
     private final Mesh mesh;
 
@@ -29,7 +29,8 @@ class TwoDimensionalProblemSolver {
         this.solutionLogger = solutionLogger;
     }
 
-    Solution solveProblem(RightHandSide rhs) throws Exception {
+    @Override
+    public Solution solveProblem(RightHandSide rhs) {
         ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
         LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
 
@@ -38,9 +39,10 @@ class TwoDimensionalProblemSolver {
                 launcherFactory,
                 horizontalLeafInitializer,
                 mesh,
-                solutionLogger
+                solutionLogger,
+                timeLogger
         );
-        Solution horizontalSolution = horizontalProblemSolver.solve(timeLogger);
+        Solution horizontalSolution = horizontalProblemSolver.solveProblem(rhs);
 
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh);
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
@@ -49,10 +51,11 @@ class TwoDimensionalProblemSolver {
                 launcherFactory,
                 verticalLeafInitializer,
                 mesh,
-                solutionLogger
+                solutionLogger,
+                timeLogger
         );
 
-        return verticalProblemSolver.solve(timeLogger);
+        return verticalProblemSolver.solveProblem(rhs);
     }
 
 }

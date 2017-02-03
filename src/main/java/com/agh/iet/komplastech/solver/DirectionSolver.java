@@ -16,7 +16,7 @@ import static java.lang.String.format;
 import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
-public class DirectionSolver {
+public class DirectionSolver implements Solver {
 
     private static final int ROOT_LEVEL_HEIGHT = 1;
     private static final int LEAF_LEVEL_HEIGHT = 1;
@@ -34,19 +34,24 @@ public class DirectionSolver {
 
     private SolutionLogger solutionLogger;
 
+    private TimeLogger timeLogger;
+
     DirectionSolver(ProductionFactory productionFactory,
                     ProductionExecutorFactory launcherFactory,
                     LeafInitializer leafInitializer,
                     Mesh meshData,
-                    SolutionLogger solutionLogger) {
+                    SolutionLogger solutionLogger,
+                    TimeLogger timeLogger) {
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
         this.solutionLogger = solutionLogger;
+        this.timeLogger = timeLogger;
     }
 
-    Solution solve(TimeLogger timeLogger) {
+    @Override
+    public Solution solveProblem(RightHandSide rightHandSide) {
         timeLogger.logCreation();
         Vertex root = createRoot();
         lastLevelVertices = buildIntermediateLevels(root);

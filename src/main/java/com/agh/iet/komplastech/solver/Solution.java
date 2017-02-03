@@ -62,4 +62,9 @@ public class Solution {
     public double[][] getRhs() {
         return mRHS;
     }
+
+    public double getLaplacian(double x, double y) {
+        return 0;
+    }
+
 }
