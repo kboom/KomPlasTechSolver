@@ -1,100 +1,13 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
-import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
-import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
-import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
-import com.agh.iet.komplastech.solver.support.Mesh;
-
-import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
-import static java.lang.Math.log;
+import com.beust.jcommander.JCommander;
 
 public class Main {
 
-    private static final int PROBLEM_SIZE_INDEX = 0;
-    private static final int AVAILABLE_THREADS_INDEX = 1;
-    private static final int LOG_RESULTS = 2;
-
     public static void main(String[] args) {
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
-        TimeLogger timeLogger = new TimeLogger();
-
-        int problemSize = 12;
-        if (args.length > 0) {
-            problemSize = Integer.parseInt(args[PROBLEM_SIZE_INDEX]);
-        }
-        if (args.length > 1) {
-            productionExecutorFactory.setAvailableThreads(Integer.parseInt(args[AVAILABLE_THREADS_INDEX]));
-        }
-
-        final double delta = 0.0001;
-        final int timeStepCount = 100;
-        final boolean isLogging = false;
-
-
-        Mesh mesh = aMesh()
-                .withElementsX(problemSize)
-                .withElementsY(problemSize)
-                .withResolutionX(problemSize)
-                .withResolutionY(problemSize)
-                .withOrder(2).build();
-
-        TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
-                productionExecutorFactory,
-                mesh,
-                isLogging ? new ConsoleSolutionLogger(mesh) : new NoopSolutionLogger(),
-                timeLogger
-        );
-
-        try {
-            NonStationarySolver nonStationarySolver =
-                    new NonStationarySolver(timeStepCount, delta, problemSolver, mesh);
-
-
-            int finalProblemSize = problemSize;
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
-
-                @Override
-                protected double getInitialValue(double x, double y) {
-                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
-
-                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
-                }
-
-                @Override
-                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-                    double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getLaplacian(x, y);
-                }
-
-            });
-
-            productionExecutorFactory.joinAll();
-
-            System.out.print(String.format("%d,%d,%d,%d",
-                    timeLogger.getTotalCreationMs(),
-                    timeLogger.getTotalInitializationMs(),
-                    timeLogger.getTotalFactorizationMs(),
-                    timeLogger.getTotalSolutionMs()
-            ));
-
-
-            Solution solution = solutionsInTime.getFinalSolution();
-
-            if (args.length > 2 && Boolean.parseBoolean(args[LOG_RESULTS])) {
-                CsvPrinter csvPrinter = new CsvPrinter();
-                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
-
-                TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
-                timeLapseViewer.setVisible(true);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        SolverLauncher solverLauncher = new SolverLauncher();
+        new JCommander(solverLauncher, args);
+        solverLauncher.launch();
     }
 
 }
