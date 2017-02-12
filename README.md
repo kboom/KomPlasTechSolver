@@ -15,6 +15,31 @@ Command line arguments are:
 5. **--delta** / **-d** => time step (0.001 by default)
 6. **--steps** / **-o** => number of time steps to run simulation for (100 by default)
 
+
+### Solving different problem
+
+Code can be easily modified to solve a different problem. Only the following piece of code from *SolverLauncher* class should be replaced with values specific to the new problem:
+
+```java
+SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+
+      @Override
+      protected double getInitialValue(double x, double y) {
+          double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
+                  + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
+
+          return dist < finalProblemSize ? finalProblemSize - dist : 0;
+      }
+
+      @Override
+      protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
+          double value = currentSolution.getValue(x, y);
+          return value + delta * currentSolution.getLaplacian(x, y);
+      }
+
+})
+```
+
 ### Contact & More information
 
 [http://home.agh.edu.pl/~paszynsk/](http://home.agh.edu.pl/~paszynsk/)
