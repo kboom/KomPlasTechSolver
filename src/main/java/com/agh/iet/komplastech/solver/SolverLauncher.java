@@ -8,20 +8,13 @@ import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
-import com.beust.jcommander.internal.Lists;
 import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.client.config.ClientConfig;
-import com.hazelcast.client.config.ClientNetworkConfig;
-import com.hazelcast.config.DiscoveryConfig;
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
-import static java.util.Arrays.asList;
 
 class SolverLauncher {
 
