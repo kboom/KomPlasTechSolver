@@ -3,10 +3,11 @@ package com.agh.iet.komplastech.solver.productions;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
+import java.io.Serializable;
 import java.util.concurrent.CyclicBarrier;
 
 
-public abstract class Production {
+public abstract class Production implements Serializable {
 
     public Production(Vertex Vert, Mesh Mesh) {
         m_vertex = Vert;

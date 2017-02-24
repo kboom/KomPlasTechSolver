@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.support;
 
-public class Mesh {
+import java.io.Serializable;
+
+public class Mesh implements Serializable {
 
     private double resolutionX;
 
@@ -15,6 +17,7 @@ public class Mesh {
     private int dofsX;
 
     private int dofsY;
+
     private int centerY;
 
     private Mesh() {}

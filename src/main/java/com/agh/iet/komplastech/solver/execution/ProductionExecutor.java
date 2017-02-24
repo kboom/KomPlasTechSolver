@@ -1,8 +1,11 @@
 package com.agh.iet.komplastech.solver.execution;
 
 import com.agh.iet.komplastech.solver.productions.Production;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.HazelcastInstanceAware;
 import org.apache.log4j.Logger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,16 +20,16 @@ public class ProductionExecutor {
 
     private List<Production> productionsToExecute = new ArrayList<>();
 
-    private ExecutorService threadPoolExecutor;
+    private ExecutorService executor;
 
-    ProductionExecutor(ExecutorService threadPoolExecutor, Collection<Production> productionsToExecute) {
-        this.threadPoolExecutor = threadPoolExecutor;
+    ProductionExecutor(ExecutorService executor, Collection<Production> productionsToExecute) {
+        this.executor = executor;
         this.productionsToExecute.addAll(productionsToExecute);
     }
 
     public void launchProductions() {
         try {
-            threadPoolExecutor.invokeAll(productionsToExecute.stream().map(
+            executor.invokeAll(productionsToExecute.stream().map(
                     (Function<Production, Callable<Void>>) ProductionCallable::new
             ).collect(Collectors.toList()));
         } catch (InterruptedException e) {
@@ -34,9 +37,10 @@ public class ProductionExecutor {
         }
     }
 
-    private static class ProductionCallable implements Callable<Void> {
+    private static class ProductionCallable implements Callable<Void>, HazelcastInstanceAware, Serializable {
 
         private Production production;
+        private HazelcastInstance hazelcastInstance;
 
         private ProductionCallable(Production production) {
             this.production = production;
@@ -46,6 +50,11 @@ public class ProductionExecutor {
         public Void call() throws Exception {
             production.run();
             return null;
+        }
+
+        @Override
+        public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
+            this.hazelcastInstance = hazelcastInstance;
         }
 
     }

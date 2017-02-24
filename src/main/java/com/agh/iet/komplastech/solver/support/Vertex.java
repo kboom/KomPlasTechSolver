@@ -1,10 +1,11 @@
 package com.agh.iet.komplastech.solver.support;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Vertex {
+public class Vertex implements Serializable {
 
     private Vertex parent;
     public Vertex leftChild;

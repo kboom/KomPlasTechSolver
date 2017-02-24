@@ -8,34 +8,57 @@ import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
+import com.beust.jcommander.internal.Lists;
+import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.client.config.ClientConfig;
+import com.hazelcast.client.config.ClientNetworkConfig;
+import com.hazelcast.config.DiscoveryConfig;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+
+import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static java.util.Arrays.asList;
 
 class SolverLauncher {
 
-    @Parameter(names={"--log", "-l"})
+    @Parameter(names = {"--log", "-l"})
     private boolean isLogging = false;
 
-    @Parameter(names={"--plot", "-p"})
+    @Parameter(names = {"--plot", "-p"})
     private boolean isPlotting = true;
 
-    @Parameter(names={"--problem-size", "-s"})
+    @Parameter(names = {"--problem-size", "-s"})
     private int problemSize = 12;
 
-    @Parameter(names={"--max-threads", "-t"})
+    @Parameter(names = {"--max-threads", "-t"})
     private int maxThreads = 12;
 
-    @Parameter(names={"--delta", "-d"})
+    @Parameter(names = {"--delta", "-d"})
     private double delta = 0.001;
 
-    @Parameter(names={"--steps", "-o"})
+    @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-    void launch() {
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
-        TimeLogger timeLogger = new TimeLogger();
+    @Parameter(names = {"--cloud"})
+    private boolean isCloud = true;
 
-        productionExecutorFactory.setAvailableThreads(maxThreads);
+    void launch() {
+        ExecutorService executorService;
+
+        if (isCloud) {
+            HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
+            executorService = hazelcastInstance.getExecutorService("exec");
+        } else {
+            executorService = Executors.newFixedThreadPool(maxThreads);
+        }
+
+        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(executorService);
+
+        TimeLogger timeLogger = new TimeLogger();
 
         Mesh mesh = aMesh()
                 .withElementsX(problemSize)
