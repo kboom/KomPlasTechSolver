@@ -6,7 +6,7 @@
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
     </group>
-    <management-center enabled="true">http://172.17.0.2:8080/mancenter</management-center>
+    <management-center enabled="true">http://kpts-management:8080/mancenter</management-center>
     <network>
         <port auto-increment="true" port-count="100">5701</port>
         <outbound-ports>
