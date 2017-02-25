@@ -8,6 +8,7 @@
     </group>
     <management-center enabled="true">http://localhost:8080/mancenter</management-center>
     <network>
+        <public-address>10.0.75.2</public-address>
         <port auto-increment="true" port-count="100">5701</port>
         <outbound-ports>
             <!--

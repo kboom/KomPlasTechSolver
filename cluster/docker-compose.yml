@@ -6,8 +6,6 @@ services:
     container_name: kpts-management
     image: hazelcast/management-center
     network_mode: "host"
-    ports:
-        - 8080:8080
 
   kpts-worker:
     image: hazelcast/hazelcast
@@ -16,8 +14,6 @@ services:
     environment:
         - "JAVA_OPTS=-Dhazelcast.config=/config/hazelcast.xml"
     network_mode: "host"
-    ports:
-        - 5701-5710:5701-5710
     depends_on:
         - kpts-management
 
