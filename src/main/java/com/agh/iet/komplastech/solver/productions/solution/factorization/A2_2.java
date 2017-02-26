@@ -1,12 +1,15 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.productions.Production;
+
+import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class A2_2 extends Production {
-    public A2_2(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+
+    public A2_2(Mesh Mesh) {
+        super(Mesh);
     }
 
     public Vertex apply(Vertex T) {
@@ -20,8 +23,9 @@ public class A2_2 extends Production {
                 T.m_b[i + 2][j] += T.rightChild.m_b[i + 1][j];
             }
         }
-        swapDofs(1, 3, 6, T.mesh.getDofsY());
-        swapDofs(2, 4, 6, T.mesh.getDofsY());
+        swapDofsFor(T, 1, 3, 6, T.mesh.getDofsY());
+        swapDofsFor(T, 2, 4, 6, T.mesh.getDofsY());
         return T;
     }
+
 }

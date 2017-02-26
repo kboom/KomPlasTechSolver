@@ -2,47 +2,36 @@ package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.map.EntryBackupProcessor;
+import com.hazelcast.map.EntryProcessor;
 
-import java.io.Serializable;
-import java.util.concurrent.CyclicBarrier;
+import java.util.Map;
 
+/**
+ * A production is entry processor as it should be executed on the node that data actually resides in.
+ * This makes it run without unnecessary network overhead associated with data read prior to write.
+ *
+ * A production can only modify its own node.
+ */
+public abstract class Production implements EntryProcessor<String, Vertex> {
 
-public abstract class Production implements Serializable {
+    protected final Mesh mesh;
 
-    public Production(Vertex Vert, Mesh Mesh) {
-        m_vertex = Vert;
-        m_mesh = Mesh;
+    public Production(Mesh mesh) {
+        this.mesh = mesh;
     }
 
-    // returns first vertex from the left
+    @Override
+    public Vertex process(Map.Entry<String, Vertex> entry) {
+        Vertex vertex = entry.getValue();
+        return apply(vertex);
+    }
+
     public abstract Vertex apply(Vertex v);
 
-    public void run() {
-        m_vertex = apply(m_vertex);
+    @Override
+    public EntryBackupProcessor<String, Vertex> getBackupProcessor() {
+        return null;
     }
 
-    public Vertex m_vertex;
-    public Mesh m_mesh;
-
-    protected void swapDofs(int a, int b, int size, int nrhs) {
-        for (int i = 1; i <= size; i++) {
-            double temp = m_vertex.m_a[a][i];
-            m_vertex.m_a[a][i] = m_vertex.m_a[b][i];
-            m_vertex.m_a[b][i] = temp;
-        }
-        for (int i = 1; i <= size; i++) {
-            double temp = m_vertex.m_a[i][a];
-            m_vertex.m_a[i][a] = m_vertex.m_a[i][b];
-            m_vertex.m_a[i][b] = temp;
-        }
-        for (int i = 1; i <= nrhs; i++) {
-            double temp = m_vertex.m_b[a][i];
-            m_vertex.m_b[a][i] = m_vertex.m_b[b][i];
-            m_vertex.m_b[b][i] = temp;
-
-            temp = m_vertex.m_x[a][i];
-            m_vertex.m_x[a][i] = m_vertex.m_x[b][i];
-            m_vertex.m_x[b][i] = temp;
-        }
-    }
 }

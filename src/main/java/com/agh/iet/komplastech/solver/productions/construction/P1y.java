@@ -19,7 +19,7 @@ public class P1y extends Production {
     }
 
     private void setLeftChild(Vertex node) {
-        Vertex leftChild = aVertex()
+        Vertex leftChild = aVertex(vertexGenerator.newId())
                 .withMesh(node.mesh)
                 .withBeggining(0)
                 .withEnding(node.mesh.getElementsY() / 2.0)
@@ -29,7 +29,7 @@ public class P1y extends Production {
     }
 
     private void setRightChild(Vertex node) {
-        Vertex rightChild = aVertex()
+        Vertex rightChild = aVertex(vertexGenerator.newId())
                 .withMesh(node.mesh)
                 .withBeggining(node.mesh.getElementsY() / 2.0)
                 .withEnding(node.mesh.getElementsY())

@@ -157,7 +157,7 @@ public class DirectionSolver implements Solver {
     }
 
     private Vertex createRoot() {
-        Vertex rootVertex = aVertex()
+        Vertex rootVertex = aVertex(vertexGenerator.newId())
                 .withMesh(mesh)
                 .withBeggining(0)
                 .withEnding(mesh.getResolutionX())

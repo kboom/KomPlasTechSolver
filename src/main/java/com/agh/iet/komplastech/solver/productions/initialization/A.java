@@ -1,14 +1,14 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.problem.Problem;
-import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
 import com.agh.iet.komplastech.solver.splines.Spline;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.Vertex;
 
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
@@ -22,8 +22,8 @@ public class A extends Production {
 
     private final Problem rhs;
 
-    public A(Vertex node, Mesh mesh, Problem rhs) {
-        super(node, mesh);
+    public A(Mesh mesh, Problem rhs) {
+        super(mesh);
         this.rhs = rhs;
     }
 
@@ -38,7 +38,7 @@ public class A extends Production {
     }
 
     private void initializeRightHandSides(Vertex node) {
-        for (int i = 1; i <= node.mesh.getDofsY(); i++) {
+        for (int i = 1; i <= mesh.getDofsY(); i++) {
             fillRightHandSide(node, spline3, 1, i);
             fillRightHandSide(node, spline2, 2, i);
             fillRightHandSide(node, spline1, 3, i);
@@ -47,18 +47,18 @@ public class A extends Production {
 
     private void fillRightHandSide(Vertex node, Spline spline, int r, int i) {
         for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
-            double x = GAUSS_POINTS[k] * node.mesh.getDx() + node.beginning;
+            double x = GAUSS_POINTS[k] * mesh.getDx() + node.beginning;
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                 if (i > 2) {
-                    double y = (GAUSS_POINTS[l] + (i - 3)) * node.mesh.getDy();
+                    double y = (GAUSS_POINTS[l] + (i - 3)) * mesh.getDy();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline1.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
-                if (i > 1 && (i - 2) < node.mesh.getElementsY()) {
-                    double y = (GAUSS_POINTS[l] + (i - 2)) * node.mesh.getDy();
+                if (i > 1 && (i - 2) < mesh.getElementsY()) {
+                    double y = (GAUSS_POINTS[l] + (i - 2)) * mesh.getDy();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline2.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
-                if ((i - 1) < node.mesh.getElementsY()) {
-                    double y = (GAUSS_POINTS[l] + (i - 1)) * node.mesh.getDy();
+                if ((i - 1) < mesh.getElementsY()) {
+                    double y = (GAUSS_POINTS[l] + (i - 1)) * mesh.getDy();
                     node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline3.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
                 }
             }

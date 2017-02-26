@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.VertexId;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,12 +9,8 @@ import java.util.stream.Stream;
 
 public class Vertex implements Serializable {
 
-    private Vertex parent;
-    public Vertex leftChild;
-    public Vertex middleChild;
-    public Vertex rightChild;
+    private VertexId id;
 
-    public Mesh mesh;
     public double[][] m_a;
     public double[][] m_b;
 
@@ -20,41 +18,64 @@ public class Vertex implements Serializable {
     public double beginning;
     public double ending;
 
-    private Vertex() {
+    private VertexReference parent;
+    private VertexReference leftChild;
+    private VertexReference middleChild;
+    private VertexReference rightChild;
+
+    public VertexId getId() {
+        return id;
     }
 
-    public void setLeftChild(Vertex leftChild) {
+    public void setParent(VertexReference parent) {
+        this.parent = parent;
+    }
+
+    public void setLeftChild(VertexReference leftChild) {
         this.leftChild = leftChild;
     }
 
-    public void setMiddleChild(Vertex middleChild) {
+    public void setMiddleChild(VertexReference middleChild) {
         this.middleChild = middleChild;
     }
 
-    public void setRightChild(Vertex rightChild) {
+    public void setRightChild(VertexReference rightChild) {
         this.rightChild = rightChild;
+    }
+
+    public Vertex getParent() {
+        return parent.get();
+    }
+
+    public List<Vertex> getChildren() {
+        return Stream.of(leftChild.get(), middleChild.get(), rightChild.get())
+                .filter(val -> val != null).collect(Collectors.toList());
     }
 
     public static VertexBuilder aVertex() {
         return new VertexBuilder();
     }
 
-    public void setParent(Vertex parent) {
-        this.parent = parent;
+    public Vertex getLeftChild() {
+        return leftChild.get();
     }
 
-    public Vertex getParent() {
-        return parent;
+    public Vertex getRightChild() {
+        return rightChild.get();
     }
 
-    public List<Vertex> getChildren() {
-        return Stream.of(leftChild, middleChild, rightChild)
-                .filter(val -> val != null).collect(Collectors.toList());
+    public Vertex getMiddleChild() {
+        return middleChild.get();
     }
 
     public static class VertexBuilder {
 
-        private Vertex vertex = new Vertex();
+        private final Vertex vertex;
+        private Mesh mesh;
+
+        VertexBuilder() {
+            vertex = new Vertex();
+        }
 
         public VertexBuilder withBeggining(double beggining) {
             vertex.beginning = beggining;
@@ -66,15 +87,20 @@ public class Vertex implements Serializable {
             return this;
         }
 
-        public VertexBuilder withMesh(Mesh mesh) {
-            vertex.mesh = mesh;
+        public VertexBuilder inMesh(Mesh mesh) {
+            this.mesh = mesh;
+            return this;
+        }
+
+        public VertexBuilder withId(VertexId id) {
+            vertex.id = id;
             return this;
         }
 
         public Vertex build() {
             vertex.m_a = new double[7][7];
-            vertex.m_b = new double[7][vertex.mesh.getElementsY() + vertex.mesh.getSplineOrder() + 1];
-            vertex.m_x = new double[7][vertex.mesh.getElementsY() + vertex.mesh.getSplineOrder() + 1];
+            vertex.m_b = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
+            vertex.m_x = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
             return vertex;
         }
 
