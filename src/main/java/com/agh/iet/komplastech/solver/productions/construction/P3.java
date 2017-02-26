@@ -8,8 +8,8 @@ import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
 public class P3 extends Production {
 
-    public P3(Vertex node, Mesh mesh) {
-        super(node, mesh);
+    public P3(Mesh mesh) {
+        super(mesh);
     }
 
     public Vertex apply(Vertex node) {

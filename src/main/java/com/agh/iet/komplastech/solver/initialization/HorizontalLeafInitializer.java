@@ -27,7 +27,7 @@ public class HorizontalLeafInitializer implements LeafInitializer {
         List<Production> initializationProductions = new ArrayList<>(leafLevelVertices.size());
 
         Vertex firstVertex = leafLevelVertices.get(0);
-        initializationProductions.add(new A1(firstVertex.leftChild, mesh, rhs));
+        initializationProductions.add(new A(firstVertex.leftChild, mesh, rhs));
         initializationProductions.add(new A(firstVertex.middleChild, mesh, rhs));
         initializationProductions.add(new A(firstVertex.rightChild, mesh, rhs));
 
@@ -43,7 +43,7 @@ public class HorizontalLeafInitializer implements LeafInitializer {
         Vertex lastVertex = leafLevelVertices.get(leafLevelVertices.size() - 1);
         initializationProductions.add(new A(lastVertex.leftChild, mesh, rhs));
         initializationProductions.add(new A(lastVertex.middleChild, mesh, rhs));
-        initializationProductions.add(new AN(lastVertex.rightChild, mesh, rhs));
+        initializationProductions.add(new A(lastVertex.rightChild, mesh, rhs));
 
         return initializationProductions;
     }

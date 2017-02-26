@@ -40,16 +40,8 @@ class SolverLauncher {
     private boolean isCloud = true;
 
     void launch() {
-        ExecutorService executorService;
-
-        if (isCloud) {
-            HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
-            executorService = hazelcastInstance.getExecutorService("exec");
-        } else {
-            executorService = Executors.newFixedThreadPool(maxThreads);
-        }
-
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(executorService);
+        HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
+        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(hazelcastInstance);
 
         TimeLogger timeLogger = new TimeLogger();
 

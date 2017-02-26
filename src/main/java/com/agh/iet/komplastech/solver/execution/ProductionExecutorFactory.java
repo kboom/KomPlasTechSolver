@@ -1,32 +1,41 @@
 package com.agh.iet.komplastech.solver.execution;
 
+import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.Production;
+import com.agh.iet.komplastech.solver.support.VertexMap;
 
-import java.util.Collection;
-import java.util.concurrent.ExecutorService;
-
-import static java.util.Arrays.asList;
+import java.util.Set;
 
 public class ProductionExecutorFactory {
 
-    private ExecutorService executorService;
+    private final VertexMap vertexMap;
 
-    public ProductionExecutorFactory(ExecutorService executorService) {
-        this.executorService = executorService;
+    public ProductionExecutorFactory(VertexMap vertexMap) {
+        this.vertexMap = vertexMap;
     }
 
-    public ProductionExecutor createLauncherFor(Production... productions) {
-        return createLauncherFor(asList(productions));
+    public ProductionLauncher launchProduction(Production production) {
+        return new ProductionLauncher(production);
     }
 
-    public ProductionExecutor createLauncherFor(Collection<Production> productions) {
-        return new ProductionExecutor(executorService, productions);
-    }
+    public class ProductionLauncher {
 
-    public void joinAll() {
-        if (!executorService.isShutdown()) {
-            executorService.shutdown();
+        private final Production production;
+        private Set<VertexId> vertexIds;
+
+        private ProductionLauncher(Production production) {
+            this.production = production;
         }
+
+        public ProductionLauncher onVertices(Set<VertexId> vertices) {
+            this.vertexIds = vertices;
+            return this;
+        }
+
+        public void andWaitTillComplete() {
+            vertexMap.executeOnVertices(vertexIds, production);
+        }
+
     }
 
 }

@@ -20,11 +20,11 @@ public class A extends Production {
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
 
-    private final Problem rhs;
+    private final Problem problem;
 
-    public A(Mesh mesh, Problem rhs) {
+    public A(Mesh mesh, Problem problem) {
         super(mesh);
-        this.rhs = rhs;
+        this.problem = problem;
     }
 
     public Vertex apply(Vertex node) {
@@ -51,15 +51,15 @@ public class A extends Production {
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                 if (i > 2) {
                     double y = (GAUSS_POINTS[l] + (i - 3)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline1.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
+                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline1.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
                 }
                 if (i > 1 && (i - 2) < mesh.getElementsY()) {
                     double y = (GAUSS_POINTS[l] + (i - 2)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline2.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
+                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline2.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
                 }
                 if ((i - 1) < mesh.getElementsY()) {
                     double y = (GAUSS_POINTS[l] + (i - 1)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline3.getValue(GAUSS_POINTS[l]) * rhs.getValue(x, y);
+                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline3.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
                 }
             }
         }
