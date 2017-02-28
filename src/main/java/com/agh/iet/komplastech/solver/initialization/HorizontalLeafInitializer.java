@@ -26,7 +26,7 @@ public class HorizontalLeafInitializer implements LeafInitializer {
         final Production production = new A(mesh, rhs);
         leafLevelVertices.forEachStayingAt((vertices) -> launcherFactory
                 .launchProduction(production)
-                .onVertices(vertices)
+                .inVertexRange(vertices)
                 .andWaitTillComplete());
     }
 

@@ -5,9 +5,10 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.IMap;
 import com.hazelcast.map.EntryBackupProcessor;
 import com.hazelcast.map.EntryProcessor;
+import com.hazelcast.query.Predicates;
 
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class HazelcastVertexMap implements VertexMap {
 
@@ -18,8 +19,17 @@ public class HazelcastVertexMap implements VertexMap {
     }
 
     @Override
-    public void executeOnVertices(Set<VertexId> vertexIdSet, Production production) {
-        vertexMap.executeOnKeys(vertexIdSet, new ProductionAdapter(production));
+    public void executeOnVertices(Production production, VertexRange range) {
+        vertexMap.executeOnEntries(new ProductionAdapter(production),
+                Predicates.between("id.id", range.start(), range.end()));
+
+//        vertexMap.executeOnEntries(new ProductionAdapter(production),
+//                (Predicate<VertexId, Vertex>) mapEntry -> mapEntry.getKey().isInRange(range));
+    }
+
+    @Override
+    public List<Vertex> getSortedAtLevel(int level) {
+        return null;
     }
 
     private class ProductionAdapter implements EntryProcessor<String, Vertex> {

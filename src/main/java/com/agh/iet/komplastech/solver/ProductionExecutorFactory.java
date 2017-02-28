@@ -1,10 +1,8 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.VertexMap;
-
-import java.util.Set;
+import com.agh.iet.komplastech.solver.support.VertexRange;
 
 public class ProductionExecutorFactory {
 
@@ -21,19 +19,19 @@ public class ProductionExecutorFactory {
     public class ProductionLauncher {
 
         private final Production production;
-        private Set<VertexId> vertexIds;
+        private VertexRange range;
 
         private ProductionLauncher(Production production) {
             this.production = production;
         }
 
-        public ProductionLauncher onVertices(Set<VertexId> vertices) {
-            this.vertexIds = vertices;
+        public ProductionLauncher inVertexRange(VertexRange range) {
+            this.range = range;
             return this;
         }
 
         public void andWaitTillComplete() {
-            vertexMap.executeOnVertices(vertexIds, production);
+            vertexMap.executeOnVertices(production, range);
         }
 
     }

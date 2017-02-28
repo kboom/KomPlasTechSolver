@@ -3,100 +3,71 @@ package com.agh.iet.komplastech.solver.tracking;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.initialization.Ay;
-import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.support.VertexIdListProxy;
-import com.hazelcast.core.EntryEvent;
-import com.hazelcast.map.listener.EntryAddedListener;
-import com.hazelcast.map.listener.MapListener;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-
-import static java.util.Collections.singleton;
+import com.agh.iet.komplastech.solver.support.VertexRange;
+import com.hazelcast.util.function.IntFunction;
 
 /**
  * Solver needs to navigate up and down the tree.
  */
-public class VerticalIterator implements EntryAddedListener<VertexId, Vertex> {
+public class VerticalIterator {
 
     private final VertexId rootId;
-    private List<Vertex> allLeaves;
 
-    private Direction direction;
     private int currentLevel;
-    private int levelCount;
+    private int leafLevel;
 
-    private final VertexIdListProxy vertexIdListProxy;
-
-    public VerticalIterator(VertexId rootId, VertexIdListProxy vertexIdListProxy) {
+    public VerticalIterator(VertexId rootId, int leafLevel) {
         this.rootId = rootId;
-        this.vertexIdListProxy = vertexIdListProxy;
-        direction = Direction.STAY;
         currentLevel = 0;
-        levelCount = 0;
+        this.leafLevel = leafLevel;
     }
 
     public void executeOnRootGoingDown(HorizontalIterator horizontalIterator) {
-        direction = Direction.DOWN;
-        horizontalIterator.forEach(singleton(rootId));
+        horizontalIterator.forRange(VertexRange.unitary(rootId));
         currentLevel++;
-        direction = Direction.STAY;
     }
 
     public void forEachGoingUp(int times, HorizontalIterator horizontalIterator) {
-
+        forRangeTimes(times, horizontalIterator, (level) -> level - 1);
     }
 
     public void forEachGoingDown(int times, HorizontalIterator horizontalIterator) {
-
+        forRangeTimes(times, horizontalIterator, (level) -> level + 1);
     }
 
     public void forEachStayingAt(HorizontalIterator horizontalIterator) {
-
+        horizontalIterator.forRange(
+                currentLevel < leafLevel
+                        ? VertexRange.forBinary(currentLevel)
+                        : VertexRange.for3Ary(leafLevel)
+        );
     }
 
     public void forEachGoingDownOnce(HorizontalIterator horizontalIterator) {
+        forEachGoingDown(1, horizontalIterator);
+    }
+
+    public void onKthFromFirst(Production production, Integer... indices) {
 
     }
 
-    /**
-     * The same as @link {@link #forEachGoingDown(int, HorizontalIterator)} but explicitly starting from root.
-     */
-    public void forEachGoingDownTheRoot(int times, HorizontalIterator horizontalIterator) {
+    public void onAllBetween(Ay ay, int i, int i1) {
 
     }
 
-    public List<Vertex> getSortedLeaves() {
-        return allLeaves;
-    }
-
-    public void forAllAtLevelStartingFrom(Production production, Integer... indices) {
+    public void onKthFromLast(Ay ay, int i) {
 
     }
 
-    public void forAllBetween(Ay ay, int i, int i1) {
-
-    }
-
-    @Override
-    public void entryAdded(EntryEvent<VertexId, Vertex> event) {
-        switch(direction) {
-            case DOWN:
-                if(currentLevel < levelCount) {
-                    vertexIdListProxy.add(currentLevel, event.getKey());
-                }
-                break;
-            case UP:
-            case STAY:
-                throw new IllegalStateException("Did not expect to grow a tree");
+    private void forRangeTimes(int times, HorizontalIterator horizontalIterator, IntFunction<Integer> levelModifier) {
+        for (int i = 0; i < times; i++) {
+            forEachStayingAt(horizontalIterator);
+            currentLevel = levelModifier.apply(currentLevel);
         }
     }
 
-    private enum Direction {
-        UP,
-        DOWN,
-        STAY
+    public int totalHeight() {
+        return 0;
     }
 
 }

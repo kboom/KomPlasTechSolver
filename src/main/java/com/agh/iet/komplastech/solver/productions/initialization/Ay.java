@@ -6,17 +6,16 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
-public class Ay extends Production {
+public class Ay implements Production {
 
     private final double[][] solution;
     private final double[] partition;
-    private final int idx;
+    private final Mesh mesh;
 
-    public Ay(double[][] solution, double[] partition, int idx, Mesh mesh) {
-        super(mesh);
+    public Ay(double[][] solution, double[] partition, Mesh mesh) {
         this.solution = solution;
         this.partition = partition;
-        this.idx = idx;
+        this.mesh = mesh;
     }
 
     public Vertex apply(Vertex node) {
@@ -26,6 +25,7 @@ public class Ay extends Production {
     }
 
     private void initializeRightHandSides(Vertex node) {
+        final int idx = node.getId().relativeToCurrentLevel();
         for (int i = 1; i <= mesh.getDofsX(); i++) {
             node.m_b[1][i] = partition[0] * solution[i][idx + 1];
             node.m_b[2][i] = partition[1] * solution[i][idx + 2];

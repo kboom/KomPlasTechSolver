@@ -9,7 +9,7 @@ import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
+import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
 class TwoDimensionalProblemSolver implements Solver {
 
@@ -34,12 +34,15 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
+        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(objectStore, mesh, rhs);
+        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory);
+        TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 objectStore,
-                new HorizontalProductionFactory(objectStore, mesh, rhs),
+                productionFactory,
                 launcherFactory,
-                new VerticalIterator(),
-                new HorizontalLeafInitializer(mesh, rhs),
+                treeIteratorFactory,
+                horizontalLeafInitializer,
                 mesh
         );
 
@@ -47,13 +50,14 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemVertically(Solution horizontalSolution, Problem rhs) {
-        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
+        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution, launcherFactory);
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(objectStore, mesh, horizontalSolution);
+        TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,
                 verticalProductionFactory,
                 launcherFactory,
-                new VerticalIterator(),
+                treeIteratorFactory,
                 verticalLeafInitializer,
                 mesh
         );

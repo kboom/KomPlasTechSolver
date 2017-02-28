@@ -1,6 +1,10 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.support.VertexRange;
+
 import java.util.function.LongFunction;
+
+import static java.lang.Math.floor;
 
 public class VertexId {
 
@@ -16,6 +20,14 @@ public class VertexId {
 
     public VertexId transformed(LongFunction<Long> transformer) {
         return vertexId(transformer.apply(this.id));
+    }
+
+    public boolean isInRange(VertexRange range) {
+        return false;
+    }
+
+    public int relativeToCurrentLevel() {
+        return (int) (id - Math.pow(2, floor(Math.log(id))));
     }
 
 }
