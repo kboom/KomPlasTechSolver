@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
 import com.agh.iet.komplastech.solver.splines.BSpline3;
@@ -15,12 +16,14 @@ public class Solution {
     private static final BSpline2 b2 = new BSpline2();
     private static final BSpline3 b3 = new BSpline3();
 
-    private Mesh mesh;
-    private double[][] mRHS;
+    private final Mesh mesh;
+    private final double[][] mRHS;
+    private final Problem problem;
 
-    public Solution(Mesh mesh, double[][] rhs) {
+    public Solution(Problem problem, Mesh mesh, double[][] rhs) {
         this.mesh = mesh;
-        mRHS = rhs;
+        this.problem = problem;
+        this.mRHS = rhs;
     }
 
     public SolutionGrid getSolutionGrid() {
@@ -90,6 +93,10 @@ public class Solution {
         solution += b3.getValue(localx)*b3.getSecondDerivativeValueAt(localy)*mRHS[ielemx+2][ielemy+2];
 
         return solution;
+    }
+
+    public Problem getProblem() {
+        return problem;
     }
 
 }

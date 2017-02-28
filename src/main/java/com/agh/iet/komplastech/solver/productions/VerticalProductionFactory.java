@@ -1,22 +1,28 @@
 package com.agh.iet.komplastech.solver.productions;
 
+import com.agh.iet.komplastech.solver.Solution;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.construction.P1y;
+import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class VerticalProductionFactory extends HorizontalProductionFactory {
 
+    private final Solution horizontalSolution;
     private Mesh mesh;
 
-    public VerticalProductionFactory(Mesh mesh) {
-        super(mesh);
+    public VerticalProductionFactory(
+            ObjectStore objectStore,
+            Mesh mesh,
+            Solution horizontalSolution) {
+        super(objectStore, mesh, horizontalSolution.getProblem());
         this.mesh = mesh;
+        this.horizontalSolution = horizontalSolution;
     }
 
-
     @Override
-    public Production createRootProduction(Vertex vertex) {
-        return new P1y(vertex, mesh);
+    public Production createRootProduction() {
+        return new P1y(mesh);
     }
 
 }

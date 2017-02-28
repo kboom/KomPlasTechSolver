@@ -2,9 +2,9 @@ package com.agh.iet.komplastech.solver.productions;
 
 public interface ProductionFactory {
 
-    Production branchRootProduction();
+    Production createBranchRootProduction();
 
-    Production createIntermediateProduction();
+    Production createBranchIntermediateProduction();
 
     Production createLeafProduction();
 
@@ -22,7 +22,7 @@ public interface ProductionFactory {
 
     Production createRootSolvingProduction();
 
-    Production backwardSubstituteProduction();
+    Production createRootBackwardsSubstitutingProduction();
 
     Production backwardSubstituteIntermediateProduction();
 
@@ -30,5 +30,4 @@ public interface ProductionFactory {
 
     Production backwardSubstituteLeavesProduction();
 
-    Production createLeafInitializingProduction();
 }

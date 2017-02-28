@@ -4,12 +4,15 @@ import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class E2_2_6 extends PFEProduction {
-    public E2_2_6(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+
+    private final Mesh mesh;
+
+    public E2_2_6(Mesh mesh) {
+        this.mesh = mesh;
     }
 
     public Vertex apply(Vertex T) {
-        T = partial_forward_elimination(T, 2, 6, m_mesh.getDofsY());
-        return T;
+        return partial_forward_elimination(T, 2, 6, mesh.getDofsY());
     }
+
 }

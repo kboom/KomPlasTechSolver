@@ -4,7 +4,6 @@ import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.construction.P1;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
-import com.agh.iet.komplastech.solver.productions.initialization.A;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
@@ -12,7 +11,6 @@ import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 
@@ -30,78 +28,73 @@ public class HorizontalProductionFactory implements ProductionFactory {
     }
 
     @Override
-    public Production branchRootProduction() {
+    public Production createBranchRootProduction() {
         return new P1(objectStore, mesh);
     }
 
     @Override
-    public Production createIntermediateProduction() {
-        return new P2(mesh);
+    public Production createBranchIntermediateProduction() {
+        return new P2(objectStore);
     }
 
     @Override
     public Production createLeafProduction() {
-        return new P3(mesh);
+        return new P3(objectStore);
     }
 
     @Override
-    public Production mergeLeavesProduction(Vertex vertex) {
+    public Production createLeafMergingProduction() {
         return new A2_3(mesh);
     }
 
     @Override
-    public Production createLeafInitializingProduction() {
-        return new A(mesh, problem);
-    }
-
-
-
-
-
-
-    @Override
-    public Production eliminateLeavesProduction(Vertex vertex) {
-        return new E2_1_5(vertex, mesh);
+    public Production createLeafEliminatingProduction() {
+        return new E2_1_5(mesh);
     }
 
     @Override
-    public Production mergeIntermediateProduction(Vertex vertex) {
+    public Production createFirstIntermediateMergingProduction() {
         return new A2_2(mesh);
     }
 
     @Override
-    public Production eliminateIntermediateProduction(Vertex vertex) {
-        return new E2_2_6(vertex, mesh);
+    public Production createFirstIntermediateEliminatingProduction() {
+        return new E2_2_6(mesh);
     }
 
     @Override
-    public Production rootSolverProduction(Vertex vertex) {
+    public Production mergeUpProduction() {
+        return new A2_2_H(mesh);
+    }
+
+    @Override
+    public Production eliminateUpProduction() {
+        return new E2_2_6(mesh);
+    }
+
+    @Override
+    public Production createRootSolvingProduction() {
         return new Aroot(mesh);
     }
 
     @Override
-    public Production backwardSubstituteProduction(Vertex vertex) {
-        return new Eroot(vertex, mesh);
+    public Production createRootBackwardsSubstitutingProduction() {
+        return new Eroot(mesh);
     }
 
     @Override
-    public Production backwardSubstituteIntermediateProduction(Vertex vertex) {
-        return new BS_2_6(vertex, mesh);
+    public Production backwardSubstituteIntermediateProduction() {
+        return new BS_2_6(mesh);
     }
 
     @Override
-    public Production backwardSubstituteUpProduction(Vertex vertex) {
-        return new BS_2_6_H(vertex, mesh);
+    public Production backwardSubstituteUpProduction() {
+        return new BS_2_6_H(mesh);
     }
 
     @Override
     public Production backwardSubstituteLeavesProduction() {
-        return new BS_1_5(vertex, mesh);
-    }
-
-    @Override
-    public Production mergeUpProduction(Vertex vertex) {
-        return new A2_2_H(mesh);
+        return new BS_1_5(mesh);
     }
 
 }

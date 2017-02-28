@@ -1,15 +1,15 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.initialization.HorizontalLeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.VerticalLeafInitializer;
-import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
+import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
 class TwoDimensionalProblemSolver implements Solver {
 
@@ -17,44 +17,45 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final ProductionExecutorFactory launcherFactory;
 
-    private final SolutionLogger solutionLogger;
-
-    private final TimeLogger timeLogger;
+    private final ObjectStore objectStore;
 
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
-                                SolutionLogger solutionLogger,
-                                TimeLogger timeLogger) {
+                                ObjectStore objectStore) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
-        this.timeLogger = timeLogger;
-        this.solutionLogger = solutionLogger;
+        this.objectStore = objectStore;
     }
 
     @Override
     public Solution solveProblem(Problem rhs) {
-        ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
-        LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
+        Solution horizontalSolution = solveProblemHorizontally(rhs);
+        return solveProblemVertically(horizontalSolution, rhs);
+    }
 
+    private Solution solveProblemHorizontally(Problem rhs) {
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
-                horizontalProductionFactory,
+                objectStore,
+                new HorizontalProductionFactory(objectStore, mesh, rhs),
                 launcherFactory,
-                horizontalLeafInitializer,
-                mesh,
-                solutionLogger,
-                timeLogger
+                new VerticalIterator(),
+                new HorizontalLeafInitializer(mesh, rhs),
+                mesh
         );
-        Solution horizontalSolution = horizontalProblemSolver.solveProblem(rhs);
 
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh);
+        return horizontalProblemSolver.solveProblem(rhs);
+    }
+
+    private Solution solveProblemVertically(Solution horizontalSolution, Problem rhs) {
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(objectStore, mesh, horizontalSolution);
         DirectionSolver verticalProblemSolver = new DirectionSolver(
+                objectStore,
                 verticalProductionFactory,
                 launcherFactory,
+                new VerticalIterator(),
                 verticalLeafInitializer,
-                mesh,
-                solutionLogger,
-                timeLogger
+                mesh
         );
 
         return verticalProblemSolver.solveProblem(rhs);

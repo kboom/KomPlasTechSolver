@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 
 public class Vertex implements Serializable {
 
-    private VertexId id;
+    private final VertexId id;
 
     public double[][] m_a;
     public double[][] m_b;
@@ -18,17 +18,16 @@ public class Vertex implements Serializable {
     public double beginning;
     public double ending;
 
-    private VertexReference parent;
     private VertexReference leftChild;
     private VertexReference middleChild;
     private VertexReference rightChild;
 
-    public VertexId getId() {
-        return id;
+    public Vertex(VertexId vertexId) {
+        id = vertexId;
     }
 
-    public void setParent(VertexReference parent) {
-        this.parent = parent;
+    public VertexId getId() {
+        return id;
     }
 
     public void setLeftChild(VertexReference leftChild) {
@@ -43,17 +42,13 @@ public class Vertex implements Serializable {
         this.rightChild = rightChild;
     }
 
-    public Vertex getParent() {
-        return parent.get();
-    }
-
     public List<Vertex> getChildren() {
         return Stream.of(leftChild.get(), middleChild.get(), rightChild.get())
                 .filter(val -> val != null).collect(Collectors.toList());
     }
 
-    public static VertexBuilder aVertex() {
-        return new VertexBuilder();
+    public static VertexBuilder aVertex(VertexId vertexId) {
+        return new VertexBuilder(vertexId);
     }
 
     public Vertex getLeftChild() {
@@ -73,8 +68,8 @@ public class Vertex implements Serializable {
         private final Vertex vertex;
         private Mesh mesh;
 
-        VertexBuilder() {
-            vertex = new Vertex();
+        public VertexBuilder(VertexId vertexId) {
+            vertex = new Vertex(vertexId);
         }
 
         public VertexBuilder withBeggining(double beggining) {
@@ -89,11 +84,6 @@ public class Vertex implements Serializable {
 
         public VertexBuilder inMesh(Mesh mesh) {
             this.mesh = mesh;
-            return this;
-        }
-
-        public VertexBuilder withId(VertexId id) {
-            vertex.id = id;
             return this;
         }
 

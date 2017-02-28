@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
@@ -10,9 +9,6 @@ import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 

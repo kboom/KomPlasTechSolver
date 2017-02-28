@@ -1,4 +1,4 @@
-package com.agh.iet.komplastech.solver.execution;
+package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.Production;

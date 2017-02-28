@@ -1,21 +1,19 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
-import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
 import java.util.List;
 
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
-import static java.lang.String.format;
 
 public class DirectionSolver implements Solver {
 
@@ -28,26 +26,28 @@ public class DirectionSolver implements Solver {
 
     private final ProductionFactory productionFactory;
 
-    private final LeafInitializer leafInitializer;
-
-    private final SolutionLogger solutionLogger;
-
-    private final VerticalIterator treeIterator;
-
     private final ObjectStore objectStore;
 
-    DirectionSolver(ProductionFactory productionFactory,
+    private final LeafInitializer leafInitializer;
+
+    private final TreeIteratorFactory treeIteratorFactory;
+
+
+    private VerticalIterator treeIterator;
+
+
+    DirectionSolver(ObjectStore objectStore,
+                    ProductionFactory productionFactory,
                     ProductionExecutorFactory launcherFactory,
-                    VerticalIterator treeIterator,
+                    TreeIteratorFactory treeIteratorFactory,
                     LeafInitializer leafInitializer,
-                    Mesh meshData,
-                    SolutionLogger solutionLogger) {
+                    Mesh meshData) {
+        this.objectStore = objectStore;
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
-        this.treeIterator = treeIterator;
+        this.treeIteratorFactory = treeIteratorFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
-        this.solutionLogger = solutionLogger;
     }
 
     @Override
@@ -64,19 +64,20 @@ public class DirectionSolver implements Solver {
         backwardSubstituteIntermediate();
         backwardSubstituteOneUpLeaves();
         backwardSubstituteLeaves();
-        return new Solution(mesh, getRhs());
+        return new Solution(problem, mesh, getRhs());
     }
 
     private void createRoot() {
-        final Production production = productionFactory.branchRootProduction();
+        final Production production = productionFactory.createBranchRootProduction();
 
         Vertex rootVertex = objectStore.createNewVertex(aVertex()
                 .inMesh(mesh)
                 .withBeggining(0)
                 .withEnding(mesh.getResolutionX()));
 
-        treeIterator.goDownStartingFrom(
-                rootVertex.getId(),
+        treeIterator = treeIteratorFactory.createFor(rootVertex.getId());
+
+        treeIterator.executeOnRootGoingDown(
                 (vertices) -> launcherFactory
                         .launchProduction(production)
                         .onVertices(vertices)
@@ -85,7 +86,7 @@ public class DirectionSolver implements Solver {
     }
 
     private void buildIntermediateLevels() {
-        final Production production = productionFactory.createIntermediateProduction();
+        final Production production = productionFactory.createBranchIntermediateProduction();
         treeIterator.forEachGoingDown(
                 getIntermediateLevelsCount(),
                 (vertices) -> launcherFactory
@@ -106,13 +107,7 @@ public class DirectionSolver implements Solver {
     }
 
     private void initializeLeaves() {
-        final Production production = productionFactory.createLeafInitializingProduction();
-        treeIterator.forEachStayingAt(
-                (vertices) -> launcherFactory
-                        .launchProduction(production)
-                        .onVertices(vertices)
-                        .andWaitTillComplete()
-        );
+        leafInitializer.initializeLeaves(treeIterator);
     }
 
     private void mergeLeaves() {
@@ -162,9 +157,9 @@ public class DirectionSolver implements Solver {
 
     private void solveRoot() {
         final Production mergingProduction = productionFactory.createRootSolvingProduction();
-        final Production backwardSubstituteProduction = productionFactory.backwardSubstituteProduction();
+        final Production backwardSubstituteProduction = productionFactory.createRootBackwardsSubstitutingProduction();
 
-        treeIterator.executeAtRoot(
+        treeIterator.executeOnRootGoingDown(
                 (vertices) -> launcherFactory
                         .launchProduction(compositeProductionOf(mergingProduction, backwardSubstituteProduction))
                         .onVertices(vertices)

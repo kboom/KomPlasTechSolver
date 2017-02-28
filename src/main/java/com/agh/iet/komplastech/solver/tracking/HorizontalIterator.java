@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.VertexId;
 
 import java.util.Set;
 
+@FunctionalInterface
 public interface HorizontalIterator {
 
     void forEach(Set<VertexId> vertexId);
