@@ -13,6 +13,11 @@ public class StrongVertexReference implements VertexReference {
         return null;
     }
 
+    @Override
+    public void accept(ReferenceVisitor referenceVisitor) {
+
+    }
+
     public static VertexReference strongReferenceOf(Vertex vertex) {
         return new StrongVertexReference(vertex);
     }

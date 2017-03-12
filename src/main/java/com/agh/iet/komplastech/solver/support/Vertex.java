@@ -1,9 +1,11 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.hazelcast.query.Predicates;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,8 +45,10 @@ public class Vertex implements Serializable {
     }
 
     public List<Vertex> getChildren() {
-        return Stream.of(leftChild.get(), middleChild.get(), rightChild.get())
-                .filter(val -> val != null).collect(Collectors.toList());
+        return Stream.of(leftChild, middleChild, rightChild)
+                .filter(Objects::nonNull)
+                .map(VertexReference::get)
+                .collect(Collectors.toList());
     }
 
     public static VertexBuilder aVertex(VertexId vertexId) {
@@ -61,6 +65,12 @@ public class Vertex implements Serializable {
 
     public Vertex getMiddleChild() {
         return middleChild.get();
+    }
+
+    public void visitReferences(ReferenceVisitor referenceVisitor) {
+        Stream.of(leftChild, middleChild, rightChild)
+                .filter(Objects::nonNull)
+                .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));
     }
 
     public static class VertexBuilder {

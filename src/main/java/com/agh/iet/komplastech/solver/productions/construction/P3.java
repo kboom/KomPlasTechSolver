@@ -52,7 +52,7 @@ public class P3 implements Production {
                 .inMesh(mesh)
                 .build();
 
-        node.setRightChild(weakReferenceToVertex(rightChild));
+        node.setMiddleChild(weakReferenceToVertex(rightChild));
 
         processingContext.storeVertex(rightChild);
     }
