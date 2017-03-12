@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class ATest {
     public void fillsWithQuadraturePoints() {
         Vertex leafNode = aVertex(vertexId(1)).inMesh(DUMMY_MESH).build();
         A a = new A(DUMMY_MESH, (x, y) -> x + y);
-        a.apply(leafNode);
+        a.apply(new LocalProcessingContext(leafNode));
         assertThat(deepToString(leafNode.m_b)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 0.013888888888888885, 0.12500000000000006, 0.29166666666666685, 0.45833333333333354, 0.6250000000000002, 0.7916666666666662, 0.9583333333333334, 1.1250000000000004, 1.291666666666667, 1.4583333333333317, 1.6250000000000007, 1.7916666666666687, 1.611111111111111, 0.3333333333333335], " +

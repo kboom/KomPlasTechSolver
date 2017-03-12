@@ -43,7 +43,7 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
-        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(objectStore, mesh, rhs);
+        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(mesh, rhs);
         HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
@@ -60,7 +60,7 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private Solution solveProblemVertically(Solution horizontalSolution, Problem rhs) {
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution, launcherFactory);
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(objectStore, mesh, horizontalSolution);
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,

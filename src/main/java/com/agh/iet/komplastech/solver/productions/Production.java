@@ -2,8 +2,10 @@ package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-public interface Production {
+import java.io.Serializable;
 
-    Vertex apply(Vertex v);
+public interface Production extends Serializable {
+
+    Vertex apply(ProcessingContext context);
 
 }

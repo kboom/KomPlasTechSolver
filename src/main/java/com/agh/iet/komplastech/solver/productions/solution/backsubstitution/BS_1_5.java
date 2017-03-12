@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
@@ -13,7 +14,8 @@ public class BS_1_5 extends PFEProduction {
         this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex T) {
+    public Vertex apply(ProcessingContext processingContext) {
+        Vertex T = processingContext.getVertex();
         T = partial_backward_substitution(T, 1, 5, mesh.getDofsY());
         swapDofsFor(T, 1, 2, 5, mesh.getDofsY());
         swapDofsFor(T, 2, 3, 5, mesh.getDofsY());

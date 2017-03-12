@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -18,13 +19,14 @@ public class Ay implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex node) {
-        initializeCoefficientsMatrix(node);
-        initializeRightHandSides(node);
-        return node;
+    public Vertex apply(ProcessingContext processingContext) {
+        initializeCoefficientsMatrix(processingContext);
+        initializeRightHandSides(processingContext);
+        return processingContext.getVertex();
     }
 
-    private void initializeRightHandSides(Vertex node) {
+    private void initializeRightHandSides(ProcessingContext processingContext) {
+        Vertex node = processingContext.getVertex();
         final int idx = node.getId().relativeToCurrentLevel();
         for (int i = 1; i <= mesh.getDofsX(); i++) {
             node.m_b[1][i] = partition[0] * solution[i][idx + 1];
@@ -33,8 +35,8 @@ public class Ay implements Production {
         }
     }
 
-    private void initializeCoefficientsMatrix(Vertex node) {
-        useArbitraryCoefficients(node);
+    private void initializeCoefficientsMatrix(ProcessingContext processingContext) {
+        useArbitraryCoefficients(processingContext.getVertex());
     }
 
 }

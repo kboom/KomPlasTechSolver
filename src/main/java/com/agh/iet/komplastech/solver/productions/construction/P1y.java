@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
@@ -16,37 +16,43 @@ public class P1y implements Production {
     private static final VertexId RIGHT_CHILD_OF_PARENT_ID = vertexId(3);
 
     private final Mesh mesh;
-    private final ObjectStore objectStore;
 
-    public P1y(ObjectStore objectStore, Mesh mesh) {
-        this.objectStore = objectStore;
+    public P1y(Mesh mesh) {
         this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex node) {
-        setLeftChild(node);
-        setRightChild(node);
-        return node;
+    public Vertex apply(ProcessingContext processingContext) {
+        setLeftChild(processingContext);
+        setRightChild(processingContext);
+        return processingContext.getVertex();
     }
 
-    private void setLeftChild(Vertex node) {
+    private void setLeftChild(ProcessingContext processingContext) {
+        Vertex node = processingContext.getVertex();
+
         Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID)
                 .withBeggining(0)
-                .withEnding(mesh.getElementsY() / 2.0).build();
+                .withEnding(mesh.getElementsY() / 2.0)
+                .inMesh(mesh)
+                .build();
 
         node.setLeftChild(weakReferenceToVertex(leftChild));
 
-        objectStore.storeVertex(leftChild);
+        processingContext.storeVertex(leftChild);
     }
 
-    private void setRightChild(Vertex node) {
+    private void setRightChild(ProcessingContext processingContext) {
+        Vertex node = processingContext.getVertex();
+
         Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID)
                 .withBeggining(mesh.getElementsY() / 2.0)
-                .withEnding(mesh.getElementsY()).build();
+                .withEnding(mesh.getElementsY())
+                .inMesh(mesh)
+                .build();
 
         node.setRightChild(weakReferenceToVertex(rightChild));
 
-        objectStore.storeVertex(rightChild);
+        processingContext.storeVertex(rightChild);
     }
 
 }

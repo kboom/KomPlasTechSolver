@@ -14,13 +14,12 @@ public class CompositeProduction implements Production {
     }
 
     @Override
-    public Vertex apply(Vertex v) {
-        productionList.forEach((production) -> production.apply(v));
-        return v;
+    public Vertex apply(ProcessingContext context) {
+        productionList.forEach((production) -> production.apply(context));
+        return context.getVertex();
     }
 
     public static CompositeProduction compositeProductionOf(Production... productions) {
         return new CompositeProduction(Arrays.asList(productions));
     }
-
 }

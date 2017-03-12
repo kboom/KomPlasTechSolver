@@ -9,37 +9,33 @@ import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 
     private final Problem problem;
     private final Mesh mesh;
-    private final ObjectStore objectStore;
 
     public HorizontalProductionFactory(
-            ObjectStore objectStore,
             Mesh mesh,
             Problem problem) {
-        this.objectStore = objectStore;
         this.mesh = mesh;
         this.problem = problem;
     }
 
     @Override
     public Production createBranchRootProduction() {
-        return new P1(objectStore, mesh);
+        return new P1(mesh);
     }
 
     @Override
     public Production createBranchIntermediateProduction() {
-        return new P2(objectStore);
+        return new P2(mesh);
     }
 
     @Override
     public Production createLeafProduction() {
-        return new P3(objectStore);
+        return new P3(mesh);
     }
 
     @Override

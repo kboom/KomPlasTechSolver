@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
@@ -11,8 +12,8 @@ public class E2_1_5 extends PFEProduction {
         this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex T) {
-        return partial_forward_elimination(T, 1, 5, mesh.getDofsY());
+    public Vertex apply(ProcessingContext processingContext) {
+        return partial_forward_elimination(processingContext.getVertex(), 1, 5, mesh.getDofsY());
     }
 
 }

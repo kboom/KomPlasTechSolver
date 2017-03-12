@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class A2_2Test {
         rightChild.m_a[2][2] = 1;
 
         A2_2 a = new A2_2(DUMMY_MESH);
-        a.apply(parent);
+        a.apply(new LocalProcessingContext(parent));
         assertThat(deepToString(parent.m_a)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
@@ -54,7 +55,7 @@ public class A2_2Test {
         rightChild.m_b[3][3] = 1;
 
         A2_2 a = new A2_2(DUMMY_MESH);
-        a.apply(parent);
+        a.apply(new LocalProcessingContext(parent));
         assertThat(deepToString(parent.m_b)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +

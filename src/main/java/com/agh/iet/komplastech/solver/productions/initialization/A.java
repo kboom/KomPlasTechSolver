@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
 import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
@@ -29,7 +30,9 @@ public class A implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex node) {
+    @Override
+    public Vertex apply(ProcessingContext context) {
+        Vertex node = context.getVertex();
         initializeCoefficientsMatrix(node);
         initializeRightHandSides(node);
         return node;
@@ -66,5 +69,4 @@ public class A implements Production {
             }
         }
     }
-
 }

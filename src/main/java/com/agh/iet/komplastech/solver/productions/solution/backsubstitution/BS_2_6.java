@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
@@ -18,7 +19,9 @@ public class BS_2_6 extends PFEProduction {
      * @param T
      * @return
      */
-    public Vertex apply(Vertex T) {
+    public Vertex apply(ProcessingContext processingContext) {
+        Vertex T = processingContext.getVertex();
+
         final Vertex leftChild = T.getLeftChild();
         final Vertex rightChild = T.getRightChild();
 
