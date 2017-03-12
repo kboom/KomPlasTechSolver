@@ -5,6 +5,8 @@ import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
+import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
+import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
@@ -37,7 +39,9 @@ class SolverLauncher {
 
     void launch() {
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(hazelcastInstance);
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
+        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(objectStore.getVertexMap());
+
 
         TimeLogger timeLogger = new TimeLogger();
 
@@ -52,6 +56,7 @@ class SolverLauncher {
                 productionExecutorFactory,
                 mesh,
                 isLogging ? new ConsoleSolutionLogger(mesh) : new NoopSolutionLogger(),
+                objectStore,
                 timeLogger
         );
 
@@ -79,7 +84,7 @@ class SolverLauncher {
 
             });
 
-            productionExecutorFactory.joinAll();
+//            productionExecutorFactory.joinAll();
 
             System.out.print(String.format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),

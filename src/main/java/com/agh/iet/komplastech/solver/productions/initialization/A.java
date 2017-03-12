@@ -14,17 +14,19 @@ import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
-public class A extends Production {
+public class A implements Production {
 
     private static final Spline spline1 = new BSpline1();
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
 
     private final Problem problem;
+    private final Mesh mesh;
+
 
     public A(Mesh mesh, Problem problem) {
-        super(mesh);
         this.problem = problem;
+        this.mesh = mesh;
     }
 
     public Vertex apply(Vertex node) {

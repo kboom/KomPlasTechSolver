@@ -4,8 +4,8 @@ import com.agh.iet.komplastech.solver.VertexId;
 
 public class TreeIteratorFactory {
 
-    public VerticalIterator createFor(VertexId id) {
-        return new VerticalIterator(id);
+    public VerticalIterator createFor(VertexId rootId, int levelCount) {
+        return new VerticalIterator(rootId, levelCount);
     }
 
 }

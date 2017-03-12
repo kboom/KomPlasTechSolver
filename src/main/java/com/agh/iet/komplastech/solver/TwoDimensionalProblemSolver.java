@@ -3,6 +3,7 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.initialization.HorizontalLeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.VerticalLeafInitializer;
+import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
@@ -19,12 +20,20 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final ObjectStore objectStore;
 
+    private final SolutionLogger solutionLogger;
+
+    private final TimeLogger timeLogger;
+
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
-                                ObjectStore objectStore) {
+                                SolutionLogger solutionLogger,
+                                ObjectStore objectStore,
+                                TimeLogger timeLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
+        this.solutionLogger = solutionLogger;
         this.objectStore = objectStore;
+        this.timeLogger = timeLogger;
     }
 
     @Override

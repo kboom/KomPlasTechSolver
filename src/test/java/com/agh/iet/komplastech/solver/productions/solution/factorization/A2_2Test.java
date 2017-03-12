@@ -4,7 +4,9 @@ import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;
 
+import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static com.agh.iet.komplastech.solver.support.StrongVertexReference.strongReferenceOf;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static java.util.Arrays.deepToString;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,16 +31,16 @@ public class A2_2Test {
         leftChild.m_a[2][2] = 1;
         rightChild.m_a[2][2] = 1;
 
-        A2_2 a = new A2_2(parent, DUMMY_MESH);
+        A2_2 a = new A2_2(DUMMY_MESH);
         a.apply(parent);
         assertThat(deepToString(parent.m_a)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]"
+                        "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]"
         );
     }
 
@@ -51,32 +53,32 @@ public class A2_2Test {
         leftChild.m_b[3][3] = 1;
         rightChild.m_b[3][3] = 1;
 
-        A2_2 a = new A2_2(parent, DUMMY_MESH);
+        A2_2 a = new A2_2(DUMMY_MESH);
         a.apply(parent);
         assertThat(deepToString(parent.m_b)).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
-                "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]"
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
+                        "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]]"
         );
     }
 
     private Vertex createParent() {
-        return aVertex().withMesh(DUMMY_MESH).build();
+        return aVertex(vertexId(1)).inMesh(DUMMY_MESH).build();
     }
 
     private Vertex createLeftChild(Vertex node) {
-        Vertex leftChild = aVertex().withMesh(DUMMY_MESH).build();
-        node.setLeftChild(leftChild);
+        Vertex leftChild = aVertex(vertexId(1)).inMesh(DUMMY_MESH).build();
+        node.setLeftChild(strongReferenceOf(leftChild));
         return leftChild;
     }
 
     private Vertex createRightChild(Vertex node) {
-        Vertex rightChild = aVertex().withMesh(DUMMY_MESH).build();
-        node.setRightChild(rightChild);
+        Vertex rightChild = aVertex(vertexId(1)).inMesh(DUMMY_MESH).build();
+        node.setRightChild(strongReferenceOf(rightChild));
         return rightChild;
     }
 

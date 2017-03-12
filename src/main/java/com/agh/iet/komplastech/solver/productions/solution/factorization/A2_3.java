@@ -6,10 +6,12 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
-public class A2_3 extends Production {
+public class A2_3 implements Production {
 
-    public A2_3(Mesh Mesh) {
-        super(Mesh);
+    private final Mesh mesh;
+
+    public A2_3(Mesh mesh) {
+        this.mesh = mesh;
     }
 
     public Vertex apply(Vertex T) {

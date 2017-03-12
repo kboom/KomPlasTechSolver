@@ -36,27 +36,29 @@ public class VerticalIterator {
     }
 
     public void forEachStayingAt(HorizontalIterator horizontalIterator) {
-        horizontalIterator.forRange(
-                currentLevel < leafLevel
-                        ? VertexRange.forBinary(currentLevel)
-                        : VertexRange.for3Ary(leafLevel)
-        );
+        horizontalIterator.forRange(getCurrentRange());
     }
 
     public void forEachGoingDownOnce(HorizontalIterator horizontalIterator) {
         forEachGoingDown(1, horizontalIterator);
     }
 
-    public void onKthFromFirst(Production production, Integer... indices) {
-
+    public void onKthLeafFromFirst(HorizontalIterator horizontalIterator, Integer offset) {
+        horizontalIterator.forRange(getCurrentRange().fromLeft(offset));
     }
 
-    public void onAllBetween(Ay ay, int i, int i1) {
-
+    public void onKthLeafFromLast(HorizontalIterator horizontalIterator, Integer offset) {
+        horizontalIterator.forRange(getCurrentRange().fromRight(offset));
     }
 
-    public void onKthFromLast(Ay ay, int i) {
+    public void onAllLeavesBetween(HorizontalIterator horizontalIterator, int leftOffset, int rightOffset) {
+        horizontalIterator.forRange(getCurrentRange().shrinkBy(leftOffset - 1, rightOffset - 1));
+    }
 
+    private VertexRange getCurrentRange() {
+        return currentLevel < leafLevel
+                ? VertexRange.forBinary(currentLevel)
+                : VertexRange.for3Ary(leafLevel);
     }
 
     private void forRangeTimes(int times, HorizontalIterator horizontalIterator, IntFunction<Integer> levelModifier) {

@@ -45,14 +45,13 @@ public class DirectionSolver implements Solver {
                     ProductionExecutorFactory launcherFactory,
                     TreeIteratorFactory treeIteratorFactory,
                     LeafInitializer leafInitializer,
-                    VertexMap vertexMap,
                     Mesh meshData) {
         this.objectStore = objectStore;
+        this.vertexMap = objectStore.getVertexMap();
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.treeIteratorFactory = treeIteratorFactory;
         this.leafInitializer = leafInitializer;
-        this.vertexMap = vertexMap;
         this.mesh = meshData;
     }
 
@@ -83,7 +82,7 @@ public class DirectionSolver implements Solver {
 
         objectStore.storeVertex(rootVertex);
 
-        treeIterator = treeIteratorFactory.createFor(rootVertex.getId());
+        treeIterator = treeIteratorFactory.createFor(rootVertex.getId(), getIntermediateLevelsCount() + 2);
 
         treeIterator.executeOnRootGoingDown(
                 (range) -> launcherFactory

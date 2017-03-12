@@ -1,13 +1,15 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.productions.Production;
 
-public class Aroot extends Production {
+public class Aroot implements Production {
+
+    private final Mesh mesh;
 
     public Aroot(Mesh mesh) {
-        super(mesh);
+        this.mesh = mesh;
     }
 
     public Vertex apply(Vertex T) {

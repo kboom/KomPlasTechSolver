@@ -1,7 +1,11 @@
 package com.agh.iet.komplastech.solver.storage;
 
+import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.support.HazelcastVertexMap;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IMap;
 
 public class HazelcastObjectStore implements ObjectStore {
 
@@ -13,12 +17,16 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public void storeVertex(Vertex vertex) {
-        hazelcastInstance.getMap("vertices").put(vertex.getId(), vertex);
+        getVertexMapInstance().put(vertex.getId(), vertex);
     }
 
     @Override
-    public void getVertexById(long vertexId) {
-        hazelcastInstance.getMap("vertices").get(vertexId);
+    public VertexMap getVertexMap() {
+        return new HazelcastVertexMap(getVertexMapInstance());
+    }
+
+    private IMap<VertexId, Vertex> getVertexMapInstance() {
+        return hazelcastInstance.getMap("vertices");
     }
 
 }

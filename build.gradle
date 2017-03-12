@@ -38,6 +38,6 @@ dependencies {
 
     compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.8'
 
-    testCompile "junit:junt:4.12"
+    testCompile "junit:junit:4.12"
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
 }
