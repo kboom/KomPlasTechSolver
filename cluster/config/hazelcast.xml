@@ -5,7 +5,7 @@
 
 
     <properties>
-        <property name="hazelcast.local.localAddress">192.168.99.103</property>
+        <property name="hazelcast.local.localAddress">192.168.99.100</property>
     </properties>
 
     <group>
@@ -14,7 +14,7 @@
     </group>
     <management-center enabled="true">http://localhost:8080/mancenter</management-center>
     <network>
-        <public-address>192.168.99.103</public-address>
+        <public-address>192.168.99.100</public-address>
         <port auto-increment="true" port-count="100">5701</port>
         <outbound-ports>
             <!--

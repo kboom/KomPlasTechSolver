@@ -4,15 +4,15 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-import java.util.function.LongFunction;
+import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
 public class P2 implements Production {
 
-    private static final LongFunction<Long> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
-    private static final LongFunction<Long> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
+    private static final IntFunction<Integer> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
+    private static final IntFunction<Integer> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
 
     private final ObjectStore objectStore;
 

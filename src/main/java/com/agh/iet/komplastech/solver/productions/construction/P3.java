@@ -4,16 +4,16 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-import java.util.function.LongFunction;
+import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
 public class P3 implements Production {
 
-    private static final LongFunction<Long> LEFT_CHILD_OF_LEAF = (id) -> 3 * id - 2;
-    private static final LongFunction<Long> MIDDLE_CHILD_OF_LEAF = (id) -> 3 * id - 1;
-    private static final LongFunction<Long> RIGHT_CHILD_OF_LEAF = (id) -> 3 * id;
+    private static final IntFunction<Integer> LEFT_CHILD_OF_LEAF = (id) -> 3 * id - 2;
+    private static final IntFunction<Integer> MIDDLE_CHILD_OF_LEAF = (id) -> 3 * id - 1;
+    private static final IntFunction<Integer> RIGHT_CHILD_OF_LEAF = (id) -> 3 * id;
 
     private final ObjectStore objectStore;
 

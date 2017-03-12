@@ -21,23 +21,19 @@ public class VertexRange {
     }
 
     public static VertexRange unitary(VertexId rootId) {
-        return null;
+        return range(rootId.getAbsoluteIndex(), rootId.getAbsoluteIndex());
     }
 
     public static VertexRange forBinary(int currentLevel) {
-        return null;
-    }
-
-    public static VertexRange for3Ary(int leafLevel) {
-        return null;
+        return range((int) Math.pow(2, currentLevel), (int) Math.pow(2, currentLevel + 1) - 1);
     }
 
     public long start() {
-        return 1L;
+        return left;
     }
 
     public long end() {
-        return 2L;
+        return right;
     }
 
     public VertexRange fromLeft(Integer offset) {
@@ -55,4 +51,30 @@ public class VertexRange {
     public static VertexRange range(int left, int right) {
         return new VertexRange(left, right);
     }
+
+    public static VertexRange forBinaryAndLastLevel(int leafLevel, double lastLevelCount) {
+        int left = (int) Math.pow(2, leafLevel);
+        int right = (int) (3.0 / 2.0 * Math.pow(2, leafLevel) - 1);
+        return range(left, right);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        VertexRange that = (VertexRange) o;
+
+        if (left != that.left) return false;
+        return right == that.right;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = left;
+        result = 31 * result + right;
+        return result;
+    }
+
 }

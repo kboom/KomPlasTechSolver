@@ -1,29 +1,28 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.support.VertexRange;
-
-import java.util.function.LongFunction;
+import java.io.Serializable;
+import java.util.function.IntFunction;
 
 import static java.lang.Math.floor;
 
-public class VertexId {
+public class VertexId implements Serializable {
 
-    private final long id;
+    private final int id;
 
-    private VertexId(long id) {
+    private VertexId(int id) {
         this.id = id;
     }
 
-    public static VertexId vertexId(long id) {
+    public static VertexId vertexId(int id) {
         return new VertexId(id);
     }
 
-    public VertexId transformed(LongFunction<Long> transformer) {
+    public VertexId transformed(IntFunction<Integer> transformer) {
         return vertexId(transformer.apply(this.id));
     }
 
-    public boolean isInRange(VertexRange range) {
-        return false;
+    public int getAbsoluteIndex() {
+        return id;
     }
 
     public int relativeToCurrentLevel() {

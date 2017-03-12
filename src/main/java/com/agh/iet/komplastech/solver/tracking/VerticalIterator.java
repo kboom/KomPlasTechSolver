@@ -1,8 +1,6 @@
 package com.agh.iet.komplastech.solver.tracking;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.productions.initialization.Ay;
 import com.agh.iet.komplastech.solver.support.VertexRange;
 import com.hazelcast.util.function.IntFunction;
 
@@ -58,7 +56,7 @@ public class VerticalIterator {
     private VertexRange getCurrentRange() {
         return currentLevel < leafLevel
                 ? VertexRange.forBinary(currentLevel)
-                : VertexRange.for3Ary(leafLevel);
+                : VertexRange.forBinaryAndLastLevel(leafLevel, 3.0 / 2.0);
     }
 
     private void forRangeTimes(int times, HorizontalIterator horizontalIterator, IntFunction<Integer> levelModifier) {
