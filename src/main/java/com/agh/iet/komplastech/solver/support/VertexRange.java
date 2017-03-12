@@ -2,6 +2,11 @@ package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class VertexRange {
 
     private final int left;
@@ -54,7 +59,7 @@ public class VertexRange {
 
     public static VertexRange forBinaryAndLastLevel(int leafLevel, double lastLevelCount) {
         int left = (int) Math.pow(2, leafLevel);
-        int right = (int) (3.0 / 2.0 * Math.pow(2, leafLevel) - 1);
+        int right = left + (int) (3.0 / 2.0 * Math.pow(2, leafLevel) - 1);
         return range(left, right);
     }
 
@@ -75,6 +80,12 @@ public class VertexRange {
         int result = left;
         result = 31 * result + right;
         return result;
+    }
+
+    public List<VertexId> getVerticesInRange() {
+        return IntStream.range(left, right + 1)
+                .mapToObj(VertexId::vertexId)
+                .collect(Collectors.toList());
     }
 
 }

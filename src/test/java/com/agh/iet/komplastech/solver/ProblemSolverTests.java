@@ -22,7 +22,7 @@ public class ProblemSolverTests {
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ObjectStore objectStore = new InMemoryObjectStore();
     private ProductionExecutorFactory productionExecutorFactory =
-            new ProductionExecutorFactory(objectStore.getVertexMap());
+            new ProductionExecutorFactory(null);
 
     @Test
     public void solvesSmallerProblem() throws Exception {

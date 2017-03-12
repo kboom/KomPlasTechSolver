@@ -12,9 +12,9 @@ import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakRef
 
 public class P3 implements Production {
 
-    private static final IntFunction<Integer> LEFT_CHILD_OF_LEAF = (id) -> 3 * id - 2;
-    private static final IntFunction<Integer> MIDDLE_CHILD_OF_LEAF = (id) -> 3 * id - 1;
-    private static final IntFunction<Integer> RIGHT_CHILD_OF_LEAF = (id) -> 3 * id;
+    private static final IntFunction<Integer> LEFT_CHILD_OF_LEAF = (id) -> 3 * (id - 2) - 2;
+    private static final IntFunction<Integer> MIDDLE_CHILD_OF_LEAF = (id) -> 3 * (id - 2) - 1;
+    private static final IntFunction<Integer> RIGHT_CHILD_OF_LEAF = (id) -> 3 * (id - 2);
 
     private Mesh mesh;
 

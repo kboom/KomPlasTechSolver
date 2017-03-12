@@ -24,7 +24,7 @@ public class HorizontalLeafInitializer implements LeafInitializer {
     @Override
     public void initializeLeaves(VerticalIterator leafLevelVertices) {
         final Production production = new A(mesh, rhs);
-        leafLevelVertices.forEachStayingAt((range) -> launcherFactory
+        leafLevelVertices.forEachGoingUpOnce((range) -> launcherFactory
                 .launchProduction(production)
                 .inVertexRange(range)
                 .andWaitTillComplete());

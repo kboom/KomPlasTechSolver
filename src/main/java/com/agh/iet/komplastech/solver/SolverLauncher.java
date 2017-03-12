@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
@@ -40,7 +41,10 @@ class SolverLauncher {
     void launch() {
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(objectStore.getVertexMap());
+        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
+                hazelcastInstance.getExecutorService("productionExecutor"));
+
+        hazelcastInstance.getMap("vertices").clear();
 
 
         TimeLogger timeLogger = new TimeLogger();
@@ -65,26 +69,10 @@ class SolverLauncher {
                     new NonStationarySolver(steps, delta, problemSolver, mesh);
 
 
-            int finalProblemSize = problemSize;
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
+                    new HeatTransferProblem(delta, mesh, problemSize)
+            );
 
-                @Override
-                protected double getInitialValue(double x, double y) {
-                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
-
-                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
-                }
-
-                @Override
-                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-                    double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getLaplacian(x, y);
-                }
-
-            });
-
-//            productionExecutorFactory.joinAll();
 
             System.out.print(String.format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),

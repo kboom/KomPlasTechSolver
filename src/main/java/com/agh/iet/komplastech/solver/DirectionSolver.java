@@ -8,6 +8,7 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexMap;
+import com.agh.iet.komplastech.solver.support.VertexRange;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
@@ -105,7 +106,7 @@ public class DirectionSolver implements Solver {
 
     private void buildLeaves() {
         final Production production = productionFactory.createLeafProduction();
-        treeIterator.forEachStayingAt(
+        treeIterator.forEachGoingDownOnce(
                 (range) -> launcherFactory
                         .launchProduction(production)
                         .inVertexRange(range)
@@ -209,7 +210,10 @@ public class DirectionSolver implements Solver {
 
     private double[][] getRhs() {
         final double[][] rhs = new double[mesh.getElementsX() + mesh.getSplineOrder() + 1][];
-        final List<Vertex> sortedLeaves = vertexMap.getSortedAtLevel(treeIterator.totalHeight() - 1);
+
+        // for now just take all of them and compute here, later do this on worker nodes
+        VertexRange vertexRange = treeIterator.getCurrentRange();
+        final List<Vertex> sortedLeaves = objectStore.getVertexMap().getAllInRange(vertexRange);
 
         int i = 0;
         for (Vertex vertex : sortedLeaves) {

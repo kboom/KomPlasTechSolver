@@ -1,31 +1,43 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.HazelcastProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.hazelcast.map.AbstractEntryProcessor;
+import com.hazelcast.core.IMap;
 
-import java.util.Map;
+import java.io.Serializable;
+import java.util.concurrent.Callable;
 
-public class HazelcastProductionAdapter extends AbstractEntryProcessor<String, Vertex>
-        implements HazelcastInstanceAware {
+public class HazelcastProductionAdapter
+        implements HazelcastInstanceAware, Callable<Vertex>, Serializable {
 
-    private Production production;
     private transient HazelcastInstance hazelcastInstance;
 
-    public HazelcastProductionAdapter(Production production) {
-        this.production = production;
-    }
+    private Production production;
 
-    @Override
-    public Object process(Map.Entry<String, Vertex> entry) {
-        return production.apply(new HazelcastProcessingContext(hazelcastInstance, entry.getValue()));
+    /**
+     * This might be a list... then could fetch a batches...
+     */
+    private VertexId vertexId;
+
+    public HazelcastProductionAdapter(Production production, VertexId vertexId) {
+        this.production = production;
+        this.vertexId = vertexId;
     }
 
     @Override
     public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
         this.hazelcastInstance = hazelcastInstance;
+    }
+
+    @Override
+    public Vertex call() {
+        IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
+        Vertex vertex = vertices.get(vertexId);
+        production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
+        return vertex;
     }
 
 }

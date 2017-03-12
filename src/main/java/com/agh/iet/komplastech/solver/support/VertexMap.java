@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.productions.Production;
 
 import java.util.List;
 
+// We might still want to use it for the read
 public interface VertexMap {
 
     /**
@@ -13,5 +14,6 @@ public interface VertexMap {
      */
     void executeOnVertices(Production production, VertexRange range);
 
-    List<Vertex> getSortedAtLevel(int level);
+    List<Vertex> getAllInRange(VertexRange vertexRange);
+
 }

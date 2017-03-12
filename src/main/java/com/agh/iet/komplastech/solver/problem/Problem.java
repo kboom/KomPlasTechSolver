@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.problem;
 
-public interface Problem {
+import java.io.Serializable;
+
+public interface Problem extends Serializable {
 
     double getValue(double x, double y);
 

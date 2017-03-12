@@ -37,6 +37,10 @@ public class VerticalIterator {
         horizontalIterator.forRange(getCurrentRange());
     }
 
+    public void forEachGoingUpOnce(HorizontalIterator horizontalIterator) {
+        forEachGoingUp(1, horizontalIterator);
+    }
+
     public void forEachGoingDownOnce(HorizontalIterator horizontalIterator) {
         forEachGoingDown(1, horizontalIterator);
     }
@@ -53,7 +57,7 @@ public class VerticalIterator {
         horizontalIterator.forRange(getCurrentRange().shrinkBy(leftOffset - 1, rightOffset - 1));
     }
 
-    private VertexRange getCurrentRange() {
+    public VertexRange getCurrentRange() {
         return currentLevel < leafLevel
                 ? VertexRange.forBinary(currentLevel)
                 : VertexRange.forBinaryAndLastLevel(leafLevel, 3.0 / 2.0);

@@ -1,15 +1,18 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.support.VertexMap;
+import com.agh.iet.komplastech.solver.support.HazelcastProductionAdapter;
 import com.agh.iet.komplastech.solver.support.VertexRange;
+
+import java.util.concurrent.ExecutorService;
+import java.util.stream.Collectors;
 
 public class ProductionExecutorFactory {
 
-    private final VertexMap vertexMap;
+    private final ExecutorService executorService;
 
-    public ProductionExecutorFactory(VertexMap vertexMap) {
-        this.vertexMap = vertexMap;
+    public ProductionExecutorFactory(ExecutorService executorService) {
+        this.executorService = executorService;
     }
 
     public ProductionLauncher launchProduction(Production production) {
@@ -18,7 +21,7 @@ public class ProductionExecutorFactory {
 
     public class ProductionLauncher {
 
-        private final Production production;
+        private Production production;
         private VertexRange range;
 
         private ProductionLauncher(Production production) {
@@ -31,7 +34,15 @@ public class ProductionExecutorFactory {
         }
 
         public void andWaitTillComplete() {
-            vertexMap.executeOnVertices(production, range);
+            try {
+                executorService.invokeAll(
+                        range.getVerticesInRange().stream()
+                                .map((vertexId) -> new HazelcastProductionAdapter(production, vertexId))
+                                .collect(Collectors.toList())
+                );
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e);
+            }
         }
 
     }
