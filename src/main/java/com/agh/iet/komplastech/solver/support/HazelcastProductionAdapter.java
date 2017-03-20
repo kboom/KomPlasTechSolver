@@ -37,8 +37,8 @@ public class HazelcastProductionAdapter
         IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
         Vertex vertex = vertices.get(vertexId);
         Vertex modifiedVertex = production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
-        vertices.replace(modifiedVertex.getId(), modifiedVertex);
-        return vertex;
+        vertices.replace(vertexId, modifiedVertex);
+        return modifiedVertex;
     }
 
 }

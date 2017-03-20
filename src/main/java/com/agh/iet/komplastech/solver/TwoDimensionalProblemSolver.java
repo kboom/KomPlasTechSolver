@@ -44,7 +44,7 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private Solution solveProblemHorizontally(Problem rhs) {
         HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(mesh, rhs);
-        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory);
+        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory, solutionLogger);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 objectStore,

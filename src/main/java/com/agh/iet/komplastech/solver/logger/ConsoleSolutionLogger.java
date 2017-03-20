@@ -6,6 +6,8 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.agh.iet.komplastech.solver.support.VertexRange;
 
+import static java.lang.String.format;
+
 public class ConsoleSolutionLogger implements SolutionLogger {
 
     private final Mesh mesh;
@@ -18,13 +20,14 @@ public class ConsoleSolutionLogger implements SolutionLogger {
 
     @Override
     public void logMatrixValuesFor(VertexRange vertexRange, String message) {
+        System.out.println(format("------------------------------- %s START -------------------------------", message));
         vertexMap.getAllInRange(vertexRange).forEach(
                 vertex -> {
-                    System.out.println(message);
                     printMatrix(vertex, 6, mesh.getDofsY());
                     System.out.println("----------------------------");
                 }
         );
+        System.out.println(format("------------------------------- %s END -------------------------------", message));
     }
 
     @Override

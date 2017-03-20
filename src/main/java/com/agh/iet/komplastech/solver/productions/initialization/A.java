@@ -14,6 +14,7 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
+import static java.lang.String.format;
 
 public class A implements Production {
 
@@ -32,9 +33,12 @@ public class A implements Production {
 
     @Override
     public Vertex apply(ProcessingContext context) {
+        System.out.println("AAAA");
         Vertex node = context.getVertex();
         initializeCoefficientsMatrix(node);
         initializeRightHandSides(node);
+        System.out.println(format("Equation at vertex %s: %s", node.getId(), node.getEquation()));
+        System.out.println("Mesh at vertex: " + mesh);
         return node;
     }
 

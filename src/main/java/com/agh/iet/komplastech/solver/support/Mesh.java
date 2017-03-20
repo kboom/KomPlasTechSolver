@@ -107,4 +107,18 @@ public class Mesh implements Serializable {
 
     }
 
+    @Override
+    public String toString() {
+        return "Mesh{" +
+                "resolutionX=" + resolutionX +
+                ", resolutionY=" + resolutionY +
+                ", elementsX=" + elementsX +
+                ", elementsY=" + elementsY +
+                ", splineOrder=" + splineOrder +
+                ", dofsX=" + dofsX +
+                ", dofsY=" + dofsY +
+                ", centerY=" + centerY +
+                '}';
+    }
+
 }

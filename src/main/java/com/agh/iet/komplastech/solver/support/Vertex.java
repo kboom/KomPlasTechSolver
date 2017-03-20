@@ -9,6 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static java.lang.String.format;
+
 public class Vertex implements Serializable {
 
     private final VertexId id;
@@ -68,9 +70,34 @@ public class Vertex implements Serializable {
     }
 
     public void visitReferences(ReferenceVisitor referenceVisitor) {
+        System.out.println("Visiting references of " + id.getAbsoluteIndex());
         Stream.of(leftChild, middleChild, rightChild)
                 .filter(Objects::nonNull)
                 .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));
+    }
+
+    public String getEquation() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nA\n");
+        sb.append(stringifyMatrix(m_a));
+        sb.append("\nx\n");
+        sb.append(stringifyMatrix(m_x));
+        sb.append("\nb\n");
+        sb.append(stringifyMatrix(m_b));
+
+        return sb.toString();
+    }
+
+    private String stringifyMatrix(double [][] matrix) {
+        StringBuilder sb = new StringBuilder();
+        for(int r = 0; r < matrix.length; r++) {
+            for(int c = 0; c < matrix[r].length; c++) {
+                sb.append(format("%.2f", matrix[r][c]));
+                sb.append(" ");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     public static class VertexBuilder {

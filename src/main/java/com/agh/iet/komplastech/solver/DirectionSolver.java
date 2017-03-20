@@ -121,26 +121,31 @@ public class DirectionSolver implements Solver {
 
     private void initializeLeaves() {
         leafInitializer.initializeLeaves(treeIterator);
-        treeIterator.forEachStayingAt((range) -> solutionLogger.logMatrixValuesFor(range, "Tree leaves"));
     }
 
     private void mergeLeaves() {
         final Production production = productionFactory.createLeafMergingProduction();
         treeIterator.forEachStayingAt(
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Merge leaves");
+                }
         );
     }
 
     private void eliminateLeaves() {
         final Production production = productionFactory.createLeafEliminatingProduction();
         treeIterator.forEachStayingAt(
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Eliminate leaves");
+                }
         );
     }
 
@@ -149,10 +154,14 @@ public class DirectionSolver implements Solver {
         final Production eliminatingProduction = productionFactory.createFirstIntermediateEliminatingProduction();
 
         treeIterator.forEachStayingAt(
-                (range) -> launcherFactory
-                        .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+
+                    solutionLogger.logMatrixValuesFor(range, "Merge and eliminate one up the leaves");
+                }
         );
     }
 
@@ -162,10 +171,14 @@ public class DirectionSolver implements Solver {
 
         treeIterator.forEachGoingUp(
                 getIntermediateLevelsCount() - 1,
-                (range) -> launcherFactory
-                        .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+
+                    solutionLogger.logMatrixValuesFor(range, "Merge and eliminate one up the leaves");
+                }
         );
     }
 
@@ -174,10 +187,13 @@ public class DirectionSolver implements Solver {
         final Production backwardSubstituteProduction = productionFactory.createRootBackwardsSubstitutingProduction();
 
         treeIterator.executeOnRootGoingDown(
-                (range) -> launcherFactory
-                        .launchProduction(compositeProductionOf(mergingProduction, backwardSubstituteProduction))
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(compositeProductionOf(mergingProduction, backwardSubstituteProduction))
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Solve root");
+                }
         );
     }
 
@@ -186,10 +202,13 @@ public class DirectionSolver implements Solver {
 
         treeIterator.forEachGoingDown(
                 getIntermediateLevelsCount() - 1,
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Backward substitute intermediate");
+                }
         );
     }
 
@@ -197,25 +216,26 @@ public class DirectionSolver implements Solver {
         final Production production = productionFactory.backwardSubstituteIntermediateProduction();
 
         treeIterator.forEachGoingDownOnce(
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Backward substitute oneo up the leaves");
+                }
         );
     }
 
     private void backwardSubstituteLeaves() {
         final Production production = productionFactory.backwardSubstituteLeavesProduction();
         treeIterator.forEachStayingAt(
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
-        );
-
-        treeIterator.forEachStayingAt(
-                vertexRange -> solutionLogger.logMatrixValuesFor(
-                        vertexRange, "Backwards substituting leaves")
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    solutionLogger.logMatrixValuesFor(range, "Backward substitute leaves");
+                }
         );
     }
 
