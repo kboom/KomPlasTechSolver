@@ -52,7 +52,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 launcherFactory,
                 treeIteratorFactory,
                 horizontalLeafInitializer,
-                mesh
+                mesh,
+                solutionLogger
         );
 
         return horizontalProblemSolver.solveProblem(rhs);
@@ -68,7 +69,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 launcherFactory,
                 treeIteratorFactory,
                 verticalLeafInitializer,
-                mesh
+                mesh,
+                solutionLogger
         );
 
         return verticalProblemSolver.solveProblem(rhs);

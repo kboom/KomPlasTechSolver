@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
+import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
@@ -37,6 +38,8 @@ public class DirectionSolver implements Solver {
 
     private final TreeIteratorFactory treeIteratorFactory;
 
+    private final SolutionLogger solutionLogger;
+
 
     private VerticalIterator treeIterator;
 
@@ -46,7 +49,8 @@ public class DirectionSolver implements Solver {
                     ProductionExecutorFactory launcherFactory,
                     TreeIteratorFactory treeIteratorFactory,
                     LeafInitializer leafInitializer,
-                    Mesh meshData) {
+                    Mesh meshData,
+                    SolutionLogger solutionLogger) {
         this.objectStore = objectStore;
         this.vertexMap = objectStore.getVertexMap();
         this.productionFactory = productionFactory;
@@ -54,6 +58,7 @@ public class DirectionSolver implements Solver {
         this.treeIteratorFactory = treeIteratorFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
+        this.solutionLogger = solutionLogger;
     }
 
     @Override
@@ -116,6 +121,7 @@ public class DirectionSolver implements Solver {
 
     private void initializeLeaves() {
         leafInitializer.initializeLeaves(treeIterator);
+        treeIterator.forEachStayingAt((range) -> solutionLogger.logMatrixValuesFor(range, "Tree leaves"));
     }
 
     private void mergeLeaves() {
@@ -205,6 +211,11 @@ public class DirectionSolver implements Solver {
                         .launchProduction(production)
                         .inVertexRange(range)
                         .andWaitTillComplete()
+        );
+
+        treeIterator.forEachStayingAt(
+                vertexRange -> solutionLogger.logMatrixValuesFor(
+                        vertexRange, "Backwards substituting leaves")
         );
     }
 

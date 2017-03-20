@@ -3,12 +3,13 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
+import com.agh.iet.komplastech.solver.support.HazelcastVertexMap;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
@@ -18,7 +19,7 @@ import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 class SolverLauncher {
 
     @Parameter(names = {"--log", "-l"})
-    private boolean isLogging = false;
+    private boolean isLogging = true;
 
     @Parameter(names = {"--plot", "-p"})
     private boolean isPlotting = true;
@@ -43,6 +44,7 @@ class SolverLauncher {
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance.getExecutorService("productionExecutor"));
+        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"));
 
         hazelcastInstance.getMap("vertices").clear();
 
@@ -59,7 +61,7 @@ class SolverLauncher {
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
-                isLogging ? new ConsoleSolutionLogger(mesh) : new NoopSolutionLogger(),
+                isLogging ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
                 objectStore,
                 timeLogger
         );
