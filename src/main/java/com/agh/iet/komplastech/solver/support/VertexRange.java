@@ -42,15 +42,17 @@ public class VertexRange {
     }
 
     public VertexRange fromLeft(Integer offset) {
-        return null;
+        int position = this.left + offset;
+        return new VertexRange(position, position);
     }
 
     public VertexRange fromRight(Integer offset) {
-        return null;
+        int position = this.right - offset;
+        return new VertexRange(position, position);
     }
 
-    public VertexRange shrinkBy(int i, int i1) {
-        return null;
+    public VertexRange shrinkBy(int leftPadding, int rightPadding) {
+        return new VertexRange(left + leftPadding, right - rightPadding);
     }
 
     public static VertexRange range(int left, int right) {

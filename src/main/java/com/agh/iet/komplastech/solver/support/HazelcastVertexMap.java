@@ -29,7 +29,9 @@ public class HazelcastVertexMap implements VertexMap {
     public List<Vertex> getAllInRange(VertexRange vertexRange) {
         return vertexMap.getAll(vertexRange.getVerticesInRange()
                 .stream().collect(Collectors.toSet())).values()
-                .stream().collect(Collectors.toList());
+                .stream().sorted((v1, v2) ->
+                        v1.getId().getAbsoluteIndex() - v2.getId().getAbsoluteIndex()
+                ).collect(Collectors.toList());
     }
 
 

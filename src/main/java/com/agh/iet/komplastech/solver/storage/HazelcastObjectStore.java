@@ -25,6 +25,11 @@ public class HazelcastObjectStore implements ObjectStore {
         return new HazelcastVertexMap(getVertexMapInstance());
     }
 
+    @Override
+    public void clearAll() {
+        getVertexMapInstance().clear();
+    }
+
     private IMap<VertexId, Vertex> getVertexMapInstance() {
         return hazelcastInstance.getMap("vertices");
     }

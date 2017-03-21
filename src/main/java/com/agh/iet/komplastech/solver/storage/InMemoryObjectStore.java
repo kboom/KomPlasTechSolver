@@ -13,4 +13,9 @@ public class InMemoryObjectStore implements ObjectStore {
     public VertexMap getVertexMap() {
         return null;
     }
+
+    @Override
+    public void clearAll() {
+
+    }
 }

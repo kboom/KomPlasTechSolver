@@ -39,6 +39,7 @@ class TwoDimensionalProblemSolver implements Solver {
     @Override
     public Solution solveProblem(Problem rhs) {
         Solution horizontalSolution = solveProblemHorizontally(rhs);
+        objectStore.clearAll();
         return solveProblemVertically(horizontalSolution, rhs);
     }
 
@@ -60,7 +61,7 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemVertically(Solution horizontalSolution, Problem rhs) {
-        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution, launcherFactory);
+        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution, launcherFactory, solutionLogger);
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver verticalProblemSolver = new DirectionSolver(

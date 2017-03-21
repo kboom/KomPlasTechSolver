@@ -11,4 +11,5 @@ public interface ObjectStore extends Serializable {
 
     VertexMap getVertexMap();
 
+    void clearAll();
 }
