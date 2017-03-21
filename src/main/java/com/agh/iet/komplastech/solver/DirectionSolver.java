@@ -160,7 +160,7 @@ public class DirectionSolver implements Solver {
         final Production eliminatingProduction = productionFactory.eliminateUpProduction();
 
         treeIterator.forEachGoingUp(
-                getIntermediateLevelsCount(),
+                getIntermediateLevelsCount() - 1,
                 (range) -> {
                     launcherFactory
                             .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
@@ -191,7 +191,7 @@ public class DirectionSolver implements Solver {
         final Production production = productionFactory.backwardSubstituteUpProduction();
 
         treeIterator.forEachGoingDown(
-                getIntermediateLevelsCount(),
+                getIntermediateLevelsCount() - 1,
                 (range) -> {
                     launcherFactory
                             .launchProduction(production)

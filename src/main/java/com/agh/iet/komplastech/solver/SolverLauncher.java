@@ -74,8 +74,8 @@ class SolverLauncher {
 
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
-                    new HeatTransferProblem(delta, mesh, problemSize)
-//                    new ConstantOneProblem(delta)
+//                    new HeatTransferProblem(delta, mesh, problemSize)
+                    new ConstantLinearProblem(delta)
             );
 
 
