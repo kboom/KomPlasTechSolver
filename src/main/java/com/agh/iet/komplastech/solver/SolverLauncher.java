@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
 import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
@@ -74,7 +75,7 @@ class SolverLauncher {
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
 //                    new HeatTransferProblem(delta, mesh, problemSize)
-                    new ConstantOneProblem(delta)
+                    new ConstantLinearProblem(delta)
             );
 
 
