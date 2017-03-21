@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
@@ -25,7 +26,7 @@ class SolverLauncher {
     private boolean isPlotting = true;
 
     @Parameter(names = {"--problem-size", "-s"})
-    private int problemSize = 12;
+    private int problemSize = 24;
 
     @Parameter(names = {"--max-threads", "-t"})
     private int maxThreads = 12;
@@ -34,7 +35,7 @@ class SolverLauncher {
     private double delta = 0.001;
 
     @Parameter(names = {"--steps", "-o"})
-    private int steps = 100;
+    private int steps = 1;
 
     @Parameter(names = {"--cloud"})
     private boolean isCloud = true;
@@ -72,7 +73,8 @@ class SolverLauncher {
 
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
-                    new HeatTransferProblem(delta, mesh, problemSize)
+//                    new HeatTransferProblem(delta, mesh, problemSize)
+                    new ConstantOneProblem(delta)
             );
 
 

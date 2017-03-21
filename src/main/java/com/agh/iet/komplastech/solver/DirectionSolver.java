@@ -67,8 +67,7 @@ public class DirectionSolver implements Solver {
         buildIntermediateLevels();
         buildLeaves();
         initializeLeaves();
-        mergeLeaves();
-        eliminateLeaves();
+        mergeAndEliminateLeaves();
         mergeAndEliminateFirstIntermediate();
         mergeAndEliminateIntermediate();
         solveRoot();
@@ -123,28 +122,16 @@ public class DirectionSolver implements Solver {
         leafInitializer.initializeLeaves(treeIterator);
     }
 
-    private void mergeLeaves() {
-        final Production production = productionFactory.createLeafMergingProduction();
-        treeIterator.forEachStayingAt(
+    private void mergeAndEliminateLeaves() {
+        final Production mergingProduction = productionFactory.createLeafMergingProduction();
+        final Production eliminatingProduction = productionFactory.createLeafEliminatingProduction();
+        treeIterator.forEachGoingUpOnce(
                 (range) -> {
                     launcherFactory
-                            .launchProduction(production)
+                            .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
                             .inVertexRange(range)
                             .andWaitTillComplete();
-                    solutionLogger.logMatrixValuesFor(range, "Merge leaves");
-                }
-        );
-    }
-
-    private void eliminateLeaves() {
-        final Production production = productionFactory.createLeafEliminatingProduction();
-        treeIterator.forEachStayingAt(
-                (range) -> {
-                    launcherFactory
-                            .launchProduction(production)
-                            .inVertexRange(range)
-                            .andWaitTillComplete();
-                    solutionLogger.logMatrixValuesFor(range, "Eliminate leaves");
+                    solutionLogger.logMatrixValuesFor(range, "Merge & Eliminate leaves");
                 }
         );
     }
@@ -153,7 +140,7 @@ public class DirectionSolver implements Solver {
         final Production mergingProduction = productionFactory.createFirstIntermediateMergingProduction();
         final Production eliminatingProduction = productionFactory.createFirstIntermediateEliminatingProduction();
 
-        treeIterator.forEachStayingAt(
+        treeIterator.forEachGoingUpOnce(
                 (range) -> {
                     launcherFactory
                             .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
@@ -177,7 +164,7 @@ public class DirectionSolver implements Solver {
                             .inVertexRange(range)
                             .andWaitTillComplete();
 
-                    solutionLogger.logMatrixValuesFor(range, "Merge and eliminate one up the leaves");
+                    solutionLogger.logMatrixValuesFor(range, "Merge and eliminate intermediate");
                 }
         );
     }
