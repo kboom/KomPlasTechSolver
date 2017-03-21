@@ -14,12 +14,8 @@ public class BS_2_6 extends PFEProduction {
         this.mesh = mesh;
     }
 
-    /**
-     * todo: CHILD modifying operation!!! Store the result!
-     * @param T
-     * @return
-     */
-    public Vertex apply(ProcessingContext processingContext) {
+
+    public void apply(ProcessingContext processingContext) {
         Vertex T = processingContext.getVertex();
 
         final Vertex leftChild = T.getLeftChild();
@@ -35,7 +31,7 @@ public class BS_2_6 extends PFEProduction {
             }
         }
 
-        return T;
+        processingContext.updateVertexAndChildren();
     }
 
 }

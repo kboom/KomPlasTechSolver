@@ -21,10 +21,10 @@ public class P2 implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         setLeftChild(processingContext);
         setRightChild(processingContext);
-        return processingContext.getVertex();
+        processingContext.updateVertex();
     }
 
     private void setLeftChild(ProcessingContext processingContext) {

@@ -22,11 +22,11 @@ public class P3 implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         setLeftChild(processingContext);
         setMiddleChild(processingContext);
         setRightChild(processingContext);
-        return processingContext.getVertex();
+        processingContext.updateVertex();
     }
 
     private void setLeftChild(ProcessingContext processingContext) {

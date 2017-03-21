@@ -15,7 +15,7 @@ public class A2_2 implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext context) {
+    public void apply(ProcessingContext context) {
         final Vertex currentNode = context.getVertex();
         final Vertex leftChild = currentNode.getLeftChild();
         final Vertex rightChild = currentNode.getRightChild();
@@ -32,7 +32,8 @@ public class A2_2 implements Production {
         }
         swapDofsFor(currentNode, 1, 3, 6, mesh.getDofsY());
         swapDofsFor(currentNode, 2, 4, 6, mesh.getDofsY());
-        return currentNode;
+
+        context.updateVertex();
     }
 
 }

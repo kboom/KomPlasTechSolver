@@ -12,8 +12,9 @@ public class E2_2_6 extends PFEProduction {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
-        return partial_forward_elimination(processingContext.getVertex(), 2, 6, mesh.getDofsY());
+    public void apply(ProcessingContext processingContext) {
+        partial_forward_elimination(processingContext.getVertex(), 2, 6, mesh.getDofsY());
+        processingContext.updateVertex();
     }
 
 }

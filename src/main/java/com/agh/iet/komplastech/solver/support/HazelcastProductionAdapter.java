@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.concurrent.Callable;
 
 public class HazelcastProductionAdapter
-        implements HazelcastInstanceAware, Callable<Vertex>, Serializable {
+        implements HazelcastInstanceAware, Callable<Void>, Serializable {
 
     private transient HazelcastInstance hazelcastInstance;
 
@@ -33,12 +33,11 @@ public class HazelcastProductionAdapter
     }
 
     @Override
-    public Vertex call() {
+    public Void call() {
         IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
         Vertex vertex = vertices.get(vertexId);
-        Vertex modifiedVertex = production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
-        vertices.replace(vertexId, modifiedVertex);
-        return modifiedVertex;
+        production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
+        return null;
     }
 
 }

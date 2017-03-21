@@ -28,6 +28,19 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     }
 
     @Override
+    public void updateVertex() {
+        vertices.replace(vertex.getId(), vertex);
+    }
+
+    @Override
+    public void updateVertexAndChildren() {
+        updateVertex();
+        vertex.getChildren().forEach(
+                (childNode) -> vertices.replace(childNode.getId(), childNode)
+        );
+    }
+
+    @Override
     public Vertex loadVertex(VertexId vertexId) {
         return vertices.get(vertexId);
     }

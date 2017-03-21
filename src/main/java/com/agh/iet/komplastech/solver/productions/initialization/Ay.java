@@ -19,10 +19,10 @@ public class Ay implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         initializeCoefficientsMatrix(processingContext);
         initializeRightHandSides(processingContext);
-        return processingContext.getVertex();
+        processingContext.updateVertex();
     }
 
     private void initializeRightHandSides(ProcessingContext processingContext) {

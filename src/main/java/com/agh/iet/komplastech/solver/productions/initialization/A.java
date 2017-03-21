@@ -32,14 +32,11 @@ public class A implements Production {
     }
 
     @Override
-    public Vertex apply(ProcessingContext context) {
-        System.out.println("AAAA");
-        Vertex node = context.getVertex();
+    public void apply(ProcessingContext processingContext) {
+        Vertex node = processingContext.getVertex();
         initializeCoefficientsMatrix(node);
         initializeRightHandSides(node);
-        System.out.println(format("Equation at vertex %s: %s", node.getId(), node.getEquation()));
-        System.out.println("Mesh at vertex: " + mesh);
-        return node;
+        processingContext.updateVertex();
     }
 
     private void initializeCoefficientsMatrix(Vertex node) {

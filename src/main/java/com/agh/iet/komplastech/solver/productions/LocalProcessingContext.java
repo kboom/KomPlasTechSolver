@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.productions.construction.P1;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class LocalProcessingContext implements ProcessingContext {
@@ -15,6 +14,16 @@ public class LocalProcessingContext implements ProcessingContext {
 
     @Override
     public void storeVertex(Vertex vertex) {
+
+    }
+
+    @Override
+    public void updateVertex() {
+
+    }
+
+    @Override
+    public void updateVertexAndChildren() {
 
     }
 }

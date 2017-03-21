@@ -15,29 +15,12 @@ public class A2_3 implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
-        System.out.println("A2_3");
-
+    public void apply(ProcessingContext processingContext) {
         final Vertex currentVertex = processingContext.getVertex();
 
-        System.out.println("Got current vertex");
-        System.out.println("Current vertex id " + currentVertex.getId());
-        System.out.println("Current vertex children " + currentVertex.getChildren());
-
         final Vertex leftChild = currentVertex.getLeftChild();
-
-        System.out.println("Got left child");
-        System.out.println("Left child " + leftChild.getId());
-
-        System.out.println(String.format("Left child of %s that is %s matrix is %s", currentVertex.getId(), leftChild.getId(), leftChild.getEquation()));
-
         final Vertex middleChild = currentVertex.getMiddleChild();
-
-        System.out.println(String.format("Middle child of %s that is %s matrix is %s", currentVertex.getId(), middleChild.getId(), middleChild.getEquation()));
-
         final Vertex rightChild = currentVertex.getRightChild();
-
-        System.out.println(String.format("Right child of %s that is %s matrix is %s", currentVertex.getId(), rightChild.getId(), rightChild.getEquation()));
 
         for (int i = 1; i <= 3; i++) {
             for (int j = 1; j <= 3; j++) {
@@ -54,7 +37,8 @@ public class A2_3 implements Production {
         // bring 3rd degree of freedom to the front
         swapDofsFor(currentVertex, 1, 3, 5, mesh.getDofsY());
         swapDofsFor(currentVertex, 2, 3, 5, mesh.getDofsY());
-        return currentVertex;
+
+        processingContext.updateVertex();
     }
 
 }

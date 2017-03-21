@@ -12,7 +12,7 @@ public class Eroot extends PFEProduction {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         Vertex T = processingContext.getVertex();
 
         final Vertex leftChild = T.getLeftChild();
@@ -28,7 +28,7 @@ public class Eroot extends PFEProduction {
             }
         }
 
-        return T;
+        processingContext.updateVertexAndChildren();
     }
 
 }

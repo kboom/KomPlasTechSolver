@@ -8,4 +8,7 @@ public interface ProcessingContext {
 
     void storeVertex(Vertex vertex);
 
+    void updateVertex();
+
+    void updateVertexAndChildren();
 }

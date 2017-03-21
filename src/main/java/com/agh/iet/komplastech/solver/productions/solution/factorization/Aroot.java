@@ -13,7 +13,7 @@ public class Aroot implements Production {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         final Vertex currentVertex = processingContext.getVertex();
 
         final Vertex leftChild = currentVertex.getLeftChild();
@@ -29,7 +29,8 @@ public class Aroot implements Production {
                 currentVertex.m_b[i + 2][j] += rightChild.m_b[i + 2][j];
             }
         }
-        return currentVertex;
+
+        processingContext.updateVertex();
     }
 
 }

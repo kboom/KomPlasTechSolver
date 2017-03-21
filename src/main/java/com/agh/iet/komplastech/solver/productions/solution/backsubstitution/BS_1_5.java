@@ -14,12 +14,12 @@ public class BS_1_5 extends PFEProduction {
         this.mesh = mesh;
     }
 
-    public Vertex apply(ProcessingContext processingContext) {
+    public void apply(ProcessingContext processingContext) {
         Vertex T = processingContext.getVertex();
         T = partial_backward_substitution(T, 1, 5, mesh.getDofsY());
         swapDofsFor(T, 1, 2, 5, mesh.getDofsY());
         swapDofsFor(T, 2, 3, 5, mesh.getDofsY());
-        return T;
+        processingContext.updateVertex();
     }
 
 }
