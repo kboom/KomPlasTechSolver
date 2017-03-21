@@ -28,43 +28,48 @@ public class VerticalLeafInitializer implements LeafInitializer {
     public void initializeLeaves(VerticalIterator verticalIterator) {
         final double[][] rhs = horizontalSolution.getRhs();
 
+        int levelOffset = (int) Math.pow(2, verticalIterator.getCurrentLevel());
+
         verticalIterator.onKthLeafFromFirst((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1, 1. / 2, 1. / 3}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1, 1. / 2, 1. / 3}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 0);
 
         verticalIterator.onKthLeafFromFirst((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1. / 2, 1. / 3, 1. / 3}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 1);
 
         verticalIterator.onKthLeafFromFirst((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 2);
 
         verticalIterator.onAllLeavesBetween(
                 (range) -> launcherFactory
-                        .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh))
+                        .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh, levelOffset))
                         .inVertexRange(range)
                         .andWaitTillComplete(), 3, 3);
 
         verticalIterator.onKthLeafFromLast((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 3}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 2);
 
         verticalIterator.onKthLeafFromLast((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 3, 1. / 2}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 1);
 
         verticalIterator.onKthLeafFromLast((range) -> launcherFactory
-                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 2, 1}, mesh))
+                .launchProduction(new Ay(rhs, new double[]{1. / 3, 1. / 2, 1}, mesh, levelOffset))
                 .inVertexRange(range)
                 .andWaitTillComplete(), 0);
 
         solutionLogger.logMatrixValuesFor(verticalIterator.getCurrentRange(), "Initialize leaves");
+
+        verticalIterator.moveOneUp();
+
     }
 
 }

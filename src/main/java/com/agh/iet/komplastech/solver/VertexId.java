@@ -25,10 +25,6 @@ public class VertexId implements Serializable {
         return id;
     }
 
-    public int relativeToCurrentLevel() {
-        return (int) (id - Math.pow(2, floor(Math.log(id))));
-    }
-
     @Override
     public String toString() {
         return "VertexId{" +

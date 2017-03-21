@@ -70,8 +70,11 @@ public class VerticalIterator {
         }
     }
 
-    public int totalHeight() {
-        return 0;
+    public void moveOneUp() {
+        currentLevel--;
     }
 
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
 }

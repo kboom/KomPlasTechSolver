@@ -5,6 +5,7 @@ import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
+import com.agh.iet.komplastech.solver.results.MatrixPrinter;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -235,6 +236,11 @@ public class DirectionSolver implements Solver {
 
         int i = 0;
         for (Vertex vertex : sortedLeaves) {
+
+            MatrixPrinter.printMatrix(vertex, 6, mesh.getDofsY());
+
+            System.out.println("----------------------------\n");
+
             if (i == 0) {
                 rhs[1] = vertex.m_x[1];
                 rhs[2] = vertex.m_x[2];
@@ -249,6 +255,7 @@ public class DirectionSolver implements Solver {
             }
             i++;
         }
+
         return rhs;
     }
 

@@ -12,11 +12,13 @@ public class Ay implements Production {
     private final double[][] solution;
     private final double[] partition;
     private final Mesh mesh;
+    private final int offset;
 
-    public Ay(double[][] solution, double[] partition, Mesh mesh) {
+    public Ay(double[][] solution, double[] partition, Mesh mesh, int offset) {
         this.solution = solution;
         this.partition = partition;
         this.mesh = mesh;
+        this.offset = offset;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -27,7 +29,7 @@ public class Ay implements Production {
 
     private void initializeRightHandSides(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
-        final int idx = node.getId().relativeToCurrentLevel();
+        final int idx = node.getId().getAbsoluteIndex() - offset;
         for (int i = 1; i <= mesh.getDofsX(); i++) {
             node.m_b[1][i] = partition[0] * solution[i][idx + 1];
             node.m_b[2][i] = partition[1] * solution[i][idx + 2];
