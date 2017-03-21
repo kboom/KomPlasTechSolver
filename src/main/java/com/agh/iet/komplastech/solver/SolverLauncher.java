@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
 import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
+import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
@@ -20,7 +21,7 @@ import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 class SolverLauncher {
 
     @Parameter(names = {"--log", "-l"})
-    private boolean isLogging = true;
+    private boolean isLogging = false;
 
     @Parameter(names = {"--plot", "-p"})
     private boolean isPlotting = true;
@@ -35,7 +36,7 @@ class SolverLauncher {
     private double delta = 0.001;
 
     @Parameter(names = {"--steps", "-o"})
-    private int steps = 1;
+    private int steps = 100;
 
     @Parameter(names = {"--cloud"})
     private boolean isCloud = true;
@@ -73,8 +74,8 @@ class SolverLauncher {
 
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
-//                    new HeatTransferProblem(delta, mesh, problemSize)
-                    new ConstantOneProblem(delta)
+                    new HeatTransferProblem(delta, mesh, problemSize)
+//                    new ConstantOneProblem(delta)
             );
 
 

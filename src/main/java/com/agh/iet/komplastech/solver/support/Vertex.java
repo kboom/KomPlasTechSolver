@@ -70,7 +70,6 @@ public class Vertex implements Serializable {
     }
 
     public void visitReferences(ReferenceVisitor referenceVisitor) {
-        System.out.println("Visiting references of " + id.getAbsoluteIndex());
         Stream.of(leftChild, middleChild, rightChild)
                 .filter(Objects::nonNull)
                 .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));

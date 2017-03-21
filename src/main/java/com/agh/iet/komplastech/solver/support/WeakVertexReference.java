@@ -25,10 +25,7 @@ public class WeakVertexReference implements VertexReference {
     @Override
     public void accept(ReferenceVisitor referenceVisitor) {
         if(vertex == null) {
-            System.out.println("Fetching vertex " + vertexId);
             vertex = referenceVisitor.loadVertex(vertexId);
-        } else {
-            System.out.println("Vertex already fetched " + vertex.getId());
         }
     }
 
