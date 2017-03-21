@@ -33,7 +33,7 @@ class SolverLauncher {
     private int maxThreads = 12;
 
     @Parameter(names = {"--delta", "-d"})
-    private double delta = 0.001;
+    private double delta = 0.1;
 
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
@@ -74,8 +74,8 @@ class SolverLauncher {
 
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
-//                    new HeatTransferProblem(delta, mesh, problemSize)
-                    new ConstantLinearProblem(delta)
+                    new HeatTransferProblem(delta, mesh, problemSize)
+//                    new ConstantLinearProblem(delta)
             );
 
 

@@ -5,7 +5,7 @@ import com.agh.iet.komplastech.solver.Solution;
 public abstract class NonStationaryProblem implements Problem {
 
     private double delta;
-    private transient Solution currentSolution;
+    private Solution currentSolution;
 
     public NonStationaryProblem(double delta) {
         this.delta = delta;

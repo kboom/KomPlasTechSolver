@@ -7,10 +7,12 @@ import com.agh.iet.komplastech.solver.splines.BSpline3;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Point;
 
+import java.io.Serializable;
+
 import static com.agh.iet.komplastech.solver.support.Point.solutionPoint;
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 
-public class Solution {
+public class Solution implements Serializable {
 
     private static final BSpline1 b1 = new BSpline1();
     private static final BSpline2 b2 = new BSpline2();

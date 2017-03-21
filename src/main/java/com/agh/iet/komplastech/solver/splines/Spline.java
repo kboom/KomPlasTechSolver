@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.splines;
 
-public abstract class Spline {
+import java.io.Serializable;
+
+public abstract class Spline implements Serializable {
 
     private static final int VALUE_FOR_OUTSIDE_DOMAIN = 0;
 
