@@ -4,7 +4,6 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
 import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
-import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
@@ -75,7 +74,7 @@ class SolverLauncher {
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
 //                    new HeatTransferProblem(delta, mesh, problemSize)
-                    new ConstantLinearProblem(delta)
+                    new ConstantOneProblem(delta)
             );
 
 

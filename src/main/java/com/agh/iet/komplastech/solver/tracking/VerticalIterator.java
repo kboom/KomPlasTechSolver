@@ -60,7 +60,7 @@ public class VerticalIterator {
     public VertexRange getCurrentRange() {
         return currentLevel < leafLevel
                 ? VertexRange.forBinary(currentLevel)
-                : VertexRange.forBinaryAndLastLevel(leafLevel, 3.0 / 2.0);
+                : VertexRange.forBinaryAndLastLevel(leafLevel, 3);
     }
 
     private void forRangeTimes(int times, HorizontalIterator horizontalIterator, IntFunction<Integer> levelModifier) {

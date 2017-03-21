@@ -2,12 +2,13 @@ package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class VertexRange {
+public class VertexRange implements Serializable {
 
     private final int left;
     private final int right;
@@ -59,9 +60,9 @@ public class VertexRange {
         return new VertexRange(left, right);
     }
 
-    public static VertexRange forBinaryAndLastLevel(int leafLevel, double lastLevelCount) {
+    public static VertexRange forBinaryAndLastLevel(int leafLevel, int lastLevelMultiplicity) {
         int left = (int) Math.pow(2, leafLevel);
-        int right = left + (int) (3.0 / 2.0 * Math.pow(2, leafLevel) - 1);
+        int right = left + lastLevelMultiplicity * (int) Math.pow(2, leafLevel - 1) - 1;
         return range(left, right);
     }
 
@@ -90,4 +91,11 @@ public class VertexRange {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public String toString() {
+        return "VertexRange{" +
+                "left=" + left +
+                ", right=" + right +
+                '}';
+    }
 }

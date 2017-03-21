@@ -10,6 +10,7 @@ import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.VertexRange;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 
@@ -34,8 +35,8 @@ public class HorizontalProductionFactory implements ProductionFactory {
     }
 
     @Override
-    public Production createLeafProduction() {
-        return new P3(mesh);
+    public Production createLeafProduction(VertexRange range) {
+        return new P3(mesh, range);
     }
 
     @Override

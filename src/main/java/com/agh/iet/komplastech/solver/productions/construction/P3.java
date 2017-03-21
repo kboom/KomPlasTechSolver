@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.VertexRange;
 
 import java.util.function.IntFunction;
 
@@ -12,14 +13,12 @@ import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakRef
 
 public class P3 implements Production {
 
-    private static final IntFunction<Integer> LEFT_CHILD_OF_LEAF = (id) -> 3 * (id - 2) - 2;
-    private static final IntFunction<Integer> MIDDLE_CHILD_OF_LEAF = (id) -> 3 * (id - 2) - 1;
-    private static final IntFunction<Integer> RIGHT_CHILD_OF_LEAF = (id) -> 3 * (id - 2);
-
     private Mesh mesh;
+    private VertexRange range;
 
-    public P3(Mesh mesh) {
+    public P3(Mesh mesh, VertexRange range) {
         this.mesh = mesh;
+        this.range = range;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -32,7 +31,7 @@ public class P3 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex leftChild = aVertex(node.getId().transformed(LEFT_CHILD_OF_LEAF))
+        Vertex leftChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 1))
                 .withBeggining(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -46,7 +45,7 @@ public class P3 implements Production {
     private void setMiddleChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getId().transformed(MIDDLE_CHILD_OF_LEAF))
+        Vertex rightChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 2))
                 .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
                 .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -60,7 +59,7 @@ public class P3 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getId().transformed(RIGHT_CHILD_OF_LEAF))
+        Vertex rightChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 3))
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
                 .withEnding(node.ending)
                 .inMesh(mesh)

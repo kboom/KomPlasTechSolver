@@ -1,12 +1,14 @@
 package com.agh.iet.komplastech.solver.productions;
 
+import com.agh.iet.komplastech.solver.support.VertexRange;
+
 public interface ProductionFactory {
 
     Production createBranchRootProduction();
 
     Production createBranchIntermediateProduction();
 
-    Production createLeafProduction();
+    Production createLeafProduction(VertexRange range);
 
     Production createLeafMergingProduction();
 

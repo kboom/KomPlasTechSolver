@@ -110,12 +110,14 @@ public class DirectionSolver implements Solver {
     }
 
     private void buildLeaves() {
-        final Production production = productionFactory.createLeafProduction();
         treeIterator.forEachGoingDownOnce(
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    Production production = productionFactory.createLeafProduction(range);
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                }
         );
     }
 
@@ -158,7 +160,7 @@ public class DirectionSolver implements Solver {
         final Production eliminatingProduction = productionFactory.eliminateUpProduction();
 
         treeIterator.forEachGoingUp(
-                getIntermediateLevelsCount() - 1,
+                getIntermediateLevelsCount(),
                 (range) -> {
                     launcherFactory
                             .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
@@ -189,7 +191,7 @@ public class DirectionSolver implements Solver {
         final Production production = productionFactory.backwardSubstituteUpProduction();
 
         treeIterator.forEachGoingDown(
-                getIntermediateLevelsCount() - 1,
+                getIntermediateLevelsCount(),
                 (range) -> {
                     launcherFactory
                             .launchProduction(production)
@@ -236,11 +238,6 @@ public class DirectionSolver implements Solver {
 
         int i = 0;
         for (Vertex vertex : sortedLeaves) {
-
-            MatrixPrinter.printMatrix(vertex, 6, mesh.getDofsY());
-
-            System.out.println("----------------------------\n");
-
             if (i == 0) {
                 rhs[1] = vertex.m_x[1];
                 rhs[2] = vertex.m_x[2];

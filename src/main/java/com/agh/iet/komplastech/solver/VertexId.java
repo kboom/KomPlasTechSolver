@@ -3,8 +3,6 @@ package com.agh.iet.komplastech.solver;
 import java.io.Serializable;
 import java.util.function.IntFunction;
 
-import static java.lang.Math.floor;
-
 public class VertexId implements Serializable {
 
     private final int id;
