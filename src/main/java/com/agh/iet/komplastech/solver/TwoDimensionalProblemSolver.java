@@ -54,7 +54,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 treeIteratorFactory,
                 horizontalLeafInitializer,
                 mesh,
-                solutionLogger
+                solutionLogger,
+                timeLogger
         );
 
         return horizontalProblemSolver.solveProblem(rhs);
@@ -71,7 +72,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 treeIteratorFactory,
                 verticalLeafInitializer,
                 mesh,
-                solutionLogger
+                solutionLogger,
+                timeLogger
         );
 
         return verticalProblemSolver.solveProblem(rhs);

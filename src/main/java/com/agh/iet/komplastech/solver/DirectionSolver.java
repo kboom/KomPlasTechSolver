@@ -41,6 +41,8 @@ public class DirectionSolver implements Solver {
 
     private final SolutionLogger solutionLogger;
 
+    private final TimeLogger timeLogger;
+
 
     private VerticalIterator treeIterator;
 
@@ -51,7 +53,8 @@ public class DirectionSolver implements Solver {
                     TreeIteratorFactory treeIteratorFactory,
                     LeafInitializer leafInitializer,
                     Mesh meshData,
-                    SolutionLogger solutionLogger) {
+                    SolutionLogger solutionLogger,
+                    TimeLogger timeLogger) {
         this.objectStore = objectStore;
         this.vertexMap = objectStore.getVertexMap();
         this.productionFactory = productionFactory;
@@ -60,21 +63,27 @@ public class DirectionSolver implements Solver {
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
         this.solutionLogger = solutionLogger;
+        this.timeLogger = timeLogger;
     }
 
     @Override
     public Solution solveProblem(Problem problem) {
+        timeLogger.logCreation();
         createRoot();
         buildIntermediateLevels();
         buildLeaves();
+        timeLogger.logInitialization();
         initializeLeaves();
+        timeLogger.logFactorization();
         mergeAndEliminateLeaves();
         mergeAndEliminateFirstIntermediate();
         mergeAndEliminateIntermediate();
         solveRoot();
+        timeLogger.logBackwardSubstitution();
         backwardSubstituteIntermediate();
         backwardSubstituteOneUpLeaves();
         backwardSubstituteLeaves();
+        timeLogger.logSolution();
         return new Solution(problem, mesh, getRhs());
     }
 

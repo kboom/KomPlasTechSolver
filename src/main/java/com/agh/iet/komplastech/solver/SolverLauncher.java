@@ -24,7 +24,7 @@ class SolverLauncher {
     private boolean isLogging = false;
 
     @Parameter(names = {"--plot", "-p"})
-    private boolean isPlotting = true;
+    private boolean isPlotting = false;
 
     @Parameter(names = {"--problem-size", "-s"})
     private int problemSize = 24;
@@ -99,8 +99,10 @@ class SolverLauncher {
                 timeLapseViewer.setVisible(true);
             }
 
+            hazelcastInstance.shutdown();
+
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
     }
 
