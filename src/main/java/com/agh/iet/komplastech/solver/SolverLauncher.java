@@ -99,6 +99,7 @@ class SolverLauncher {
                 timeLapseViewer.setVisible(true);
             }
 
+            objectStore.clearAll();
             hazelcastInstance.shutdown();
 
         } catch (Exception e) {
