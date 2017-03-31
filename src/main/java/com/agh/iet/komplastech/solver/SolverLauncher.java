@@ -15,10 +15,13 @@ import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
+import org.apache.log4j.Logger;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
 class SolverLauncher {
+
+    private static final Logger log = Logger.getLogger(SolverLauncher.class);
 
     @Parameter(names = {"--log", "-l"})
     private boolean isLogging = false;
@@ -79,7 +82,7 @@ class SolverLauncher {
             );
 
 
-            System.out.print(String.format("%d,%d,%d,%d",
+            log.info(String.format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
