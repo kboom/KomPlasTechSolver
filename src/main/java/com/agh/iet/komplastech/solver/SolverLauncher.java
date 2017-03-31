@@ -32,23 +32,20 @@ class SolverLauncher {
     @Parameter(names = {"--problem-size", "-s"})
     private int problemSize = 24;
 
-    @Parameter(names = {"--max-threads", "-t"})
-    private int maxThreads = 12;
-
     @Parameter(names = {"--delta", "-d"})
     private double delta = 0.1;
 
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-    @Parameter(names = {"--cloud"})
-    private boolean isCloud = true;
+    @Parameter(names = {"--batches", "-b"})
+    private int maxBatchSize = 10;
 
     void launch() {
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
-                hazelcastInstance.getExecutorService("productionExecutor"));
+                hazelcastInstance.getExecutorService("productionExecutor"), maxBatchSize);
         VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"));
 
         hazelcastInstance.getMap("vertices").clear();

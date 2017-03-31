@@ -8,6 +8,7 @@ import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.IMap;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
 public class HazelcastProductionAdapter
@@ -17,14 +18,11 @@ public class HazelcastProductionAdapter
 
     private Production production;
 
-    /**
-     * This might be a list... then could fetch a batches...
-     */
-    private VertexId vertexId;
+    private Set<VertexId> verticesToApplyOn;
 
-    public HazelcastProductionAdapter(Production production, VertexId vertexId) {
+    public HazelcastProductionAdapter(Production production, Set<VertexId> verticesToApplyOn) {
         this.production = production;
-        this.vertexId = vertexId;
+        this.verticesToApplyOn = verticesToApplyOn;
     }
 
     @Override
@@ -35,8 +33,9 @@ public class HazelcastProductionAdapter
     @Override
     public Void call() {
         IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        Vertex vertex = vertices.get(vertexId);
-        production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
+        vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> {
+            production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
+        });
         return null;
     }
 

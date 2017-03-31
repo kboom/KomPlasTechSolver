@@ -7,12 +7,17 @@ import com.agh.iet.komplastech.solver.support.VertexRange;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
+import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStreamOf;
+
 public class ProductionExecutorFactory {
 
     private final ExecutorService executorService;
 
-    public ProductionExecutorFactory(ExecutorService executorService) {
+    private final int maxBatchSize;
+
+    public ProductionExecutorFactory(ExecutorService executorService, int maxBatchSize) {
         this.executorService = executorService;
+        this.maxBatchSize = maxBatchSize;
     }
 
     public ProductionLauncher launchProduction(Production production) {
@@ -36,8 +41,8 @@ public class ProductionExecutorFactory {
         public void andWaitTillComplete() {
             try {
                 executorService.invokeAll(
-                        range.getVerticesInRange().stream()
-                                .map((vertexId) -> new HazelcastProductionAdapter(production, vertexId))
+                        batchedStreamOf(range.getVerticesInRange().stream(), maxBatchSize)
+                                .map((vertexBatch) -> new HazelcastProductionAdapter(production, vertexBatch))
                                 .collect(Collectors.toList())
                 );
             } catch (InterruptedException e) {

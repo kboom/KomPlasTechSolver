@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 task packageToSource(type: Copy) {
-    from 'build/distributions'
+    from files('build/distributions', 'build/libs')
     into 'dist'
 }
 
