@@ -7,7 +7,7 @@
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
     </group>
-    <management-center enabled="true">http://localhost:8080/mancenter</management-center>
+    <management-center enabled="true">http://node3.a2s.agh.edu.pl:8080/mancenter</management-center>
     <partition-group enabled="false"/>
     <executor-service name="default">
         <pool-size>2</pool-size>

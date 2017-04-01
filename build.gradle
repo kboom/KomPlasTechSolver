@@ -22,7 +22,7 @@ jar {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task packageToSource(type: Copy) {
+task packageToSource(type: Copy, dependsOn: ['jar', 'distTar']) {
     from files('build/distributions', 'build/libs')
     into 'dist'
 }
