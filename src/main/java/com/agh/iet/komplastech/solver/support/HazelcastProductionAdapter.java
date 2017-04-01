@@ -1,7 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.productions.HazelcastProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
@@ -33,9 +32,10 @@ public class HazelcastProductionAdapter
     @Override
     public Void call() {
         IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> {
-            production.apply(new HazelcastProcessingContext(hazelcastInstance, vertex));
-        });
+        HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
+        vertices.loadAll(verticesToApplyOn, false);
+        vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
+        contextManager.flush();
         return null;
     }
 

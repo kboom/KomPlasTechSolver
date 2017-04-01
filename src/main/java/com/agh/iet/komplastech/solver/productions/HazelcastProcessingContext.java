@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.support.ProcessingContextManager;
 import com.agh.iet.komplastech.solver.support.ReferenceVisitor;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.hazelcast.core.HazelcastInstance;
@@ -9,11 +10,11 @@ import com.hazelcast.core.IMap;
 public class HazelcastProcessingContext implements ProcessingContext, ReferenceVisitor {
 
     private final Vertex vertex;
-    private final IMap<VertexId, Vertex> vertices;
+    private final ProcessingContextManager contextManager;
 
-    public HazelcastProcessingContext(HazelcastInstance hazelcastInstance, Vertex vertex) {
+    public HazelcastProcessingContext(ProcessingContextManager processingContextManager, Vertex vertex) {
         this.vertex = vertex;
-        this.vertices = hazelcastInstance.getMap("vertices");
+        this.contextManager = processingContextManager;
     }
 
     @Override
@@ -24,26 +25,24 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
 
     @Override
     public void storeVertex(Vertex vertex) {
-        vertices.put(vertex.getId(), vertex);
+        contextManager.storeVertex(vertex);
     }
 
-    // replace all... somehow
     @Override
     public void updateVertex() {
-        vertices.replace(vertex.getId(), vertex);
+        contextManager.replaceVertex(vertex);
     }
 
     @Override
     public void updateVertexAndChildren() {
         updateVertex();
-        vertex.getChildren().forEach(
-                (childNode) -> vertices.replace(childNode.getId(), childNode)
-        );
+        contextManager.replaceVertices(vertex.getChildren());
     }
 
     @Override
     public Vertex loadVertex(VertexId vertexId) {
-        return vertices.get(vertexId);
+        // hazelcastMap -> loadAll (preload) batch
+        return contextManager.getVertex(vertexId);
     }
 
 }
