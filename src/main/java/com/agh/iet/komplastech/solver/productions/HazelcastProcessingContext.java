@@ -27,6 +27,7 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
         vertices.put(vertex.getId(), vertex);
     }
 
+    // replace all... somehow
     @Override
     public void updateVertex() {
         vertices.replace(vertex.getId(), vertex);

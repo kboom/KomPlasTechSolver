@@ -18,6 +18,7 @@ import com.hazelcast.core.HazelcastInstance;
 import org.apache.log4j.Logger;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static java.lang.String.format;
 
 class SolverLauncher {
 
@@ -42,6 +43,10 @@ class SolverLauncher {
     private int maxBatchSize = 10;
 
     void launch() {
+        log.info(format("Problem size (%d), Steps (%d), Batch size (%d)",
+                problemSize, steps, maxBatchSize));
+
+
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
@@ -79,7 +84,7 @@ class SolverLauncher {
             );
 
 
-            log.info(String.format("%d,%d,%d,%d",
+            log.info(format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
