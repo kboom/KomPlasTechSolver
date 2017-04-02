@@ -1,33 +1,35 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.VertexRange;
 
 public interface ProductionFactory {
 
-    Production createRootProduction(Vertex vertex);
+    Production createBranchRootProduction();
 
-    Production createIntermediateProduction(Vertex vertex);
+    Production createBranchIntermediateProduction();
 
-    Production createLeafProductions(Vertex vertex);
+    Production createLeafProduction(VertexRange range);
 
-    Production mergeLeavesProduction(Vertex vertex);
+    Production createLeafMergingProduction();
 
-    Production eliminateLeavesProduction(Vertex vertex);
+    Production createLeafEliminatingProduction();
 
-    Production mergeIntermediateProduction(Vertex vertex);
+    Production createFirstIntermediateMergingProduction();
 
-    Production mergeUpProduction(Vertex vertex);
+    Production mergeUpProduction();
 
-    Production eliminateIntermediateProduction(Vertex vertex);
+    Production eliminateUpProduction();
 
-    Production rootSolverProduction(Vertex vertex);
+    Production createFirstIntermediateEliminatingProduction();
 
-    Production backwardSubstituteProduction(Vertex vertex);
+    Production createRootSolvingProduction();
 
-    Production backwardSubstituteIntermediateProduction(Vertex vertex);
+    Production createRootBackwardsSubstitutingProduction();
 
-    Production backwardSubstituteUpProduction(Vertex vertex);
+    Production backwardSubstituteIntermediateProduction();
 
-    Production backwardSubstituteLeavesProduction(Vertex vertex);
+    Production backwardSubstituteUpProduction();
+
+    Production backwardSubstituteLeavesProduction();
 
 }

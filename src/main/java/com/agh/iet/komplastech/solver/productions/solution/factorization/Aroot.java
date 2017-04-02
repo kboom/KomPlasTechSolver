@@ -1,27 +1,36 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
+import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.productions.Production;
 
-public class Aroot extends Production {
+public class Aroot implements Production {
 
-    public Aroot(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
+    private final Mesh mesh;
+
+    public Aroot(Mesh mesh) {
+        this.mesh = mesh;
     }
 
-    public Vertex apply(Vertex T) {
+    public void apply(ProcessingContext processingContext) {
+        final Vertex currentVertex = processingContext.getVertex();
+
+        final Vertex leftChild = currentVertex.getLeftChild();
+        final Vertex rightChild = currentVertex.getRightChild();
+
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 4; j++) {
-                T.m_a[i][j] += T.leftChild.m_a[i + 2][j + 2];
-                T.m_a[i + 2][j + 2] += T.rightChild.m_a[i + 2][j + 2];
+                currentVertex.m_a[i][j] += leftChild.m_a[i + 2][j + 2];
+                currentVertex.m_a[i + 2][j + 2] += rightChild.m_a[i + 2][j + 2];
             }
-            for (int j = 1; j <= T.mesh.getDofsY(); j++) {
-                T.m_b[i][j] += T.leftChild.m_b[i + 2][j];
-                T.m_b[i + 2][j] += T.rightChild.m_b[i + 2][j];
+            for (int j = 1; j <= mesh.getDofsY(); j++) {
+                currentVertex.m_b[i][j] += leftChild.m_b[i + 2][j];
+                currentVertex.m_b[i + 2][j] += rightChild.m_b[i + 2][j];
             }
         }
-        return T;
+
+        processingContext.updateVertex();
     }
 
 }

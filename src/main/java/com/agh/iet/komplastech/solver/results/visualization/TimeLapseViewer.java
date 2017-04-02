@@ -3,8 +3,6 @@ package com.agh.iet.komplastech.solver.results.visualization;
 import com.agh.iet.komplastech.solver.SolutionsInTime;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

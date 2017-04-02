@@ -1,41 +1,62 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
+import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
+import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
+import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
+import com.agh.iet.komplastech.solver.storage.ObjectStore;
+import com.agh.iet.komplastech.solver.support.HazelcastVertexMap;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.beust.jcommander.Parameter;
+import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.core.HazelcastInstance;
+import org.apache.log4j.Logger;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static java.lang.String.format;
 
 class SolverLauncher {
 
-    @Parameter(names={"--log", "-l"})
+    private static final Logger log = Logger.getLogger(SolverLauncher.class);
+
+    @Parameter(names = {"--log", "-l"})
     private boolean isLogging = false;
 
-    @Parameter(names={"--plot", "-p"})
-    private boolean isPlotting = true;
+    @Parameter(names = {"--plot", "-p"})
+    private boolean isPlotting = false;
 
-    @Parameter(names={"--problem-size", "-s"})
-    private int problemSize = 12;
+    @Parameter(names = {"--problem-size", "-s"})
+    private int problemSize = 24;
 
-    @Parameter(names={"--max-threads", "-t"})
-    private int maxThreads = 12;
+    @Parameter(names = {"--delta", "-d"})
+    private double delta = 0.1;
 
-    @Parameter(names={"--delta", "-d"})
-    private double delta = 0.001;
-
-    @Parameter(names={"--steps", "-o"})
+    @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-    void launch() {
-        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
-        TimeLogger timeLogger = new TimeLogger();
+    @Parameter(names = {"--batches", "-b"})
+    private int maxBatchSize = 10;
 
-        productionExecutorFactory.setAvailableThreads(maxThreads);
+    void launch() {
+        log.info(format("Problem size (%d), Steps (%d), Batch size (%d)",
+                problemSize, steps, maxBatchSize));
+
+
+        HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
+        ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
+                hazelcastInstance.getExecutorService("productionExecutor"), maxBatchSize);
+        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"));
+
+        hazelcastInstance.getMap("vertices").clear();
+
+
+        TimeLogger timeLogger = new TimeLogger();
 
         Mesh mesh = aMesh()
                 .withElementsX(problemSize)
@@ -47,7 +68,8 @@ class SolverLauncher {
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
-                isLogging ? new ConsoleSolutionLogger(mesh) : new NoopSolutionLogger(),
+                isLogging ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
+                objectStore,
                 timeLogger
         );
 
@@ -56,28 +78,13 @@ class SolverLauncher {
                     new NonStationarySolver(steps, delta, problemSolver, mesh);
 
 
-            int finalProblemSize = problemSize;
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
+                    new HeatTransferProblem(delta, mesh, problemSize)
+//                    new ConstantLinearProblem(delta)
+            );
 
-                @Override
-                protected double getInitialValue(double x, double y) {
-                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
 
-                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
-                }
-
-                @Override
-                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-                    double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getLaplacian(x, y);
-                }
-
-            });
-
-            productionExecutorFactory.joinAll();
-
-            System.out.print(String.format("%d,%d,%d,%d",
+            log.info(format("%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
@@ -97,8 +104,11 @@ class SolverLauncher {
                 timeLapseViewer.setVisible(true);
             }
 
+            objectStore.clearAll();
+            hazelcastInstance.shutdown();
+
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
     }
 

@@ -1,14 +1,9 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.productions.Production;
+import com.agh.iet.komplastech.solver.support.Vertex;
 
-public class PFEProduction extends Production {
-
-    PFEProduction(Vertex Vert, Mesh Mesh) {
-        super(Vert, Mesh);
-    }
+abstract class PFEProduction implements Production {
 
     Vertex partial_forward_elimination(Vertex T, int elim, int size, int nrhs) {
         for (int irow = 1; irow <= elim; irow++) {
@@ -43,10 +38,6 @@ public class PFEProduction extends Production {
             }
         }
         return T;
-    }
-
-    public Vertex apply(Vertex v) {
-        return null;
     }
 
 }

@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+
+  kpts-management:
+    container_name: kpts-management
+    image: hazelcast/management-center
+    ports:
+        - 8080:8080
+
+  kpts-worker:
+    image: hazelcast/hazelcast
+    volumes:
+        - ./config:/config
+        - ../build/libs:/libs
+    network_mode: "host"
+    environment:
+        - "JAVA_OPTS=-Dhazelcast.config=/config/hazelcast.xml"
+        - "CLASSPATH=/libs"
+    depends_on:
+        - kpts-management
+
