@@ -33,7 +33,6 @@ public class HazelcastProductionAdapter
     public Void call() {
         IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
         HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
-        vertices.loadAll(verticesToApplyOn, false);
         vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
         contextManager.flush();
         return null;
