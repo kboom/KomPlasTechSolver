@@ -1,7 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.hazelcast.query.Predicates;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,16 +8,14 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
-
 public class Vertex implements Serializable {
 
     private final VertexId id;
 
-    public double[][] m_a;
-    public double[][] m_b;
+    public Matrix m_a;
+    public Matrix m_b;
+    public Matrix m_x;
 
-    public double[][] m_x;
     public double beginning;
     public double ending;
 
@@ -75,36 +72,12 @@ public class Vertex implements Serializable {
                 .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));
     }
 
-    public String getEquation() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nA\n");
-        sb.append(stringifyMatrix(m_a));
-        sb.append("\nx\n");
-        sb.append(stringifyMatrix(m_x));
-        sb.append("\nb\n");
-        sb.append(stringifyMatrix(m_b));
-
-        return sb.toString();
-    }
-
-    private String stringifyMatrix(double [][] matrix) {
-        StringBuilder sb = new StringBuilder();
-        for(int r = 0; r < matrix.length; r++) {
-            for(int c = 0; c < matrix[r].length; c++) {
-                sb.append(format("%.2f", matrix[r][c]));
-                sb.append(" ");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
-    }
-
     public static class VertexBuilder {
 
         private final Vertex vertex;
         private Mesh mesh;
 
-        public VertexBuilder(VertexId vertexId) {
+        VertexBuilder(VertexId vertexId) {
             vertex = new Vertex(vertexId);
         }
 
@@ -124,9 +97,9 @@ public class Vertex implements Serializable {
         }
 
         public Vertex build() {
-            vertex.m_a = new double[7][7];
-            vertex.m_b = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
-            vertex.m_x = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
+            vertex.m_a = new Matrix(7, 7);
+            vertex.m_b = new Matrix(7, mesh.getElementsY() + mesh.getSplineOrder() + 1);
+            vertex.m_x = new Matrix(7, mesh.getElementsY() + mesh.getSplineOrder() + 1);
             return vertex;
         }
 

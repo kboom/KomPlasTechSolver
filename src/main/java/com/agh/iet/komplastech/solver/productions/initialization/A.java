@@ -57,15 +57,15 @@ public class A implements Production {
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
                 if (i > 2) {
                     double y = (GAUSS_POINTS[l] + (i - 3)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline1.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
+                    node.m_b.add(r, i, GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline1.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y));
                 }
                 if (i > 1 && (i - 2) < mesh.getElementsY()) {
                     double y = (GAUSS_POINTS[l] + (i - 2)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline2.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
+                    node.m_b.add(r, i, GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline2.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y));
                 }
                 if ((i - 1) < mesh.getElementsY()) {
                     double y = (GAUSS_POINTS[l] + (i - 1)) * mesh.getDy();
-                    node.m_b[r][i] += GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline3.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y);
+                    node.m_b.add(r, i, GAUSS_POINT_WEIGHTS[k] * spline.getValue(GAUSS_POINTS[k]) * GAUSS_POINT_WEIGHTS[l] * spline3.getValue(GAUSS_POINTS[l]) * problem.getValue(x, y));
                 }
             }
         }
