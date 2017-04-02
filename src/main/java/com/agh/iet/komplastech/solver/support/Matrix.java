@@ -30,33 +30,33 @@ public class Matrix implements Serializable {
 //    }
 
     public double get(int row, int col) {
-        return elements[rows * row + col];
+        return elements[cols * row + col];
     }
 
     public void set(int row, int col, double value) {
-        elements[rows * row + col] = value;
+        elements[cols * row + col] = value;
     }
 
     public void swap(int rowA, int colA, int rowB, int colB) {
-        final int indexA = rows * rowA + colA;
-        final int indexB = rows * rowB + colB;
+        final int indexA = cols * rowA + colA;
+        final int indexB = cols * rowB + colB;
         double tmp = elements[indexA];
         elements[indexA] = elements[indexB];
         elements[indexB] = tmp;
     }
 
     public void add(int row, int col, double value) {
-        final int index = rows * row + col;
+        final int index = cols * row + col;
         elements[index] += value;
     }
 
     public void divideBy(int row, int col, double divisor) {
-        final int index = rows * row + col;
+        final int index = cols * row + col;
         elements[index] /= divisor;
     }
 
     public void subtract(int row, int col, double value) {
-        final int index = rows * row + col;
+        final int index = cols * row + col;
         elements[index] -= value;
     }
 
