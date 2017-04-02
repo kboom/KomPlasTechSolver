@@ -29,12 +29,12 @@ public class A2_2Test {
         Vertex rightChild = createRightChild(parent);
         Vertex leftChild = createLeftChild(parent);
 
-        leftChild.m_a[2][2] = 1;
-        rightChild.m_a[2][2] = 1;
+        leftChild.m_a.set(2, 2, 1);
+        rightChild.m_a.set(2, 2, 1);
 
         A2_2 a = new A2_2(DUMMY_MESH);
         a.apply(new LocalProcessingContext(parent));
-        assertThat(deepToString(parent.m_a)).isEqualTo(
+        assertThat(deepToString(parent.m_a.to2DArray())).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
@@ -51,12 +51,12 @@ public class A2_2Test {
         Vertex rightChild = createRightChild(parent);
         Vertex leftChild = createLeftChild(parent);
 
-        leftChild.m_b[3][3] = 1;
-        rightChild.m_b[3][3] = 1;
+        leftChild.m_b.set(3, 3, 1);
+        rightChild.m_b.set(3, 3, 1);
 
         A2_2 a = new A2_2(DUMMY_MESH);
         a.apply(new LocalProcessingContext(parent));
-        assertThat(deepToString(parent.m_b)).isEqualTo(
+        assertThat(deepToString(parent.m_b.to2DArray())).isEqualTo(
                 "[[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +
                         "[0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], " +

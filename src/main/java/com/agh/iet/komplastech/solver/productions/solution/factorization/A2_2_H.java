@@ -22,12 +22,12 @@ public class A2_2_H implements Production {
 
         for (int i = 1; i <= 4; i++) {
             for (int j = 1; j <= 4; j++) {
-                currentVertex.m_a[i][j] += leftChild.m_a[i + 2][j + 2];
-                currentVertex.m_a[i + 2][j + 2] += rightChild.m_a[i + 2][j + 2];
+                currentVertex.m_a.add(i, j, leftChild.m_a.get(i + 2, j + 2));
+                currentVertex.m_a.add(i + 2, j + 2, rightChild.m_a.get(i + 2, j + 2));
             }
             for (int j = 1; j <= mesh.getDofsY(); j++) {
-                currentVertex.m_b[i][j] += leftChild.m_b[i + 2][j];
-                currentVertex.m_b[i + 2][j] += rightChild.m_b[i + 2][j];
+                currentVertex.m_b.add(i, j, leftChild.m_b.get(i + 2, j));
+                currentVertex.m_b.add(i + 2, j, rightChild.m_b.get(i + 2, j));
             }
         }
 

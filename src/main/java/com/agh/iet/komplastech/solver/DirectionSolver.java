@@ -5,7 +5,6 @@ import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
-import com.agh.iet.komplastech.solver.results.MatrixPrinter;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -248,16 +247,16 @@ public class DirectionSolver implements Solver {
         int i = 0;
         for (Vertex vertex : sortedLeaves) {
             if (i == 0) {
-                rhs[1] = vertex.m_x[1];
-                rhs[2] = vertex.m_x[2];
-                rhs[3] = vertex.m_x[3];
-                rhs[4] = vertex.m_x[4];
-                rhs[5] = vertex.m_x[5];
+                rhs[1] = vertex.m_x.getRow(1);
+                rhs[2] = vertex.m_x.getRow(2);
+                rhs[3] = vertex.m_x.getRow(3);
+                rhs[4] = vertex.m_x.getRow(4);
+                rhs[5] = vertex.m_x.getRow(5);
             } else {
                 int offset = 6 + (i - 1) * 3;
-                rhs[offset] = vertex.m_x[3];
-                rhs[offset + 1] = vertex.m_x[4];
-                rhs[offset + 2] = vertex.m_x[5];
+                rhs[offset] = vertex.m_x.getRow(3);
+                rhs[offset + 1] = vertex.m_x.getRow(4);
+                rhs[offset + 2] = vertex.m_x.getRow(5);
             }
             i++;
         }

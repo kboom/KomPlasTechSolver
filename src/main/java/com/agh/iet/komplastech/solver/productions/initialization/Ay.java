@@ -31,9 +31,9 @@ public class Ay implements Production {
         Vertex node = processingContext.getVertex();
         final int idx = node.getId().getAbsoluteIndex() - offset;
         for (int i = 1; i <= mesh.getDofsX(); i++) {
-            node.m_b[1][i] = partition[0] * solution[i][idx + 1];
-            node.m_b[2][i] = partition[1] * solution[i][idx + 2];
-            node.m_b[3][i] = partition[2] * solution[i][idx + 3];
+            node.m_b.set(1, i, partition[0] * solution[i][idx + 1]);
+            node.m_b.set(2, i, partition[1] * solution[i][idx + 2]);
+            node.m_b.set(3, i, partition[2] * solution[i][idx + 3]);
         }
     }
 
