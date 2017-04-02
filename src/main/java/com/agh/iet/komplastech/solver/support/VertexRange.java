@@ -1,17 +1,24 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-import java.io.Serializable;
+import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class VertexRange implements Serializable {
+public class VertexRange implements DataSerializable {
 
-    private final int left;
-    private final int right;
+    private int left;
+    private int right;
+
+    @SuppressWarnings("unused")
+    public VertexRange() {
+
+    }
 
     public VertexRange(int left, int right) {
         this.left = left;
@@ -98,4 +105,17 @@ public class VertexRange implements Serializable {
                 ", right=" + right +
                 '}';
     }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeInt(left);
+        out.writeInt(right);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        left = in.readInt();
+        right = in.readInt();
+    }
+
 }

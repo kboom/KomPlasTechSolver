@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.productions.initialization.Ay;
+import com.agh.iet.komplastech.solver.support.Matrix;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
@@ -26,7 +27,7 @@ public class VerticalLeafInitializer implements LeafInitializer {
 
     @Override
     public void initializeLeaves(VerticalIterator verticalIterator) {
-        final double[][] rhs = horizontalSolution.getRhs();
+        final Matrix rhs = horizontalSolution.getRhs();
 
         int levelOffset = (int) Math.pow(2, verticalIterator.getCurrentLevel());
 

@@ -4,7 +4,10 @@ import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
 
+import java.io.IOException;
 import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
@@ -15,7 +18,12 @@ public class P2 implements Production {
     private static final IntFunction<Integer> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
     private static final IntFunction<Integer> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
 
-    private final Mesh mesh;
+    private Mesh mesh;
+
+    @SuppressWarnings("unused")
+    public P2() {
+
+    }
 
     public P2(Mesh mesh) {
         this.mesh = mesh;
@@ -53,6 +61,16 @@ public class P2 implements Production {
         node.setRightChild(weakReferenceToVertex(rightChild));
 
         processingContext.storeVertex(rightChild);
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
     }
 
 }

@@ -2,19 +2,29 @@ package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
+import com.agh.iet.komplastech.solver.support.Matrix;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class Ay implements Production {
 
-    private final double[][] solution;
-    private final double[] partition;
-    private final Mesh mesh;
-    private final int offset;
+    private Matrix solution;
+    private double[] partition;
+    private Mesh mesh;
+    private int offset;
 
-    public Ay(double[][] solution, double[] partition, Mesh mesh, int offset) {
+    @SuppressWarnings("unused")
+    public Ay() {
+
+    }
+
+    public Ay(Matrix solution, double[] partition, Mesh mesh, int offset) {
         this.solution = solution;
         this.partition = partition;
         this.mesh = mesh;
@@ -31,14 +41,30 @@ public class Ay implements Production {
         Vertex node = processingContext.getVertex();
         final int idx = node.getId().getAbsoluteIndex() - offset;
         for (int i = 1; i <= mesh.getDofsX(); i++) {
-            node.m_b.set(1, i, partition[0] * solution[i][idx + 1]);
-            node.m_b.set(2, i, partition[1] * solution[i][idx + 2]);
-            node.m_b.set(3, i, partition[2] * solution[i][idx + 3]);
+            node.m_b.set(1, i, partition[0] * solution.get(i, idx + 1));
+            node.m_b.set(2, i, partition[1] * solution.get(i, idx + 2));
+            node.m_b.set(3, i, partition[2] * solution.get(i, idx + 3));
         }
     }
 
     private void initializeCoefficientsMatrix(ProcessingContext processingContext) {
         useArbitraryCoefficients(processingContext.getVertex());
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+        out.writeInt(offset);
+        out.writeObject(solution);
+        out.writeDoubleArray(partition);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
+        offset = in.readInt();
+        solution = in.readObject();
+        partition = in.readDoubleArray();
     }
 
 }

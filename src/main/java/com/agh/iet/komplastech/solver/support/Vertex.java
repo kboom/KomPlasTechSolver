@@ -1,16 +1,19 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-import java.io.Serializable;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Vertex implements Serializable {
+public class Vertex implements DataSerializable {
 
-    private final VertexId id;
+    private VertexId id;
 
     public Matrix m_a;
     public Matrix m_b;
@@ -22,6 +25,11 @@ public class Vertex implements Serializable {
     private VertexReference leftChild;
     private VertexReference middleChild;
     private VertexReference rightChild;
+
+    @SuppressWarnings("unused")
+    public Vertex() {
+
+    }
 
     public Vertex(VertexId vertexId) {
         id = vertexId;
@@ -70,6 +78,32 @@ public class Vertex implements Serializable {
         Stream.of(leftChild, middleChild, rightChild)
                 .filter(Objects::nonNull)
                 .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(id);
+        out.writeObject(m_a);
+        out.writeObject(m_b);
+        out.writeObject(m_x);
+        out.writeDouble(beginning);
+        out.writeDouble(ending);
+        out.writeObject(leftChild);
+        out.writeObject(middleChild);
+        out.writeObject(rightChild);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        id = in.readObject();
+        m_a = in.readObject();
+        m_b = in.readObject();
+        m_x = in.readObject();
+        beginning = in.readDouble();
+        ending = in.readDouble();
+        leftChild = in.readObject();
+        middleChild = in.readObject();
+        rightChild = in.readObject();
     }
 
     public static class VertexBuilder {

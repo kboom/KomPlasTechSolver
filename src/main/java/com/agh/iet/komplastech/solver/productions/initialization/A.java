@@ -10,6 +10,10 @@ import com.agh.iet.komplastech.solver.splines.BSpline3;
 import com.agh.iet.komplastech.solver.splines.Spline;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
@@ -22,9 +26,13 @@ public class A implements Production {
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
 
-    private final Problem problem;
-    private final Mesh mesh;
+    private Problem problem;
+    private Mesh mesh;
 
+    @SuppressWarnings("unused")
+    public A() {
+
+    }
 
     public A(Mesh mesh, Problem problem) {
         this.problem = problem;
@@ -70,4 +78,17 @@ public class A implements Production {
             }
         }
     }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+        out.writeObject(problem);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
+        problem = in.readObject();
+    }
+
 }

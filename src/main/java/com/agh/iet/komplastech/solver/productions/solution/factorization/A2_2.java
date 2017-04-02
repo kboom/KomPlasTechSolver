@@ -4,12 +4,21 @@ import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class A2_2 implements Production {
 
-    private final Mesh mesh;
+    private Mesh mesh;
+
+    @SuppressWarnings("unused")
+    public A2_2() {
+
+    }
 
     public A2_2(Mesh mesh) {
         this.mesh = mesh;
@@ -34,6 +43,16 @@ public class A2_2 implements Production {
         swapDofsFor(currentNode, 2, 4, 6, mesh.getDofsY());
 
         context.updateVertex();
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
     }
 
 }

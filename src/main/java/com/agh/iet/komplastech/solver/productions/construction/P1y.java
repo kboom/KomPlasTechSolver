@@ -5,6 +5,10 @@ import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
@@ -15,7 +19,12 @@ public class P1y implements Production {
     private static final VertexId LEFT_CHILD_OF_PARENT_ID = vertexId(2);
     private static final VertexId RIGHT_CHILD_OF_PARENT_ID = vertexId(3);
 
-    private final Mesh mesh;
+    private Mesh mesh;
+
+    @SuppressWarnings("unused")
+    public P1y() {
+
+    }
 
     public P1y(Mesh mesh) {
         this.mesh = mesh;
@@ -53,6 +62,16 @@ public class P1y implements Production {
         node.setRightChild(weakReferenceToVertex(rightChild));
 
         processingContext.storeVertex(rightChild);
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
     }
 
 }

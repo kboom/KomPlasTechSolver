@@ -1,11 +1,20 @@
 package com.agh.iet.komplastech.solver;
 
-import java.io.Serializable;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
+
+import java.io.IOException;
 import java.util.function.IntFunction;
 
-public class VertexId implements Serializable {
+public class VertexId implements DataSerializable {
 
-    private final int id;
+    private int id;
+
+    @SuppressWarnings("unused")
+    public VertexId() {
+
+    }
 
     private VertexId(int id) {
         this.id = id;
@@ -29,4 +38,15 @@ public class VertexId implements Serializable {
                 "id=" + id +
                 '}';
     }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeInt(id);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        id = in.readInt();
+    }
+
 }

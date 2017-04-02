@@ -1,13 +1,25 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
 
-public class Matrix implements Serializable {
+import static java.lang.System.arraycopy;
+
+public class Matrix implements DataSerializable {
 
     private double[] elements;
     private int rows;
     private int cols;
+
+    @SuppressWarnings("unused")
+    public Matrix() {
+
+    }
 
     public Matrix(int rows, int cols) {
         this.rows = rows;
@@ -15,19 +27,28 @@ public class Matrix implements Serializable {
         this.elements = new double[rows * cols];
     }
 
-//    @Override
-//    public void writeData(ObjectDataOutput out) throws IOException {
-//        out.writeInt(rows);
-//        out.writeInt(cols);
-//        out.writeObject(elements);
-//    }
-//
-//    @Override
-//    public void readData(ObjectDataInput in) throws IOException {
-//        rows = in.readInt();
-//        cols = in.readInt();
-//        elements = in.readObject();
-//    }
+    public Matrix(double[][] values) {
+        this.rows = values.length;
+        this.cols = values[0].length;
+        this.elements = new double[rows * cols];
+        for(int row = 0; row < rows; row++) {
+            arraycopy(values[row], 0, elements, cols * row, cols);
+        }
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeInt(rows);
+        out.writeInt(cols);
+        out.writeDoubleArray(elements);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        rows = in.readInt();
+        cols = in.readInt();
+        elements = in.readDoubleArray();
+    }
 
     public double get(int row, int col) {
         return elements[cols * row + col];
@@ -71,4 +92,9 @@ public class Matrix implements Serializable {
         }
         return array;
     }
+
+    public static Matrix from2DArray(double[][] rhs) {
+        return new Matrix(rhs);
+    }
+
 }

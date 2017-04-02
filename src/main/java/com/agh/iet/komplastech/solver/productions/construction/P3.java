@@ -5,7 +5,10 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexRange;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
 
+import java.io.IOException;
 import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
@@ -15,6 +18,11 @@ public class P3 implements Production {
 
     private Mesh mesh;
     private VertexRange range;
+
+    @SuppressWarnings("unused")
+    public P3() {
+
+    }
 
     public P3(Mesh mesh, VertexRange range) {
         this.mesh = mesh;
@@ -68,6 +76,18 @@ public class P3 implements Production {
         node.setRightChild(weakReferenceToVertex(rightChild));
 
         processingContext.storeVertex(rightChild);
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+        out.writeObject(range);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
+        range = in.readObject();
     }
 
 }

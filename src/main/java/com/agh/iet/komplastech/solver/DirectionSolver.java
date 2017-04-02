@@ -6,10 +6,7 @@ import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.support.VertexMap;
-import com.agh.iet.komplastech.solver.support.VertexRange;
+import com.agh.iet.komplastech.solver.support.*;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
@@ -17,6 +14,7 @@ import java.util.List;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
+import static com.agh.iet.komplastech.solver.support.Matrix.from2DArray;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
 public class DirectionSolver implements Solver {
@@ -237,8 +235,9 @@ public class DirectionSolver implements Solver {
         );
     }
 
-    private double[][] getRhs() {
-        final double[][] rhs = new double[mesh.getElementsX() + mesh.getSplineOrder() + 1][];
+    private Matrix getRhs() {
+        int size = mesh.getElementsX() + mesh.getSplineOrder() + 1;
+        final double[][] rhs = new double[size][size];
 
         // for now just take all of them and compute here, later do this on worker nodes
         VertexRange vertexRange = treeIterator.getCurrentRange();
@@ -261,7 +260,7 @@ public class DirectionSolver implements Solver {
             i++;
         }
 
-        return rhs;
+        return from2DArray(rhs);
     }
 
     private int log2(double value) {

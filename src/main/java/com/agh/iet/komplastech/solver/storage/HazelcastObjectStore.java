@@ -6,6 +6,10 @@ import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 public class HazelcastObjectStore implements ObjectStore {
 
@@ -34,4 +38,13 @@ public class HazelcastObjectStore implements ObjectStore {
         return hazelcastInstance.getMap("vertices");
     }
 
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+
+    }
 }

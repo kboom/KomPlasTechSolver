@@ -1,8 +1,12 @@
 package com.agh.iet.komplastech.solver.splines;
 
-import java.io.Serializable;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-public abstract class Spline implements Serializable {
+import java.io.IOException;
+
+public abstract class Spline implements DataSerializable {
 
     private static final int VALUE_FOR_OUTSIDE_DOMAIN = 0;
 
@@ -16,7 +20,7 @@ public abstract class Spline implements Serializable {
     }
 
     public double getValue(double x) {
-        if(belongsToDomain(x)) {
+        if (belongsToDomain(x)) {
             return getFunctionValue(x);
         } else return VALUE_FOR_OUTSIDE_DOMAIN;
     }
@@ -27,6 +31,18 @@ public abstract class Spline implements Serializable {
 
     private boolean belongsToDomain(double x) {
         return x >= lowerDomainBound && x <= upperDomainBound;
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeInt(lowerDomainBound);
+        out.writeInt(upperDomainBound);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        lowerDomainBound = in.readInt();
+        upperDomainBound = in.readInt();
     }
 
 }

@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver.support;
 
-import java.io.Serializable;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-public interface VertexReference extends Serializable {
+public interface VertexReference extends DataSerializable {
 
     Vertex get();
 

@@ -3,12 +3,21 @@ package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class BS_1_5 extends PFEProduction {
 
-    private final Mesh mesh;
+    private Mesh mesh;
+
+    @SuppressWarnings("unused")
+    public BS_1_5() {
+
+    }
 
     public BS_1_5(Mesh mesh) {
         this.mesh = mesh;
@@ -20,6 +29,16 @@ public class BS_1_5 extends PFEProduction {
         swapDofsFor(T, 1, 2, 5, mesh.getDofsY());
         swapDofsFor(T, 2, 3, 5, mesh.getDofsY());
         processingContext.updateVertex();
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(mesh);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        mesh = in.readObject();
     }
 
 }

@@ -1,11 +1,22 @@
 package com.agh.iet.komplastech.solver.problem;
 
 import com.agh.iet.komplastech.solver.Solution;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
 
-public abstract class NonStationaryProblem implements Problem {
+import java.io.IOException;
+
+public abstract class NonStationaryProblem implements Problem, DataSerializable {
 
     private double delta;
     private Solution currentSolution;
+
+    @SuppressWarnings("unused")
+    public NonStationaryProblem() {
+
+    }
+
 
     public NonStationaryProblem(double delta) {
         this.delta = delta;
@@ -23,6 +34,19 @@ public abstract class NonStationaryProblem implements Problem {
     }
 
     protected abstract double getInitialValue(double x, double y);
+
     protected abstract double getValueAtTime(double x, double y, Solution currentSolution, double delta);
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeDouble(delta);
+        out.writeObject(currentSolution);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        delta = in.readDouble();
+        currentSolution = in.readObject();
+    }
 
 }

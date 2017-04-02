@@ -1,8 +1,13 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.DataSerializable;
+
+import java.io.IOException;
 import java.io.Serializable;
 
-public class Mesh implements Serializable {
+public class Mesh implements DataSerializable {
 
     private double resolutionX;
 
@@ -17,8 +22,6 @@ public class Mesh implements Serializable {
     private int dofsX;
 
     private int dofsY;
-
-    private int centerY;
 
     private Mesh() {}
 
@@ -70,6 +73,28 @@ public class Mesh implements Serializable {
         return elementsY / 2;
     }
 
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeDouble(resolutionX);
+        out.writeDouble(resolutionY);
+        out.writeInt(elementsX);
+        out.writeInt(elementsY);
+        out.writeInt(splineOrder);
+        out.writeInt(dofsX);
+        out.writeInt(dofsY);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        resolutionX = in.readDouble();
+        resolutionY = in.readDouble();
+        elementsX = in.readInt();
+        elementsY = in.readInt();
+        splineOrder = in.readInt();
+        dofsX = in.readInt();
+        dofsY = in.readInt();
+    }
+
     public static class MeshBuilder {
 
         private Mesh mesh = new Mesh();
@@ -117,7 +142,6 @@ public class Mesh implements Serializable {
                 ", splineOrder=" + splineOrder +
                 ", dofsX=" + dofsX +
                 ", dofsY=" + dofsY +
-                ", centerY=" + centerY +
                 '}';
     }
 
