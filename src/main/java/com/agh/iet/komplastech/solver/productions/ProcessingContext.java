@@ -11,4 +11,5 @@ public interface ProcessingContext {
     void updateVertex();
 
     void updateVertexAndChildren();
+
 }

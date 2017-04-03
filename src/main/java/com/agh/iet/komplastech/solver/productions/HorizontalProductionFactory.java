@@ -9,34 +9,39 @@ import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
+import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.VertexRange;
+import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 
     private final Problem problem;
     private final Mesh mesh;
+    private final VertexRegionMapper vertexRegionMapper;
 
     public HorizontalProductionFactory(
             Mesh mesh,
-            Problem problem) {
+            Problem problem,
+            VertexRegionMapper vertexRegionMapper) {
         this.mesh = mesh;
         this.problem = problem;
+        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     @Override
     public Production createBranchRootProduction() {
-        return new P1(mesh);
+        return new P1(mesh, vertexRegionMapper);
     }
 
     @Override
     public Production createBranchIntermediateProduction() {
-        return new P2(mesh);
+        return new P2(mesh, vertexRegionMapper);
     }
 
     @Override
     public Production createLeafProduction(VertexRange range) {
-        return new P3(mesh, range);
+        return new P3(mesh, range, vertexRegionMapper);
     }
 
     @Override

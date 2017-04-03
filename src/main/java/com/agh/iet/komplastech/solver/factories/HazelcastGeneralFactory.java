@@ -17,6 +17,9 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
     public static final int VERTEX_RANGE = 106;
     public static final int SOLUTION = 107;
     public static final int VERTEX_ID = 108;
+    public static final int REGION_ID = 109;
+    public static final int COMPUTE_CONFIG = 110;
+    public static final int VERTEX_REGION_MAPPER = 111;
 
     @Override
     public IdentifiedDataSerializable create(int typeId) {
@@ -37,6 +40,12 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
                 return new WeakVertexReference();
             case SOLUTION:
                 return new Solution();
+            case REGION_ID:
+                return new RegionId();
+            case COMPUTE_CONFIG:
+                return new ComputeConfig();
+            case VERTEX_REGION_MAPPER:
+                return new VertexRegionMapper();
             default:
                 throw new IllegalStateException("Could not find type for " + typeId);
         }

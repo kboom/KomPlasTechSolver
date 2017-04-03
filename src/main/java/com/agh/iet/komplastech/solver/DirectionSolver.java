@@ -15,6 +15,7 @@ import java.util.List;
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
 import static com.agh.iet.komplastech.solver.support.Matrix.from2DArray;
+import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
 public class DirectionSolver implements Solver {
@@ -87,7 +88,7 @@ public class DirectionSolver implements Solver {
     private void createRoot() {
         final Production production = productionFactory.createBranchRootProduction();
 
-        Vertex rootVertex = aVertex(vertexId(1))
+        Vertex rootVertex = aVertex(vertexId(1), regionId(1))
                 .inMesh(mesh)
                 .withBeggining(0)
                 .withEnding(mesh.getResolutionX()).build();

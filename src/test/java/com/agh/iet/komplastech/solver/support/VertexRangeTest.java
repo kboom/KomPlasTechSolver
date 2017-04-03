@@ -2,9 +2,7 @@ package com.agh.iet.komplastech.solver.support;
 
 import org.junit.Test;
 
-import static com.agh.iet.komplastech.solver.support.VertexRange.forBinary;
-import static com.agh.iet.komplastech.solver.support.VertexRange.forBinaryAndLastLevel;
-import static com.agh.iet.komplastech.solver.support.VertexRange.range;
+import static com.agh.iet.komplastech.solver.support.VertexRange.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class VertexRangeTest {
@@ -69,5 +67,29 @@ public class VertexRangeTest {
         assertThat(forBinaryAndLastLevel(2, 3)).isEqualTo(range(4,9));
     }
 
+    @Test
+    public void heightOf4To7Is2() {
+        assertThat(range(4, 7).getHeight()).isEqualTo(2);
+    }
+
+    @Test
+    public void heightOf8To15Is3() {
+        assertThat(range(8, 15).getHeight()).isEqualTo(3);
+    }
+
+    @Test
+    public void rangeFor1Is1To1() {
+        assertThat(VertexRange.forNode(1)).isEqualTo(range(1, 1));
+    }
+
+    @Test
+    public void rangeFor2Is2To3() {
+        assertThat(VertexRange.forNode(2)).isEqualTo(range(2, 3));
+    }
+
+    @Test
+    public void rangeFor5Is4To7() {
+        assertThat(VertexRange.forNode(5)).isEqualTo(range(4, 7));
+    }
 
 }

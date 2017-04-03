@@ -12,14 +12,19 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
+
 class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     private final HazelcastInstance hazelcastInstance;
     private final Set<Vertex> verticesToUpdate = new HashSet<>();
+    private final VertexRegionMapper vertexRegionMapper;
 
 
-    HazelcastProcessingContextManager(HazelcastInstance hazelcastInstance) {
+    HazelcastProcessingContextManager(HazelcastInstance hazelcastInstance,
+                                      VertexRegionMapper vertexRegionMapper) {
         this.hazelcastInstance = hazelcastInstance;
+        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     ProcessingContext createFor(Vertex vertex) {
@@ -43,14 +48,14 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     @Override
     public Vertex getVertex(VertexId vertexId) {
-        IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        return vertices.get(vertexId);
+        IMap<VertexReference, Vertex> vertices = hazelcastInstance.getMap("vertices");
+        return vertices.get(toVertexReferenceUsing(vertexRegionMapper).apply(vertexId));
     }
 
     @Override
     public void flush() {
-        IMap<Object, Object> verticesStore = hazelcastInstance.getMap("vertices");
-        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getVertexId, Function.identity())));
+        IMap<VertexReference, Object> verticesStore = hazelcastInstance.getMap("vertices");
+        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getVertexReference, Function.identity())));
     }
 
 }

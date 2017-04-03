@@ -1,17 +1,16 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
+import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.support.VertexRange;
+import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P3_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -19,15 +18,17 @@ public class P3 implements Production {
 
     private Mesh mesh;
     private VertexRange range;
+    private VertexRegionMapper vertexRegionMapper;
 
     @SuppressWarnings("unused")
     public P3() {
 
     }
 
-    public P3(Mesh mesh, VertexRange range) {
+    public P3(Mesh mesh, VertexRange range, VertexRegionMapper vertexRegionMapper) {
         this.mesh = mesh;
         this.range = range;
+        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -40,7 +41,11 @@ public class P3 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex leftChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 1))
+        VertexId newVertexId = node.getVertexId().transformed(id ->
+                range.getRight() + 3 * (id - range.getLeft()) + 1);
+        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+
+        Vertex leftChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -54,7 +59,11 @@ public class P3 implements Production {
     private void setMiddleChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 2))
+        VertexId newVertexId = node.getVertexId().transformed(id ->
+                range.getRight() + 3 * (id - range.getLeft()) + 2);
+        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+
+        Vertex rightChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
                 .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -68,7 +77,11 @@ public class P3 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 3))
+        VertexId newVertexId = node.getVertexId().transformed(id ->
+                range.getRight() + 3 * (id - range.getLeft()) + 3);
+        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+
+        Vertex rightChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
                 .withEnding(node.ending)
                 .inMesh(mesh)
@@ -83,12 +96,14 @@ public class P3 implements Production {
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(mesh);
         out.writeObject(range);
+        out.writeObject(vertexRegionMapper);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
         range = in.readObject();
+        vertexRegionMapper = in.readObject();
     }
 
     @Override

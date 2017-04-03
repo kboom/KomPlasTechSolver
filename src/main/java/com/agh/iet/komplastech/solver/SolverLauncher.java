@@ -2,16 +2,12 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
-import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
-import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
-import com.agh.iet.komplastech.solver.support.HazelcastVertexMap;
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.VertexMap;
+import com.agh.iet.komplastech.solver.support.*;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
@@ -42,16 +38,23 @@ class SolverLauncher {
     @Parameter(names = {"--batches", "-b"})
     private int maxBatchSize = 10;
 
+    @Parameter(names = {"--regionHeight", "-r"})
+    private int regionHeight = 6;
+
     void launch() {
         log.info(format("Problem size (%d), Steps (%d), Batch size (%d)",
                 problemSize, steps, maxBatchSize));
 
+        ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
+                .withRegionHeight(regionHeight)
+                .build();
 
+        VertexRegionMapper vertexRegionMapper = new VertexRegionMapper(computeConfig);
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
-        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
-                hazelcastInstance.getExecutorService("productionExecutor"), maxBatchSize);
-        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"));
+                hazelcastInstance, vertexRegionMapper, maxBatchSize);
+        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
 
         hazelcastInstance.getMap("vertices").clear();
 
@@ -68,6 +71,7 @@ class SolverLauncher {
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
+                vertexRegionMapper,
                 isLogging ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
                 objectStore,
                 timeLogger

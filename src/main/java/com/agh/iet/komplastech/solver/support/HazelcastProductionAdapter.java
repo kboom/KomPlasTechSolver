@@ -1,23 +1,17 @@
 package com.agh.iet.komplastech.solver.support;
 
-import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.IMap;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.PRODUCTION_ADAPTER;
@@ -29,16 +23,21 @@ public class HazelcastProductionAdapter
 
     private Production production;
 
-    private Set<VertexId> verticesToApplyOn;
+    private Set<VertexReference> verticesToApplyOn;
+
+    private VertexRegionMapper vertexRegionMapper;
 
     @SuppressWarnings("unused")
     public HazelcastProductionAdapter() {
 
     }
 
-    public HazelcastProductionAdapter(Production production, Set<VertexId> verticesToApplyOn) {
+    public HazelcastProductionAdapter(Production production,
+                                      VertexRegionMapper vertexRegionMapper,
+                                      Set<VertexReference> verticesToApplyOn) {
         this.production = production;
         this.verticesToApplyOn = verticesToApplyOn;
+        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     @Override
@@ -48,8 +47,8 @@ public class HazelcastProductionAdapter
 
     @Override
     public Void call() {
-        IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
+        IMap<VertexReference, Vertex> vertices = hazelcastInstance.getMap("vertices");
+        HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance, vertexRegionMapper);
         vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
         contextManager.flush();
         return null;
@@ -58,6 +57,7 @@ public class HazelcastProductionAdapter
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(production);
+        out.writeObject(vertexRegionMapper);
         out.writeInt(verticesToApplyOn.size());
         verticesToApplyOn.forEach(vertex -> {
             try {
@@ -71,9 +71,10 @@ public class HazelcastProductionAdapter
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         production = in.readObject();
+        vertexRegionMapper = in.readObject();
         int vertexCount = in.readInt();
         verticesToApplyOn = new HashSet<>(vertexCount);
-        for(int i = 0; i < vertexCount; i++) {
+        for (int i = 0; i < vertexCount; i++) {
             verticesToApplyOn.add(in.readObject());
         }
     }

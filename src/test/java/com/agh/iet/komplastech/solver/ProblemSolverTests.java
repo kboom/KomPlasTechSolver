@@ -22,7 +22,7 @@ public class ProblemSolverTests {
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ObjectStore objectStore = new InMemoryObjectStore();
     private ProductionExecutorFactory productionExecutorFactory =
-            new ProductionExecutorFactory(null, 2);
+            new ProductionExecutorFactory(null, null, 2);
 
     @Test
     public void solvesSmallerProblem() throws Exception {
@@ -58,6 +58,7 @@ public class ProblemSolverTests {
         return new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
+                null,
                 DUMMY_SOLUTION_LOGGER,
                 null,
                 DUMMY_TIME_LOGGER

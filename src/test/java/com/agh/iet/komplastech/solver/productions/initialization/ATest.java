@@ -2,11 +2,13 @@ package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.RegionId;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
+import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static java.util.Arrays.deepToString;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +27,7 @@ public class ATest {
 
     @Test
     public void fillsWithQuadraturePoints() {
-        Vertex leafNode = aVertex(vertexId(1)).inMesh(DUMMY_MESH).build();
+        Vertex leafNode = aVertex(vertexId(1), regionId(1)).inMesh(DUMMY_MESH).build();
         A a = new A(DUMMY_MESH, (x, y) -> x + y);
         a.apply(new LocalProcessingContext(leafNode));
         assertThat(deepToString(leafNode.m_b.to2DArray())).isEqualTo(

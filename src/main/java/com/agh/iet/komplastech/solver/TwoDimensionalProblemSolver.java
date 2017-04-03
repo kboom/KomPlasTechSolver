@@ -10,6 +10,7 @@ import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
 class TwoDimensionalProblemSolver implements Solver {
@@ -24,13 +25,17 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final TimeLogger timeLogger;
 
+    private final VertexRegionMapper vertexRegionMapper;
+
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
+                                VertexRegionMapper vertexRegionMapper,
                                 SolutionLogger solutionLogger,
                                 ObjectStore objectStore,
                                 TimeLogger timeLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
+        this.vertexRegionMapper = vertexRegionMapper;
         this.solutionLogger = solutionLogger;
         this.objectStore = objectStore;
         this.timeLogger = timeLogger;
@@ -44,7 +49,7 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
-        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(mesh, rhs);
+        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(mesh, rhs, vertexRegionMapper);
         HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory, solutionLogger);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
@@ -63,7 +68,7 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private Solution solveProblemVertically(Solution horizontalSolution, Problem rhs) {
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution, launcherFactory, solutionLogger);
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution);
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution, vertexRegionMapper);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,

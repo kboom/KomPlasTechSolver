@@ -66,6 +66,10 @@ public class VertexRange implements IdentifiedDataSerializable {
         return new VertexRange(left + leftPadding, right - rightPadding);
     }
 
+    public int getHeight() {
+        return heightOf(left);
+    }
+
     public static VertexRange range(int left, int right) {
         return new VertexRange(left, right);
     }
@@ -99,6 +103,14 @@ public class VertexRange implements IdentifiedDataSerializable {
         return IntStream.range(left, right + 1)
                 .mapToObj(VertexId::vertexId)
                 .collect(Collectors.toList());
+    }
+
+    public static VertexRange forNode(int absoluteIndex) {
+        return forBinary(heightOf(absoluteIndex));
+    }
+
+    private static int heightOf(int left) {
+        return (int) Math.floor(Math.log10(left) / Math.log10(2));
     }
 
     @Override
