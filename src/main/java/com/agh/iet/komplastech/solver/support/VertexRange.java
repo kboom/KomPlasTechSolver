@@ -3,14 +3,17 @@ package com.agh.iet.komplastech.solver.support;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class VertexRange implements DataSerializable {
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX_RANGE;
+
+public class VertexRange implements IdentifiedDataSerializable {
 
     private int left;
     private int right;
@@ -116,6 +119,16 @@ public class VertexRange implements DataSerializable {
     public void readData(ObjectDataInput in) throws IOException {
         left = in.readInt();
         right = in.readInt();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return VERTEX_RANGE;
     }
 
 }

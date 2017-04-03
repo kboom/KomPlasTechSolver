@@ -21,7 +21,7 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public void storeVertex(Vertex vertex) {
-        getVertexMapInstance().put(vertex.getId(), vertex);
+        getVertexMapInstance().put(vertex.getVertexId(), vertex);
     }
 
     @Override

@@ -9,6 +9,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.BS_2_6_H_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class BS_2_6_H extends PFEProduction {
 
@@ -51,6 +53,16 @@ public class BS_2_6_H extends PFEProduction {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return BS_2_6_H_PRODUCTION;
     }
 
 }

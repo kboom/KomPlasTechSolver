@@ -36,4 +36,14 @@ public class StrongVertexReference implements VertexReference {
     public void readData(ObjectDataInput in) throws IOException {
 
     }
+
+    @Override
+    public int getFactoryId() {
+        return 0;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
 }

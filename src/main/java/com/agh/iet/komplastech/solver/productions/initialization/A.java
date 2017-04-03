@@ -18,6 +18,8 @@ import java.io.IOException;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static java.lang.String.format;
 
 public class A implements Production {
@@ -89,6 +91,16 @@ public class A implements Production {
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
         problem = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return A_PRODUCTION;
     }
 
 }

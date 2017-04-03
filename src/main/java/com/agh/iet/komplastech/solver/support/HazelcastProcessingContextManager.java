@@ -50,7 +50,7 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
     @Override
     public void flush() {
         IMap<Object, Object> verticesStore = hazelcastInstance.getMap("vertices");
-        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getId, Function.identity())));
+        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getVertexId, Function.identity())));
     }
 
 }

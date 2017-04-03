@@ -10,6 +10,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 import java.util.function.IntFunction;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P2_PRODUCTION;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -38,7 +40,7 @@ public class P2 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex leftChild = aVertex(node.getId().transformed(LEFT_CHILD_OF_INTERMEDIATE))
+        Vertex leftChild = aVertex(node.getVertexId().transformed(LEFT_CHILD_OF_INTERMEDIATE))
                 .withBeggining(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
                 .inMesh(mesh)
@@ -52,7 +54,7 @@ public class P2 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getId().transformed(RIGHT_CHILD_OF_INTERMEDIATE))
+        Vertex rightChild = aVertex(node.getVertexId().transformed(RIGHT_CHILD_OF_INTERMEDIATE))
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
                 .withEnding(node.ending)
                 .inMesh(mesh)
@@ -71,6 +73,16 @@ public class P2 implements Production {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return P2_PRODUCTION;
     }
 
 }

@@ -11,6 +11,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.Ay_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class Ay implements Production {
 
@@ -39,7 +41,7 @@ public class Ay implements Production {
 
     private void initializeRightHandSides(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
-        final int idx = node.getId().getAbsoluteIndex() - offset;
+        final int idx = node.getVertexId().getAbsoluteIndex() - offset;
         for (int i = 1; i <= mesh.getDofsX(); i++) {
             node.m_b.set(1, i, partition[0] * solution.get(i, idx + 1));
             node.m_b.set(2, i, partition[1] * solution.get(i, idx + 2));
@@ -65,6 +67,16 @@ public class Ay implements Production {
         offset = in.readInt();
         solution = in.readObject();
         partition = in.readDoubleArray();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return Ay_PRODUCTION;
     }
 
 }

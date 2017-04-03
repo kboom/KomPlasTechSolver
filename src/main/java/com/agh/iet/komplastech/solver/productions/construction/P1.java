@@ -11,6 +11,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P1_PRODUCTION;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -73,5 +75,17 @@ public class P1 implements Production {
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
     }
+
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return P1_PRODUCTION;
+    }
+
 
 }

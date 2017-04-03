@@ -2,15 +2,16 @@ package com.agh.iet.komplastech.solver.support;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.util.Arrays;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.MATRIX;
 import static java.lang.System.arraycopy;
 
-public class Matrix implements DataSerializable {
+public class Matrix implements IdentifiedDataSerializable {
 
     private double[] elements;
     private int rows;
@@ -95,6 +96,16 @@ public class Matrix implements DataSerializable {
 
     public static Matrix from2DArray(double[][] rhs) {
         return new Matrix(rhs);
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return MATRIX;
     }
 
 }

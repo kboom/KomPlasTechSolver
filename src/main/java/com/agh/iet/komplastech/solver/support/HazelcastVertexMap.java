@@ -5,7 +5,6 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.IMap;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class HazelcastVertexMap implements VertexMap {
@@ -30,7 +29,7 @@ public class HazelcastVertexMap implements VertexMap {
         return vertexMap.getAll(vertexRange.getVerticesInRange()
                 .stream().collect(Collectors.toSet())).values()
                 .stream().sorted((v1, v2) ->
-                        v1.getId().getAbsoluteIndex() - v2.getId().getAbsoluteIndex()
+                        v1.getVertexId().getAbsoluteIndex() - v2.getVertexId().getAbsoluteIndex()
                 ).collect(Collectors.toList());
     }
 

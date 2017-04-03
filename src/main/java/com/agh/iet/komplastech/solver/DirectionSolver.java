@@ -94,7 +94,7 @@ public class DirectionSolver implements Solver {
 
         objectStore.storeVertex(rootVertex);
 
-        treeIterator = treeIteratorFactory.createFor(rootVertex.getId(), getIntermediateLevelsCount() + 2);
+        treeIterator = treeIteratorFactory.createFor(rootVertex.getVertexId(), getIntermediateLevelsCount() + 2);
 
         treeIterator.executeOnRootGoingDown(
                 (range) -> launcherFactory

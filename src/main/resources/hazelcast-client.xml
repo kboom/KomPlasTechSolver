@@ -22,4 +22,15 @@
         </cluster-members>
     </network>
 
+    <serialization>
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="1">
+                com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory
+            </data-serializable-factory>
+            <data-serializable-factory factory-id="2">
+                com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory
+            </data-serializable-factory>
+        </data-serializable-factories>
+    </serialization>
+
 </hazelcast-client>

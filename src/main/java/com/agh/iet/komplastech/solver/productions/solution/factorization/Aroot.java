@@ -9,6 +9,9 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ARoot_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+
 public class Aroot implements Production {
 
     private Mesh mesh;
@@ -50,6 +53,16 @@ public class Aroot implements Production {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return ARoot_PRODUCTION;
     }
 
 }

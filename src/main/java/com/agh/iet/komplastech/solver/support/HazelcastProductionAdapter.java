@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
@@ -8,6 +9,7 @@ import com.hazelcast.core.IMap;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -17,8 +19,11 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.PRODUCTION_ADAPTER;
+
 public class HazelcastProductionAdapter
-        implements HazelcastInstanceAware, Callable<Void>, DataSerializable {
+        implements HazelcastInstanceAware, Callable<Void>, IdentifiedDataSerializable {
 
     private transient HazelcastInstance hazelcastInstance;
 
@@ -71,6 +76,16 @@ public class HazelcastProductionAdapter
         for(int i = 0; i < vertexCount; i++) {
             verticesToApplyOn.add(in.readObject());
         }
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return PRODUCTION_ADAPTER;
     }
 
 }

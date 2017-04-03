@@ -9,8 +9,9 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
-import java.util.function.IntFunction;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P3_PRODUCTION;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -39,7 +40,7 @@ public class P3 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex leftChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 1))
+        Vertex leftChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 1))
                 .withBeggining(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -53,7 +54,7 @@ public class P3 implements Production {
     private void setMiddleChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 2))
+        Vertex rightChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 2))
                 .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
                 .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
@@ -67,7 +68,7 @@ public class P3 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
 
-        Vertex rightChild = aVertex(node.getId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 3))
+        Vertex rightChild = aVertex(node.getVertexId().transformed(id -> range.getRight() + 3 * (id - range.getLeft()) + 3))
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
                 .withEnding(node.ending)
                 .inMesh(mesh)
@@ -88,6 +89,16 @@ public class P3 implements Production {
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
         range = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return P3_PRODUCTION;
     }
 
 }

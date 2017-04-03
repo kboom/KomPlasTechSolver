@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
@@ -7,6 +8,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.COMPOSITE_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class CompositeProduction implements Production {
 
@@ -51,4 +55,13 @@ public class CompositeProduction implements Production {
         }
     }
 
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return COMPOSITE_PRODUCTION;
+    }
 }

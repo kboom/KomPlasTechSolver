@@ -6,6 +6,9 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.WEAK_VERTEX_REFERENCE;
+
 public class WeakVertexReference implements VertexReference {
 
     private transient Vertex vertex;
@@ -18,7 +21,7 @@ public class WeakVertexReference implements VertexReference {
     }
 
     public WeakVertexReference(Vertex vertex) {
-        this.vertexId = vertex.getId();
+        this.vertexId = vertex.getVertexId();
         this.vertex = vertex;
     }
 
@@ -46,6 +49,16 @@ public class WeakVertexReference implements VertexReference {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         vertexId = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return WEAK_VERTEX_REFERENCE;
     }
 
 }

@@ -1,13 +1,15 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
-import java.io.Serializable;
 
-public class Mesh implements DataSerializable {
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+
+public class Mesh implements IdentifiedDataSerializable {
 
     private double resolutionX;
 
@@ -23,7 +25,8 @@ public class Mesh implements DataSerializable {
 
     private int dofsY;
 
-    private Mesh() {}
+    public Mesh() {
+    }
 
     public double getResolutionX() {
         return resolutionX;
@@ -93,6 +96,16 @@ public class Mesh implements DataSerializable {
         splineOrder = in.readInt();
         dofsX = in.readInt();
         dofsY = in.readInt();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return HazelcastGeneralFactory.MESH;
     }
 
     public static class MeshBuilder {

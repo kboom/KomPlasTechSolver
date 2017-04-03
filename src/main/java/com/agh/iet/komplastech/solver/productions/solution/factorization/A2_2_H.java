@@ -10,6 +10,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A2_2_H_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class A2_2_H implements Production {
 
@@ -54,6 +56,16 @@ public class A2_2_H implements Production {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return PRODUCTION_FACTORY;
+    }
+
+    @Override
+    public int getId() {
+        return A2_2_H_PRODUCTION;
     }
 
 }

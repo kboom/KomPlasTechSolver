@@ -9,14 +9,16 @@ import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Point;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.SOLUTION;
 import static com.agh.iet.komplastech.solver.support.Point.solutionPoint;
 
-public class Solution implements DataSerializable {
+public class Solution implements IdentifiedDataSerializable {
 
     private static final BSpline1 b1 = new BSpline1();
     private static final BSpline2 b2 = new BSpline2();
@@ -121,4 +123,15 @@ public class Solution implements DataSerializable {
         mesh = in.readObject();
         mRHS = in.readObject();
     }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return SOLUTION;
+    }
+
 }

@@ -2,12 +2,15 @@ package com.agh.iet.komplastech.solver;
 
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
-import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 import java.util.function.IntFunction;
 
-public class VertexId implements DataSerializable {
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX_ID;
+
+public class VertexId implements IdentifiedDataSerializable {
 
     private int id;
 
@@ -47,6 +50,16 @@ public class VertexId implements DataSerializable {
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         id = in.readInt();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return VERTEX_ID;
     }
 
 }
