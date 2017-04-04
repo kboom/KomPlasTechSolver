@@ -61,6 +61,13 @@ public class RegionId implements IdentifiedDataSerializable {
         return new RegionId(regionId);
     }
 
+    @Override
+    public String toString() {
+        return "RegionId{" +
+                "regionId=" + regionId +
+                '}';
+    }
+
     @SuppressWarnings("unused")
     public RegionId() {
 

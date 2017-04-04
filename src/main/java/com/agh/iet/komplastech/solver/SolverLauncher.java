@@ -49,7 +49,15 @@ class SolverLauncher {
                 .withRegionHeight(regionHeight)
                 .build();
 
-        VertexRegionMapper vertexRegionMapper = new VertexRegionMapper(computeConfig);
+
+        Mesh mesh = aMesh()
+                .withElementsX(problemSize)
+                .withElementsY(problemSize)
+                .withResolutionX(problemSize)
+                .withResolutionY(problemSize)
+                .withOrder(2).build();
+
+        VertexRegionMapper vertexRegionMapper = new VertexRegionMapper(mesh, computeConfig);
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
@@ -60,13 +68,6 @@ class SolverLauncher {
 
 
         TimeLogger timeLogger = new TimeLogger();
-
-        Mesh mesh = aMesh()
-                .withElementsX(problemSize)
-                .withElementsY(problemSize)
-                .withResolutionX(problemSize)
-                .withResolutionY(problemSize)
-                .withOrder(2).build();
 
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,

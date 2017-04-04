@@ -44,14 +44,6 @@ public class VertexRange implements IdentifiedDataSerializable {
         return range((int) Math.pow(2, currentLevel), (int) Math.pow(2, currentLevel + 1) - 1);
     }
 
-    public long start() {
-        return left;
-    }
-
-    public long end() {
-        return right;
-    }
-
     public VertexRange fromLeft(Integer offset) {
         int position = this.left + offset;
         return new VertexRange(position, position);
@@ -67,7 +59,7 @@ public class VertexRange implements IdentifiedDataSerializable {
     }
 
     public int getHeight() {
-        return heightOf(left);
+        return log2(left);
     }
 
     public static VertexRange range(int left, int right) {
@@ -105,12 +97,23 @@ public class VertexRange implements IdentifiedDataSerializable {
                 .collect(Collectors.toList());
     }
 
-    public static VertexRange forNode(int absoluteIndex) {
-        return forBinary(heightOf(absoluteIndex));
+    public static VertexRange forNode(int absoluteIndex, int lastLevelCount) {
+        int totalHeight = log2(lastLevelCount / 3) + 1;
+        VertexRange leafRange = forBinaryAndLastLevel(totalHeight, 3);
+        if(leafRange.containsIndex(absoluteIndex)) {
+            return leafRange;
+        } else {
+            int currentHeight = log2(absoluteIndex);
+            return forBinary(currentHeight);
+        }
     }
 
-    private static int heightOf(int left) {
-        return (int) Math.floor(Math.log10(left) / Math.log10(2));
+    private boolean containsIndex(int absoluteIndex) {
+        return left <= absoluteIndex && absoluteIndex <= right;
+    }
+
+    private static int log2(int index) {
+        return (int) Math.floor(Math.log10(index) / Math.log10(2));
     }
 
     @Override

@@ -79,17 +79,37 @@ public class VertexRangeTest {
 
     @Test
     public void rangeFor1Is1To1() {
-        assertThat(VertexRange.forNode(1)).isEqualTo(range(1, 1));
+        assertThat(VertexRange.forNode(1, 12)).isEqualTo(range(1, 1));
     }
 
     @Test
     public void rangeFor2Is2To3() {
-        assertThat(VertexRange.forNode(2)).isEqualTo(range(2, 3));
+        assertThat(VertexRange.forNode(2, 24)).isEqualTo(range(2, 3));
     }
 
     @Test
     public void rangeFor5Is4To7() {
-        assertThat(VertexRange.forNode(5)).isEqualTo(range(4, 7));
+        assertThat(VertexRange.forNode(5, 24)).isEqualTo(range(4, 7));
+    }
+
+    @Test
+    public void rangeOf16For24LeavesIs16To39() {
+        assertThat(VertexRange.forNode(16, 24)).isEqualTo(range(16, 39));
+    }
+
+    @Test
+    public void rangeOf24For24LeavesIs16To39() {
+        assertThat(VertexRange.forNode(24, 24)).isEqualTo(range(16, 39));
+    }
+
+    @Test
+    public void rangeOf38For24LeavesIs16To39() {
+        assertThat(VertexRange.forNode(38, 24)).isEqualTo(range(16, 39));
+    }
+
+    @Test
+    public void rangeOf39For24LeavesIs16To39() {
+        assertThat(VertexRange.forNode(39, 24)).isEqualTo(range(16, 39));
     }
 
 }
