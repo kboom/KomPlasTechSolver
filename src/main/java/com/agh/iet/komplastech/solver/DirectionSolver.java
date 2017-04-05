@@ -88,6 +88,8 @@ public class DirectionSolver implements Solver {
     }
 
     private void createRoot() {
+        processLogger.logStageReached("Creating root");
+
         final Production production = productionFactory.createBranchRootProduction();
 
         Vertex rootVertex = aVertex(vertexId(1), regionId(1))
@@ -96,6 +98,7 @@ public class DirectionSolver implements Solver {
                 .withEnding(mesh.getResolutionX()).build();
 
         objectStore.storeVertex(rootVertex);
+
 
         treeIterator = treeIteratorFactory.createFor(rootVertex.getVertexId(), getIntermediateLevelsCount() + 2);
 
@@ -111,10 +114,13 @@ public class DirectionSolver implements Solver {
         final Production production = productionFactory.createBranchIntermediateProduction();
         treeIterator.forEachGoingDown(
                 getIntermediateLevelsCount(),
-                (range) -> launcherFactory
-                        .launchProduction(production)
-                        .inVertexRange(range)
-                        .andWaitTillComplete()
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    processLogger.logStageReached("Building intermediate level for range " + range);
+                }
         );
     }
 
@@ -126,11 +132,13 @@ public class DirectionSolver implements Solver {
                             .launchProduction(production)
                             .inVertexRange(range)
                             .andWaitTillComplete();
+                    processLogger.logStageReached("Building leaf level for range " + range);
                 }
         );
     }
 
     private void initializeLeaves() {
+        processLogger.logStageReached("Initializing leaves");
         leafInitializer.initializeLeaves(treeIterator);
     }
 
