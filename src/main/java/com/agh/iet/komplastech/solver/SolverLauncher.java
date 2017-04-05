@@ -67,8 +67,8 @@ class SolverLauncher {
         VertexRegionMapper vertexRegionMapper = new VertexRegionMapper(mesh, computeConfig);
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
 
-        log.info(format("\n\n--------- Problem size (%d), Steps (%d), Batch size (%d), Region height (%d), Member count (%d)",
-                problemSize, steps, maxBatchSize, regionHeight, hazelcastInstance.getCluster().getMembers().size()));
+        log.info(format("\n\n--------- Problem size (%d), Steps (%d), Max batch size (%d), Batch ratio (%d), Region height (%d), Member count (%d)",
+                problemSize, steps, maxBatchSize, batchRatio, regionHeight, hazelcastInstance.getCluster().getMembers().size()));
 
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
