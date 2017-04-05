@@ -4,10 +4,13 @@ import com.agh.iet.komplastech.solver.Solution;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.DataSerializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 
-public abstract class NonStationaryProblem implements Problem, DataSerializable {
+import static com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory.PROBLEM_FACTORY;
+
+public abstract class NonStationaryProblem implements Problem, IdentifiedDataSerializable {
 
     private double delta;
     private Solution currentSolution;
@@ -47,6 +50,11 @@ public abstract class NonStationaryProblem implements Problem, DataSerializable 
     public void readData(ObjectDataInput in) throws IOException {
         delta = in.readDouble();
         currentSolution = in.readObject();
+    }
+
+    @Override
+    public final int getFactoryId() {
+        return PROBLEM_FACTORY;
     }
 
 }

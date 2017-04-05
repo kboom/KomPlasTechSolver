@@ -243,6 +243,9 @@
             <data-serializable-factory factory-id="2">
                 com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory
             </data-serializable-factory>
+            <data-serializable-factory factory-id="3">
+                com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory
+            </data-serializable-factory>
         </data-serializable-factories>
     </serialization>
 

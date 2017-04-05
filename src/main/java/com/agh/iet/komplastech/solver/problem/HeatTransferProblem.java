@@ -7,6 +7,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory.HEAT;
+
 public class HeatTransferProblem extends NonStationaryProblem {
 
     private int problemSize;
@@ -49,6 +51,11 @@ public class HeatTransferProblem extends NonStationaryProblem {
         super.readData(in);
         problemSize = in.readInt();
         mesh = in.readObject();
+    }
+
+    @Override
+    public int getId() {
+        return HEAT;
     }
 
 }

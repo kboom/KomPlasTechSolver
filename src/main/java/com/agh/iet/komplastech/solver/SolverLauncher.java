@@ -4,7 +4,10 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.process.ConsoleProcessLogger;
 import com.agh.iet.komplastech.solver.logger.process.NoopProcessLogger;
+import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
+import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
+import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.storage.HazelcastObjectStore;
@@ -48,6 +51,9 @@ class SolverLauncher {
 
     @Parameter(names = {"--region-height"})
     private int regionHeight = 6;
+
+    @Parameter(names = {"--problem"})
+    private String solvedProblem = "heat";
 
     void launch() {
         ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
@@ -95,11 +101,22 @@ class SolverLauncher {
                     new NonStationarySolver(steps, delta, problemSolver, mesh);
 
 
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(
-                    new HeatTransferProblem(delta, mesh, problemSize)
-//                    new ConstantLinearProblem(delta)
-            );
+            NonStationaryProblem nonStationaryProblem;
+            switch(solvedProblem) {
+                case "heat":
+                    nonStationaryProblem = new HeatTransferProblem(delta, mesh, problemSize);
+                    break;
+                case "linear":
+                    nonStationaryProblem = new ConstantLinearProblem(delta);
+                    break;
+                case "one":
+                    nonStationaryProblem = new ConstantOneProblem(delta);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown problem type " + solvedProblem);
+            }
 
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(nonStationaryProblem);
 
             log.info(format("Solution times: %d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
