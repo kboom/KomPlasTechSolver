@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.logger.SolutionLogger;
+import com.agh.iet.komplastech.solver.logger.process.ProcessLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
@@ -31,13 +32,13 @@ public class DirectionSolver implements Solver {
 
     private final ObjectStore objectStore;
 
-    private final VertexMap vertexMap;
-
     private final LeafInitializer leafInitializer;
 
     private final TreeIteratorFactory treeIteratorFactory;
 
     private final SolutionLogger solutionLogger;
+
+    private final ProcessLogger processLogger;
 
     private final TimeLogger timeLogger;
 
@@ -52,15 +53,16 @@ public class DirectionSolver implements Solver {
                     LeafInitializer leafInitializer,
                     Mesh meshData,
                     SolutionLogger solutionLogger,
+                    ProcessLogger processLogger,
                     TimeLogger timeLogger) {
         this.objectStore = objectStore;
-        this.vertexMap = objectStore.getVertexMap();
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.treeIteratorFactory = treeIteratorFactory;
         this.leafInitializer = leafInitializer;
         this.mesh = meshData;
         this.solutionLogger = solutionLogger;
+        this.processLogger = processLogger;
         this.timeLogger = timeLogger;
     }
 
@@ -141,6 +143,7 @@ public class DirectionSolver implements Solver {
                             .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
                             .inVertexRange(range)
                             .andWaitTillComplete();
+                    processLogger.logStageReached("Merge & elimination of leaves for range " + range);
                     solutionLogger.logMatrixValuesFor(range, "Merge & Eliminate leaves");
                 }
         );
@@ -156,7 +159,7 @@ public class DirectionSolver implements Solver {
                             .launchProduction(compositeProductionOf(mergingProduction, eliminatingProduction))
                             .inVertexRange(range)
                             .andWaitTillComplete();
-
+                    processLogger.logStageReached("Merging & elimination one up leaves for range " + range);
                     solutionLogger.logMatrixValuesFor(range, "Merge and eliminate one up the leaves");
                 }
         );
@@ -174,6 +177,7 @@ public class DirectionSolver implements Solver {
                             .inVertexRange(range)
                             .andWaitTillComplete();
 
+                    processLogger.logStageReached("Merging & elimination intermediate for range " + range);
                     solutionLogger.logMatrixValuesFor(range, "Merge and eliminate intermediate");
                 }
         );
@@ -189,6 +193,7 @@ public class DirectionSolver implements Solver {
                             .launchProduction(compositeProductionOf(mergingProduction, backwardSubstituteProduction))
                             .inVertexRange(range)
                             .andWaitTillComplete();
+                    processLogger.logStageReached("Solving root");
                     solutionLogger.logMatrixValuesFor(range, "Solve root");
                 }
         );
@@ -204,6 +209,7 @@ public class DirectionSolver implements Solver {
                             .launchProduction(production)
                             .inVertexRange(range)
                             .andWaitTillComplete();
+                    processLogger.logStageReached("Intermediate backward substitution for range " + range);
                     solutionLogger.logMatrixValuesFor(range, "Backward substitute intermediate");
                 }
         );
@@ -218,7 +224,8 @@ public class DirectionSolver implements Solver {
                             .launchProduction(production)
                             .inVertexRange(range)
                             .andWaitTillComplete();
-                    solutionLogger.logMatrixValuesFor(range, "Backward substitute oneo up the leaves");
+                    processLogger.logStageReached("One up leaves backward substitution for range " + range);
+                    solutionLogger.logMatrixValuesFor(range, "Backward substitute one up the leaves");
                 }
         );
     }
@@ -231,6 +238,7 @@ public class DirectionSolver implements Solver {
                             .launchProduction(production)
                             .inVertexRange(range)
                             .andWaitTillComplete();
+                    processLogger.logStageReached("Backward substituting leaves for range " + range);
                     solutionLogger.logMatrixValuesFor(range, "Backward substitute leaves");
                 }
         );

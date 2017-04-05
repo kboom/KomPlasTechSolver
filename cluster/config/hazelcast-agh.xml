@@ -10,7 +10,7 @@
     <management-center enabled="true">http://node2.a2s.agh.edu.pl:8080/mancenter</management-center>
     <partition-group enabled="false"/>
     <executor-service name="default">
-        <pool-size>4</pool-size>
+        <pool-size>10</pool-size>
         <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
         <queue-capacity>0</queue-capacity>
     </executor-service>

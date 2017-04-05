@@ -2,6 +2,8 @@ package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
+import com.agh.iet.komplastech.solver.logger.process.ConsoleProcessLogger;
+import com.agh.iet.komplastech.solver.logger.process.NoopProcessLogger;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
@@ -20,8 +22,11 @@ class SolverLauncher {
 
     private static final Logger log = Logger.getLogger(SolverLauncher.class);
 
-    @Parameter(names = {"--log", "-l"})
-    private boolean isLogging = false;
+    @Parameter(names = {"--log-solution", "-l"})
+    private boolean isLoggingSolution = false;
+
+    @Parameter(names = {"--log-process", "-x"})
+    private boolean isLoggingProcess = false;
 
     @Parameter(names = {"--plot", "-p"})
     private boolean isPlotting = false;
@@ -44,6 +49,7 @@ class SolverLauncher {
     void launch() {
         ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
                 .withRegionHeight(regionHeight)
+                .withMaxBatchSize(maxBatchSize)
                 .build();
 
 
@@ -62,7 +68,7 @@ class SolverLauncher {
 
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
-                hazelcastInstance, vertexRegionMapper, maxBatchSize);
+                hazelcastInstance, vertexRegionMapper, computeConfig);
         VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
 
         hazelcastInstance.getMap("vertices").clear();
@@ -74,7 +80,8 @@ class SolverLauncher {
                 productionExecutorFactory,
                 mesh,
                 vertexRegionMapper,
-                isLogging ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
+                isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
+                isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger(),
                 objectStore,
                 timeLogger
         );
@@ -100,7 +107,7 @@ class SolverLauncher {
 
             Solution solution = solutionsInTime.getFinalSolution();
 
-            if (isLogging) {
+            if (isLoggingSolution) {
                 CsvPrinter csvPrinter = new CsvPrinter();
                 System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
             }

@@ -19,14 +19,14 @@ public class ProductionExecutorFactory {
 
     private final IExecutorService executorService;
 
-    private final int maxBatchSize;
+    private final ComputeConfig computeConfig;
 
     private final VertexRegionMapper regionMapper;
 
-    ProductionExecutorFactory(HazelcastInstance hazelcastInstance, VertexRegionMapper regionMapper, int maxBatchSize) {
+    ProductionExecutorFactory(HazelcastInstance hazelcastInstance, VertexRegionMapper regionMapper, ComputeConfig computeConfig) {
         this.executorService = hazelcastInstance.getExecutorService("production");
         this.regionMapper = regionMapper;
-        this.maxBatchSize = maxBatchSize;
+        this.computeConfig = computeConfig;
     }
 
     public ProductionLauncher launchProduction(Production production) {
@@ -58,7 +58,7 @@ public class ProductionExecutorFactory {
                 final RegionId region = entry.getKey();
                 final Set<VertexReference> vertices = entry.getValue();
 
-                return batchedStreamOf(vertices.stream(), maxBatchSize)
+                return batchedStreamOf(vertices.stream(), computeConfig.getMaxBatchSize())
                         .map((vertexBatch) -> new HazelcastProductionAdapter(production, regionMapper, vertexBatch))
                         .map(production -> executorService.submitToKeyOwner(production, region));
             }).flatMap(Function.identity());

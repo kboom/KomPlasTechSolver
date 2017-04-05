@@ -12,6 +12,7 @@ import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.G
 public class ComputeConfig implements IdentifiedDataSerializable {
 
     private int regionHeight;
+    private int maxBatchSize;
 
     @Override
     public int getFactoryId() {
@@ -26,16 +27,20 @@ public class ComputeConfig implements IdentifiedDataSerializable {
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeInt(regionHeight);
+        out.writeInt(maxBatchSize);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         regionHeight = in.readInt();
+        maxBatchSize = in.readInt();
     }
 
     public int getRegionHeight() {
         return regionHeight;
     }
+
+    public int getMaxBatchSize() { return maxBatchSize; }
 
     public static class ComputeConfigBuilder {
 
@@ -50,6 +55,10 @@ public class ComputeConfig implements IdentifiedDataSerializable {
             return computeConfig;
         }
 
+        public ComputeConfigBuilder withMaxBatchSize(int maxBatchSize) {
+            computeConfig.maxBatchSize = maxBatchSize;
+            return this;
+        }
     }
 
     public static ComputeConfigBuilder aComputeConfig() {

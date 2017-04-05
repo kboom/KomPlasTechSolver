@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.initialization.HorizontalLeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.LeafInitializer;
 import com.agh.iet.komplastech.solver.initialization.VerticalLeafInitializer;
 import com.agh.iet.komplastech.solver.logger.SolutionLogger;
+import com.agh.iet.komplastech.solver.logger.process.ProcessLogger;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
@@ -23,6 +24,8 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final SolutionLogger solutionLogger;
 
+    private final ProcessLogger processLogger;
+
     private final TimeLogger timeLogger;
 
     private final VertexRegionMapper vertexRegionMapper;
@@ -31,12 +34,14 @@ class TwoDimensionalProblemSolver implements Solver {
                                 Mesh meshData,
                                 VertexRegionMapper vertexRegionMapper,
                                 SolutionLogger solutionLogger,
+                                ProcessLogger processLogger,
                                 ObjectStore objectStore,
                                 TimeLogger timeLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
         this.vertexRegionMapper = vertexRegionMapper;
         this.solutionLogger = solutionLogger;
+        this.processLogger = processLogger;
         this.objectStore = objectStore;
         this.timeLogger = timeLogger;
     }
@@ -60,6 +65,7 @@ class TwoDimensionalProblemSolver implements Solver {
                 horizontalLeafInitializer,
                 mesh,
                 solutionLogger,
+                processLogger,
                 timeLogger
         );
 
@@ -78,6 +84,7 @@ class TwoDimensionalProblemSolver implements Solver {
                 verticalLeafInitializer,
                 mesh,
                 solutionLogger,
+                processLogger,
                 timeLogger
         );
 
