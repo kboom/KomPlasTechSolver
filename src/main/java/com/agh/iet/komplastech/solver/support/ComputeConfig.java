@@ -13,6 +13,7 @@ public class ComputeConfig implements IdentifiedDataSerializable {
 
     private int regionHeight;
     private int maxBatchSize;
+    private int batchRatio;
 
     @Override
     public int getFactoryId() {
@@ -28,12 +29,14 @@ public class ComputeConfig implements IdentifiedDataSerializable {
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeInt(regionHeight);
         out.writeInt(maxBatchSize);
+        out.writeInt(batchRatio);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         regionHeight = in.readInt();
         maxBatchSize = in.readInt();
+        batchRatio = in.readInt();
     }
 
     public int getRegionHeight() {
@@ -41,6 +44,10 @@ public class ComputeConfig implements IdentifiedDataSerializable {
     }
 
     public int getMaxBatchSize() { return maxBatchSize; }
+
+    public int getBatchRatio() {
+        return batchRatio;
+    }
 
     public static class ComputeConfigBuilder {
 
@@ -59,6 +66,12 @@ public class ComputeConfig implements IdentifiedDataSerializable {
             computeConfig.maxBatchSize = maxBatchSize;
             return this;
         }
+
+        public ComputeConfigBuilder withBatchRatio(int batchRatio) {
+            computeConfig.batchRatio = batchRatio;
+            return this;
+        }
+
     }
 
     public static ComputeConfigBuilder aComputeConfig() {

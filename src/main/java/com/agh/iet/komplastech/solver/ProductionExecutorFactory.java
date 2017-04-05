@@ -57,13 +57,21 @@ public class ProductionExecutorFactory {
             Stream<Future<Void>> futureStream = referencesByRegion.entrySet().stream().map((entry) -> {
                 final RegionId region = entry.getKey();
                 final Set<VertexReference> vertices = entry.getValue();
-
-                return batchedStreamOf(vertices.stream(), computeConfig.getMaxBatchSize())
+                final int batchSize = determineBatchSizeFor(vertices.size());
+                return batchedStreamOf(vertices.stream(), batchSize)
                         .map((vertexBatch) -> new HazelcastProductionAdapter(production, regionMapper, vertexBatch))
                         .map(production -> executorService.submitToKeyOwner(production, region));
             }).flatMap(Function.identity());
 
             waitForCompletion(futureStream);
+        }
+
+        private int determineBatchSizeFor(int size) {
+            if(size > computeConfig.getBatchRatio() * computeConfig.getMaxBatchSize()) {
+                return computeConfig.getMaxBatchSize();
+            } else {
+                return (int) Math.ceil((size + 0.0) / computeConfig.getBatchRatio());
+            }
         }
 
         private Stream<VertexReference> mapToReferences(VertexRange vertexRange) {

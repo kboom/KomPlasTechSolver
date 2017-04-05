@@ -40,16 +40,20 @@ class SolverLauncher {
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-    @Parameter(names = {"--batches", "-b"})
+    @Parameter(names = {"--batch-ratio"})
+    private int batchRatio = 4;
+
+    @Parameter(names = {"--max-batch-size"})
     private int maxBatchSize = 10;
 
-    @Parameter(names = {"--regionHeight", "-r"})
+    @Parameter(names = {"--region-height"})
     private int regionHeight = 6;
 
     void launch() {
         ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
                 .withRegionHeight(regionHeight)
                 .withMaxBatchSize(maxBatchSize)
+                .withBatchRatio(batchRatio)
                 .build();
 
 
