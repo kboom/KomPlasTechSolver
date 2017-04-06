@@ -12,4 +12,4 @@ ln -s ${SCRIPTS_DIR} solverCommands
 
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
-export KPTS_SOLVER_CLIENT=$(pwd)/SolverClient
+export KPTS_SOLVER_CLIENT=$(pwd)/KptsSolverClient
