@@ -15,7 +15,3 @@ ln -s ${SOLVER_ROOT}/cluster/config node-config
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
 export KPTS_SOLVER_CLIENT=$(pwd)/KptsSolverClient
-
-rm -f ~/setup-env.sh
-ln -s ${SOLVER_ROOT}/setup.sh ~/setup-env.sh
-chmod 775 ~/setup-env.sh
