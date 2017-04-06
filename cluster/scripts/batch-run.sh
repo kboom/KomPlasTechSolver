@@ -16,7 +16,7 @@ function runBatch {
     BATCH_RATIO=$3
     MAX_BATCH_SIZE=$4
 
-    ./run.sh ${PROBLEM_SIZE} '--batch-ratio ${BATCH_RATIO} --max-batch-size ${MAX_BATCH_SIZE} --region-height ${REGION_HEIGHT}'
+    ./run.sh ${PROBLEM_SIZE} "--batch-ratio ${BATCH_RATIO} --max-batch-size ${MAX_BATCH_SIZE} --region-height ${REGION_HEIGHT}"
 }
 
 for rh in `seq ${MIN_REGION_HEIGHT} ${MAX_REGION_HEIGHT} ${REGION_HEIGHT_STEP}`;
