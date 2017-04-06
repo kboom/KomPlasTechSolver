@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-DEPS_DIR=$KPTS_SOLVER_DEPS
+DEPS_DIR=$(pwd)/dependencies
 RUN_DIR="hazelcast-instances/hazelcast-3.8-$1"
-HAZELCAST_CFG=$KPTS_SOLVER/cluster/config/hazelcast-agh.xml
+HAZELCAST_CFG=$(pwd)/node-config/hazelcast-agh.xml
 
 function stop {
    ./${RUN_DIR}/bin/stop.sh

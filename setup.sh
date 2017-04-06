@@ -7,8 +7,10 @@ cd ~
 chmod 775 ${SCRIPTS_DIR}/*
 bash ${SCRIPTS_DIR}/update.sh
 
-rm -f solverCommands
+rm -f solverCommands node-config dependencies
 ln -s ${SCRIPTS_DIR} solverCommands
+ln -s ${SOLVER_ROOT}/dist dependencies
+ln -s ${SOLVER_ROOT}/cluster/config node-config
 
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
