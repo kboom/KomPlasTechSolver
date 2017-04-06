@@ -58,4 +58,11 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
         verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getVertexReference, Function.identity())));
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T getFromCache(CommonProcessingObject id) {
+        IMap<CommonProcessingObject, Object> commons = hazelcastInstance.getMap("commons");
+        return (T) commons.get(id);
+    }
+
 }

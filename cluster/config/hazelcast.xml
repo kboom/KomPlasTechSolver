@@ -3,105 +3,85 @@
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-
-    <properties>
-        <property name="hazelcast.local.localAddress">192.168.99.100</property>
-    </properties>
-
     <group>
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
     </group>
-    <management-center enabled="true">http://localhost:8080/mancenter</management-center>
+
     <network>
         <public-address>192.168.99.100</public-address>
         <port auto-increment="true" port-count="100">5701</port>
-        <outbound-ports>
-            <!--
-            Allowed port range when connecting to other nodes.
-            0 or * means use system provided port.
-            -->
-            <ports>0</ports>
-        </outbound-ports>
-        <join>
-            <multicast enabled="true">
-                <multicast-group>224.2.2.3</multicast-group>
-                <multicast-port>54327</multicast-port>
-            </multicast>
-            <tcp-ip enabled="false">
-                <interface>127.0.0.1</interface>
-                <member-list>
-                    <member>127.0.0.1</member>
-                </member-list>
-            </tcp-ip>
-            <aws enabled="false">
-                <access-key>my-access-key</access-key>
-                <secret-key>my-secret-key</secret-key>
-                <!--optional, default is us-east-1 -->
-                <region>us-west-1</region>
-                <!--optional, default is ec2.amazonaws.com. If set, region shouldn't be set as it will override this property -->
-                <host-header>ec2.amazonaws.com</host-header>
-                <!-- optional, only instances belonging to this group will be discovered, default will try all running instances -->
-                <security-group-name>hazelcast-sg</security-group-name>
-                <tag-key>type</tag-key>
-                <tag-value>hz-nodes</tag-value>
-            </aws>
-            <discovery-strategies>
-            </discovery-strategies>
-        </join>
-        <interfaces enabled="false">
-            <interface>0.0.0.0</interface>
-        </interfaces>
-        <ssl enabled="false"/>
-        <socket-interceptor enabled="false"/>
-        <symmetric-encryption enabled="false">
-            <!--
-               encryption algorithm such as
-               DES/ECB/PKCS5Padding,
-               PBEWithMD5AndDES,
-               AES/CBC/PKCS5Padding,
-               Blowfish,
-               DESede
-            -->
-            <algorithm>PBEWithMD5AndDES</algorithm>
-            <!-- salt value to use when generating the secret key -->
-            <salt>thesalt</salt>
-            <!-- pass phrase to use when generating the secret key -->
-            <password>thepass</password>
-            <!-- iteration count to use when generating the secret key -->
-            <iteration-count>19</iteration-count>
-        </symmetric-encryption>
     </network>
+
+    <management-center enabled="true">http://localhost:8080/mancenter</management-center>
+
     <partition-group enabled="false"/>
+
     <executor-service name="default">
-        <pool-size>16</pool-size>
+        <pool-size>10</pool-size>
         <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
         <queue-capacity>0</queue-capacity>
     </executor-service>
-    <queue name="default">
-        <!--
-            Maximum size of the queue. When a JVM's local queue size reaches the maximum,
-            all put/offer operations will get blocked until the queue size
-            of the JVM goes down below the maximum.
-            Any integer between 0 and Integer.MAX_VALUE. 0 means
-            Integer.MAX_VALUE. Default is 0.
-        -->
-        <max-size>0</max-size>
-        <!--
-            Number of backups. If 1 is set as the backup-count for example,
-            then all entries of the map will be copied to another JVM for
-            fail-safety. 0 means no backup.
-        -->
-        <backup-count>0</backup-count>
 
-        <!--
-            Number of async backups. 0 means no backup.
-        -->
+    <map name="commons">
+
+        <in-memory-format>OBJECT</in-memory-format>
+
+        <backup-count>0</backup-count>
         <async-backup-count>0</async-backup-count>
 
-        <empty-queue-ttl>-1</empty-queue-ttl>
-    </queue>
-    <map name="default">
+        <near-cache>
+            <!--
+              Maximum size of the near cache. When max size is reached,
+              cache is evicted based on the policy defined.
+              Any integer between 0 and Integer.MAX_VALUE. 0 means
+              Integer.MAX_VALUE. Default is 0.
+            -->
+            <max-size>0</max-size>
+
+            <!--
+              Maximum number of seconds for each entry to stay in the near cache. Entries that are
+              older than <time-to-live-seconds> will get automatically evicted from the near cache.
+              Any integer between 0 and Integer.MAX_VALUE. 0 means infinite. Default is 0.
+            -->
+            <time-to-live-seconds>0</time-to-live-seconds>
+
+            <!--
+              Maximum number of seconds each entry can stay in the near cache as untouched (not-read).
+              Entries that are not read (touched) more than <max-idle-seconds> value will get removed
+              from the near cache.
+              Any integer between 0 and Integer.MAX_VALUE. 0 means
+              Integer.MAX_VALUE. Default is 0.
+            -->
+            <max-idle-seconds>0</max-idle-seconds>
+
+            <!--
+              Valid values are:
+              NONE (no extra eviction, <time-to-live-seconds> may still apply),
+              LRU  (Least Recently Used),
+              LFU  (Least Frequently Used).
+              NONE is the default.
+              Regardless of the eviction policy used, <time-to-live-seconds> will still apply.
+            -->
+            <eviction-policy>NONE</eviction-policy>
+
+            <!--
+              Should the cached entries get evicted if the entries are changed (updated or removed).
+              true of false. Default is true.
+            -->
+            <invalidate-on-change>true</invalidate-on-change>
+
+            <!--
+              You may want also local entries to be cached.
+              This is useful when in memory format for near cache is different than the map's one.
+              By default it is disabled.
+            -->
+            <cache-local-entries>false</cache-local-entries>
+        </near-cache>
+    </map>
+
+
+    <map name="vertices">
         <!--
            Data type that will be used for storing recordMap.
            Possible values:
@@ -191,49 +171,6 @@
         <cache-deserialized-values>ALWAYS</cache-deserialized-values>
 
     </map>
-
-    <multimap name="default">
-        <backup-count>0</backup-count>
-        <value-collection-type>SET</value-collection-type>
-    </multimap>
-
-    <list name="default">
-        <backup-count>0</backup-count>
-    </list>
-
-    <set name="default">
-        <backup-count>0</backup-count>
-    </set>
-
-    <jobtracker name="default">
-        <max-thread-size>0</max-thread-size>
-        <!-- Queue size 0 means number of partitions * 2 -->
-        <queue-size>0</queue-size>
-        <retry-count>0</retry-count>
-        <chunk-size>1000</chunk-size>
-        <communicate-stats>true</communicate-stats>
-        <topology-changed-strategy>CANCEL_RUNNING_OPERATION</topology-changed-strategy>
-    </jobtracker>
-
-    <semaphore name="default">
-        <initial-permits>0</initial-permits>
-        <backup-count>1</backup-count>
-        <async-backup-count>0</async-backup-count>
-    </semaphore>
-
-    <reliable-topic name="default">
-        <read-batch-size>10</read-batch-size>
-        <topic-overload-policy>BLOCK</topic-overload-policy>
-        <statistics-enabled>true</statistics-enabled>
-    </reliable-topic>
-
-    <ringbuffer name="default">
-        <capacity>10000</capacity>
-        <backup-count>1</backup-count>
-        <async-backup-count>0</async-backup-count>
-        <time-to-live-seconds>0</time-to-live-seconds>
-        <in-memory-format>BINARY</in-memory-format>
-    </ringbuffer>
 
     <serialization>
         <data-serializable-factories>

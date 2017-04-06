@@ -79,10 +79,8 @@ class SolverLauncher {
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance, vertexRegionMapper, computeConfig);
+
         VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
-
-        hazelcastInstance.getMap("vertices").clear();
-
 
         TimeLogger timeLogger = new TimeLogger();
 
@@ -138,7 +136,7 @@ class SolverLauncher {
                 timeLapseViewer.setVisible(true);
             }
 
-            objectStore.clearAll();
+            objectStore.clearVertices();
             hazelcastInstance.shutdown();
 
         } catch (Exception e) {

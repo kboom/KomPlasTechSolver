@@ -16,4 +16,6 @@ public interface ProcessingContextManager {
 
     void flush();
 
+    <T> T getFromCache(CommonProcessingObject commonProcessingObjects);
+
 }

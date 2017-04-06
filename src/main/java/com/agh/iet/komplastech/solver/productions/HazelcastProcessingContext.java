@@ -1,11 +1,14 @@
 package com.agh.iet.komplastech.solver.productions;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.ProcessingContextManager;
 import com.agh.iet.komplastech.solver.support.ReferenceVisitor;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
+
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
 
 public class HazelcastProcessingContext implements ProcessingContext, ReferenceVisitor {
 
@@ -37,6 +40,16 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     public void updateVertexAndChildren() {
         updateVertex();
         contextManager.replaceVertices(vertex.getChildren());
+    }
+
+    @Override
+    public Problem getProblem() {
+        return contextManager.getFromCache(PROBLEM);
+    }
+
+    @Override
+    public Mesh getMesh() {
+        return contextManager.getFromCache(MESH);
     }
 
     @Override

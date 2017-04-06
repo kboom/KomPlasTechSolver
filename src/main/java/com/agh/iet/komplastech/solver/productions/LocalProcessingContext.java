@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver.productions;
 
+import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
 public class LocalProcessingContext implements ProcessingContext {
@@ -25,5 +27,15 @@ public class LocalProcessingContext implements ProcessingContext {
     @Override
     public void updateVertexAndChildren() {
 
+    }
+
+    @Override
+    public Problem getProblem() {
+        return null;
+    }
+
+    @Override
+    public Mesh getMesh() {
+        return null;
     }
 }

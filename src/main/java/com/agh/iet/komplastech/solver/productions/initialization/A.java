@@ -17,10 +17,9 @@ import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
-import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
-import static java.lang.String.format;
+import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class A implements Production {
 
@@ -28,24 +27,16 @@ public class A implements Production {
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
 
-    private Problem problem;
-    private Mesh mesh;
-
     @SuppressWarnings("unused")
     public A() {
 
-    }
-
-    public A(Mesh mesh, Problem problem) {
-        this.problem = problem;
-        this.mesh = mesh;
     }
 
     @Override
     public void apply(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
         initializeCoefficientsMatrix(node);
-        initializeRightHandSides(node);
+        initializeRightHandSides(processingContext);
         processingContext.updateVertex();
     }
 
@@ -53,15 +44,20 @@ public class A implements Production {
         useArbitraryCoefficients(node);
     }
 
-    private void initializeRightHandSides(Vertex node) {
+    private void initializeRightHandSides(ProcessingContext context) {
+        Mesh mesh = context.getMesh();
         for (int i = 1; i <= mesh.getDofsY(); i++) {
-            fillRightHandSide(node, spline3, 1, i);
-            fillRightHandSide(node, spline2, 2, i);
-            fillRightHandSide(node, spline1, 3, i);
+            fillRightHandSide(context, spline3, 1, i);
+            fillRightHandSide(context, spline2, 2, i);
+            fillRightHandSide(context, spline1, 3, i);
         }
     }
 
-    private void fillRightHandSide(Vertex node, Spline spline, int r, int i) {
+    private void fillRightHandSide(ProcessingContext context, Spline spline, int r, int i) {
+        final Mesh mesh = context.getMesh();
+        final Problem problem = context.getProblem();
+        final Vertex node = context.getVertex();
+
         for (int k = 1; k <= GaussPoints.GAUSS_POINT_COUNT; k++) {
             double x = GAUSS_POINTS[k] * mesh.getDx() + node.beginning;
             for (int l = 1; l <= GaussPoints.GAUSS_POINT_COUNT; l++) {
@@ -82,18 +78,6 @@ public class A implements Production {
     }
 
     @Override
-    public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
-        out.writeObject(problem);
-    }
-
-    @Override
-    public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
-        problem = in.readObject();
-    }
-
-    @Override
     public int getFactoryId() {
         return PRODUCTION_FACTORY;
     }
@@ -101,6 +85,16 @@ public class A implements Production {
     @Override
     public int getId() {
         return A_PRODUCTION;
+    }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+
     }
 
 }

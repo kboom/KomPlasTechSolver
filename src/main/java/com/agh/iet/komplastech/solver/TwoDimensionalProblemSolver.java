@@ -48,14 +48,21 @@ class TwoDimensionalProblemSolver implements Solver {
 
     @Override
     public Solution solveProblem(Problem rhs) {
+        prepareObjectStore(rhs);
         Solution horizontalSolution = solveProblemHorizontally(rhs);
-        objectStore.clearAll();
+        objectStore.clearVertices();
         return solveProblemVertically(horizontalSolution, rhs);
+    }
+
+    private void prepareObjectStore(Problem rhs) {
+        objectStore.clearAll();
+        objectStore.setProblem(rhs);
+        objectStore.setMesh(mesh);
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
         HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(mesh, rhs, vertexRegionMapper);
-        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs, launcherFactory, solutionLogger);
+        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(launcherFactory, solutionLogger);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 objectStore,

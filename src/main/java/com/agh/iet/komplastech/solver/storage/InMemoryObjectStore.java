@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver.storage;
 
+import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.hazelcast.nio.ObjectDataInput;
@@ -20,6 +22,21 @@ public class InMemoryObjectStore implements ObjectStore {
 
     @Override
     public void clearAll() {
+
+    }
+
+    @Override
+    public void clearVertices() {
+
+    }
+
+    @Override
+    public void setProblem(Problem rhs) {
+
+    }
+
+    @Override
+    public void setMesh(Mesh mesh) {
 
     }
 
