@@ -6,6 +6,7 @@ import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IExecutorService;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -61,7 +62,7 @@ public class ProductionExecutorFactory {
             Stream<VertexReference> vertexReferenceStream = mapToReferences(range);
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
 
-            Stream<Future<Void>> futureStream = referencesByRegion.entrySet().stream().map((entry) -> {
+            Set<Future<Void>> futureStream = referencesByRegion.entrySet().parallelStream().map((entry) -> {
                 final RegionId region = entry.getKey();
                 final Set<VertexReference> vertices = entry.getValue();
                 final int batchSize = determineBatchSizeFor(vertices.size());
@@ -71,7 +72,7 @@ public class ProductionExecutorFactory {
                             return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
                         })
                         .map(production -> executorService.submitToKeyOwner(production, region));
-            }).flatMap(Function.identity());
+            }).flatMap(Function.identity()).collect(Collectors.toSet());
 
             waitForCompletion(futureStream);
         }
@@ -94,7 +95,7 @@ public class ProductionExecutorFactory {
                             Collectors.mapping(Function.identity(), Collectors.toSet())));
         }
 
-        private void waitForCompletion(Stream<Future<Void>> futureStream) {
+        private void waitForCompletion(Set<Future<Void>> futureStream) {
             futureStream.forEach(future -> {
                 try {
                     future.get();
