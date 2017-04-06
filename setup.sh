@@ -6,6 +6,8 @@ SCRIPTS_DIR=${SOLVER_ROOT}/cluster/scripts
 cd ~
 chmod 775 ${SCRIPTS_DIR}/*
 bash ${SCRIPTS_DIR}/update.sh
+
+rm -f solverCommands
 ln -s ${SCRIPTS_DIR} solverCommands
 
 export KPTS_SOLVER=${SOLVER_ROOT}
