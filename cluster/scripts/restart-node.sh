@@ -2,7 +2,7 @@
 
 DEPS_DIR=$KPTS_SOLVER_DEPS
 RUN_DIR="hazelcast-3.8-$1"
-HAZELCAST_CFG=/home/stud/ggurgul/node-config/hazelcast-agh.xml
+HAZELCAST_CFG=$KPTS_SOLVER/cluster/config/hazelcast-agh.xml
 
 function stop {
    ./${RUN_DIR}/bin/stop.sh
