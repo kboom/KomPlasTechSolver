@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.storage;
 
+import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
@@ -11,6 +12,7 @@ import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
 import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.SOLUTION;
 
 public class HazelcastObjectStore implements ObjectStore {
 
@@ -51,6 +53,11 @@ public class HazelcastObjectStore implements ObjectStore {
     @Override
     public void setMesh(Mesh mesh) {
         hazelcastInstance.getMap("commons").put(MESH, mesh);
+    }
+
+    @Override
+    public void setSolution(Solution solution) {
+        hazelcastInstance.getMap("commons").put(SOLUTION, solution);
     }
 
     private IMap<VertexReference, Vertex> getVertexMapInstance() {

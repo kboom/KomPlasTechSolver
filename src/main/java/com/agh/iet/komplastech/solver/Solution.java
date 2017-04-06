@@ -134,4 +134,7 @@ public class Solution implements IdentifiedDataSerializable {
         return SOLUTION;
     }
 
+    public Mesh getMesh() {
+        return mesh;
+    }
 }

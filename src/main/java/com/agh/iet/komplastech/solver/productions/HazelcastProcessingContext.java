@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions;
 
+import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -7,8 +8,7 @@ import com.agh.iet.komplastech.solver.support.ProcessingContextManager;
 import com.agh.iet.komplastech.solver.support.ReferenceVisitor;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
 
 public class HazelcastProcessingContext implements ProcessingContext, ReferenceVisitor {
 
@@ -50,6 +50,11 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     @Override
     public Mesh getMesh() {
         return contextManager.getFromCache(MESH);
+    }
+
+    @Override
+    public Solution getSolution() {
+        return contextManager.getFromCache(SOLUTION);
     }
 
     @Override

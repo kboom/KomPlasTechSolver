@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.storage;
 
+import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -37,6 +38,11 @@ public class InMemoryObjectStore implements ObjectStore {
 
     @Override
     public void setMesh(Mesh mesh) {
+
+    }
+
+    @Override
+    public void setSolution(Solution solution) {
 
     }
 
