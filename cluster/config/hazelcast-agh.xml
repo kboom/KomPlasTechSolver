@@ -20,12 +20,15 @@
 
     <map name="commons">
 
-        <in-memory-format>OBJECT</in-memory-format>
+        <in-memory-format>BINARY</in-memory-format>
 
         <backup-count>0</backup-count>
         <async-backup-count>0</async-backup-count>
 
         <near-cache>
+
+            <in-memory-format>OBJECT</in-memory-format>
+
             <!--
               Maximum size of the near cache. When max size is reached,
               cache is evicted based on the policy defined.
@@ -71,7 +74,7 @@
               This is useful when in memory format for near cache is different than the map's one.
               By default it is disabled.
             -->
-            <cache-local-entries>false</cache-local-entries>
+            <cache-local-entries>true</cache-local-entries>
         </near-cache>
     </map>
 
@@ -126,20 +129,6 @@
         -->
         <max-size policy="PER_NODE">0</max-size>
         <!--
-            `eviction-percentage` property is deprecated and will be ignored when it is set.
-
-            As of version 3.7, eviction mechanism changed.
-            It uses a probabilistic algorithm based on sampling. Please see documentation for further details
-        -->
-        <eviction-percentage>25</eviction-percentage>
-        <!--
-            `min-eviction-check-millis` property is deprecated  and will be ignored when it is set.
-
-            As of version 3.7, eviction mechanism changed.
-            It uses a probabilistic algorithm based on sampling. Please see documentation for further details
-        -->
-        <min-eviction-check-millis>100</min-eviction-check-millis>
-        <!--
             While recovering from split-brain (network partitioning),
             map entries in the small cluster will merge into the bigger cluster
             based on the policy set here. When an entry merge into the
@@ -163,7 +152,7 @@
                         INDEX-ONLY: Caches values only when they are inserted into an index.
                         ALWAYS: Always cache deserialized values.
         -->
-        <cache-deserialized-values>ALWAYS</cache-deserialized-values>
+        <cache-deserialized-values>NEVER</cache-deserialized-values>
 
     </map>
 

@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.process.ConsoleProcessLogger;
 import com.agh.iet.komplastech.solver.logger.process.NoopProcessLogger;
+import com.agh.iet.komplastech.solver.logger.process.ProcessLogger;
 import com.agh.iet.komplastech.solver.problem.ConstantLinearProblem;
 import com.agh.iet.komplastech.solver.problem.ConstantOneProblem;
 import com.agh.iet.komplastech.solver.problem.HeatTransferProblem;
@@ -76,9 +77,11 @@ class SolverLauncher {
         log.info(format("\n\n--------- Problem size (%d), Steps (%d), Max batch size (%d), Batch ratio (%d), Region height (%d), Member count (%d)",
                 problemSize, steps, maxBatchSize, batchRatio, regionHeight, hazelcastInstance.getCluster().getMembers().size()));
 
+        final ProcessLogger processLogger = isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger();
+
         ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
-                hazelcastInstance, vertexRegionMapper, computeConfig);
+                hazelcastInstance, vertexRegionMapper, computeConfig, processLogger);
 
         VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
 
@@ -89,7 +92,7 @@ class SolverLauncher {
                 mesh,
                 vertexRegionMapper,
                 isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
-                isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger(),
+                processLogger,
                 objectStore,
                 timeLogger
         );

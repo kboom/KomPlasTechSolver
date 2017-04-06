@@ -25,12 +25,15 @@
 
     <map name="commons">
 
-        <in-memory-format>OBJECT</in-memory-format>
+        <in-memory-format>BINARY</in-memory-format>
 
         <backup-count>0</backup-count>
         <async-backup-count>0</async-backup-count>
 
         <near-cache>
+
+            <in-memory-format>OBJECT</in-memory-format>
+
             <!--
               Maximum size of the near cache. When max size is reached,
               cache is evicted based on the policy defined.
@@ -76,7 +79,7 @@
               This is useful when in memory format for near cache is different than the map's one.
               By default it is disabled.
             -->
-            <cache-local-entries>false</cache-local-entries>
+            <cache-local-entries>true</cache-local-entries>
         </near-cache>
     </map>
 

@@ -97,4 +97,9 @@ public class A implements Production {
 
     }
 
+    @Override
+    public String toString() {
+        return "Production A";
+    }
+
 }

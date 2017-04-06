@@ -72,4 +72,9 @@ public class RegionId implements IdentifiedDataSerializable {
     public RegionId() {
 
     }
+
+    public int toInt() {
+        return regionId;
+    }
+
 }

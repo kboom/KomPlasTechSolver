@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.logger.process.ProcessLogger;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
@@ -23,10 +24,16 @@ public class ProductionExecutorFactory {
 
     private final VertexRegionMapper regionMapper;
 
-    ProductionExecutorFactory(HazelcastInstance hazelcastInstance, VertexRegionMapper regionMapper, ComputeConfig computeConfig) {
+    private final ProcessLogger processLogger;
+
+    ProductionExecutorFactory(HazelcastInstance hazelcastInstance,
+                              VertexRegionMapper regionMapper,
+                              ComputeConfig computeConfig,
+                              ProcessLogger processLogger) {
         this.executorService = hazelcastInstance.getExecutorService("production");
         this.regionMapper = regionMapper;
         this.computeConfig = computeConfig;
+        this.processLogger = processLogger;
     }
 
     public ProductionLauncher launchProduction(Production production) {
@@ -59,7 +66,10 @@ public class ProductionExecutorFactory {
                 final Set<VertexReference> vertices = entry.getValue();
                 final int batchSize = determineBatchSizeFor(vertices.size());
                 return batchedStreamOf(vertices.stream(), batchSize)
-                        .map((vertexBatch) -> new HazelcastProductionAdapter(production, regionMapper, vertexBatch))
+                        .map((vertexBatch) -> {
+                            processLogger.logProductionLaunched(production, vertexBatch);
+                            return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
+                        })
                         .map(production -> executorService.submitToKeyOwner(production, region));
             }).flatMap(Function.identity());
 
