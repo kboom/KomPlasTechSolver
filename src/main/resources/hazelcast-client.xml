@@ -23,10 +23,10 @@
     </network>
 
     <properties>
-        <property name="hazelcast.heartbeat.interval.seconds">30</property>
-        <property name="hazelcast.client.heartbeat.interval">60000</property>
-        <property name="hazelcast.client.heartbeat.timeout">15000000</property>
-        <property name="hazelcast.client.max.no.heartbeat.seconds">1000</property>
+        <property name="hazelcast.heartbeat.interval.seconds">60</property>
+        <property name="hazelcast.client.heartbeat.interval">3000000</property>
+        <property name="hazelcast.client.heartbeat.timeout">50000000</property>
+        <property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>
     </properties>
 
     <serialization>
