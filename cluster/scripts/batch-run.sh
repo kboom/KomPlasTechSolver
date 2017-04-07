@@ -21,10 +21,12 @@ function runBatch {
     ./solverCommands/run.sh ${PROBLEM_SIZE} "--batch-ratio ${BATCH_RATIO} --max-batch-size ${MAX_BATCH_SIZE} --region-height ${REGION_HEIGHT}"
 }
 
-for rh in `seq ${MIN_REGION_HEIGHT} ${MAX_REGION_HEIGHT} ${REGION_HEIGHT_STEP}`;
+for (( rh=${MIN_REGION_HEIGHT}; rh <= ${MAX_REGION_HEIGHT}; rh += ${REGION_HEIGHT_STEP} ));
 do
-    for bs in `seq ${MIN_BATCH_SIZE} ${MAX_BATCH_SIZE} ${BATCH_SIZE_STEP}`;
+
+    for (( bs=${MIN_BATCH_SIZE}; bs <= ${MAX_BATCH_SIZE}; bs += ${BATCH_SIZE_STEP} ));
     do
         runBatch ${PROBLEM_SIZE} ${rh} 1 ${bs}
     done
+
 done
