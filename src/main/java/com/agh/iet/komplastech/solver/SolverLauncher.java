@@ -119,7 +119,7 @@ class SolverLauncher {
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(nonStationaryProblem);
 
-            log.info(format("Solution times: %d,%d,%d,%d",
+            log.info(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), Total (%d)",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
