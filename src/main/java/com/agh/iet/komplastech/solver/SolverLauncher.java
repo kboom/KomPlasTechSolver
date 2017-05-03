@@ -17,7 +17,7 @@ class SolverLauncher {
     private boolean isLogging = false;
 
     @Parameter(names={"--plot", "-p"})
-    private boolean isPlotting = true;
+    private boolean isPlotting = false;
 
     @Parameter(names={"--problem-size", "-s"})
     private int problemSize = 12;
