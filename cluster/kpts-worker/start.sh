@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+docker service create --env MIN_HEAP_SIZE=6G --env MAX_HEAP_SIZE=6G --constraint='node.role!=manager' --network=hazelcast-net --name=kpts --publish 5701:5701 --mode global --env MANCENTER_URL=http://10.6.3.56:8080/mancenter kbhit/kpts-worker

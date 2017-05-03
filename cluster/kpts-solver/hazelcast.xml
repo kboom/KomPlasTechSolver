@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast-client xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.hazelcast.com/schema/client-config
+                               http://www.hazelcast.com/schema/client-config/hazelcast-client-config-3.8.xsd"
+                  xmlns="http://www.hazelcast.com/schema/client-config">
+
+    <group>
+        <name>kpts-cluster</name>
+        <password>kpts-cluster-pass</password>
+    </group>
+
+
+    <network>
+        <cluster-members>
+            <!-- As fault tolerance is not important in this example it is enough to specify a single cluster
+            member as the others members of the cluster this one belongs to will be learned from this one -->
+            <address>10.0.0.1-10</address>
+        </cluster-members>
+    </network>
+
+    <properties>
+        <property name="hazelcast.heartbeat.interval.seconds">60</property>
+        <property name="hazelcast.client.heartbeat.interval">3000000</property>
+        <property name="hazelcast.client.heartbeat.timeout">50000000</property>
+        <property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>
+    </properties>
+
+    <serialization>
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="1">
+                com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory
+            </data-serializable-factory>
+            <data-serializable-factory factory-id="2">
+                com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory
+            </data-serializable-factory>
+            <data-serializable-factory factory-id="3">
+                com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory
+            </data-serializable-factory>
+        </data-serializable-factories>
+    </serialization>
+
+</hazelcast-client>

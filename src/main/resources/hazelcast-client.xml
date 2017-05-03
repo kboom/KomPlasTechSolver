@@ -14,11 +14,7 @@
         <cluster-members>
             <!-- As fault tolerance is not important in this example it is enough to specify a single cluster
             member as the others members of the cluster this one belongs to will be learned from this one -->
-            <address>192.168.99.100</address>
-            <address>172.20.65.4</address>
-            <address>172.20.65.5</address>
-            <address>172.20.65.9</address>
-            <address>172.20.65.8</address>
+            <address>${cluster.address}</address>
         </cluster-members>
     </network>
 
