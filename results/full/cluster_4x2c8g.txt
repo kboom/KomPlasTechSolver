@@ -1,0 +1,1056 @@
+2017-05-04 07:24:07,235 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:24:09,877 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 678,199,86,1015
+2017-05-04 07:24:11,518 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:24:12,984 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 111,127,54,331
+2017-05-04 07:24:17,653 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:24:19,134 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 118,113,54,322
+2017-05-04 07:24:20,753 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:24:22,088 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 84,78,47,239
+2017-05-04 07:24:23,713 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:24:25,075 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 87,83,46,254
+2017-05-04 07:24:32,656 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:24:34,035 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 101,74,52,262
+2017-05-04 07:24:35,645 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:24:37,077 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 83,191,35,332
+2017-05-04 07:24:38,626 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:24:39,923 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 68,75,32,196
+2017-05-04 07:24:41,511 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:24:42,793 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 72,66,32,194
+2017-05-04 07:24:44,349 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:24:45,635 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 86,57,28,189
+2017-05-04 07:24:47,232 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:24:48,494 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 71,52,33,170
+2017-05-04 07:24:59,115 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:25:00,473 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 106,52,33,208
+2017-05-04 07:25:02,050 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:25:03,328 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 78,54,27,174
+2017-05-04 07:25:10,970 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:25:12,323 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 106,51,28,200
+2017-05-04 07:25:13,934 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:25:15,191 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 71,51,28,164
+2017-05-04 07:25:22,791 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:25:24,079 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 81,62,23,182
+2017-05-04 07:25:25,717 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:25:26,958 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 67,43,24,148
+2017-05-04 07:25:31,463 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:25:32,703 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 64,40,23,141
+2017-05-04 07:25:34,451 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:25:35,709 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 83,44,26,168
+2017-05-04 07:25:37,271 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:25:38,506 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 66,34,25,137
+2017-05-04 07:25:43,161 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:25:44,501 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 97,44,29,184
+2017-05-04 07:25:46,147 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:25:47,389 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 66,39,23,145
+2017-05-04 07:25:49,023 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:25:50,264 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 72,33,23,139
+2017-05-04 07:25:51,920 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:25:53,158 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 66,36,22,139
+2017-05-04 07:25:54,793 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:25:56,021 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 64,48,22,147
+2017-05-04 07:26:03,656 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:26:04,970 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 89,37,23,163
+2017-05-04 07:26:12,656 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:26:13,892 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 69,38,22,142
+2017-05-04 07:26:15,496 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:26:16,734 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 77,43,23,158
+2017-05-04 07:26:18,372 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:26:19,589 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 62,33,18,133
+2017-05-04 07:26:24,128 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:26:25,388 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 83,44,26,166
+2017-05-04 07:26:27,124 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:26:28,337 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 60,37,20,133
+2017-05-04 07:26:29,932 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:26:31,256 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 97,38,35,183
+2017-05-04 07:26:35,912 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (12), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:26:37,169 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 78,39,20,158
+2017-05-04 07:26:38,798 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:26:40,394 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 126,227,68,505
+2017-05-04 07:26:44,992 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:26:46,446 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 118,105,72,355
+2017-05-04 07:26:48,072 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:26:49,570 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 131,98,71,362
+2017-05-04 07:26:51,209 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:26:52,679 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 112,117,67,335
+2017-05-04 07:26:54,308 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:26:55,731 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 94,110,54,302
+2017-05-04 07:27:00,294 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:27:01,727 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 123,93,62,319
+2017-05-04 07:27:03,334 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:27:04,694 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 74,117,40,270
+2017-05-04 07:27:06,353 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:27:07,658 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 85,56,38,213
+2017-05-04 07:27:09,338 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:27:10,643 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 79,68,46,220
+2017-05-04 07:27:12,224 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:27:13,515 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 77,71,28,203
+2017-05-04 07:27:15,156 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:27:16,399 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 66,54,24,160
+2017-05-04 07:27:18,009 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:27:19,267 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 68,56,28,174
+2017-05-04 07:27:23,938 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:27:25,210 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 76,61,26,183
+2017-05-04 07:27:26,801 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:27:28,042 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 68,51,25,159
+2017-05-04 07:27:29,634 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:27:31,018 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 101,64,30,215
+2017-05-04 07:27:32,664 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:27:33,951 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 80,69,28,198
+2017-05-04 07:27:35,559 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:27:36,796 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 64,54,24,159
+2017-05-04 07:27:38,256 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:27:39,542 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 84,54,33,189
+2017-05-04 07:27:44,150 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:27:45,441 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 73,70,29,198
+2017-05-04 07:27:47,135 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:27:48,391 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 69,53,25,165
+2017-05-04 07:27:49,913 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:27:51,152 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 63,51,24,159
+2017-05-04 07:27:55,689 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:27:57,089 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 113,71,30,240
+2017-05-04 07:27:58,652 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:27:59,923 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 74,54,26,178
+2017-05-04 07:28:04,507 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:28:05,735 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 59,49,25,151
+2017-05-04 07:28:07,508 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:28:08,842 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 102,69,32,224
+2017-05-04 07:28:13,532 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:28:14,798 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 76,55,25,173
+2017-05-04 07:28:16,321 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:28:17,625 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 94,56,26,193
+2017-05-04 07:28:19,156 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:28:20,429 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 71,64,36,193
+2017-05-04 07:28:25,053 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:28:26,409 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 103,57,28,208
+2017-05-04 07:28:27,979 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:28:29,256 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 74,55,31,180
+2017-05-04 07:28:36,864 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:28:38,276 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 130,65,34,249
+2017-05-04 07:28:43,026 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:28:44,386 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 108,56,29,211
+2017-05-04 07:28:49,037 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (24), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:28:50,352 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 96,58,29,202
+2017-05-04 07:28:51,959 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:28:53,580 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 122,181,102,493
+2017-05-04 07:28:58,162 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:28:59,723 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 133,130,81,412
+2017-05-04 07:29:01,313 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:29:02,866 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 121,149,83,425
+2017-05-04 07:29:13,511 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:29:15,110 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 140,132,86,430
+2017-05-04 07:29:25,700 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:29:27,334 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 156,150,78,448
+2017-05-04 07:29:32,022 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:29:33,612 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 145,118,83,412
+2017-05-04 07:29:38,256 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:29:39,607 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 92,94,44,265
+2017-05-04 07:29:44,359 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:29:45,809 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 111,101,49,311
+2017-05-04 07:29:50,480 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:29:51,963 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 132,106,48,325
+2017-05-04 07:29:56,652 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:29:58,110 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 98,118,62,329
+2017-05-04 07:29:59,738 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:30:01,211 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 109,111,67,346
+2017-05-04 07:30:02,869 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:30:04,339 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 146,105,57,362
+2017-05-04 07:30:05,875 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:30:07,262 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 75,139,47,291
+2017-05-04 07:30:11,872 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:30:13,299 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 101,123,34,291
+2017-05-04 07:30:17,891 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:30:19,251 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 76,126,36,266
+2017-05-04 07:30:20,871 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:30:22,288 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 94,140,47,314
+2017-05-04 07:30:32,916 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:30:34,348 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 94,132,37,290
+2017-05-04 07:30:35,932 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:30:37,278 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 68,126,33,252
+2017-05-04 07:30:38,880 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:30:40,249 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 72,135,40,277
+2017-05-04 07:30:41,892 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:30:43,325 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 118,133,39,317
+2017-05-04 07:30:44,884 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:30:46,329 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 120,132,41,322
+2017-05-04 07:30:51,011 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:30:52,508 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 110,160,39,347
+2017-05-04 07:31:00,155 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:31:01,522 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 80,125,31,269
+2017-05-04 07:31:06,164 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:31:07,521 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 78,124,39,266
+2017-05-04 07:31:09,148 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:31:10,543 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 94,133,45,299
+2017-05-04 07:31:12,039 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:31:13,376 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 67,119,29,237
+2017-05-04 07:31:18,031 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:31:19,389 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 80,120,34,260
+2017-05-04 07:31:21,050 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:31:22,426 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 92,128,34,288
+2017-05-04 07:31:24,030 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:31:25,351 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 67,115,30,235
+2017-05-04 07:31:26,910 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:31:28,239 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 68,120,33,247
+2017-05-04 07:31:29,824 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:31:31,203 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 85,141,35,293
+2017-05-04 07:31:32,779 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:31:34,109 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 71,122,29,245
+2017-05-04 07:31:38,817 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (48), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:31:40,270 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 105,126,38,298
+2017-05-04 07:31:41,898 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:31:43,847 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 162,451,95,799
+2017-05-04 07:31:45,470 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:31:47,388 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 150,405,110,772
+2017-05-04 07:31:51,974 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:31:53,726 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 141,315,88,626
+2017-05-04 07:32:01,298 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:32:03,176 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 165,342,87,682
+2017-05-04 07:32:04,747 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:32:06,451 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 112,274,89,553
+2017-05-04 07:32:17,149 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:32:18,964 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 176,271,89,622
+2017-05-04 07:32:23,515 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:32:25,158 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 122,250,63,494
+2017-05-04 07:32:29,755 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:32:31,428 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 156,213,72,499
+2017-05-04 07:32:36,104 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:32:37,698 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 98,277,55,488
+2017-05-04 07:32:42,291 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:32:43,981 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 167,229,74,527
+2017-05-04 07:32:45,489 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:32:47,072 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 102,241,67,471
+2017-05-04 07:32:57,664 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:32:59,349 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 123,254,76,525
+2017-05-04 07:33:09,983 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:33:11,784 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 121,386,91,668
+2017-05-04 07:33:13,381 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:33:15,192 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 121,408,77,675
+2017-05-04 07:33:22,797 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:33:24,668 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 164,374,82,704
+2017-05-04 07:33:32,278 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:33:34,146 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 152,433,55,694
+2017-05-04 07:33:38,675 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:33:40,469 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 123,405,51,622
+2017-05-04 07:33:45,138 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:33:46,952 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 133,406,52,636
+2017-05-04 07:33:48,611 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:33:50,334 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 96,413,56,612
+2017-05-04 07:33:51,951 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:33:53,646 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 90,400,43,573
+2017-05-04 07:33:55,255 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:33:57,005 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 107,413,47,613
+2017-05-04 07:33:58,629 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:34:00,318 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 87,412,50,590
+2017-05-04 07:34:08,063 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:34:09,899 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 123,435,52,656
+2017-05-04 07:34:17,531 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:34:19,200 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 86,399,43,565
+2017-05-04 07:34:20,738 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:34:22,444 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 90,416,54,602
+2017-05-04 07:34:30,054 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:34:31,864 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 142,400,50,634
+2017-05-04 07:34:33,493 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:34:35,170 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 85,397,42,564
+2017-05-04 07:34:36,677 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:34:38,381 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 90,415,50,600
+2017-05-04 07:34:39,997 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:34:41,670 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 79,403,45,569
+2017-05-04 07:34:43,209 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:34:44,887 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 85,401,49,573
+2017-05-04 07:34:52,476 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:34:54,215 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 100,435,52,628
+2017-05-04 07:34:58,716 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:35:00,391 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 83,401,44,572
+2017-05-04 07:35:05,016 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (96), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:35:06,796 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 121,398,48,609
+2017-05-04 07:35:08,373 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:35:10,918 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 192,726,124,1172
+2017-05-04 07:35:12,433 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:35:15,027 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 198,939,140,1413
+2017-05-04 07:35:16,689 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:35:19,287 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 201,917,141,1392
+2017-05-04 07:35:20,988 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:35:23,359 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 170,856,106,1235
+2017-05-04 07:35:27,872 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:35:30,335 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 185,869,109,1270
+2017-05-04 07:35:34,941 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:35:37,525 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 227,863,122,1345
+2017-05-04 07:35:45,113 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:35:47,543 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 168,903,101,1268
+2017-05-04 07:35:49,149 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:35:51,605 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 166,888,99,1263
+2017-05-04 07:35:56,192 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:35:58,628 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 151,896,108,1259
+2017-05-04 07:36:00,285 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:36:02,580 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 142,827,83,1129
+2017-05-04 07:36:07,137 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:36:09,459 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 148,803,79,1117
+2017-05-04 07:36:14,104 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:36:16,513 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 182,809,86,1159
+2017-05-04 07:36:24,118 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:36:27,034 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 192,1118,100,1504
+2017-05-04 07:36:31,561 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:36:34,147 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 172,1032,91,1390
+2017-05-04 07:36:35,730 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:36:38,270 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 148,1019,97,1370
+2017-05-04 07:36:39,943 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:36:42,505 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 152,838,110,1212
+2017-05-04 07:36:50,104 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:36:52,639 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 203,874,109,1298
+2017-05-04 07:36:57,295 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:36:59,822 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 189,885,110,1310
+2017-05-04 07:37:07,389 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:37:10,491 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 140,1621,89,1938
+2017-05-04 07:37:12,150 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:37:15,088 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 115,1508,79,1779
+2017-05-04 07:37:19,638 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:37:22,593 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 123,1498,79,1781
+2017-05-04 07:37:33,190 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:37:36,340 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 200,1558,84,1927
+2017-05-04 07:37:46,889 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:37:49,908 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 148,1493,78,1800
+2017-05-04 07:37:51,482 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:37:54,428 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 124,1493,75,1775
+2017-05-04 07:37:56,071 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:37:59,118 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 146,1548,98,1879
+2017-05-04 07:38:06,720 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:38:09,723 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 140,1501,78,1798
+2017-05-04 07:38:14,437 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:38:17,550 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 158,1516,86,1848
+2017-05-04 07:38:22,188 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:38:25,327 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 186,1546,90,1922
+2017-05-04 07:38:26,911 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:38:29,852 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 116,1513,73,1776
+2017-05-04 07:38:31,470 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:38:34,440 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 120,1504,79,1792
+2017-05-04 07:38:39,082 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:38:42,245 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 204,1558,92,1943
+2017-05-04 07:38:43,924 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:38:46,870 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 127,1489,76,1770
+2017-05-04 07:38:51,507 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (192), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:38:54,508 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 137,1503,84,1808
+2017-05-04 07:38:56,102 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:39:00,691 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 332,2213,196,2994
+2017-05-04 07:39:08,325 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:39:12,757 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 348,2282,206,3134
+2017-05-04 07:39:20,358 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:39:24,988 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 346,2311,216,3146
+2017-05-04 07:39:26,570 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:39:30,933 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 291,2438,156,3064
+2017-05-04 07:39:32,565 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:39:36,601 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 251,2179,157,2762
+2017-05-04 07:39:38,283 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:39:42,551 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 261,2185,169,2793
+2017-05-04 07:39:50,231 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:39:54,448 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 247,2197,135,2732
+2017-05-04 07:39:59,074 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:40:03,429 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 297,2254,147,2884
+2017-05-04 07:40:08,048 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:40:12,239 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 297,2183,165,2821
+2017-05-04 07:40:13,945 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:40:18,170 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 238,2210,328,2910
+2017-05-04 07:40:19,809 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:40:24,022 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 219,2194,135,2698
+2017-05-04 07:40:25,564 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:40:29,521 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 211,2191,121,2669
+2017-05-04 07:40:31,135 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:40:36,008 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 269,2856,143,3435
+2017-05-04 07:40:37,653 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:40:42,463 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 240,2766,147,3334
+2017-05-04 07:40:44,099 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:40:48,975 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 247,2802,152,3396
+2017-05-04 07:40:59,608 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:41:03,700 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 268,2183,167,2818
+2017-05-04 07:41:08,412 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:41:12,790 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 310,2171,170,2868
+2017-05-04 07:41:14,344 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:41:18,624 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 262,2163,177,2834
+2017-05-04 07:41:20,199 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:41:24,686 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 294,2280,193,3031
+2017-05-04 07:41:26,309 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:41:30,884 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 289,2348,217,3140
+2017-05-04 07:41:35,479 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:41:40,123 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 314,2317,215,3152
+2017-05-04 07:41:47,691 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:41:55,927 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 352,5968,222,6814
+2017-05-04 07:42:00,560 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:42:08,495 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 274,5893,185,6570
+2017-05-04 07:42:10,038 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:42:18,109 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 265,5890,271,6648
+2017-05-04 07:42:19,739 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:42:27,865 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 330,5930,228,6738
+2017-05-04 07:42:29,496 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:42:37,501 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 263,5922,207,6622
+2017-05-04 07:42:39,134 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:42:47,127 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 271,5852,217,6592
+2017-05-04 07:42:48,755 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:42:56,885 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 328,5942,219,6742
+2017-05-04 07:43:01,494 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:43:09,446 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 288,5864,185,6558
+2017-05-04 07:43:11,004 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:43:18,919 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 258,5846,195,6513
+2017-05-04 07:43:20,505 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:43:28,615 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 325,5937,230,6739
+2017-05-04 07:43:33,183 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:43:41,040 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 260,5861,174,6514
+2017-05-04 07:43:45,707 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (384), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:43:53,833 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 329,5907,206,6675
+2017-05-04 07:44:01,615 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:44:13,990 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 839,8541,473,10609
+2017-05-04 07:44:15,599 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:44:27,863 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 761,8455,483,10449
+2017-05-04 07:44:35,514 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:44:47,793 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 769,8621,460,10560
+2017-05-04 07:44:55,500 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:45:07,740 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 745,8598,381,10313
+2017-05-04 07:45:09,268 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:45:21,227 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 667,8512,423,10222
+2017-05-04 07:45:25,811 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:45:38,099 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 700,8491,395,10220
+2017-05-04 07:45:42,812 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:45:54,596 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 646,8535,293,9878
+2017-05-04 07:45:56,228 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:46:07,836 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 501,8571,304,9798
+2017-05-04 07:46:09,515 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 07:46:21,304 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 598,8655,310,9969
+2017-05-04 07:46:25,872 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:46:37,785 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 676,8474,365,10040
+2017-05-04 07:46:39,155 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:46:51,031 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 655,8340,373,9949
+2017-05-04 07:46:52,531 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 07:47:04,180 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 652,8294,390,9924
+2017-05-04 07:47:05,814 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:47:19,729 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 662,10526,543,12139
+2017-05-04 07:47:21,129 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:47:33,608 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 625,9239,354,10629
+2017-05-04 07:47:41,219 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 07:47:53,762 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 641,9327,318,10718
+2017-05-04 07:47:58,276 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:48:10,041 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 694,8516,373,10021
+2017-05-04 07:48:14,577 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:48:26,549 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 705,8567,385,10219
+2017-05-04 07:48:37,134 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 07:48:49,743 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 659,9015,439,10707
+2017-05-04 07:48:51,274 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:49:03,428 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 703,8259,612,10188
+2017-05-04 07:49:05,063 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:49:17,090 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 697,8366,460,10143
+2017-05-04 07:49:18,624 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 07:49:30,524 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 734,8269,453,10141
+2017-05-04 07:49:32,106 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:49:44,918 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 889,8492,782,11004
+2017-05-04 07:49:46,497 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:50:00,496 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 859,9655,645,12109
+2017-05-04 07:50:08,074 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 07:50:21,737 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 984,8468,1211,11927
+2017-05-04 07:50:26,399 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:50:54,456 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1040,23556,687,26072
+2017-05-04 07:51:04,995 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:51:32,775 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 903,23583,571,25751
+2017-05-04 07:51:34,365 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 07:52:02,022 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 847,23542,597,25678
+2017-05-04 07:52:03,621 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:52:31,568 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1038,23387,641,26001
+2017-05-04 07:52:33,176 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:53:00,777 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 882,23516,564,25653
+2017-05-04 07:53:02,408 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 07:53:29,964 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 908,23264,547,25595
+2017-05-04 07:53:31,625 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:53:59,542 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 931,23572,641,25953
+2017-05-04 07:54:10,040 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:54:37,894 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1008,23464,556,25821
+2017-05-04 07:54:42,559 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (768), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 07:55:10,426 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 831,23571,732,25822
+2017-05-04 07:55:15,040 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:55:59,622 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2587,33179,2034,40694
+2017-05-04 07:56:04,161 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:56:48,060 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2533,33122,1786,40086
+2017-05-04 07:56:49,556 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (1), Member count (4)
+2017-05-04 07:57:36,672 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2418,36599,1716,43395
+2017-05-04 07:57:41,207 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:58:21,829 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1830,32564,1008,37113
+2017-05-04 07:58:26,214 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:59:06,534 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1963,32043,1155,36816
+2017-05-04 07:59:11,026 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (2), Member count (4)
+2017-05-04 07:59:52,444 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1904,32634,1161,37505
+2017-05-04 07:59:53,842 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 08:00:36,730 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2018,33913,1258,39293
+2017-05-04 08:00:38,181 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 08:01:23,270 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2044,35733,1463,41518
+2017-05-04 08:01:24,599 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (3), Member count (4)
+2017-05-04 08:02:06,882 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2162,33007,1386,38751
+2017-05-04 08:02:08,384 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 08:02:48,540 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1807,32074,1022,36514
+2017-05-04 08:02:49,940 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 08:03:30,982 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1943,32736,1112,37454
+2017-05-04 08:03:32,419 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (4), Member count (4)
+2017-05-04 08:04:14,101 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2065,33120,1194,37910
+2017-05-04 08:04:21,448 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 08:05:05,584 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2073,36328,1016,40630
+2017-05-04 08:05:07,115 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 08:05:51,242 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1764,36451,872,40631
+2017-05-04 08:05:52,634 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (5), Member count (4)
+2017-05-04 08:06:36,464 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1989,36102,963,40471
+2017-05-04 08:06:44,001 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 08:07:25,259 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1989,32536,1356,37554
+2017-05-04 08:07:26,587 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 08:08:08,071 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1819,33460,1111,37929
+2017-05-04 08:08:09,536 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (6), Member count (4)
+2017-05-04 08:08:51,512 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 1859,33250,1545,38482
+2017-05-04 08:08:53,026 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 08:09:40,796 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2148,38579,1701,44178
+2017-05-04 08:09:42,315 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 08:10:29,551 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2230,37940,1391,43436
+2017-05-04 08:10:34,039 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (7), Member count (4)
+2017-05-04 08:11:16,453 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2304,33156,1374,38799
+2017-05-04 08:11:20,952 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 08:12:03,564 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2582,32323,1748,38902
+2017-05-04 08:12:04,988 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 08:12:47,785 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 2453,32051,1663,39315
+2017-05-04 08:12:49,270 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (8), Member count (4)
+2017-05-04 08:13:33,419 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3152,32633,1810,40514
+2017-05-04 08:13:43,824 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 08:14:32,123 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3536,33677,3409,44877
+2017-05-04 08:14:36,603 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 08:15:29,966 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3321,39460,2779,49776
+2017-05-04 08:15:40,493 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (9), Member count (4)
+2017-05-04 08:16:28,618 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3771,33255,2584,44500
+2017-05-04 08:16:36,150 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 08:18:23,699 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 4013,93977,2394,103481
+2017-05-04 08:18:25,327 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 08:20:13,013 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3689,94881,2199,103726
+2017-05-04 08:20:14,622 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (10), Member count (4)
+2017-05-04 08:22:02,330 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3734,94757,2366,103715
+2017-05-04 08:22:03,894 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (1), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 08:23:50,574 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 4401,92901,2389,102751
+2017-05-04 08:23:55,243 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (6), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 08:25:42,042 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3924,93869,2240,102860
+2017-05-04 08:25:49,645 INFO main com.agh.iet.komplastech.solver.SolverLauncher -
+
+--------- Problem size (1536), Steps (1), Max batch size (11), Batch ratio (1), Region height (11), Member count (4)
+2017-05-04 08:27:37,222 INFO main com.agh.iet.komplastech.solver.SolverLauncher - Solution times: 3932,94424,2141,103494
