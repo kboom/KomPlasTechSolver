@@ -11,7 +11,7 @@ function restart_node {
 }
 
 restart_node 2
-restart_node 3
+#restart_node 3
 restart_node 4
 restart_node 5
 restart_node 9
