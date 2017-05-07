@@ -16,6 +16,7 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.*;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
+import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.apache.log4j.Logger;
 
@@ -53,6 +54,9 @@ class SolverLauncher {
     @Parameter(names = {"--region-height"})
     private int regionHeight = 6;
 
+    @Parameter(names = {"--max-job-count"})
+    private int maxJobCount = 100;
+
     @Parameter(names = {"--problem"})
     private String solvedProblem = "heat";
 
@@ -61,6 +65,7 @@ class SolverLauncher {
                 .withRegionHeight(regionHeight)
                 .withMaxBatchSize(maxBatchSize)
                 .withBatchRatio(batchRatio)
+                .withMaxJobCount(maxJobCount)
                 .build();
 
 
