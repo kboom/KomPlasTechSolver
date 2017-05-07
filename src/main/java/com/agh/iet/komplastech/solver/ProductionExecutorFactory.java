@@ -62,19 +62,29 @@ public class ProductionExecutorFactory {
             Stream<VertexReference> vertexReferenceStream = mapToReferences(range);
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
 
-            Set<Future<Void>> futureStream = referencesByRegion.entrySet().parallelStream().map((entry) -> {
-                final RegionId region = entry.getKey();
-                final Set<VertexReference> vertices = entry.getValue();
-                final int batchSize = determineBatchSizeFor(vertices.size());
-                return batchedStreamOf(vertices.stream(), batchSize)
-                        .map((vertexBatch) -> {
-                            processLogger.logProductionLaunched(production, vertexBatch);
-                            return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
-                        })
-                        .map(production -> executorService.submitToKeyOwner(production, region));
-            }).flatMap(Function.identity()).collect(Collectors.toSet());
+            batchedStreamOf(referencesByRegion.entrySet().stream(), computeConfig.getMaxJobCount())
+                    .forEach(regionSet -> {
 
-            waitForCompletion(futureStream);
+                        Set<Future<Void>> futureStream = regionSet.parallelStream()
+                                .map(this::executeOnRegionOwner)
+                                .flatMap(Function.identity())
+                                .collect(Collectors.toSet());
+
+                        waitForCompletion(futureStream);
+
+                    });
+        }
+
+        private Stream<Future<Void>> executeOnRegionOwner(Map.Entry<RegionId, Set<VertexReference>> entry) {
+            final RegionId region = entry.getKey();
+            final Set<VertexReference> vertices = entry.getValue();
+            final int batchSize = determineBatchSizeFor(vertices.size());
+            return batchedStreamOf(vertices.stream(), batchSize)
+                    .map((vertexBatch) -> {
+                        processLogger.logProductionLaunched(production, vertexBatch);
+                        return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
+                    })
+                    .map(production -> executorService.submitToKeyOwner(production, region));
         }
 
         private int determineBatchSizeFor(int size) {

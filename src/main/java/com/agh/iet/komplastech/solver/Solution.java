@@ -116,14 +116,12 @@ public class Solution implements IdentifiedDataSerializable {
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(mesh);
         out.writeObject(mRHS);
-        out.writeObject(problem);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         mesh = in.readObject();
         mRHS = in.readObject();
-        problem = in.readObject();
     }
 
     @Override
