@@ -23,8 +23,7 @@
     <partition-group enabled="false"/>
 
     <executor-service name="default">
-        <pool-size>10</pool-size>
-        <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
+        <pool-size>${executor.pool.size}</pool-size>
         <queue-capacity>0</queue-capacity>
     </executor-service>
 
