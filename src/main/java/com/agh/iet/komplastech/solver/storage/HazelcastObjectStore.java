@@ -16,52 +16,52 @@ import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.SOLU
 
 public class HazelcastObjectStore implements ObjectStore {
 
-    private HazelcastInstance hazelcastInstance;
-    private VertexRegionMapper vertexRegionMapper;
+    private final VertexRegionMapper vertexRegionMapper;
 
-    public HazelcastObjectStore(HazelcastInstance hazelcastInstance, VertexRegionMapper vertexRegionMapper) {
-        this.hazelcastInstance = hazelcastInstance;
+    private final IMap<VertexReference, Vertex> vertexMap;
+    private final IMap<CommonProcessingObject, Object> commonsMap;
+
+    public HazelcastObjectStore(HazelcastInstance hazelcastInstance,
+                                VertexRegionMapper vertexRegionMapper) {
         this.vertexRegionMapper = vertexRegionMapper;
+        vertexMap = hazelcastInstance.getMap("vertices");
+        commonsMap = hazelcastInstance.getMap("commons");
     }
 
     @Override
     public void storeVertex(Vertex vertex) {
-        getVertexMapInstance().put(vertex.getVertexReference(), vertex);
+        vertexMap.put(vertex.getVertexReference(), vertex);
     }
 
     @Override
     public VertexMap getVertexMap() {
-        return new HazelcastVertexMap(getVertexMapInstance(), vertexRegionMapper);
+        return new HazelcastVertexMap(vertexMap, vertexRegionMapper);
     }
 
     @Override
     public void clearAll() {
         clearVertices();
-        hazelcastInstance.getMap("commons").clear();
+        commonsMap.clear();
     }
 
     @Override
     public void clearVertices() {
-        getVertexMapInstance().clear();
+        vertexMap.clear();
     }
 
     @Override
     public void setProblem(Problem rhs) {
-        hazelcastInstance.getMap("commons").put(PROBLEM, rhs);
+        commonsMap.put(PROBLEM, rhs);
     }
 
     @Override
     public void setMesh(Mesh mesh) {
-        hazelcastInstance.getMap("commons").put(MESH, mesh);
+        commonsMap.put(MESH, mesh);
     }
 
     @Override
     public void setSolution(Solution solution) {
-        hazelcastInstance.getMap("commons").put(SOLUTION, solution);
-    }
-
-    private IMap<VertexReference, Vertex> getVertexMapInstance() {
-        return hazelcastInstance.getMap("vertices");
+        commonsMap.put(SOLUTION, solution);
     }
 
     @Override

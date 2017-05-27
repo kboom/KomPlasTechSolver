@@ -18,7 +18,5 @@ services:
     environment:
         - "JAVA_OPTS=-Dhazelcast.config=/config/hazelcast.xml"
         - "CLASSPATH=/libs"
-    depends_on:
-        - kpts-management
 
 

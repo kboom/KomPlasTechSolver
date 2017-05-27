@@ -16,15 +16,19 @@ import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdap
 
 class HazelcastProcessingContextManager implements ProcessingContextManager {
 
-    private final HazelcastInstance hazelcastInstance;
     private final Set<Vertex> verticesToUpdate = new HashSet<>();
     private final VertexRegionMapper vertexRegionMapper;
+
+    private final IMap<VertexReference, Vertex> vertices;
+    private final IMap<CommonProcessingObject, Object> commons;
 
 
     HazelcastProcessingContextManager(HazelcastInstance hazelcastInstance,
                                       VertexRegionMapper vertexRegionMapper) {
-        this.hazelcastInstance = hazelcastInstance;
         this.vertexRegionMapper = vertexRegionMapper;
+
+        vertices = hazelcastInstance.getMap("vertices");
+        commons = hazelcastInstance.getMap("commons");
     }
 
     ProcessingContext createFor(Vertex vertex) {
@@ -48,20 +52,18 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     @Override
     public Vertex getVertex(VertexId vertexId) {
-        IMap<VertexReference, Vertex> vertices = hazelcastInstance.getMap("vertices");
         return vertices.get(toVertexReferenceUsing(vertexRegionMapper).apply(vertexId));
     }
 
     @Override
     public void flush() {
-        IMap<VertexReference, Object> verticesStore = hazelcastInstance.getMap("vertices");
-        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getVertexReference, Function.identity())));
+        vertices.putAll(verticesToUpdate.stream().collect(Collectors.toMap(
+                Vertex::getVertexReference, Function.identity())));
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public <T> T getFromCache(CommonProcessingObject id) {
-        IMap<CommonProcessingObject, Object> commons = hazelcastInstance.getMap("commons");
         return (T) commons.get(id);
     }
 
