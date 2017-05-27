@@ -6,8 +6,14 @@ class TimeLogger {
     private long totalInitializationMs;
     private long totalFactorizationMs;
     private long totalBackwardSubstitutionMs;
+    private long totalSolutionReadingMs;
+    private long firstStageMs;
+    private long secondStageMs;
+
+    private long timeStop;
 
     private long startTime;
+    private long stopTime;
 
 
     TimeLogger() {
@@ -15,32 +21,45 @@ class TimeLogger {
     }
 
     void logCreation() {
-        startTime = getCurrentMillis();
+        timeStop = getCurrentMillis();
     }
 
     void logInitialization() {
         long newTime = getCurrentMillis();
-        totalCreationMs += newTime - startTime;
-        startTime = newTime;
+        totalCreationMs += newTime - timeStop;
+        timeStop = newTime;
     }
 
     void logFactorization() {
         long newTime = getCurrentMillis();
-        totalInitializationMs += newTime - startTime;
-        startTime = newTime;
+        totalInitializationMs += newTime - timeStop;
+        timeStop = newTime;
     }
 
     void logBackwardSubstitution() {
         long newTime = getCurrentMillis();
-        totalFactorizationMs += newTime - startTime;
-        startTime = newTime;
-
+        totalFactorizationMs += newTime - timeStop;
+        timeStop = newTime;
     }
 
     void logSolution() {
         long newTime = getCurrentMillis();
-        totalBackwardSubstitutionMs += newTime - startTime;
-        startTime = newTime;
+        totalBackwardSubstitutionMs += newTime - timeStop;
+        timeStop = newTime;
+    }
+
+    public void logSolutionReading() {
+        long newTime = getCurrentMillis();
+        totalSolutionReadingMs += newTime - timeStop;
+        timeStop = newTime;
+    }
+
+    public void logFirstStage() {
+        firstStageMs = getCurrentMillis();
+    }
+
+    public void logSecondStage() {
+        secondStageMs = getCurrentMillis();
     }
 
     public long getTotalCreationMs() {
@@ -59,12 +78,31 @@ class TimeLogger {
         return totalBackwardSubstitutionMs;
     }
 
+    public long getTotalSolutionReadingMs() {
+        return totalSolutionReadingMs;
+    }
+
     public long getTotalSolutionMs() {
-        return totalCreationMs + totalInitializationMs + totalFactorizationMs + totalBackwardSubstitutionMs;
+        return stopTime - startTime;
+    }
+
+    public long getFirstStageTimeMs() {
+        return secondStageMs - firstStageMs;
+    }
+
+    public long getSecondStageTimeMs() {
+        return stopTime - secondStageMs;
     }
 
     private long getCurrentMillis() {
         return System.currentTimeMillis();
     }
 
+    public void logStart() {
+        startTime = getCurrentMillis();
+    }
+
+    public void logStop() {
+        stopTime = getCurrentMillis();
+    }
 }

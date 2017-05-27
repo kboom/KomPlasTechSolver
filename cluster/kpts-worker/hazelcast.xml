@@ -4,8 +4,8 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <properties>
-        <property name="hazelcast.socket.server.bind.any">false</property>
-        <property name="hazelcast.socket.client.bind">false</property>
+        <!--<property name="hazelcast.socket.server.bind.any">false</property>-->
+        <!--<property name="hazelcast.socket.client.bind">false</property>-->
 
         <property name="hazelcast.socket.receive.buffer.size">100</property>
         <property name="hazelcast.socket.send.buffer.size">100</property>
@@ -13,10 +13,10 @@
         <property name="hazelcast.tcp.join.port.try.count">1</property>
 
         <property name="hazelcast.operation.call.timeout.millis">300000</property>
-        <property name="hazelcast.health.monitoring.level">NOISY</property>
+        <!--<property name="hazelcast.health.monitoring.level">NOISY</property>-->
         <property name="hazelcast.partition.count">271</property>
-        <property name="hazelcast.performance.monitoring.enabled">true</property>
-        <property name="hazelcast.performance.monitoring.delay.seconds">30</property>
+
+        <property name="hazelcast.diagnostics.enabled">true</property>
 
         <!--<property name="hazelcast.heartbeat.interval.seconds">60</property>-->
         <!--<property name="hazelcast.client.heartbeat.interval">3000000</property>-->

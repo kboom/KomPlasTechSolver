@@ -9,7 +9,7 @@
     </group>
 
     <network>
-        <public-address>192.168.99.100</public-address>
+        <public-address>localhost</public-address>
         <port auto-increment="true" port-count="100">5701</port>
     </network>
 

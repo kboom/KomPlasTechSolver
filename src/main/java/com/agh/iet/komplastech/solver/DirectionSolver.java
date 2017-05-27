@@ -253,12 +253,18 @@ public class DirectionSolver implements Solver {
     }
 
     private Matrix getRhs() {
+        processLogger.logStageReached("Reading solution from worker nodes...");
+
         int size = mesh.getElementsX() + mesh.getSplineOrder() + 1;
         final double[][] rhs = new double[size][size];
 
         // for now just take all of them and compute here, later do this on worker nodes
         VertexRange vertexRange = treeIterator.getCurrentRange();
         final List<Vertex> sortedLeaves = objectStore.getVertexMap().getAllInRange(vertexRange);
+
+        timeLogger.logSolutionReading();
+
+        processLogger.logStageReached("Solution read successfully. There were " + sortedLeaves.size() + " entries");
 
         int i = 0;
         for (Vertex vertex : sortedLeaves) {

@@ -48,10 +48,16 @@ class TwoDimensionalProblemSolver implements Solver {
 
     @Override
     public Solution solveProblem(Problem rhs) {
+        timeLogger.logStart();
         prepareObjectStore(rhs);
+        timeLogger.logFirstStage();
         Solution horizontalSolution = solveProblemHorizontally(rhs);
+        timeLogger.logCreation();
         objectStore.clearVertices();
-        return solveProblemVertically(horizontalSolution);
+        timeLogger.logSecondStage();
+        Solution solution = solveProblemVertically(horizontalSolution);
+        timeLogger.logStop();
+        return solution;
     }
 
     private void prepareObjectStore(Problem rhs) {

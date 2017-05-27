@@ -16,7 +16,6 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.*;
 import com.beust.jcommander.Parameter;
 import com.hazelcast.client.HazelcastClient;
-import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 import org.apache.log4j.Logger;
 
@@ -125,12 +124,17 @@ class SolverLauncher {
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(nonStationaryProblem);
 
-            log.info(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), Total (%d)",
+            log.info(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), " +
+                            "Backwards Substitution (%d), Solution reading (%d), First stage (%d), Second Stage (%d), Total (%d)",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
+                    timeLogger.getTotalBackwardSubstitutionMs(),
+                    timeLogger.getTotalSolutionReadingMs(),
+                    timeLogger.getFirstStageTimeMs(),
+                    timeLogger.getSecondStageTimeMs(),
                     timeLogger.getTotalSolutionMs()
-            ));
+                    ));
 
 
             Solution solution = solutionsInTime.getFinalSolution();
