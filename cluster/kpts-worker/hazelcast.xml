@@ -13,7 +13,7 @@
         <join>
             <multicast enabled="false"></multicast>
             <tcp-ip enabled="true">
-                <interface>10.0.0.3-10</interface>
+                <interface>${join.interface}</interface>
             </tcp-ip>
         </join>
     </network>

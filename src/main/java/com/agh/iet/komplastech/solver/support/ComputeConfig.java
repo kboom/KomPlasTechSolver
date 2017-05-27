@@ -54,10 +54,6 @@ public class ComputeConfig implements IdentifiedDataSerializable {
         return maxJobCount;
     }
 
-    public void setMaxJobCount(int maxJobCount) {
-        this.maxJobCount = maxJobCount;
-    }
-
     public static class ComputeConfigBuilder {
 
         private ComputeConfig computeConfig = new ComputeConfig();

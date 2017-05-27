@@ -62,6 +62,7 @@ public class ProductionExecutorFactory {
             Stream<VertexReference> vertexReferenceStream = mapToReferences(range);
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
 
+
             batchedStreamOf(referencesByRegion.entrySet().stream(), computeConfig.getMaxJobCount())
                     .forEach(regionSet -> {
 
