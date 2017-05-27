@@ -4,6 +4,27 @@
                                http://www.hazelcast.com/schema/client-config/hazelcast-client-config-3.8.xsd"
                   xmlns="http://www.hazelcast.com/schema/client-config">
 
+    <properties>
+        <property name="hazelcast.socket.server.bind.any">false</property>
+        <property name="hazelcast.socket.client.bind">false</property>
+
+        <property name="hazelcast.socket.receive.buffer.size">100</property>
+        <property name="hazelcast.socket.send.buffer.size">100</property>
+
+        <property name="hazelcast.tcp.join.port.try.count">1</property>
+
+        <property name="hazelcast.operation.call.timeout.millis">300000</property>
+        <property name="hazelcast.health.monitoring.level">NOISY</property>
+        <property name="hazelcast.partition.count">271</property>
+        <property name="hazelcast.performance.monitoring.enabled">true</property>
+        <property name="hazelcast.performance.monitoring.delay.seconds">30</property>
+
+        <!--<property name="hazelcast.heartbeat.interval.seconds">60</property>-->
+        <!--<property name="hazelcast.client.heartbeat.interval">3000000</property>-->
+        <!--<property name="hazelcast.client.heartbeat.timeout">50000000</property>-->
+        <!--<property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>-->
+    </properties>
+
     <group>
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
@@ -17,13 +38,6 @@
             <address>10.0.0.1-10</address>
         </cluster-members>
     </network>
-
-    <properties>
-        <property name="hazelcast.heartbeat.interval.seconds">60</property>
-        <property name="hazelcast.client.heartbeat.interval">3000000</property>
-        <property name="hazelcast.client.heartbeat.timeout">50000000</property>
-        <property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>
-    </properties>
 
     <serialization>
         <data-serializable-factories>
