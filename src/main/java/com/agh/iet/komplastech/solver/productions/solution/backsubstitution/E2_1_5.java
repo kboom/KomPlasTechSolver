@@ -12,30 +12,23 @@ import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactor
 
 public class E2_1_5 extends PFEProduction {
 
-    private Mesh mesh;
-
     @SuppressWarnings("unused")
     public E2_1_5() {
 
     }
 
-    public E2_1_5(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
     public void apply(ProcessingContext processingContext) {
+        final Mesh mesh = processingContext.getMesh();
         partial_forward_elimination(processingContext.getVertex(), 1, 5, mesh.getDofsY());
         processingContext.updateVertex();
     }
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override

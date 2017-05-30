@@ -28,7 +28,6 @@ public class P2 implements Production {
     private static final IntFunction<Integer> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
     private static final IntFunction<Integer> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
 
-    private Mesh mesh;
     private VertexRegionMapper vertexRegionMapper;
 
     @SuppressWarnings("unused")
@@ -36,8 +35,7 @@ public class P2 implements Production {
 
     }
 
-    public P2(Mesh mesh, VertexRegionMapper vertexRegionMapper) {
-        this.mesh = mesh;
+    public P2(VertexRegionMapper vertexRegionMapper) {
         this.vertexRegionMapper = vertexRegionMapper;
     }
 
@@ -48,7 +46,8 @@ public class P2 implements Production {
     }
 
     private void setLeftChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         VertexId newVertexId = node.getVertexId().transformed(LEFT_CHILD_OF_INTERMEDIATE);
         RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
@@ -65,7 +64,8 @@ public class P2 implements Production {
     }
 
     private void setRightChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         VertexId newVertexId = node.getVertexId().transformed(RIGHT_CHILD_OF_INTERMEDIATE);
         RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
@@ -83,13 +83,11 @@ public class P2 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
         out.writeObject(vertexRegionMapper);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
         vertexRegionMapper = in.readObject();
     }
 

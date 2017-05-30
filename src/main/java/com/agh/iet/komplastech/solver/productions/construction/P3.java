@@ -16,7 +16,6 @@ import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakRef
 
 public class P3 implements Production {
 
-    private Mesh mesh;
     private VertexRange range;
     private VertexRegionMapper vertexRegionMapper;
 
@@ -25,8 +24,7 @@ public class P3 implements Production {
 
     }
 
-    public P3(Mesh mesh, VertexRange range, VertexRegionMapper vertexRegionMapper) {
-        this.mesh = mesh;
+    public P3(VertexRange range, VertexRegionMapper vertexRegionMapper) {
         this.range = range;
         this.vertexRegionMapper = vertexRegionMapper;
     }
@@ -39,7 +37,8 @@ public class P3 implements Production {
     }
 
     private void setLeftChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 1);
@@ -57,7 +56,8 @@ public class P3 implements Production {
     }
 
     private void setMiddleChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 2);
@@ -75,7 +75,8 @@ public class P3 implements Production {
     }
 
     private void setRightChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 3);
@@ -94,14 +95,12 @@ public class P3 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
         out.writeObject(range);
         out.writeObject(vertexRegionMapper);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
         range = in.readObject();
         vertexRegionMapper = in.readObject();
     }

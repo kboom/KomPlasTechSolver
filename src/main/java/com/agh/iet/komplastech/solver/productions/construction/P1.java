@@ -25,7 +25,6 @@ public class P1 implements Production {
     private static final VertexId LEFT_CHILD_OF_PARENT_ID = vertexId(2);
     private static final VertexId RIGHT_CHILD_OF_PARENT_ID = vertexId(3);
 
-    private Mesh mesh;
     private VertexRegionMapper regionMapper;
 
     @SuppressWarnings("unused")
@@ -33,8 +32,7 @@ public class P1 implements Production {
 
     }
 
-    public P1(Mesh mesh, VertexRegionMapper regionMapper) {
-        this.mesh = mesh;
+    public P1(VertexRegionMapper regionMapper) {
         this.regionMapper = regionMapper;
     }
 
@@ -45,7 +43,8 @@ public class P1 implements Production {
     }
 
     private void setLeftChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
                 .withBeggining(0)
@@ -59,7 +58,8 @@ public class P1 implements Production {
     }
 
     private void setRightChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
 
         Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
                 .withBeggining(mesh.getElementsX() / 2)
@@ -74,13 +74,11 @@ public class P1 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
         out.writeObject(regionMapper);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
         regionMapper = in.readObject();
     }
 

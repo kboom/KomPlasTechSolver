@@ -15,18 +15,12 @@ import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactor
 
 public class A2_3 implements Production {
 
-    private Mesh mesh;
-
-    @SuppressWarnings("unused")
     public A2_3() {
 
     }
 
-    public A2_3(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
     public void apply(ProcessingContext processingContext) {
+        final Mesh mesh = processingContext.getMesh();
         final Vertex currentVertex = processingContext.getVertex();
 
         final Vertex leftChild = currentVertex.getLeftChild();
@@ -54,12 +48,10 @@ public class A2_3 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override

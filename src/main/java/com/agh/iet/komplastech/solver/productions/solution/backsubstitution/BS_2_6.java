@@ -8,25 +8,18 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.BS_2_6_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class BS_2_6 extends PFEProduction {
 
-    private Mesh mesh;
-
-    @SuppressWarnings("unused")
     public BS_2_6() {
 
     }
 
-    public BS_2_6(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
-
     public void apply(ProcessingContext processingContext) {
+        final Mesh mesh = processingContext.getMesh();
         Vertex T = processingContext.getVertex();
 
         final Vertex leftChild = T.getLeftChild();
@@ -47,12 +40,10 @@ public class BS_2_6 extends PFEProduction {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override

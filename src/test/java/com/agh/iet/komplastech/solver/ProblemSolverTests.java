@@ -56,6 +56,7 @@ public class ProblemSolverTests {
 
     private TwoDimensionalProblemSolver createSolver(Mesh mesh) {
         return new TwoDimensionalProblemSolver(
+                null,
                 productionExecutorFactory,
                 mesh,
                 null,

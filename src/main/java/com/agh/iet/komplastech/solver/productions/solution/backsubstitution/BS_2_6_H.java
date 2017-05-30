@@ -14,18 +14,13 @@ import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactor
 
 public class BS_2_6_H extends PFEProduction {
 
-    private Mesh mesh;
-
-    @SuppressWarnings("unused")
     public BS_2_6_H() {
 
     }
 
-    public BS_2_6_H(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
     public void apply(ProcessingContext processingContext) {
+        final Mesh mesh = processingContext.getMesh();
+
         Vertex T = processingContext.getVertex();
 
         final Vertex leftChild = T.getLeftChild();
@@ -47,12 +42,10 @@ public class BS_2_6_H extends PFEProduction {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override

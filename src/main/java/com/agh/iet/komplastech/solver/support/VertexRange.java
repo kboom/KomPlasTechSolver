@@ -6,6 +6,7 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -13,7 +14,7 @@ import java.util.stream.IntStream;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX_RANGE;
 
-public class VertexRange implements IdentifiedDataSerializable {
+public class VertexRange implements Serializable, IdentifiedDataSerializable {
 
     private int left;
     private int right;
@@ -110,6 +111,10 @@ public class VertexRange implements IdentifiedDataSerializable {
 
     private boolean containsIndex(int absoluteIndex) {
         return left <= absoluteIndex && absoluteIndex <= right;
+    }
+
+    public boolean includes(VertexId vertexId) {
+        return containsIndex(vertexId.getAbsoluteIndex());
     }
 
     private static int log2(int index) {

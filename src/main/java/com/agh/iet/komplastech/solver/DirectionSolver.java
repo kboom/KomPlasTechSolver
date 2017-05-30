@@ -10,8 +10,12 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.*;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.map.EntryBackupProcessor;
+import com.hazelcast.map.EntryProcessor;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
@@ -260,25 +264,27 @@ public class DirectionSolver implements Solver {
 
         // for now just take all of them and compute here, later do this on worker nodes
         VertexRange vertexRange = treeIterator.getCurrentRange();
-        final List<Vertex> sortedLeaves = objectStore.getVertexMap().getAllInRange(vertexRange);
+
+        final List<Matrix> sortedLeaves
+                = objectStore.getVertexMap().getUnknownsFor(vertexRange);
 
         timeLogger.logSolutionReading();
 
         processLogger.logStageReached("Solution read successfully. There were " + sortedLeaves.size() + " entries");
 
         int i = 0;
-        for (Vertex vertex : sortedLeaves) {
+        for (Matrix m : sortedLeaves) {
             if (i == 0) {
-                rhs[1] = vertex.m_x.getRow(1);
-                rhs[2] = vertex.m_x.getRow(2);
-                rhs[3] = vertex.m_x.getRow(3);
-                rhs[4] = vertex.m_x.getRow(4);
-                rhs[5] = vertex.m_x.getRow(5);
+                rhs[1] = m.getRow(1);
+                rhs[2] = m.getRow(2);
+                rhs[3] = m.getRow(3);
+                rhs[4] = m.getRow(4);
+                rhs[5] = m.getRow(5);
             } else {
                 int offset = 6 + (i - 1) * 3;
-                rhs[offset] = vertex.m_x.getRow(3);
-                rhs[offset + 1] = vertex.m_x.getRow(4);
-                rhs[offset + 2] = vertex.m_x.getRow(5);
+                rhs[offset] = m.getRow(3);
+                rhs[offset + 1] = m.getRow(4);
+                rhs[offset + 2] = m.getRow(5);
             }
             i++;
         }
