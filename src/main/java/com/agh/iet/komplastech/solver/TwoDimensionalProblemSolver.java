@@ -18,6 +18,8 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final Mesh mesh;
 
+    private final HazelcastFacade hazelcastFacade;
+
     private final ProductionExecutorFactory launcherFactory;
 
     private final ObjectStore objectStore;
@@ -30,13 +32,15 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final VertexRegionMapper vertexRegionMapper;
 
-    TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
+    TwoDimensionalProblemSolver(HazelcastFacade hazelcastFacade,
+                                ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
                                 VertexRegionMapper vertexRegionMapper,
                                 SolutionLogger solutionLogger,
                                 ProcessLogger processLogger,
                                 ObjectStore objectStore,
                                 TimeLogger timeLogger) {
+        this.hazelcastFacade = hazelcastFacade;
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
         this.vertexRegionMapper = vertexRegionMapper;
@@ -53,6 +57,7 @@ class TwoDimensionalProblemSolver implements Solver {
         timeLogger.logFirstStage();
         Solution horizontalSolution = solveProblemHorizontally(rhs);
         objectStore.clearVertices();
+        propagateSolution(horizontalSolution);
         timeLogger.nextStage();
         timeLogger.logSecondStage();
         Solution solution = solveProblemVertically(horizontalSolution);
@@ -60,10 +65,16 @@ class TwoDimensionalProblemSolver implements Solver {
         return solution;
     }
 
+    private void propagateSolution(Solution horizontalSolution) {
+        objectStore.setSolution(horizontalSolution);
+        hazelcastFacade.forceLoadCommons();
+    }
+
     private void prepareObjectStore(Problem rhs) {
         objectStore.clearAll();
         objectStore.setProblem(rhs);
         objectStore.setMesh(mesh);
+        hazelcastFacade.forceLoadCommons();
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
@@ -86,8 +97,6 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemVertically(Solution horizontalSolution) {
-        objectStore.setSolution(horizontalSolution);
-
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(launcherFactory, solutionLogger);
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh, horizontalSolution, vertexRegionMapper);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();

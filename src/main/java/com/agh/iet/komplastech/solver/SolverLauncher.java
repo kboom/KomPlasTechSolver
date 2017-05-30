@@ -44,7 +44,6 @@ class SolverLauncher {
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-
     @Parameter(names = {"--batch-ratio"})
     private int batchRatio = 4;
 
@@ -92,7 +91,10 @@ class SolverLauncher {
 
         TimeLogger timeLogger = new TimeLogger();
 
+        HazelcastFacade hazelcastFacade = new HazelcastFacade(hazelcastInstance);
+
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
+                hazelcastFacade,
                 productionExecutorFactory,
                 mesh,
                 vertexRegionMapper,
