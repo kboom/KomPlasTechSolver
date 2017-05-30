@@ -52,8 +52,8 @@ class TwoDimensionalProblemSolver implements Solver {
         prepareObjectStore(rhs);
         timeLogger.logFirstStage();
         Solution horizontalSolution = solveProblemHorizontally(rhs);
-        timeLogger.logCreation();
         objectStore.clearVertices();
+        timeLogger.nextStage();
         timeLogger.logSecondStage();
         Solution solution = solveProblemVertically(horizontalSolution);
         timeLogger.logStop();
@@ -102,6 +102,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 processLogger,
                 timeLogger
         );
+
+
 
         return verticalProblemSolver.solveProblem(horizontalSolution.getProblem());
     }

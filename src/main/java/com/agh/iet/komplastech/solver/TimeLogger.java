@@ -105,4 +105,9 @@ class TimeLogger {
     public void logStop() {
         stopTime = getCurrentMillis();
     }
+
+    public void nextStage() {
+        timeStop = getCurrentMillis();
+    }
+
 }

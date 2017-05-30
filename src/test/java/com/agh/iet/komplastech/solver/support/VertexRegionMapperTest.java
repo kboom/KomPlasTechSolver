@@ -55,6 +55,19 @@ public class VertexRegionMapperTest {
         assertThat(vertexRegionMapper.getRegionFor(vertexId(19))).isEqualTo(regionId(7));
     }
 
+    @Test
+    public void vertexDownTheTreeIsAssignedToRootRegionIfRegionHeightDeeper() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(768, 9);
+        assertThat(vertexRegionMapper.getRegionFor(vertexId(256))).isEqualTo(regionId(1));
+    }
+
+    @Test
+    public void vertexDeepDownTheTreeIsAssignedCorrectRegionAlongWithItsDescendant() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(768, 7);
+        assertThat(vertexRegionMapper.getRegionFor(vertexId(128))).isEqualTo(regionId(128));
+        assertThat(vertexRegionMapper.getRegionFor(vertexId(256))).isEqualTo(regionId(128));
+    }
+
     private VertexRegionMapper regionMapperOf(int problemSize, int regionHeight) {
         ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
                 .withRegionHeight(regionHeight)
