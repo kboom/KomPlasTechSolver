@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+apt-get update
+apt-get -y install openjdk-8-jre
+
 SOLVER_ROOT=$(pwd)
 SCRIPTS_DIR=${SOLVER_ROOT}/cluster/scripts
 
