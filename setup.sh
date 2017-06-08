@@ -12,7 +12,7 @@ cd ~
 
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
-export KPTS_SOLVER_CLIENT=$(~)/KptsSolverClient
+export KPTS_SOLVER_CLIENT=$(pwd)/KptsSolverClient
 
 bash ${SCRIPTS_DIR}/update.sh
 
