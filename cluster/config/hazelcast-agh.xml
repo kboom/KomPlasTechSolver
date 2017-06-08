@@ -16,7 +16,7 @@
         <!--<property name="hazelcast.health.monitoring.level">NOISY</property>-->
         <property name="hazelcast.partition.count">271</property>
 
-        <property name="hazelcast.diagnostics.enabled">true</property>
+        <property name="hazelcast.diagnostics.enabled">false</property>
 
         <!--<property name="hazelcast.heartbeat.interval.seconds">60</property>-->
         <!--<property name="hazelcast.client.heartbeat.interval">3000000</property>-->
