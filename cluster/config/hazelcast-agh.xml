@@ -3,18 +3,48 @@
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <properties>
+        <!--<property name="hazelcast.socket.server.bind.any">false</property>-->
+        <!--<property name="hazelcast.socket.client.bind">false</property>-->
+
+        <property name="hazelcast.socket.receive.buffer.size">100</property>
+        <property name="hazelcast.socket.send.buffer.size">100</property>
+
+        <property name="hazelcast.tcp.join.port.try.count">1</property>
+
+        <property name="hazelcast.operation.call.timeout.millis">300000</property>
+        <!--<property name="hazelcast.health.monitoring.level">NOISY</property>-->
+        <property name="hazelcast.partition.count">271</property>
+
+        <property name="hazelcast.diagnostics.enabled">true</property>
+
+        <!--<property name="hazelcast.heartbeat.interval.seconds">60</property>-->
+        <!--<property name="hazelcast.client.heartbeat.interval">3000000</property>-->
+        <!--<property name="hazelcast.client.heartbeat.timeout">50000000</property>-->
+        <!--<property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>-->
+    </properties>
+
     <group>
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
     </group>
 
-    <management-center enabled="true">http://node2.a2s.agh.edu.pl:8080/mancenter</management-center>
+    <network>
+        <public-address>${public.address}</public-address>
+        <join>
+            <multicast enabled="false"></multicast>
+            <tcp-ip enabled="true">
+                <interface>${join.interface}</interface>
+            </tcp-ip>
+        </join>
+    </network>
+
+    <management-center enabled="true">${mancenter.url}</management-center>
 
     <partition-group enabled="false"/>
 
     <executor-service name="default">
-        <pool-size>10</pool-size>
-        <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
+        <pool-size>${executor.pool.size}</pool-size>
         <queue-capacity>0</queue-capacity>
     </executor-service>
 
