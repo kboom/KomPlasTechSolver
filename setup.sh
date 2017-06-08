@@ -8,11 +8,12 @@ apt-get -y install \
 SOLVER_ROOT=$(pwd)
 SCRIPTS_DIR=${SOLVER_ROOT}/cluster/scripts
 
+cd ~
+
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
 export KPTS_SOLVER_CLIENT=$(~)/KptsSolverClient
 
-cd ~
 bash ${SCRIPTS_DIR}/update.sh
 
 rm -f solverCommands node-config dependencies || true
