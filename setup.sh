@@ -10,7 +10,7 @@ SCRIPTS_DIR=${SOLVER_ROOT}/cluster/scripts
 
 export KPTS_SOLVER=${SOLVER_ROOT}
 export KPTS_SOLVER_DEPS=${SOLVER_ROOT}/dist
-export KPTS_SOLVER_CLIENT=$(pwd)/KptsSolverClient
+export KPTS_SOLVER_CLIENT=$(~)/KptsSolverClient
 
 cd ~
 bash ${SCRIPTS_DIR}/update.sh
