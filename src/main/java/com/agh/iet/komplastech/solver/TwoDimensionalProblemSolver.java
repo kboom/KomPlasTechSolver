@@ -74,6 +74,7 @@ class TwoDimensionalProblemSolver implements Solver {
         objectStore.clearAll();
         objectStore.setProblem(rhs);
         objectStore.setMesh(mesh);
+        hazelcastFacade.forceGC();
         hazelcastFacade.forceLoadCommons();
     }
 

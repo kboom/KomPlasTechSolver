@@ -5,7 +5,7 @@ RUN_DIR="hazelcast-instances/hazelcast-3.8-$1"
 PUBLIC_ADDRESS=$2
 JOIN_INTERFACE=$3
 POOL_SIZE=${4:-10}
-MIN_HEAP=${5:-6G}
+MIN_HEAP=${5:-500M}
 MAX_HEAP=${6:-6G}
 
 HAZELCAST_CFG=$(pwd)/node-config/hazelcast-agh.xml

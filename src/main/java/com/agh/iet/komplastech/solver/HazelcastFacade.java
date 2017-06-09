@@ -20,11 +20,19 @@ final class HazelcastFacade {
     }
 
     void forceLoadCommons() {
-        forceLoad((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
+        launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
                 -> hazelcastInstance.getMap("commons").entrySet());
     }
 
-    void forceLoad(Consumer<HazelcastInstance> hazelcastInstanceConsumer) {
+    public void forceGC() {
+        launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
+                -> {
+            System.gc();
+            System.runFinalization();
+        });
+    }
+
+    void launchAtAllNodes(Consumer<HazelcastInstance> hazelcastInstanceConsumer) {
         Map<Member, Future> map = executorService.submitToAllMembers(new TaskLauncher(hazelcastInstanceConsumer));
         map.forEach((member, future) -> {
             try {
