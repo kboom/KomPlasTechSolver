@@ -7,6 +7,7 @@ JOIN_INTERFACE=$3
 POOL_SIZE=${4:-10}
 MIN_HEAP=${5:-500M}
 MAX_HEAP=${6:-6G}
+PARTITION_COUNT=${PARTITION_COUNT:-271}
 
 HAZELCAST_CFG=$(pwd)/node-config/hazelcast-agh.xml
 
@@ -18,7 +19,7 @@ function stop {
 }
 
 function start {
-        env MIN_HEAP_SIZE=${MIN_HEAP} MAX_HEAP_SIZE=${MAX_HEAP} CLASSPATH=${DEPS_DIR}/* JAVA_OPTS="${JMX_ENABLE_CFG} -Dhazelcast.config=${HAZELCAST_CFG} -Dexecutor.pool.size=${POOL_SIZE} -Dpublic.address=${PUBLIC_ADDRESS} -Djoin.interface=${JOIN_INTERFACE}" ./${RUN_DIR}/bin/start.sh
+        env MIN_HEAP_SIZE=${MIN_HEAP} MAX_HEAP_SIZE=${MAX_HEAP} CLASSPATH=${DEPS_DIR}/* JAVA_OPTS="${JMX_ENABLE_CFG} -Dhazelcast.config=${HAZELCAST_CFG} -Dexecutor.pool.size=${POOL_SIZE} -Dpublic.address=${PUBLIC_ADDRESS} -Djoin.interface=${JOIN_INTERFACE} -Dpartition.count=${PARTITION_COUNT}" ./${RUN_DIR}/bin/start.sh
 }
 
 

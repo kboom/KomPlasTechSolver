@@ -55,9 +55,6 @@ public class ProductionExecutorFactory {
             return this;
         }
 
-        /**
-         *
-         */
         public void andWaitTillComplete() {
             Stream<VertexReference> vertexReferenceStream = mapToReferences(range);
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
