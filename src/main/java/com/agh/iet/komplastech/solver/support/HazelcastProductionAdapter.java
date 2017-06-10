@@ -54,7 +54,7 @@ public class HazelcastProductionAdapter
     @Override
     public Void call() {
         IMap<VertexReference, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance, vertexRegionMapper);
+        HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
         vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
         contextManager.flush();
         return null;

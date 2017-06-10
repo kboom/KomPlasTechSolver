@@ -1,7 +1,5 @@
 package com.agh.iet.komplastech.solver.support;
 
-import com.agh.iet.komplastech.solver.VertexId;
-
 import java.util.Collection;
 
 public interface ProcessingContextManager {
@@ -12,7 +10,7 @@ public interface ProcessingContextManager {
 
     void storeVertex(Vertex vertex);
 
-    Vertex getVertex(VertexId vertexId);
+    Vertex getVertex(WeakVertexReference reference);
 
     void flush();
 

@@ -55,7 +55,7 @@ public class WeakVertexReference implements VertexReference, PartitionAware {
     @Override
     public void accept(ReferenceVisitor referenceVisitor) {
         if (vertex == null) {
-            vertex = referenceVisitor.loadVertex(vertexId);
+            vertex = referenceVisitor.loadVertex(this);
         }
     }
 
