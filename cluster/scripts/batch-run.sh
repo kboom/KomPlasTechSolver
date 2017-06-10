@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CLUSTER_ADDRESS=$1
+
 PROBLEM_SIZES=(12 24 48 96 192 384 768 1536)
 
 MIN_REGION_HEIGHT=${MIN_REGION_HEIGHT-1}
@@ -18,7 +20,7 @@ function runBatch {
 
 	echo "Running program with arguments problem size ($T_PROBLEM_SIZE), region height ($T_REGION_HEIGHT), batch ratio ($T_BATCH_RATIO), max batch size ($T_MAX_BATCH_SIZE)"
 
-    ./solverCommands/run.sh ${T_PROBLEM_SIZE} "--batch-ratio ${T_BATCH_RATIO} --max-batch-size ${T_MAX_BATCH_SIZE} --region-height ${T_REGION_HEIGHT}"
+    ./solverCommands/run.sh ${CLUSTER_ADDRESS} ${T_PROBLEM_SIZE} "--batch-ratio ${T_BATCH_RATIO} --max-batch-size ${T_MAX_BATCH_SIZE} --region-height ${T_REGION_HEIGHT}"
 }
 
 for ps in "${PROBLEM_SIZES[@]}"
