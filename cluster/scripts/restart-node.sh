@@ -11,7 +11,7 @@ PARTITION_COUNT=${PARTITION_COUNT:-271}
 
 HAZELCAST_CFG=$(pwd)/node-config/hazelcast-agh.xml
 
-JMX_ENABLE_CFG="-Dhazelcast.jmx=true -Dcom.sun.management.jmxremote.port=8090 -Dcom.sun.management.jmxremote.rmi.port=8090 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+JMX_ENABLE_CFG=""#"-Dhazelcast.jmx=true -Dcom.sun.management.jmxremote.port=8090 -Dcom.sun.management.jmxremote.rmi.port=8090 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 
 function stop {
    ./${RUN_DIR}/bin/stop.sh

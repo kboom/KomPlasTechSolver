@@ -61,6 +61,13 @@
             <in-memory-format>OBJECT</in-memory-format>
 
             <!--
+              You may want also local entries to be cached.
+              This is useful when in memory format for near cache is different than the map's one.
+              By default it is disabled.
+            -->
+            <cache-local-entries>true</cache-local-entries>
+
+            <!--
               Maximum size of the near cache. When max size is reached,
               cache is evicted based on the policy defined.
               Any integer between 0 and Integer.MAX_VALUE. 0 means
@@ -100,12 +107,6 @@
             -->
             <invalidate-on-change>true</invalidate-on-change>
 
-            <!--
-              You may want also local entries to be cached.
-              This is useful when in memory format for near cache is different than the map's one.
-              By default it is disabled.
-            -->
-            <cache-local-entries>true</cache-local-entries>
         </near-cache>
     </map>
 
@@ -118,7 +119,7 @@
            OBJECT : values will be stored in their object forms
            NATIVE : values will be stored in non-heap region of JVM
         -->
-        <in-memory-format>BINARY</in-memory-format>
+        <in-memory-format>OBJECT</in-memory-format>
 
         <!--
             Number of backups. If 1 is set as the backup-count for example,
