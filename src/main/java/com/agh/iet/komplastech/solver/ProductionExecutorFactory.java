@@ -82,7 +82,7 @@ public class ProductionExecutorFactory {
                         processLogger.logProductionLaunched(production, vertexBatch);
                         return new HazelcastProductionAdapter(regionId, production, regionMapper, vertexBatch);
                     })
-                    .map(executorService::submit); // as all nodes are in the same region we just need to execute this production on any key as any vertex in adapter belong to same region (and node)
+                    .map(executorService::submit);
         }
 
         private int determineBatchSizeFor(int size) {

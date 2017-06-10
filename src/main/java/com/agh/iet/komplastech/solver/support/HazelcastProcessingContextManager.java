@@ -7,6 +7,7 @@ import com.hazelcast.core.IMap;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -58,6 +59,11 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
     @SuppressWarnings("unchecked")
     public <T> T getFromCache(CommonProcessingObject id) {
         return (T) commons.get(id);
+    }
+
+    @Override
+    public Map<VertexReference, Vertex> getAll(Set<VertexReference> references) {
+        return vertices.getAll(references);
     }
 
 }

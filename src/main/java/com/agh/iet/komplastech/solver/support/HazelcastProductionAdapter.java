@@ -3,7 +3,6 @@ package com.agh.iet.komplastech.solver.support;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
-import com.hazelcast.core.IMap;
 import com.hazelcast.core.PartitionAware;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
@@ -53,9 +52,8 @@ public class HazelcastProductionAdapter
 
     @Override
     public Void call() {
-        IMap<VertexReference, Vertex> vertices = hazelcastInstance.getMap("vertices");
         HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
-        vertices.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
+        contextManager.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
         contextManager.flush();
         return null;
     }
