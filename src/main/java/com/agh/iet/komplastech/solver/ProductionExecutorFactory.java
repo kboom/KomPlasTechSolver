@@ -82,7 +82,7 @@ public class ProductionExecutorFactory {
                         processLogger.logProductionLaunched(production, vertexBatch);
                         return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
                     })
-                    .map(production -> executorService.submitToKeyOwner(production, region));
+                    .map(production -> executorService.submitToKeyOwner(production, region.asInt()));
         }
 
         private int determineBatchSizeFor(int size) {
