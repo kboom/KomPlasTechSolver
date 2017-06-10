@@ -192,11 +192,12 @@
 
             <in-memory-format>OBJECT</in-memory-format>
             <cache-local-entries>true</cache-local-entries>
-            <max-size>0</max-size>
+            <invalidate-on-change>true</invalidate-on-change>
+
+            <max-size>3000</max-size>
             <time-to-live-seconds>0</time-to-live-seconds>
             <max-idle-seconds>0</max-idle-seconds>
-            <eviction-policy>NONE</eviction-policy>
-            <invalidate-on-change>true</invalidate-on-change>
+            <eviction-policy>LRU</eviction-policy>
 
         </near-cache>
 
