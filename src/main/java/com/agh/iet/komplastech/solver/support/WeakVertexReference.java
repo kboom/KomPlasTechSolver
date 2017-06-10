@@ -1,7 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.hazelcast.core.PartitionAware;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.WEAK_VERTEX_REFERENCE;
 
-public class WeakVertexReference implements VertexReference, PartitionAware {
+public class WeakVertexReference implements VertexReference {
 
     private transient Vertex vertex;
 
