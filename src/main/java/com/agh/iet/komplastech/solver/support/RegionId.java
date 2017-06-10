@@ -22,10 +22,6 @@ public class RegionId implements IdentifiedDataSerializable {
         return GENERAL_FACTORY_ID;
     }
 
-    public int asInt() {
-        return regionId;
-    }
-
     @Override
     public int getId() {
         return REGION_ID;

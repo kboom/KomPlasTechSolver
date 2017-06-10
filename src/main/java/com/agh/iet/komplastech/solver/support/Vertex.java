@@ -15,7 +15,7 @@ import java.util.stream.Stream;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX;
 
-public class Vertex implements IdentifiedDataSerializable, PartitionAware {
+public class Vertex implements IdentifiedDataSerializable {
 
     private VertexId id;
     private RegionId regionId;
@@ -131,12 +131,6 @@ public class Vertex implements IdentifiedDataSerializable, PartitionAware {
     public RegionId getRegionId() {
         return regionId;
     }
-
-    @Override
-    public Object getPartitionKey() {
-        return regionId.asInt();
-    }
-
 
     public static class VertexBuilder {
 
