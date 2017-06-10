@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.IMap;
+import com.hazelcast.core.PartitionAware;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
@@ -16,12 +17,15 @@ import java.util.concurrent.Callable;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.PRODUCTION_ADAPTER;
 
+// http://docs.hazelcast.org/docs/2.0/manual/html-single/#DataAffinity
 public class HazelcastProductionAdapter
-        implements HazelcastInstanceAware, Callable<Void>, IdentifiedDataSerializable {
+        implements HazelcastInstanceAware, Callable<Void>, PartitionAware, IdentifiedDataSerializable {
 
     private transient HazelcastInstance hazelcastInstance;
 
     private Production production;
+
+    private RegionId regionId;
 
     private Set<VertexReference> verticesToApplyOn;
 
@@ -32,9 +36,11 @@ public class HazelcastProductionAdapter
 
     }
 
-    public HazelcastProductionAdapter(Production production,
+    public HazelcastProductionAdapter(RegionId regionId,
+                                      Production production,
                                       VertexRegionMapper vertexRegionMapper,
                                       Set<VertexReference> verticesToApplyOn) {
+        this.regionId = regionId;
         this.production = production;
         this.verticesToApplyOn = verticesToApplyOn;
         this.vertexRegionMapper = vertexRegionMapper;
@@ -56,6 +62,7 @@ public class HazelcastProductionAdapter
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeObject(regionId);
         out.writeObject(production);
         out.writeObject(vertexRegionMapper);
         out.writeInt(verticesToApplyOn.size());
@@ -70,6 +77,7 @@ public class HazelcastProductionAdapter
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
+        regionId = in.readObject();
         production = in.readObject();
         vertexRegionMapper = in.readObject();
         int vertexCount = in.readInt();
@@ -87,6 +95,11 @@ public class HazelcastProductionAdapter
     @Override
     public int getId() {
         return PRODUCTION_ADAPTER;
+    }
+
+    @Override
+    public Object getPartitionKey() {
+        return regionId.toInt();
     }
 
 }

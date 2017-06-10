@@ -74,14 +74,15 @@ public class ProductionExecutorFactory {
         }
 
         private Stream<Future<Void>> executeOnRegionOwner(Map.Entry<RegionId, Set<VertexReference>> entry) {
+            final RegionId regionId = entry.getKey();
             final Set<VertexReference> vertices = entry.getValue();
             final int batchSize = determineBatchSizeFor(vertices.size());
             return batchedStreamOf(vertices.stream(), batchSize)
                     .map((vertexBatch) -> {
                         processLogger.logProductionLaunched(production, vertexBatch);
-                        return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
+                        return new HazelcastProductionAdapter(regionId, production, regionMapper, vertexBatch);
                     })
-                    .map(production -> executorService.submitToKeyOwner(production, vertices.iterator().next())); // as all nodes are in the same region we just need to execute this production on any key as any vertex in adapter belong to same region (and node)
+                    .map(executorService::submit); // as all nodes are in the same region we just need to execute this production on any key as any vertex in adapter belong to same region (and node)
         }
 
         private int determineBatchSizeFor(int size) {
