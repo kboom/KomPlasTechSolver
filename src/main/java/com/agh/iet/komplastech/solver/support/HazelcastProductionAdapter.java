@@ -28,8 +28,6 @@ public class HazelcastProductionAdapter
 
     private Set<VertexReference> verticesToApplyOn;
 
-    private VertexRegionMapper vertexRegionMapper;
-
     @SuppressWarnings("unused")
     public HazelcastProductionAdapter() {
 
@@ -37,12 +35,10 @@ public class HazelcastProductionAdapter
 
     public HazelcastProductionAdapter(RegionId regionId,
                                       Production production,
-                                      VertexRegionMapper vertexRegionMapper,
                                       Set<VertexReference> verticesToApplyOn) {
         this.regionId = regionId;
         this.production = production;
         this.verticesToApplyOn = verticesToApplyOn;
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     @Override
@@ -62,7 +58,6 @@ public class HazelcastProductionAdapter
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(regionId);
         out.writeObject(production);
-        out.writeObject(vertexRegionMapper);
         out.writeInt(verticesToApplyOn.size());
         verticesToApplyOn.forEach(vertex -> {
             try {
@@ -77,7 +72,6 @@ public class HazelcastProductionAdapter
     public void readData(ObjectDataInput in) throws IOException {
         regionId = in.readObject();
         production = in.readObject();
-        vertexRegionMapper = in.readObject();
         int vertexCount = in.readInt();
         verticesToApplyOn = new HashSet<>(vertexCount);
         for (int i = 0; i < vertexCount; i++) {

@@ -80,7 +80,7 @@ public class ProductionExecutorFactory {
             return batchedStreamOf(vertices.stream(), batchSize)
                     .map((vertexBatch) -> {
                         processLogger.logProductionLaunched(production, vertexBatch);
-                        return new HazelcastProductionAdapter(regionId, production, regionMapper, vertexBatch);
+                        return new HazelcastProductionAdapter(regionId, production, vertexBatch);
                     })
                     .map(executorService::submit);
         }
