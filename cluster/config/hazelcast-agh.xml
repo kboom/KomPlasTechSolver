@@ -61,7 +61,7 @@
         <near-cache>
             <in-memory-format>OBJECT</in-memory-format>
             <cache-local-entries>true</cache-local-entries>
-            <invalidate-on-change>false</invalidate-on-change>
+            <invalidate-on-change>true</invalidate-on-change>
             <eviction eviction-policy="NONE" max-size-policy="ENTRY_COUNT"/>
         </near-cache>
     </map>
