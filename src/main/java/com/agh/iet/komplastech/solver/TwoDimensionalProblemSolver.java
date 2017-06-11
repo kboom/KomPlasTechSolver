@@ -52,7 +52,6 @@ class TwoDimensionalProblemSolver implements Solver {
 
     @Override
     public Solution solveProblem(Problem rhs) {
-        hazelcastFacade.forceGC();
         prepareObjectStore(rhs);
         timeLogger.logStart();
         timeLogger.logFirstStage();
@@ -68,6 +67,7 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private void propagateSolution(Solution horizontalSolution) {
+        hazelcastFacade.forceGC();
         objectStore.setSolution(horizontalSolution);
         hazelcastFacade.forceLoadCommons();
     }
