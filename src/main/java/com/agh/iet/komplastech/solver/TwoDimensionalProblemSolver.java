@@ -53,8 +53,8 @@ class TwoDimensionalProblemSolver implements Solver {
     @Override
     public Solution solveProblem(Problem rhs) {
         hazelcastFacade.forceGC();
-        timeLogger.logStart();
         prepareObjectStore(rhs);
+        timeLogger.logStart();
         timeLogger.logFirstStage();
         Solution horizontalSolution = solveProblemHorizontally(rhs);
         objectStore.clearVertices();
