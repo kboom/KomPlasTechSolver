@@ -19,7 +19,7 @@ public class HazelcastObjectStore implements ObjectStore {
     private final VertexRegionMapper vertexRegionMapper;
 
     private final IMap<VertexReference, Vertex> vertexMap;
-    private final IMap<String, Object> commonsMap;
+    private final IMap<CommonProcessingObject, Object> commonsMap;
 
     public HazelcastObjectStore(HazelcastInstance hazelcastInstance,
                                 VertexRegionMapper vertexRegionMapper) {

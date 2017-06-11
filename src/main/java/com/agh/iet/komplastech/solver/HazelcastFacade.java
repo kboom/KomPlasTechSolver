@@ -1,22 +1,17 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.support.CommonProcessingObject;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.HazelcastInstanceAware;
-import com.hazelcast.core.IExecutorService;
-import com.hazelcast.core.Member;
+import com.hazelcast.core.*;
+import com.hazelcast.monitor.NearCacheStats;
 import com.hazelcast.util.function.Consumer;
 
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
 
 final class HazelcastFacade {
 
@@ -31,16 +26,31 @@ final class HazelcastFacade {
                 -> {
             System.gc();
             System.runFinalization();
-            System.out.println("Triggered garbage collection");
+            System.out.println("Forcing GC");
         });
     }
 
     void forceLoadCommons() {
         launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
                 -> {
-            hazelcastInstance.getMap("commons")
-                    .getAll(Stream.of(MESH, PROBLEM, SOLUTION).collect(Collectors.toSet()));
-            System.out.println("Pre-loading commons into a near-cache");
+            IMap<CommonProcessingObject, Object> commonsMap = hazelcastInstance.getMap("commons");
+
+            NearCacheStats stats = commonsMap.getLocalMapStats().getNearCacheStats();
+            System.out.printf("%s (%d entries, %d hits, %d misses, %d evictions, %d expirations)%n",
+                    "Commons near cache stats before force-preloading", stats.getOwnedEntryCount(), stats.getHits(), stats.getMisses(),
+                    stats.getEvictions(), stats.getExpirations());
+
+            System.out.println("Before near-cache pre-loaded retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+
+            Map<CommonProcessingObject, Object> objects = commonsMap.getAll(Arrays.stream(CommonProcessingObject.values()).collect(Collectors.toSet()));
+
+            NearCacheStats stats2 = commonsMap.getLocalMapStats().getNearCacheStats();
+            System.out.printf("%s (%d entries, %d hits, %d misses, %d evictions, %d expirations)%n",
+                    "Commons near cache stats after force pre-loading", stats2.getOwnedEntryCount(), stats2.getHits(), stats2.getMisses(),
+                    stats2.getEvictions(), stats2.getExpirations());
+
+            System.out.println("First retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+            System.out.println("Second retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
         });
     }
 

@@ -4,9 +4,7 @@ import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.*;
 
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.SOLUTION;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
 
 public class HazelcastProcessingContext implements ProcessingContext, ReferenceVisitor {
 

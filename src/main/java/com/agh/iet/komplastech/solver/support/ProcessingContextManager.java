@@ -16,7 +16,7 @@ public interface ProcessingContextManager {
 
     void flush();
 
-    <T> T getFromCache(String commonProcessingObjects);
+    <T> T getFromCache(CommonProcessingObject commonProcessingObjects);
 
     Map<VertexReference, Vertex> getAll(Set<VertexReference> verticesToApplyOn);
 
