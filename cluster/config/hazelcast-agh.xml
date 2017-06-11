@@ -142,13 +142,6 @@
         -->
         <cache-deserialized-values>NEVER</cache-deserialized-values>
 
-        <near-cache>
-            <in-memory-format>OBJECT</in-memory-format>
-            <cache-local-entries>true</cache-local-entries>
-            <invalidate-on-change>true</invalidate-on-change>
-            <eviction size="10000" eviction-policy="LRU" max-size-policy="ENTRY_COUNT"/>
-        </near-cache>
-
     </map>
 
     <serialization>
