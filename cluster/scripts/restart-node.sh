@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 DEPS_DIR=$(pwd)/dependencies
-RUN_DIR="hazelcast-instances/hazelcast-3.8-$1"
+RUN_DIR="hazelcast-instances/hazelcast-3.8-1"
 PUBLIC_ADDRESS=$2
 JOIN_INTERFACE=$3
 POOL_SIZE=${4:-10}
@@ -11,8 +11,7 @@ PARTITION_COUNT=${PARTITION_COUNT:-271}
 
 HAZELCAST_CFG=$(pwd)/node-config/hazelcast-agh.xml
 
-JMX_ENABLE_CFG=""
-#"-Dhazelcast.jmx=true -Dcom.sun.management.jmxremote.port=8090 -Dcom.sun.management.jmxremote.rmi.port=8090 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+JMX_ENABLE_CFG="-Dhazelcast.jmx=true -Dcom.sun.management.jmxremote.port=809$1 -Dcom.sun.management.jmxremote.rmi.port=809$1 -Djava.rmi.server.hostname=127.0.0.1 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 
 function stop {
    ./${RUN_DIR}/bin/stop.sh
