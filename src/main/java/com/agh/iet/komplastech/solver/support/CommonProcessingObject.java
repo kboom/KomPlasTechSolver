@@ -1,9 +1,9 @@
 package com.agh.iet.komplastech.solver.support;
 
-public enum CommonProcessingObject {
+public abstract class CommonProcessingObject {
 
-    PROBLEM,
-    MESH,
-    SOLUTION
+    public static final String PROBLEM = "p";
+    public static final String MESH = "m";
+    public static final String SOLUTION = "s";
 
 }

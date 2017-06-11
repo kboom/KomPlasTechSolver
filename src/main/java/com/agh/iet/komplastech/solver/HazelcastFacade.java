@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.support.CommonProcessingObject;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
 import com.hazelcast.core.IExecutorService;
@@ -7,9 +8,15 @@ import com.hazelcast.core.Member;
 import com.hazelcast.util.function.Consumer;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
 
 final class HazelcastFacade {
 
@@ -19,20 +26,25 @@ final class HazelcastFacade {
         this.executorService = hazelcastInstance.getExecutorService("default");
     }
 
-    void forceLoadCommons() {
-        launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
-                -> hazelcastInstance.getMap("commons").entrySet());
-    }
-
-    public void forceGC() {
+    void forceGC() {
         launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
                 -> {
             System.gc();
             System.runFinalization();
+            System.out.println("Triggered garbage collection");
         });
     }
 
-    void launchAtAllNodes(Consumer<HazelcastInstance> hazelcastInstanceConsumer) {
+    void forceLoadCommons() {
+        launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
+                -> {
+            hazelcastInstance.getMap("commons")
+                    .getAll(Stream.of(MESH, PROBLEM, SOLUTION).collect(Collectors.toSet()));
+            System.out.println("Pre-loading commons into a near-cache");
+        });
+    }
+
+    private void launchAtAllNodes(Consumer<HazelcastInstance> hazelcastInstanceConsumer) {
         Map<Member, Future> map = executorService.submitToAllMembers(new TaskLauncher(hazelcastInstanceConsumer));
         map.forEach((member, future) -> {
             try {

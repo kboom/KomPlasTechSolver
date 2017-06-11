@@ -57,7 +57,7 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> T getFromCache(CommonProcessingObject id) {
+    public <T> T getFromCache(String id) {
         return (T) commons.get(id);
     }
 
