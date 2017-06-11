@@ -142,18 +142,12 @@
         -->
         <cache-deserialized-values>NEVER</cache-deserialized-values>
 
-        <!--<near-cache>-->
-
-            <!--<in-memory-format>OBJECT</in-memory-format>-->
-            <!--<cache-local-entries>true</cache-local-entries>-->
-            <!--<invalidate-on-change>true</invalidate-on-change>-->
-
-            <!--<max-size>3000</max-size>-->
-            <!--<time-to-live-seconds>0</time-to-live-seconds>-->
-            <!--<max-idle-seconds>0</max-idle-seconds>-->
-            <!--<eviction-policy>LRU</eviction-policy>-->
-
-        <!--</near-cache>-->
+        <near-cache>
+            <in-memory-format>OBJECT</in-memory-format>
+            <cache-local-entries>true</cache-local-entries>
+            <invalidate-on-change>true</invalidate-on-change>
+            <eviction size="1000" eviction-policy="LFU" max-size-policy="ENTRY_COUNT"/>
+        </near-cache>
 
     </map>
 
