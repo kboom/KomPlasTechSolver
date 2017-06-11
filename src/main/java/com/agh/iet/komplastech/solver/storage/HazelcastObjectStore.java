@@ -51,17 +51,17 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public void setProblem(Problem rhs) {
-        commonsMap.put(PROBLEM, rhs);
+        commonsMap.set(PROBLEM, rhs);
     }
 
     @Override
     public void setMesh(Mesh mesh) {
-        commonsMap.put(MESH, mesh);
+        commonsMap.set(MESH, mesh);
     }
 
     @Override
     public void setSolution(Solution solution) {
-        commonsMap.put(SOLUTION, solution);
+        commonsMap.set(SOLUTION, solution);
     }
 
     @Override

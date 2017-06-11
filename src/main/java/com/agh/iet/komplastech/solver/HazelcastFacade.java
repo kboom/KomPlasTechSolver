@@ -51,6 +51,8 @@ final class HazelcastFacade {
 
             System.out.println("First retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
             System.out.println("Second retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+
+            System.out.println("Has in map: " + objects.keySet().stream().map(CommonProcessingObject::name).collect(Collectors.joining(", ")));
         });
     }
 
