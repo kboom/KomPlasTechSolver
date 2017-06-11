@@ -186,7 +186,7 @@
                         INDEX-ONLY: Caches values only when they are inserted into an index.
                         ALWAYS: Always cache deserialized values.
         -->
-        <cache-deserialized-values>ALWAYS</cache-deserialized-values>
+        <cache-deserialized-values>NEVER</cache-deserialized-values>
 
         <!--<near-cache>-->
 
