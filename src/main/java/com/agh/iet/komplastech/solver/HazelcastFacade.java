@@ -30,6 +30,9 @@ final class HazelcastFacade {
         });
     }
 
+    /**
+     * Do not attempt to get object which does not exist - it will become cached as NULL value.
+     */
     void forceLoadCommons() {
         launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
                 -> {
@@ -40,19 +43,35 @@ final class HazelcastFacade {
                     "Commons near cache stats before force-preloading", stats.getOwnedEntryCount(), stats.getHits(), stats.getMisses(),
                     stats.getEvictions(), stats.getExpirations());
 
-            System.out.println("Before near-cache pre-loaded retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+//            System.out.println("Before near-cache pre-loaded retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
 
-            Map<CommonProcessingObject, Object> objects = commonsMap.getAll(Arrays.stream(CommonProcessingObject.values()).collect(Collectors.toSet()));
+            // this will break if an entry cannot be found because it calls loadAll underneath which erases all entries
+//            Map<CommonProcessingObject, Object> objects = commonsMap.getAll(Arrays.stream(CommonProcessingObject.values()).collect(Collectors.toSet()));
+//
+            Set<Map.Entry<CommonProcessingObject, Object>> entries = commonsMap.entrySet();
+            commonsMap.get(CommonProcessingObject.MESH);
+            commonsMap.get(CommonProcessingObject.PROBLEM);
 
+            NearCacheStats stats3 = commonsMap.getLocalMapStats().getNearCacheStats();
+            System.out.printf("%s (%d entries, %d hits, %d misses, %d evictions, %d expirations)%n",
+                    "Commons near cache stats after entrySet called", stats3.getOwnedEntryCount(), stats3.getHits(), stats3.getMisses(),
+                    stats3.getEvictions(), stats3.getExpirations());
+
+            if(entries.stream().map(Map.Entry::getKey).collect(Collectors.toSet()).contains(CommonProcessingObject.SOLUTION)) {
+                System.out.println("Before near-cache pre-loaded retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+            }
+
+//
             NearCacheStats stats2 = commonsMap.getLocalMapStats().getNearCacheStats();
             System.out.printf("%s (%d entries, %d hits, %d misses, %d evictions, %d expirations)%n",
-                    "Commons near cache stats after force pre-loading", stats2.getOwnedEntryCount(), stats2.getHits(), stats2.getMisses(),
+                    "Commons near cache stats after get", stats2.getOwnedEntryCount(), stats2.getHits(), stats2.getMisses(),
                     stats2.getEvictions(), stats2.getExpirations());
 
-            System.out.println("First retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
-            System.out.println("Second retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
-
-            System.out.println("Has in map: " + objects.keySet().stream().map(CommonProcessingObject::name).collect(Collectors.joining(", ")));
+//            System.out.println("First retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+//            System.out.println("Second retrieval memory address: " + commonsMap.get(CommonProcessingObject.SOLUTION));
+//
+            System.out.println("K in map: " + entries.stream().map(Map.Entry::getKey).map(CommonProcessingObject::name).collect(Collectors.joining(", ")));
+            System.out.println("V in map: " + entries.stream().map(Map.Entry::getValue).map(Object::toString).collect(Collectors.joining(", ")));
         });
     }
 
