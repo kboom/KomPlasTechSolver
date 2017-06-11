@@ -100,18 +100,16 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private Solution solveProblemVertically(Solution horizontalSolution) {
-//        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(launcherFactory, solutionLogger);
+        LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(launcherFactory, solutionLogger);
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(vertexRegionMapper);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
-
-        HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(launcherFactory, solutionLogger);
 
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,
                 verticalProductionFactory,
                 launcherFactory,
                 treeIteratorFactory,
-                horizontalLeafInitializer,
+                verticalLeafInitializer,
                 mesh,
                 solutionLogger,
                 processLogger,
