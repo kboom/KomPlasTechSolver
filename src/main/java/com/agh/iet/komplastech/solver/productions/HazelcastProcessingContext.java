@@ -44,6 +44,11 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     }
 
     @Override
+    public ComputeConfig getComputeConfig() {
+        return contextManager.getFromCache(COMPUTE_CONFIG);
+    }
+
+    @Override
     public Mesh getMesh() {
         return contextManager.getFromCache(MESH);
     }
@@ -51,6 +56,11 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     @Override
     public Solution getSolution() {
         return contextManager.getFromCache(SOLUTION);
+    }
+
+    @Override
+    public VertexRegionMapper getRegionMapper() {
+        return new VertexRegionMapper(getMesh(), getComputeConfig());
     }
 
     @Override

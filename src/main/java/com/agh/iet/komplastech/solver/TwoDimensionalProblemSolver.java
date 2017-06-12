@@ -10,8 +10,8 @@ import com.agh.iet.komplastech.solver.productions.HorizontalProductionFactory;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
+import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
 class TwoDimensionalProblemSolver implements Solver {
@@ -30,12 +30,12 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final TimeLogger timeLogger;
 
-    private final VertexRegionMapper vertexRegionMapper;
+    private final ComputeConfig computeConfig;
 
     TwoDimensionalProblemSolver(HazelcastFacade hazelcastFacade,
                                 ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
-                                VertexRegionMapper vertexRegionMapper,
+                                ComputeConfig computeConfig,
                                 SolutionLogger solutionLogger,
                                 ProcessLogger processLogger,
                                 ObjectStore objectStore,
@@ -43,7 +43,7 @@ class TwoDimensionalProblemSolver implements Solver {
         this.hazelcastFacade = hazelcastFacade;
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
-        this.vertexRegionMapper = vertexRegionMapper;
+        this.computeConfig = computeConfig;
         this.solutionLogger = solutionLogger;
         this.processLogger = processLogger;
         this.objectStore = objectStore;
@@ -76,12 +76,13 @@ class TwoDimensionalProblemSolver implements Solver {
         objectStore.clearAll();
         objectStore.setProblem(rhs);
         objectStore.setMesh(mesh);
+        objectStore.setComputeConfig(computeConfig);
         hazelcastFacade.forceGC();
         hazelcastFacade.forceLoadCommons();
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
-        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory(vertexRegionMapper);
+        HorizontalProductionFactory productionFactory = new HorizontalProductionFactory();
         HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(launcherFactory, solutionLogger);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
@@ -101,7 +102,7 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private Solution solveProblemVertically(Solution horizontalSolution) {
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(launcherFactory, solutionLogger);
-        ProductionFactory verticalProductionFactory = new VerticalProductionFactory(vertexRegionMapper);
+        ProductionFactory verticalProductionFactory = new VerticalProductionFactory();
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
 
         DirectionSolver verticalProblemSolver = new DirectionSolver(

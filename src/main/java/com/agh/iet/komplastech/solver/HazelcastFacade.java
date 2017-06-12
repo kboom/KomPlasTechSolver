@@ -51,6 +51,7 @@ final class HazelcastFacade {
             Set<Map.Entry<CommonProcessingObject, Object>> entries = commonsMap.entrySet();
             commonsMap.get(CommonProcessingObject.MESH);
             commonsMap.get(CommonProcessingObject.PROBLEM);
+            commonsMap.get(CommonProcessingObject.COMPUTE_CONFIG);
 
             NearCacheStats stats3 = commonsMap.getLocalMapStats().getNearCacheStats();
             System.out.printf("%s (%d entries, %d hits, %d misses, %d evictions, %d expirations)%n",

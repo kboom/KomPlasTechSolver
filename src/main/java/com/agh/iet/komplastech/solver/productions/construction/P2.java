@@ -28,15 +28,8 @@ public class P2 implements Production {
     private static final IntFunction<Integer> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
     private static final IntFunction<Integer> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
 
-    private VertexRegionMapper vertexRegionMapper;
-
-    @SuppressWarnings("unused")
     public P2() {
 
-    }
-
-    public P2(VertexRegionMapper vertexRegionMapper) {
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -48,9 +41,10 @@ public class P2 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(LEFT_CHILD_OF_INTERMEDIATE);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex leftChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning)
@@ -66,9 +60,10 @@ public class P2 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(RIGHT_CHILD_OF_INTERMEDIATE);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
@@ -83,12 +78,12 @@ public class P2 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(vertexRegionMapper);
+
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        vertexRegionMapper = in.readObject();
+
     }
 
     @Override

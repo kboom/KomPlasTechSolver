@@ -25,15 +25,8 @@ public class P1y implements Production {
     private static final VertexId LEFT_CHILD_OF_PARENT_ID = vertexId(2);
     private static final VertexId RIGHT_CHILD_OF_PARENT_ID = vertexId(3);
 
-    private VertexRegionMapper vertexRegionMapper;
-
-    @SuppressWarnings("unused")
     public P1y() {
 
-    }
-
-    public P1y(VertexRegionMapper vertexRegionMapper) {
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -45,8 +38,9 @@ public class P1y implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
-        Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, vertexRegionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
+        Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
                 .withBeggining(0)
                 .withEnding(mesh.getElementsY() / 2.0)
                 .inMesh(mesh)
@@ -60,8 +54,9 @@ public class P1y implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
-        Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, vertexRegionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
+        Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
                 .withBeggining(mesh.getElementsY() / 2.0)
                 .withEnding(mesh.getElementsY())
                 .inMesh(mesh)
@@ -74,12 +69,12 @@ public class P1y implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(vertexRegionMapper);
+
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        vertexRegionMapper = in.readObject();
+
     }
 
     @Override

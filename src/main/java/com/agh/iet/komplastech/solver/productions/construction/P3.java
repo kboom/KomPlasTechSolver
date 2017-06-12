@@ -17,16 +17,14 @@ import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakRef
 public class P3 implements Production {
 
     private VertexRange range;
-    private VertexRegionMapper vertexRegionMapper;
 
     @SuppressWarnings("unused")
     public P3() {
 
     }
 
-    public P3(VertexRange range, VertexRegionMapper vertexRegionMapper) {
+    public P3(VertexRange range) {
         this.range = range;
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -39,10 +37,11 @@ public class P3 implements Production {
     private void setLeftChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 1);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex leftChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning)
@@ -58,10 +57,11 @@ public class P3 implements Production {
     private void setMiddleChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 2);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
@@ -77,10 +77,11 @@ public class P3 implements Production {
     private void setRightChild(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
         final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(id ->
                 range.getRight() + 3 * (id - range.getLeft()) + 3);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
                 .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
@@ -96,13 +97,11 @@ public class P3 implements Production {
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
         out.writeObject(range);
-        out.writeObject(vertexRegionMapper);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
         range = in.readObject();
-        vertexRegionMapper = in.readObject();
     }
 
     @Override

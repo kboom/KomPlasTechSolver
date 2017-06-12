@@ -2,6 +2,7 @@ package com.agh.iet.komplastech.solver.storage;
 
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.support.VertexMap;
@@ -24,5 +25,7 @@ public interface ObjectStore extends DataSerializable {
     void setMesh(Mesh mesh);
 
     void setSolution(Solution solution);
+
+    void setComputeConfig(ComputeConfig computeConfig);
 
 }

@@ -13,25 +13,19 @@ import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 
-    private final VertexRegionMapper vertexRegionMapper;
-
-    public HorizontalProductionFactory(VertexRegionMapper vertexRegionMapper) {
-        this.vertexRegionMapper = vertexRegionMapper;
-    }
-
     @Override
     public Production createBranchRootProduction() {
-        return new P1(vertexRegionMapper);
+        return new P1();
     }
 
     @Override
     public Production createBranchIntermediateProduction() {
-        return new P2(vertexRegionMapper);
+        return new P2();
     }
 
     @Override
     public Production createLeafProduction(VertexRange range) {
-        return new P3(range, vertexRegionMapper);
+        return new P3(range);
     }
 
     @Override

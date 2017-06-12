@@ -97,7 +97,7 @@ class SolverLauncher {
                 hazelcastFacade,
                 productionExecutorFactory,
                 mesh,
-                vertexRegionMapper,
+                computeConfig,
                 isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
                 processLogger,
                 objectStore,

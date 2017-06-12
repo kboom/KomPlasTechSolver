@@ -10,9 +10,7 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.SOLUTION;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
 
 public class HazelcastObjectStore implements ObjectStore {
 
@@ -51,17 +49,22 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public void setProblem(Problem rhs) {
-        commonsMap.set(PROBLEM, rhs);
+        commonsMap.put(PROBLEM, rhs);
     }
 
     @Override
     public void setMesh(Mesh mesh) {
-        commonsMap.set(MESH, mesh);
+        commonsMap.put(MESH, mesh);
     }
 
     @Override
     public void setSolution(Solution solution) {
-        commonsMap.set(SOLUTION, solution);
+        commonsMap.put(SOLUTION, solution);
+    }
+
+    @Override
+    public void setComputeConfig(ComputeConfig computeConfig) {
+        commonsMap.put(COMPUTE_CONFIG, computeConfig);
     }
 
     @Override
