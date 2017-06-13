@@ -7,6 +7,9 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
@@ -27,8 +30,8 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
     }
 
     public RegionId getRegionFor(VertexId vertexId) {
-        int totalHeight = getTreeHeight();
-        int currentHeight = getCurrentHeight(vertexId);
+        final int totalHeight = getTreeHeight();
+        final int currentHeight = getCurrentHeight(vertexId);
 
         if (shouldFormNewRegion(currentHeight, totalHeight)) {
             return regionId(vertexId.getAbsoluteIndex());
@@ -40,6 +43,29 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
                 return getRegionFor(parentVertexId);
             } else {
                 return regionId((int) Math.floor(vertexId.getAbsoluteIndex() / (Math.pow(2, relativeHeight))));
+            }
+        }
+    }
+
+    public Set<RegionId> getRegionsInRange(VertexRange range) {
+        final int totalHeight = getTreeHeight();
+        final int height = range.getHeight();
+
+        if(shouldFormNewRegion(height, totalHeight)) {
+            return range.getVerticesInRange().stream().map(v -> regionId(v.getAbsoluteIndex())).collect(Collectors.toSet());
+        } else {
+            boolean isLeaf = totalHeight == height;
+            if (isLeaf) {
+                int leftIndexOfPreviousLevel = (int) Math.pow(2, height - 1);
+                int rightIndexOfPreviousLevel = 2 * leftIndexOfPreviousLevel;
+                return IntStream.range(leftIndexOfPreviousLevel, rightIndexOfPreviousLevel)
+                        .mapToObj(RegionId::regionId).collect(Collectors.toSet());
+            } else {
+                final int relativeHeight = getRelativeHeight(height);
+                final int leftOfRelativeHeight = (int) Math.pow(2, relativeHeight);
+                return range.getVerticesInRange().parallelStream().map(v ->
+                        regionId((int) Math.floor(v.getAbsoluteIndex() / (leftOfRelativeHeight))))
+                        .collect(Collectors.toSet());
             }
         }
     }
@@ -98,5 +124,4 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
         computeConfig = in.readObject();
         mesh = in.readObject();
     }
-
 }

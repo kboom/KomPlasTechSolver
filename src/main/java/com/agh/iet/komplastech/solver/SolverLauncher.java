@@ -96,6 +96,7 @@ class SolverLauncher {
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 hazelcastFacade,
                 productionExecutorFactory,
+                vertexRegionMapper,
                 mesh,
                 computeConfig,
                 isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),

@@ -68,6 +68,27 @@ public class VertexRegionMapperTest {
         assertThat(vertexRegionMapper.getRegionFor(vertexId(256))).isEqualTo(regionId(128));
     }
 
+    @Test
+    public void leafRangeOfBoundaryGetsMappedToVerticesInRange() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 1);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(4, 7)))
+                .containsExactlyInAnyOrder(regionId(4), regionId(5), regionId(6), regionId(7));
+    }
+
+    @Test
+    public void leafRangeGetsMappedToLowestAvailableSetOfRegions() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 1);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(8, 19)))
+                .containsExactlyInAnyOrder(regionId(4), regionId(5), regionId(6), regionId(7));
+    }
+
+    @Test
+    public void verticesUnderTheRootGetMappedToRootRegionForRegionHeightEqualToTwo() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 2);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(2, 3)))
+                .containsExactly(regionId(1));
+    }
+
     private VertexRegionMapper regionMapperOf(int problemSize, int regionHeight) {
         ComputeConfig computeConfig = ComputeConfig.aComputeConfig()
                 .withRegionHeight(regionHeight)

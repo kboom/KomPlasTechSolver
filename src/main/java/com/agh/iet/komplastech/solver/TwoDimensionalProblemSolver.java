@@ -12,6 +12,7 @@ import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
 class TwoDimensionalProblemSolver implements Solver {
@@ -32,8 +33,11 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final ComputeConfig computeConfig;
 
+    private final VertexRegionMapper vertexRegionMapper;
+
     TwoDimensionalProblemSolver(HazelcastFacade hazelcastFacade,
                                 ProductionExecutorFactory launcherFactory,
+                                VertexRegionMapper vertexRegionMapper,
                                 Mesh meshData,
                                 ComputeConfig computeConfig,
                                 SolutionLogger solutionLogger,
@@ -42,6 +46,7 @@ class TwoDimensionalProblemSolver implements Solver {
                                 TimeLogger timeLogger) {
         this.hazelcastFacade = hazelcastFacade;
         this.launcherFactory = launcherFactory;
+        this.vertexRegionMapper = vertexRegionMapper;
         this.mesh = meshData;
         this.computeConfig = computeConfig;
         this.solutionLogger = solutionLogger;
@@ -87,6 +92,7 @@ class TwoDimensionalProblemSolver implements Solver {
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 objectStore,
+                vertexRegionMapper,
                 productionFactory,
                 launcherFactory,
                 treeIteratorFactory,
@@ -107,6 +113,7 @@ class TwoDimensionalProblemSolver implements Solver {
 
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,
+                vertexRegionMapper,
                 verticalProductionFactory,
                 launcherFactory,
                 treeIteratorFactory,

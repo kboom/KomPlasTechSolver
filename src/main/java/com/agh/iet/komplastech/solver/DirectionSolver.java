@@ -16,6 +16,7 @@ import com.hazelcast.map.EntryProcessor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
@@ -46,11 +47,14 @@ public class DirectionSolver implements Solver {
 
     private final TimeLogger timeLogger;
 
+    private final VertexRegionMapper vertexRegionMapper;
+
 
     private VerticalIterator treeIterator;
 
 
     DirectionSolver(ObjectStore objectStore,
+                    VertexRegionMapper vertexRegionMapper,
                     ProductionFactory productionFactory,
                     ProductionExecutorFactory launcherFactory,
                     TreeIteratorFactory treeIteratorFactory,
@@ -60,6 +64,7 @@ public class DirectionSolver implements Solver {
                     ProcessLogger processLogger,
                     TimeLogger timeLogger) {
         this.objectStore = objectStore;
+        this.vertexRegionMapper = vertexRegionMapper;
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.treeIteratorFactory = treeIteratorFactory;
@@ -263,10 +268,13 @@ public class DirectionSolver implements Solver {
         final double[][] rhs = new double[size][size];
 
         // for now just take all of them and compute here, later do this on worker nodes
-        VertexRange vertexRange = treeIterator.getCurrentRange();
+        VertexRange fullRange = treeIterator.getCurrentRange();
+
+        Set<RegionId> regionsInRange = vertexRegionMapper.getRegionsInRange(fullRange);
+
 
         final List<Matrix> sortedLeaves
-                = objectStore.getVertexMap().getUnknownsFor(vertexRange);
+                = objectStore.getVertexMap().getUnknownsFor(fullRange);
 
         timeLogger.logSolutionReading();
 

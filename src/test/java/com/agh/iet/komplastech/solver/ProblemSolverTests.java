@@ -58,6 +58,7 @@ public class ProblemSolverTests {
         return new TwoDimensionalProblemSolver(
                 null,
                 productionExecutorFactory,
+                null,
                 mesh,
                 null,
                 DUMMY_SOLUTION_LOGGER,
