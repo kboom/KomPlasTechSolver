@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.hazelcast.core.IExecutorService;
 import com.hazelcast.core.IMap;
 import com.hazelcast.map.EntryBackupProcessor;
 import com.hazelcast.map.EntryProcessor;
@@ -9,8 +10,13 @@ import com.hazelcast.query.Predicate;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStreamOf;
 import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
 
 public class HazelcastVertexMap implements VertexMap {
@@ -19,7 +25,12 @@ public class HazelcastVertexMap implements VertexMap {
 
     private final VertexRegionMapper vertexRegionMapper;
 
-    public HazelcastVertexMap(IMap<VertexReference, Vertex> vertexMap, VertexRegionMapper vertexRegionMapper) {
+    private final IExecutorService executorService;
+
+    public HazelcastVertexMap(IExecutorService executorService,
+                              IMap<VertexReference, Vertex> vertexMap,
+                              VertexRegionMapper vertexRegionMapper) {
+        this.executorService = executorService;
         this.vertexMap = vertexMap;
         this.vertexRegionMapper = vertexRegionMapper;
     }
@@ -36,6 +47,21 @@ public class HazelcastVertexMap implements VertexMap {
 
     @Override
     public List<Matrix> getUnknownsFor(VertexRange vertexRange) {
+        final Set<RegionId> regionsInRange = vertexRegionMapper.getRegionsInRange(vertexRange);
+
+        // need to know absolute index for each matrix...
+        Stream<Matrix> matrixStream = batchedStreamOf(regionsInRange.stream(), 1000)
+                .map(regionSet -> regionSet.parallelStream()
+                        .map(ExtractLeafMatricesForRegion::new)
+                        .map(executorService::submit)
+                        .map(future -> {
+                            try {
+                                return future.get();
+                            } catch (Exception e) {
+                                throw new IllegalStateException(e);
+                            }
+                        })).flatMap(Function.identity()).flatMap(Set::stream);
+
         Map<VertexReference, Object> matrix = vertexMap.executeOnEntries(new GetUnknownsVertexProcessor(),
                 new InVertexRangePredicate(vertexRange));
 
@@ -65,6 +91,19 @@ public class HazelcastVertexMap implements VertexMap {
         public boolean apply(Map.Entry<VertexReference, Vertex> mapEntry) {
             final VertexId vertexId = mapEntry.getKey().getVertexId();
             return vertexRange.includes(vertexId);
+        }
+
+    }
+
+    private static final class ExtractLeafMatricesForRegion implements Callable<Set<Matrix>> {
+
+        public ExtractLeafMatricesForRegion(RegionId region) {
+
+        }
+
+        @Override
+        public Set<Matrix> call() throws Exception {
+            return null;
         }
 
     }

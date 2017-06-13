@@ -49,7 +49,6 @@ public class DirectionSolver implements Solver {
 
     private final VertexRegionMapper vertexRegionMapper;
 
-
     private VerticalIterator treeIterator;
 
 
@@ -267,11 +266,7 @@ public class DirectionSolver implements Solver {
         int size = mesh.getElementsX() + mesh.getSplineOrder() + 1;
         final double[][] rhs = new double[size][size];
 
-        // for now just take all of them and compute here, later do this on worker nodes
         VertexRange fullRange = treeIterator.getCurrentRange();
-
-        Set<RegionId> regionsInRange = vertexRegionMapper.getRegionsInRange(fullRange);
-
 
         final List<Matrix> sortedLeaves
                 = objectStore.getVertexMap().getUnknownsFor(fullRange);
