@@ -8,9 +8,7 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -82,7 +80,7 @@ public class HazelcastVertexMap implements VertexMap {
 
     private Stream<Set<Map.Entry<RegionId, VertexRange>>> getBatchedStream(Map<RegionId, VertexRange> regionsInRange) {
         return batchedStreamOf(
-                regionsInRange.entrySet().stream(),
+                regionsInRange.entrySet().stream().sorted(new RandomComparator<>()),
                 computeConfig.getMaxSolutionBatchSize()
         );
     }
@@ -90,6 +88,7 @@ public class HazelcastVertexMap implements VertexMap {
     private Set<VertexReference> getVertexReferencesFor(VertexRange vertexRange) {
         return vertexRange.getVerticesInRange()
                 .stream()
+                .sorted()
                 .map(toVertexReferenceUsing(vertexRegionMapper))
                 .collect(Collectors.toSet());
     }
@@ -155,6 +154,32 @@ public class HazelcastVertexMap implements VertexMap {
         public void readData(ObjectDataInput in) throws IOException {
             regionId = in.readObject();
             range = in.readObject();
+        }
+
+    }
+
+    public static final class RandomComparator<T> implements Comparator<T> {
+
+        private final Map<T, Integer> map = new IdentityHashMap<>();
+        private final Random random;
+
+        public RandomComparator() {
+            this(new Random());
+        }
+
+        public RandomComparator(Random random) {
+            this.random = random;
+        }
+
+        @Override
+        public int compare(T t1, T t2) {
+            return Integer.compare(valueFor(t1), valueFor(t2));
+        }
+
+        private int valueFor(T t) {
+            synchronized (map) {
+                return map.computeIfAbsent(t, ignore -> random.nextInt());
+            }
         }
 
     }
