@@ -3,6 +3,7 @@ package com.agh.iet.komplastech.solver.factories;
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.support.*;
+import com.agh.iet.komplastech.solver.support.HazelcastVertexMap.ExtractLeafMatricesForRegion;
 import com.hazelcast.nio.serialization.DataSerializableFactory;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
@@ -20,6 +21,8 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
     public static final int REGION_ID = 109;
     public static final int COMPUTE_CONFIG = 110;
     public static final int VERTEX_REGION_MAPPER = 111;
+    public static final int MATRIX_EXTRACTOR = 112;
+    public static final int MATRICES_BY_VERTEX = 113;
 
     @Override
     public IdentifiedDataSerializable create(int typeId) {
@@ -38,6 +41,8 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
                 return new HazelcastProductionAdapter();
             case WEAK_VERTEX_REFERENCE:
                 return new WeakVertexReference();
+            case MATRICES_BY_VERTEX:
+                return new MatricesByVertex();
             case SOLUTION:
                 return new Solution();
             case REGION_ID:
@@ -46,6 +51,8 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
                 return new ComputeConfig();
             case VERTEX_REGION_MAPPER:
                 return new VertexRegionMapper();
+            case MATRIX_EXTRACTOR:
+                return new ExtractLeafMatricesForRegion();
             default:
                 throw new IllegalStateException("Could not find type for " + typeId);
         }

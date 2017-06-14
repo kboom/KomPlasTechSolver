@@ -1,8 +1,13 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
 import com.hazelcast.core.*;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,6 +15,8 @@ import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.MATRIX_EXTRACTOR;
 import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStreamOf;
 import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
 import static java.util.Comparator.comparingInt;
@@ -44,7 +51,7 @@ public class HazelcastVertexMap implements VertexMap {
     public List<Matrix> getUnknownsFor(VertexRange vertexRange) {
         final Map<RegionId, VertexRange> regionsInRange = vertexRegionMapper.getRegionsInRange(vertexRange);
 
-        Map<VertexId, Matrix> matricesByVertex = batchedStreamOf(regionsInRange.entrySet().stream(), 10)
+        Map<VertexId, Matrix> matricesByVertex = batchedStreamOf(regionsInRange.entrySet().stream(), 10000)
                 .map(regionSet -> regionSet.parallelStream()
                         .map(e -> new ExtractLeafMatricesForRegion(e.getKey(), e.getValue()))
                         .map(executorService::submit)
@@ -55,6 +62,7 @@ public class HazelcastVertexMap implements VertexMap {
                                 throw new IllegalStateException(e);
                             }
                         })).flatMap(Function.identity())
+                .map(MatricesByVertex::get)
                 .map(Map::entrySet)
                 .map(Set::stream)
                 .flatMap(Function.identity())
@@ -74,11 +82,11 @@ public class HazelcastVertexMap implements VertexMap {
                 .collect(Collectors.toSet());
     }
 
-    private static final class ExtractLeafMatricesForRegion
-            implements Callable<Map<VertexId, Matrix>>, HazelcastInstanceAware, PartitionAware {
+    public static final class ExtractLeafMatricesForRegion
+            implements Callable<MatricesByVertex>, HazelcastInstanceAware, PartitionAware, IdentifiedDataSerializable {
 
-        private final RegionId regionId;
-        private final VertexRange range;
+        private RegionId regionId;
+        private VertexRange range;
         private HazelcastInstance hazelcastInstance;
 
         private ExtractLeafMatricesForRegion(RegionId regionId, VertexRange range) {
@@ -86,17 +94,22 @@ public class HazelcastVertexMap implements VertexMap {
             this.range = range;
         }
 
+        @SuppressWarnings("unused")
+        public ExtractLeafMatricesForRegion() {}
+
         @Override
-        public Map<VertexId, Matrix> call() throws Exception {
+        public MatricesByVertex call() throws Exception {
             IMap<VertexReference, Vertex> vertexMap = hazelcastInstance.getMap("vertices");
 
             Set<VertexReference> verticesInRange = range.getVerticesInRange().stream()
                     .map(id -> WeakVertexReference.weakReference(id, regionId)).collect(Collectors.toSet());
 
-            return vertexMap
+            Map<VertexId, Matrix> matricesByVertex = vertexMap
                     .getAll(verticesInRange)
                     .entrySet().stream()
                     .collect(Collectors.toMap(t -> t.getKey().getVertexId(), e -> e.getValue().m_x));
+
+            return new MatricesByVertex(matricesByVertex);
         }
 
         @Override
@@ -107,6 +120,28 @@ public class HazelcastVertexMap implements VertexMap {
         @Override
         public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
             this.hazelcastInstance = hazelcastInstance;
+        }
+
+        @Override
+        public int getFactoryId() {
+            return GENERAL_FACTORY_ID;
+        }
+
+        @Override
+        public int getId() {
+            return MATRIX_EXTRACTOR;
+        }
+
+        @Override
+        public void writeData(ObjectDataOutput out) throws IOException {
+            out.writeObject(regionId);
+            out.writeObject(range);
+        }
+
+        @Override
+        public void readData(ObjectDataInput in) throws IOException {
+            regionId = in.readObject();
+            range = in.readObject();
         }
 
     }
