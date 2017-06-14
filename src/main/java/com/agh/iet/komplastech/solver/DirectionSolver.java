@@ -10,13 +10,8 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.*;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.map.EntryBackupProcessor;
-import com.hazelcast.map.EntryProcessor;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
@@ -102,7 +97,7 @@ public class DirectionSolver implements Solver {
 
         Vertex rootVertex = aVertex(vertexId(1), regionId(1))
                 .inMesh(mesh)
-                .withBeggining(0)
+                .withBeginning(0)
                 .withEnding(mesh.getResolutionX()).build();
 
         objectStore.storeVertex(rootVertex);

@@ -41,6 +41,10 @@ public class VertexRange implements Serializable, IdentifiedDataSerializable {
         return range(rootId.getAbsoluteIndex(), rootId.getAbsoluteIndex());
     }
 
+    public static VertexRange unitary(int id) {
+        return range(id, id);
+    }
+
     public static VertexRange forBinary(int currentLevel) {
         return range((int) Math.pow(2, currentLevel), (int) Math.pow(2, currentLevel + 1) - 1);
     }

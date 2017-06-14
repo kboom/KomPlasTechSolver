@@ -44,7 +44,7 @@ public class P3 implements Production {
         RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex leftChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning)
+                .withBeginning(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
                 .build();
@@ -64,7 +64,7 @@ public class P3 implements Production {
         RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning + (node.ending - node.beginning) / 3.0)
+                .withBeginning(node.beginning + (node.ending - node.beginning) / 3.0)
                 .withEnding(node.ending - (node.ending - node.beginning) / 3.0)
                 .inMesh(mesh)
                 .build();
@@ -84,7 +84,7 @@ public class P3 implements Production {
         RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
+                .withBeginning(node.beginning + (node.ending - node.beginning) * 2.0 / 3.0)
                 .withEnding(node.ending)
                 .inMesh(mesh)
                 .build();

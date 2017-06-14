@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.core.IExecutorService;
 import com.hazelcast.core.IMap;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
@@ -18,12 +19,14 @@ public class HazelcastObjectStore implements ObjectStore {
 
     private final IMap<VertexReference, Vertex> vertexMap;
     private final IMap<CommonProcessingObject, Object> commonsMap;
+    private final IExecutorService executorService;
 
     public HazelcastObjectStore(HazelcastInstance hazelcastInstance,
                                 VertexRegionMapper vertexRegionMapper) {
         this.vertexRegionMapper = vertexRegionMapper;
         vertexMap = hazelcastInstance.getMap("vertices");
         commonsMap = hazelcastInstance.getMap("commons");
+        executorService = hazelcastInstance.getExecutorService("solution");
     }
 
     @Override
@@ -33,7 +36,7 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public VertexMap getVertexMap() {
-        return new HazelcastVertexMap(vertexMap, vertexRegionMapper);
+        return new HazelcastVertexMap(executorService, vertexMap, vertexRegionMapper);
     }
 
     @Override

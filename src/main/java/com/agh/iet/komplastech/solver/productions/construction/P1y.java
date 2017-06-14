@@ -41,7 +41,7 @@ public class P1y implements Production {
         final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
-                .withBeggining(0)
+                .withBeginning(0)
                 .withEnding(mesh.getElementsY() / 2.0)
                 .inMesh(mesh)
                 .build();
@@ -57,7 +57,7 @@ public class P1y implements Production {
         final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
-                .withBeggining(mesh.getElementsY() / 2.0)
+                .withBeginning(mesh.getElementsY() / 2.0)
                 .withEnding(mesh.getElementsY())
                 .inMesh(mesh)
                 .build();

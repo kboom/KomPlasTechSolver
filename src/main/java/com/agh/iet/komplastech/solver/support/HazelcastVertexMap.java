@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStreamOf;
 import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
-import static com.beust.jcommander.internal.Sets.newHashSet;
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.toMap;
 
@@ -43,11 +42,11 @@ public class HazelcastVertexMap implements VertexMap {
 
     @Override
     public List<Matrix> getUnknownsFor(VertexRange vertexRange) {
-        final Set<RegionId> regionsInRange = vertexRegionMapper.getRegionsInRange(vertexRange);
+        final Map<RegionId, VertexRange> regionsInRange = vertexRegionMapper.getRegionsInRange(vertexRange);
 
-        Map<VertexId, Matrix> matricesByVertex = batchedStreamOf(regionsInRange.stream(), 10)
+        Map<VertexId, Matrix> matricesByVertex = batchedStreamOf(regionsInRange.entrySet().stream(), 10)
                 .map(regionSet -> regionSet.parallelStream()
-                        .map(ExtractLeafMatricesForRegion::new)
+                        .map(e -> new ExtractLeafMatricesForRegion(e.getKey(), e.getValue()))
                         .map(executorService::submit)
                         .map(future -> {
                             try {
@@ -79,18 +78,23 @@ public class HazelcastVertexMap implements VertexMap {
             implements Callable<Map<VertexId, Matrix>>, HazelcastInstanceAware, PartitionAware {
 
         private final RegionId regionId;
+        private final VertexRange range;
         private HazelcastInstance hazelcastInstance;
 
-        private ExtractLeafMatricesForRegion(RegionId regionId) {
+        private ExtractLeafMatricesForRegion(RegionId regionId, VertexRange range) {
             this.regionId = regionId;
+            this.range = range;
         }
 
         @Override
         public Map<VertexId, Matrix> call() throws Exception {
             IMap<VertexReference, Vertex> vertexMap = hazelcastInstance.getMap("vertices");
 
+            Set<VertexReference> verticesInRange = range.getVerticesInRange().stream()
+                    .map(id -> WeakVertexReference.weakReference(id, regionId)).collect(Collectors.toSet());
+
             return vertexMap
-                    .getAll(newHashSet())
+                    .getAll(verticesInRange)
                     .entrySet().stream()
                     .collect(Collectors.toMap(t -> t.getKey().getVertexId(), e -> e.getValue().m_x));
         }

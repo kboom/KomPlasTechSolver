@@ -87,7 +87,7 @@ class SolverLauncher {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance, vertexRegionMapper, computeConfig, processLogger);
 
-        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
+        VertexMap vertexMap = new HazelcastVertexMap(null, hazelcastInstance.getMap("vertices"), vertexRegionMapper);
 
         TimeLogger timeLogger = new TimeLogger();
 

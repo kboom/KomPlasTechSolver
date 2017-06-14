@@ -140,8 +140,8 @@ public class Vertex implements IdentifiedDataSerializable {
             vertex = new Vertex(vertexId, regionId);
         }
 
-        public VertexBuilder withBeggining(double beggining) {
-            vertex.beginning = beggining;
+        public VertexBuilder withBeginning(double beginning) {
+            vertex.beginning = beginning;
             return this;
         }
 

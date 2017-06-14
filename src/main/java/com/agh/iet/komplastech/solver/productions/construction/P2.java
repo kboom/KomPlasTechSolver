@@ -12,7 +12,6 @@ import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P2_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
-import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -47,7 +46,7 @@ public class P2 implements Production {
         RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex leftChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning)
+                .withBeginning(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
                 .inMesh(mesh)
                 .build();
@@ -66,7 +65,7 @@ public class P2 implements Production {
         RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
+                .withBeginning(node.beginning + (node.ending - node.beginning) * 0.5)
                 .withEnding(node.ending)
                 .inMesh(mesh)
                 .build();

@@ -112,4 +112,8 @@ public class WeakVertexReference implements VertexReference {
                 '}';
     }
 
+    static WeakVertexReference weakReference(VertexId id, RegionId regionId) {
+        return new WeakVertexReference(id, regionId);
+    }
+
 }
