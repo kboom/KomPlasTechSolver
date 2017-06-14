@@ -117,10 +117,6 @@ public class VertexRange implements Serializable, IdentifiedDataSerializable {
         return left <= absoluteIndex && absoluteIndex <= right;
     }
 
-    public boolean includes(VertexId vertexId) {
-        return containsIndex(vertexId.getAbsoluteIndex());
-    }
-
     private static int log2(int index) {
         return (int) Math.floor(Math.log10(index) / Math.log10(2));
     }

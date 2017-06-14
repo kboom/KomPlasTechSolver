@@ -56,6 +56,9 @@ class SolverLauncher {
     @Parameter(names = {"--max-job-count"})
     private int maxJobCount = 100;
 
+    @Parameter(names = {"--max-solution-batch-size"})
+    private int maxSolutionBatchSize = 1000;
+
     @Parameter(names = {"--problem"})
     private String solvedProblem = "heat";
 
@@ -64,6 +67,7 @@ class SolverLauncher {
                 .withRegionHeight(regionHeight)
                 .withMaxBatchSize(maxBatchSize)
                 .withBatchRatio(batchRatio)
+                .withMaxSolutionBatchSize(maxSolutionBatchSize)
                 .withMaxJobCount(maxJobCount)
                 .build();
 
@@ -83,11 +87,16 @@ class SolverLauncher {
 
         final ProcessLogger processLogger = isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger();
 
-        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper, computeConfig);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance, vertexRegionMapper, computeConfig, processLogger);
 
-        VertexMap vertexMap = new HazelcastVertexMap(null, hazelcastInstance.getMap("vertices"), vertexRegionMapper);
+        VertexMap vertexMap = new HazelcastVertexMap(
+                hazelcastInstance.getExecutorService("general"),
+                hazelcastInstance.getMap("vertices"),
+                vertexRegionMapper,
+                computeConfig
+        );
 
         TimeLogger timeLogger = new TimeLogger();
 

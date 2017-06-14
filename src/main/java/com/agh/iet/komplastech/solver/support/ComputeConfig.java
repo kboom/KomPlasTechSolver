@@ -15,6 +15,7 @@ public class ComputeConfig implements IdentifiedDataSerializable {
     private int maxBatchSize;
     private int batchRatio;
     private int maxJobCount;
+    private int maxSolutionBatchSize;
 
     @Override
     public int getFactoryId() {
@@ -54,6 +55,10 @@ public class ComputeConfig implements IdentifiedDataSerializable {
         return maxJobCount;
     }
 
+    public int getMaxSolutionBatchSize() {
+        return maxSolutionBatchSize;
+    }
+
     public static class ComputeConfigBuilder {
 
         private ComputeConfig computeConfig = new ComputeConfig();
@@ -69,6 +74,11 @@ public class ComputeConfig implements IdentifiedDataSerializable {
 
         public ComputeConfigBuilder withMaxBatchSize(int maxBatchSize) {
             computeConfig.maxBatchSize = maxBatchSize;
+            return this;
+        }
+
+        public ComputeConfigBuilder withMaxSolutionBatchSize(int maxSolutionBatchSize) {
+            computeConfig.maxSolutionBatchSize = maxSolutionBatchSize;
             return this;
         }
 

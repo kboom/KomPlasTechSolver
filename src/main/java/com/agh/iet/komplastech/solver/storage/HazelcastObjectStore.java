@@ -20,10 +20,13 @@ public class HazelcastObjectStore implements ObjectStore {
     private final IMap<VertexReference, Vertex> vertexMap;
     private final IMap<CommonProcessingObject, Object> commonsMap;
     private final IExecutorService executorService;
+    private final ComputeConfig computeConfig;
 
     public HazelcastObjectStore(HazelcastInstance hazelcastInstance,
-                                VertexRegionMapper vertexRegionMapper) {
+                                VertexRegionMapper vertexRegionMapper,
+                                ComputeConfig computeConfig) {
         this.vertexRegionMapper = vertexRegionMapper;
+        this.computeConfig = computeConfig;
         vertexMap = hazelcastInstance.getMap("vertices");
         commonsMap = hazelcastInstance.getMap("commons");
         executorService = hazelcastInstance.getExecutorService("solution");
@@ -36,7 +39,7 @@ public class HazelcastObjectStore implements ObjectStore {
 
     @Override
     public VertexMap getVertexMap() {
-        return new HazelcastVertexMap(executorService, vertexMap, vertexRegionMapper);
+        return new HazelcastVertexMap(executorService, vertexMap, vertexRegionMapper, computeConfig);
     }
 
     @Override

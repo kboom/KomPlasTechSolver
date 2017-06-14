@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.MATRIX_EXTRACTOR;
@@ -30,12 +31,16 @@ public class HazelcastVertexMap implements VertexMap {
 
     private final IExecutorService executorService;
 
+    private final ComputeConfig computeConfig;
+
     public HazelcastVertexMap(IExecutorService executorService,
                               IMap<VertexReference, Vertex> vertexMap,
-                              VertexRegionMapper vertexRegionMapper) {
+                              VertexRegionMapper vertexRegionMapper,
+                              ComputeConfig computeConfig) {
         this.executorService = executorService;
         this.vertexMap = vertexMap;
         this.vertexRegionMapper = vertexRegionMapper;
+        this.computeConfig = computeConfig;
     }
 
     @Override
@@ -51,7 +56,7 @@ public class HazelcastVertexMap implements VertexMap {
     public List<Matrix> getUnknownsFor(VertexRange vertexRange) {
         final Map<RegionId, VertexRange> regionsInRange = vertexRegionMapper.getRegionsInRange(vertexRange);
 
-        Map<VertexId, Matrix> matricesByVertex = batchedStreamOf(regionsInRange.entrySet().stream(), 10000)
+        Map<VertexId, Matrix> matricesByVertex = getBatchedStream(regionsInRange)
                 .map(regionSet -> regionSet.parallelStream()
                         .map(e -> new ExtractLeafMatricesForRegion(e.getKey(), e.getValue()))
                         .map(executorService::submit)
@@ -75,6 +80,13 @@ public class HazelcastVertexMap implements VertexMap {
         }).map(Map.Entry::getValue).collect(Collectors.toList());
     }
 
+    private Stream<Set<Map.Entry<RegionId, VertexRange>>> getBatchedStream(Map<RegionId, VertexRange> regionsInRange) {
+        return batchedStreamOf(
+                regionsInRange.entrySet().stream(),
+                computeConfig.getMaxSolutionBatchSize()
+        );
+    }
+
     private Set<VertexReference> getVertexReferencesFor(VertexRange vertexRange) {
         return vertexRange.getVerticesInRange()
                 .stream()
@@ -95,7 +107,8 @@ public class HazelcastVertexMap implements VertexMap {
         }
 
         @SuppressWarnings("unused")
-        public ExtractLeafMatricesForRegion() {}
+        public ExtractLeafMatricesForRegion() {
+        }
 
         @Override
         public MatricesByVertex call() throws Exception {
