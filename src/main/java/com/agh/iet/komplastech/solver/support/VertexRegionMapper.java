@@ -47,7 +47,7 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
         }
     }
 
-    public Set<RegionId> getRegionsInRange(VertexRange range) {
+    Set<RegionId> getRegionsInRange(VertexRange range) {
         final int totalHeight = getTreeHeight();
         final int height = range.getHeight();
 
