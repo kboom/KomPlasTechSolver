@@ -125,6 +125,17 @@ public class VertexRange implements Serializable, IdentifiedDataSerializable {
         return (int) Math.floor(Math.log10(index) / Math.log10(2));
     }
 
+    VertexRange growToInclude(VertexId vertexId) {
+        int absoluteIndex = vertexId.getAbsoluteIndex();
+        if(left > absoluteIndex) {
+            return new VertexRange(absoluteIndex, right);
+        } else if(right < absoluteIndex) {
+            return new VertexRange(left, absoluteIndex);
+        } else {
+            return this;
+        }
+    }
+
     @Override
     public String toString() {
         return "VertexRange{" +
@@ -155,4 +166,7 @@ public class VertexRange implements Serializable, IdentifiedDataSerializable {
         return VERTEX_RANGE;
     }
 
+    public static VertexRange noRange() {
+        return new VertexRange(0, 0);
+    }
 }

@@ -2,14 +2,21 @@ package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
+import com.beust.jcommander.internal.Maps;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Map;
+import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
+import java.util.stream.Collector;
 import java.util.stream.IntStream;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
@@ -77,18 +84,44 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
                 final int relativeHeight = getRelativeHeight(height);
                 final int leftOfRelativeHeight = (int) Math.pow(2, relativeHeight);
                 return range.getVerticesInRange()
-                        .parallelStream()
-                        .map(v -> regionId((int) Math.floor(v.getAbsoluteIndex() / (leftOfRelativeHeight))))
-                        .distinct()
-                        .collect(
-                                toMap(
-                                        Function.identity(),
-                                        rid -> {
-                                            int leftmostVertex = rid.toInt() * 2;
-                                            return new VertexRange(leftmostVertex, leftmostVertex + 1);
-                                        }
-                                )
-                        );
+                        .stream()
+                        .map(v -> {
+                            RegionId region = regionId((int) Math.floor(v.getAbsoluteIndex() / (leftOfRelativeHeight)));
+                            return Pair.of(region, v);
+                        })
+                        .collect(new Collector<Pair<RegionId, VertexId>, Map<RegionId, VertexRange>, Map<RegionId, VertexRange>>() {
+
+                            @Override
+                            public Supplier<Map<RegionId, VertexRange>> supplier() {
+                                return Maps::newHashMap;
+                            }
+
+                            @Override
+                            public BiConsumer<Map<RegionId, VertexRange>, Pair<RegionId, VertexId>> accumulator() {
+                                return (map, pair) -> {
+                                    RegionId region = pair.getKey();
+                                    VertexId vertexId = pair.getValue();
+                                    map.compute(region, (reg, range) -> (range == null)
+                                            ? VertexRange.unitary(vertexId) : range.growToInclude(vertexId));
+                                };
+                            }
+
+                            @Override
+                            public BinaryOperator<Map<RegionId, VertexRange>> combiner() {
+                                return null;
+                            }
+
+                            @Override
+                            public Function<Map<RegionId, VertexRange>, Map<RegionId, VertexRange>> finisher() {
+                                return Function.identity();
+                            }
+
+                            @Override
+                            public Set<Characteristics> characteristics() {
+                                return Collections.singleton(Characteristics.IDENTITY_FINISH);
+                            }
+
+                        });
             }
         }
     }

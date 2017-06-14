@@ -94,6 +94,13 @@ public class VertexRegionMapperTest {
     }
 
     @Test
+    public void rangesByRegionsFor24LeavesAndRegionHeight7() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(24, 7);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(8, 15)))
+                .containsOnly(entry(regionId(1), VertexRange.range(8, 15)));
+    }
+
+    @Test
     public void verticesUnderTheRootGetMappedToRootRegionForRegionHeightEqualToTwo() {
         VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 2);
         assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(2, 3)))
