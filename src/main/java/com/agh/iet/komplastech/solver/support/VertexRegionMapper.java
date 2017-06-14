@@ -15,6 +15,7 @@ import java.util.stream.IntStream;
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
+import static java.util.stream.Collectors.toMap;
 
 public class VertexRegionMapper implements IdentifiedDataSerializable {
 
@@ -53,8 +54,11 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
         final int height = range.getHeight();
 
         if (shouldFormNewRegion(height, totalHeight)) {
-            return range.getVerticesInRange().stream().map(v -> regionId(v.getAbsoluteIndex()))
-                    .collect(Collectors.toMap(Function.identity(), rid -> VertexRange.unitary(rid.getId())));
+            return range.getVerticesInRange().stream()
+                    .collect(toMap(
+                            v -> regionId(v.getAbsoluteIndex()),
+                            rid -> VertexRange.unitary(rid.getAbsoluteIndex()))
+                    );
         } else {
             boolean isLeaf = totalHeight == height;
             if (isLeaf) {
@@ -63,22 +67,28 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
 
                 return IntStream.range(leftIndexOfPreviousLevel, rightIndexOfPreviousLevel)
                         .mapToObj(RegionId::regionId)
-                        .collect(Collectors.toMap(Function.identity(),
+                        .collect(toMap(Function.identity(),
                                 rid -> {
-                                    int regionId = rid.getId();
+                                    int regionId = rid.toInt();
                                     int leftmostVertex = (regionId * 2) + (regionId - leftIndexOfPreviousLevel);
                                     return new VertexRange(leftmostVertex, leftmostVertex + 2);
                                 }));
             } else {
                 final int relativeHeight = getRelativeHeight(height);
                 final int leftOfRelativeHeight = (int) Math.pow(2, relativeHeight);
-                return range.getVerticesInRange().parallelStream().map(v ->
-                        regionId((int) Math.floor(v.getAbsoluteIndex() / (leftOfRelativeHeight))))
-                        .collect(Collectors.toMap(Function.identity(),
-                                rid -> {
-                                    int leftmostVertex = rid.getId() * 2;
-                                    return new VertexRange(leftmostVertex, leftmostVertex + 1);
-                                }));
+                return range.getVerticesInRange()
+                        .parallelStream()
+                        .map(v -> regionId((int) Math.floor(v.getAbsoluteIndex() / (leftOfRelativeHeight))))
+                        .distinct()
+                        .collect(
+                                toMap(
+                                        Function.identity(),
+                                        rid -> {
+                                            int leftmostVertex = rid.toInt() * 2;
+                                            return new VertexRange(leftmostVertex, leftmostVertex + 1);
+                                        }
+                                )
+                        );
             }
         }
     }
