@@ -72,18 +72,25 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     private void propagateSolution(Solution horizontalSolution) {
+        processLogger.logStageReached("Preparing solver for the second stage of processing");
+        processLogger.logStageReached("1. Forcing GC");
         hazelcastFacade.forceGC();
+        processLogger.logStageReached("2. Propagating solution");
         objectStore.setSolution(horizontalSolution);
+        processLogger.logStageReached("3. Pre-loading solution");
         hazelcastFacade.forceLoadCommons();
+        processLogger.logStageReached("Solver ready for the second stage of processing");
     }
 
     private void prepareObjectStore(Problem rhs) {
+        processLogger.logStageReached("Preparing solver for the first stage of processing");
         objectStore.clearAll();
         objectStore.setProblem(rhs);
         objectStore.setMesh(mesh);
         objectStore.setComputeConfig(computeConfig);
         hazelcastFacade.forceGC();
         hazelcastFacade.forceLoadCommons();
+        processLogger.logStageReached("Solver ready for the frist stage of processing");
     }
 
     private Solution solveProblemHorizontally(Problem rhs) {
