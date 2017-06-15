@@ -12,6 +12,7 @@ import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.WeakHashMap;
 import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
@@ -20,6 +21,8 @@ public class PartialSolutionManager {
 
     private final Mesh mesh;
     private final IMap<Integer, double[]> solutionRows;
+
+    private static final Map<Integer, double[]> columnCache = new WeakHashMap<>(1000);
 
     public PartialSolutionManager(Mesh mesh, HazelcastInstance hazelcastInstance) {
         this.mesh = mesh;
@@ -42,18 +45,27 @@ public class PartialSolutionManager {
 
     public void clear() {
         solutionRows.clear();
+        columnCache.clear();
     }
 
     public double[][] getCols(int... indices) {
-        double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
-        solutionRows.executeOnEntries(new GetColsFromRow(indices)).forEach((row, value) -> {
-            double[] values = (double[]) value;
-            for (int col = 0; col < indices.length; col++) {
-                cols[col][row] = values[col];
-            }
-        });
+        if(Arrays.stream(indices).boxed().allMatch(columnCache::containsKey)) {
+            return Arrays.stream(indices).boxed().map(columnCache::get).toArray(double[][]::new);
+        } else {
+            double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
+            solutionRows.executeOnEntries(new GetColsFromRow(indices)).forEach((row, value) -> {
+                double[] values = (double[]) value;
+                for (int col = 0; col < indices.length; col++) {
+                    cols[col][row] = values[col];
+                }
+            });
 
-        return cols;
+            for(int i = 0; i < indices.length; i++) {
+                columnCache.put(indices[i], cols[i]);
+            }
+
+            return cols;
+        }
     }
 
     public static class GetColsFromRow implements IdentifiedDataSerializable, EntryProcessor<Integer, double[]> {
