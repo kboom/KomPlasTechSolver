@@ -27,7 +27,7 @@ public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializa
     private static final BSpline3 b3 = new BSpline3();
 
     private Mesh mesh; // todo remove from here, it is cached at the client side!
-    private PartialSolutionManager partialSolutionManager;
+    private transient PartialSolutionManager partialSolutionManager;
     private Problem problem;
 
     @SuppressWarnings("unused")

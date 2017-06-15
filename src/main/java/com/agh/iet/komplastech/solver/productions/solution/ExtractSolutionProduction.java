@@ -29,7 +29,6 @@ public class ExtractSolutionProduction implements Production {
         int firstElement = (int) Math.pow(2, treeHeight);
 
         if (absoluteIndex == firstElement) {
-            System.out.println("First index");
             partialSolutionManager.setAll(
 
                     new HashMap<Integer, double[]>() {{
@@ -42,7 +41,6 @@ public class ExtractSolutionProduction implements Production {
             );
         } else {
             int offset = 6 + (absoluteIndex - firstElement - 1) * 3;
-            System.out.println(String.format("Offset %d, absolute %d, first %d", offset, absoluteIndex, firstElement));
             partialSolutionManager.setAll(
 
                     new HashMap<Integer, double[]>() {{
