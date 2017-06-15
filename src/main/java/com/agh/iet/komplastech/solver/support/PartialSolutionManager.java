@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
+import com.google.common.collect.Streams;
+import com.google.common.util.concurrent.Striped;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.map.EntryBackupProcessor;
@@ -11,8 +13,11 @@ import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.WeakHashMap;
+import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
@@ -22,7 +27,8 @@ public class PartialSolutionManager {
     private final Mesh mesh;
     private final IMap<Integer, double[]> solutionRows;
 
-    private static final Map<Integer, double[]> columnCache = new WeakHashMap<>(1000);
+    private static final Map<Integer, double[]> columnCache = new HashMap<>(1024);
+    private static Striped<ReadWriteLock> arrayOfLocks = Striped.readWriteLock(1024);
 
     public PartialSolutionManager(Mesh mesh, HazelcastInstance hazelcastInstance) {
         this.mesh = mesh;
@@ -48,24 +54,64 @@ public class PartialSolutionManager {
         columnCache.clear();
     }
 
+    // todo probably should read more than required at once? How to read the smallest number of times without sacrificing parallelism?
     public double[][] getCols(int... indices) {
-        if(Arrays.stream(indices).boxed().allMatch(columnCache::containsKey)) {
-            return Arrays.stream(indices).boxed().map(columnCache::get).toArray(double[][]::new);
+        Iterable<ReadWriteLock> toObtain = arrayOfLocks.bulkGet(Arrays.asList(indices));
+
+        System.out.println("Read Locking on " + Arrays.stream(indices).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
+
+        Set<Lock> readLocks = Streams.stream(toObtain)
+                .map(ReadWriteLock::readLock)
+                .collect(Collectors.toSet());
+
+        readLocks.forEach(Lock::lock);
+
+        if (areCached(indices)) {
+            return getColsFromCache(indices);
         } else {
-            double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
-            solutionRows.executeOnEntries(new GetColsFromRow(indices)).forEach((row, value) -> {
-                double[] values = (double[]) value;
-                for (int col = 0; col < indices.length; col++) {
-                    cols[col][row] = values[col];
+
+            System.out.println("Write locking on " + Arrays.stream(indices).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
+            Set<Lock> writeLocks = Streams.stream(toObtain)
+                    .map(ReadWriteLock::writeLock)
+                    .collect(Collectors.toSet());
+
+
+            readLocks.forEach(Lock::unlock); // must release read lock before acquiring write lock
+
+            if (writeLocks.stream().allMatch(Lock::tryLock)) {
+                double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
+                solutionRows.executeOnEntries(new GetColsFromRow(indices)).forEach((row, value) -> {
+                    double[] values = (double[]) value;
+                    for (int col = 0; col < indices.length; col++) {
+                        cols[col][row] = values[col];
+                    }
+                });
+
+                for (int i = 0; i < indices.length; i++) {
+                    System.out.println("Put in cache: " + Arrays.stream(indices).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
+                    columnCache.put(indices[i], cols[i]);
                 }
-            });
 
-            for(int i = 0; i < indices.length; i++) {
-                columnCache.put(indices[i], cols[i]);
+                writeLocks.forEach(Lock::unlock);
+
+                return cols;
+            } else {
+                readLocks.forEach(Lock::lock);
+                double[][] colsFromCache = getColsFromCache(indices);
+                readLocks.forEach(Lock::unlock);
+                return colsFromCache;
             }
-
-            return cols;
         }
+
+    }
+
+    private double[][] getColsFromCache(int[] indices) {
+        System.out.println("Read from cache: " + Arrays.stream(indices).mapToObj(String::valueOf).collect(Collectors.joining(", ")));
+        return Arrays.stream(indices).boxed().map(columnCache::get).toArray(double[][]::new);
+    }
+
+    private boolean areCached(int[] indices) {
+        return Arrays.stream(indices).boxed().allMatch(columnCache::containsKey);
     }
 
     public static void clearCache() {
