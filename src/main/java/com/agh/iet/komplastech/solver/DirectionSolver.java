@@ -257,7 +257,6 @@ class DirectionSolver implements Solver {
     }
 
     private void readPartialSolution() {
-        timeLogger.logSolutionReading();
         partialSolutionManager.clear();
         final Production production = productionFactory.extractSolutionProduction();
         treeIterator.forEachStayingAt(
@@ -269,6 +268,8 @@ class DirectionSolver implements Solver {
                     processLogger.logStageReached("Reading solution from worker nodes...");
                 }
         );
+
+        timeLogger.logSolutionReading();
 
         processLogger.logStageReached("Solution read successfully.");
     }
