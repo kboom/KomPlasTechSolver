@@ -23,6 +23,7 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
     public static final int VERTEX_REGION_MAPPER = 111;
     public static final int MATRIX_EXTRACTOR = 112;
     public static final int MATRICES_BY_VERTEX = 113;
+    public static final int GET_COLS_FROM_ROW = 114;
 
     @Override
     public IdentifiedDataSerializable create(int typeId) {
@@ -53,6 +54,8 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
                 return new VertexRegionMapper();
             case MATRIX_EXTRACTOR:
                 return new ExtractLeafMatricesForRegion();
+            case GET_COLS_FROM_ROW:
+                return new PartialSolutionManager.GetColsFromRow();
             default:
                 throw new IllegalStateException("Could not find type for " + typeId);
         }

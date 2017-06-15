@@ -1,13 +1,20 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
 import com.hazelcast.map.EntryBackupProcessor;
 import com.hazelcast.map.EntryProcessor;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 
 public class PartialSolutionManager {
 
@@ -39,20 +46,7 @@ public class PartialSolutionManager {
 
     public double[][] getCols(int... indices) {
         double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
-
-        solutionRows.executeOnEntries(new EntryProcessor<Integer, double[]>() {
-
-            @Override
-            public double[] process(Map.Entry<Integer, double[]> entry) {
-                return Arrays.stream(indices).mapToDouble(col -> entry.getValue()[col]).toArray();
-            }
-
-            @Override
-            public EntryBackupProcessor<Integer, double[]> getBackupProcessor() {
-                return null;
-            }
-
-        }).forEach((row, value) -> {
+        solutionRows.executeOnEntries(new GetColsFromRow(indices)).forEach((row, value) -> {
             double[] values = (double[]) value;
             for (int col = 0; col < indices.length; col++) {
                 cols[col][row] = values[col];
@@ -60,6 +54,50 @@ public class PartialSolutionManager {
         });
 
         return cols;
+    }
+
+    public static class GetColsFromRow implements IdentifiedDataSerializable, EntryProcessor<Integer, double[]> {
+
+        private int[] indices;
+
+        GetColsFromRow(int[] indices) {
+            this.indices = indices;
+        }
+
+        public GetColsFromRow() {
+
+        }
+
+        @Override
+        public double[] process(Map.Entry<Integer, double[]> entry) {
+            return Arrays.stream(indices).mapToDouble(col -> entry.getValue()[col]).toArray();
+        }
+
+        @Override
+        public EntryBackupProcessor<Integer, double[]> getBackupProcessor() {
+            return null;
+        }
+
+        @Override
+        public int getFactoryId() {
+            return GENERAL_FACTORY_ID;
+        }
+
+        @Override
+        public int getId() {
+            return HazelcastGeneralFactory.GET_COLS_FROM_ROW;
+        }
+
+        @Override
+        public void writeData(ObjectDataOutput out) throws IOException {
+            out.writeIntArray(indices);
+        }
+
+        @Override
+        public void readData(ObjectDataInput in) throws IOException {
+            indices = in.readIntArray();
+        }
+
     }
 
 }
