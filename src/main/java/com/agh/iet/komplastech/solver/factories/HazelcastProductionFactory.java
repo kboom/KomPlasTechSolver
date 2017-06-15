@@ -7,6 +7,7 @@ import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
 import com.agh.iet.komplastech.solver.productions.initialization.A;
 import com.agh.iet.komplastech.solver.productions.initialization.Ay;
+import com.agh.iet.komplastech.solver.productions.solution.ExtractSolutionProduction;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
@@ -36,6 +37,7 @@ public class HazelcastProductionFactory implements DataSerializableFactory {
     public static final int A2_3_PRODUCTION = 15;
     public static final int ARoot_PRODUCTION = 16;
     public static final int COMPOSITE_PRODUCTION = 17;
+    public static final int EXTRACT_SOLUTION_PRODUCTION = 18;
 
     @Override
     public IdentifiedDataSerializable create(int typeId) {
@@ -52,6 +54,8 @@ public class HazelcastProductionFactory implements DataSerializableFactory {
                 return new P3();
             case Ay_PRODUCTION:
                 return new Ay();
+            case EXTRACT_SOLUTION_PRODUCTION:
+                return new ExtractSolutionProduction();
             case BS_1_5_PRODUCTION:
                 return new BS_1_5();
             case BS_2_6_PRODUCTION:

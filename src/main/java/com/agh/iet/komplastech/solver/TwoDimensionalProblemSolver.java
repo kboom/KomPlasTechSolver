@@ -12,6 +12,7 @@ import com.agh.iet.komplastech.solver.productions.VerticalProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.PartialSolutionManager;
 import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
@@ -33,11 +34,11 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final ComputeConfig computeConfig;
 
-    private final VertexRegionMapper vertexRegionMapper;
+    private final PartialSolutionManager partialSolutionManager;
 
     TwoDimensionalProblemSolver(HazelcastFacade hazelcastFacade,
                                 ProductionExecutorFactory launcherFactory,
-                                VertexRegionMapper vertexRegionMapper,
+                                PartialSolutionManager partialSolutionManager,
                                 Mesh meshData,
                                 ComputeConfig computeConfig,
                                 SolutionLogger solutionLogger,
@@ -46,7 +47,7 @@ class TwoDimensionalProblemSolver implements Solver {
                                 TimeLogger timeLogger) {
         this.hazelcastFacade = hazelcastFacade;
         this.launcherFactory = launcherFactory;
-        this.vertexRegionMapper = vertexRegionMapper;
+        this.partialSolutionManager = partialSolutionManager;
         this.mesh = meshData;
         this.computeConfig = computeConfig;
         this.solutionLogger = solutionLogger;
@@ -62,24 +63,15 @@ class TwoDimensionalProblemSolver implements Solver {
         timeLogger.logFirstStage();
         Solution horizontalSolution = solveProblemHorizontally(rhs);
         objectStore.clearVertices();
-        propagateSolution(horizontalSolution);
+
+        hazelcastFacade.forceGC();
+
         timeLogger.nextStage();
         timeLogger.logSecondStage();
         Solution solution = solveProblemVertically(horizontalSolution);
         timeLogger.logStop();
         hazelcastFacade.forceGC();
         return solution;
-    }
-
-    private void propagateSolution(Solution horizontalSolution) {
-        processLogger.logStageReached("Preparing solver for the second stage of processing");
-        processLogger.logStageReached("1. Forcing GC");
-        hazelcastFacade.forceGC();
-        processLogger.logStageReached("2. Propagating solution");
-        objectStore.setSolution(horizontalSolution);
-        processLogger.logStageReached("3. Pre-loading solution");
-        hazelcastFacade.forceLoadCommons();
-        processLogger.logStageReached("Solver ready for the second stage of processing");
     }
 
     private void prepareObjectStore(Problem rhs) {
@@ -99,11 +91,11 @@ class TwoDimensionalProblemSolver implements Solver {
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 objectStore,
-                vertexRegionMapper,
                 productionFactory,
                 launcherFactory,
                 treeIteratorFactory,
                 horizontalLeafInitializer,
+                partialSolutionManager,
                 mesh,
                 solutionLogger,
                 processLogger,
@@ -120,18 +112,16 @@ class TwoDimensionalProblemSolver implements Solver {
 
         DirectionSolver verticalProblemSolver = new DirectionSolver(
                 objectStore,
-                vertexRegionMapper,
                 verticalProductionFactory,
                 launcherFactory,
                 treeIteratorFactory,
                 verticalLeafInitializer,
+                partialSolutionManager,
                 mesh,
                 solutionLogger,
                 processLogger,
                 timeLogger
         );
-
-
 
         return verticalProblemSolver.solveProblem(horizontalSolution.getProblem());
     }

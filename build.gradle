@@ -1,6 +1,17 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+    }
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'application'
+apply plugin: 'eu.appsatori.fatjar'
 
 mainClassName = 'com.agh.iet.komplastech.solver.Main'
 
@@ -19,10 +30,14 @@ jar {
     }
 }
 
+fatJar {
+    baseName = project.name + '-lib'
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task packageToSource(type: Copy, dependsOn: ['jar', 'distTar']) {
+task packageToSource(type: Copy, dependsOn: ['jar', 'fatJar', 'distTar']) {
     from files('build/distributions', 'build/libs')
     into 'dist'
 }

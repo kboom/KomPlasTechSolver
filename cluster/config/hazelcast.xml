@@ -83,6 +83,15 @@
         </near-cache>
     </map>
 
+    <map name="solution">
+
+        <in-memory-format>BINARY</in-memory-format>
+
+        <backup-count>0</backup-count>
+        <async-backup-count>0</async-backup-count>
+
+    </map>
+
 
     <map name="vertices">
         <!--

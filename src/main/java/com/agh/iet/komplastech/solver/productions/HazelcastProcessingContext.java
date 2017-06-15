@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.*;
 
@@ -10,8 +9,12 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
 
     private final Vertex vertex;
     private final ProcessingContextManager contextManager;
+    private final PartialSolutionManager partialSolutionManager;
 
-    public HazelcastProcessingContext(ProcessingContextManager processingContextManager, Vertex vertex) {
+    public HazelcastProcessingContext(ProcessingContextManager processingContextManager,
+                                      PartialSolutionManager partialSolutionManager,
+                                      Vertex vertex) {
+        this.partialSolutionManager = partialSolutionManager;
         this.vertex = vertex;
         this.contextManager = processingContextManager;
     }
@@ -54,13 +57,12 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     }
 
     @Override
-    public Solution getSolution() {
-        return contextManager.getFromCache(SOLUTION);
-    }
-
-    @Override
     public VertexRegionMapper getRegionMapper() {
         return new VertexRegionMapper(getMesh(), getComputeConfig());
+    }
+
+    public PartialSolutionManager getPartialSolutionManager() {
+        return partialSolutionManager;
     }
 
     @Override

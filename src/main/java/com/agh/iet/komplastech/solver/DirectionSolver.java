@@ -7,19 +7,19 @@ import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.productions.ProductionFactory;
 import com.agh.iet.komplastech.solver.storage.ObjectStore;
-import com.agh.iet.komplastech.solver.support.*;
+import com.agh.iet.komplastech.solver.support.MathUtils;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.PartialSolutionManager;
+import com.agh.iet.komplastech.solver.support.Vertex;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 import com.agh.iet.komplastech.solver.tracking.VerticalIterator;
 
-import java.util.List;
-
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.productions.CompositeProduction.compositeProductionOf;
-import static com.agh.iet.komplastech.solver.support.Matrix.from2DArray;
 import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 
-public class DirectionSolver implements Solver {
+class DirectionSolver implements Solver {
 
     private static final int ROOT_LEVEL_HEIGHT = 1;
     private static final int LEAF_LEVEL_HEIGHT = 1;
@@ -42,27 +42,27 @@ public class DirectionSolver implements Solver {
 
     private final TimeLogger timeLogger;
 
-    private final VertexRegionMapper vertexRegionMapper;
+    private final PartialSolutionManager partialSolutionManager;
 
     private VerticalIterator treeIterator;
 
 
     DirectionSolver(ObjectStore objectStore,
-                    VertexRegionMapper vertexRegionMapper,
                     ProductionFactory productionFactory,
                     ProductionExecutorFactory launcherFactory,
                     TreeIteratorFactory treeIteratorFactory,
                     LeafInitializer leafInitializer,
+                    PartialSolutionManager partialSolutionManager,
                     Mesh meshData,
                     SolutionLogger solutionLogger,
                     ProcessLogger processLogger,
                     TimeLogger timeLogger) {
         this.objectStore = objectStore;
-        this.vertexRegionMapper = vertexRegionMapper;
         this.productionFactory = productionFactory;
         this.launcherFactory = launcherFactory;
         this.treeIteratorFactory = treeIteratorFactory;
         this.leafInitializer = leafInitializer;
+        this.partialSolutionManager = partialSolutionManager;
         this.mesh = meshData;
         this.solutionLogger = solutionLogger;
         this.processLogger = processLogger;
@@ -87,7 +87,8 @@ public class DirectionSolver implements Solver {
         backwardSubstituteOneUpLeaves();
         backwardSubstituteLeaves();
         timeLogger.logSolution();
-        return new Solution(problem, mesh, getRhs());
+        readPartialSolution();
+        return new Solution(problem, mesh, partialSolutionManager);
     }
 
     private void createRoot() {
@@ -255,47 +256,25 @@ public class DirectionSolver implements Solver {
         );
     }
 
-    private Matrix getRhs() {
-        processLogger.logStageReached("Reading solution from worker nodes...");
-
-        int size = mesh.getElementsX() + mesh.getSplineOrder() + 1;
-        final double[][] rhs = new double[size][size];
-
-        VertexRange fullRange = treeIterator.getCurrentRange();
-
-        final List<Matrix> sortedLeaves
-                = objectStore.getVertexMap().getUnknownsFor(fullRange);
-
+    private void readPartialSolution() {
         timeLogger.logSolutionReading();
+        partialSolutionManager.clear();
+        final Production production = productionFactory.extractSolutionProduction();
+        treeIterator.forEachStayingAt(
+                (range) -> {
+                    launcherFactory
+                            .launchProduction(production)
+                            .inVertexRange(range)
+                            .andWaitTillComplete();
+                    processLogger.logStageReached("Reading solution from worker nodes...");
+                }
+        );
 
-        processLogger.logStageReached("Solution read successfully. There were " + sortedLeaves.size() + " entries");
-
-        int i = 0;
-        for (Matrix m : sortedLeaves) {
-            if (i == 0) {
-                rhs[1] = m.getRow(1);
-                rhs[2] = m.getRow(2);
-                rhs[3] = m.getRow(3);
-                rhs[4] = m.getRow(4);
-                rhs[5] = m.getRow(5);
-            } else {
-                int offset = 6 + (i - 1) * 3;
-                rhs[offset] = m.getRow(3);
-                rhs[offset + 1] = m.getRow(4);
-                rhs[offset + 2] = m.getRow(5);
-            }
-            i++;
-        }
-
-        return from2DArray(rhs);
-    }
-
-    private int log2(double value) {
-        return (int) Math.floor(Math.log(value) / Math.log(2));
+        processLogger.logStageReached("Solution read successfully.");
     }
 
     private int getIntermediateLevelsCount() {
-        return log2(2 * mesh.getElementsX() / 3) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
+        return MathUtils.log2(2 * mesh.getElementsX() / 3) - ROOT_LEVEL_HEIGHT - LEAF_LEVEL_HEIGHT;
     }
 
 }

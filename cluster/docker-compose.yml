@@ -2,11 +2,11 @@ version: '3'
 
 services:
 
-  kpts-management:
-    container_name: kpts-management
-    image: hazelcast/management-center
-    ports:
-        - 8080:8080
+#  kpts-management:
+#    container_name: kpts-management
+#    image: hazelcast/management-center
+#    ports:
+#        - 8080:8080
 
   kpts-worker:
     image: hazelcast/hazelcast

@@ -3,8 +3,6 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.storage.InMemoryObjectStore;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import org.junit.Test;
 
@@ -20,7 +18,6 @@ public class ProblemSolverTests {
     private static final TimeLogger DUMMY_TIME_LOGGER = new TimeLogger();
 
     private CsvPrinter csvPrinter = new CsvPrinter();
-    private ObjectStore objectStore = new InMemoryObjectStore();
     private ProductionExecutorFactory productionExecutorFactory =
             new ProductionExecutorFactory(null, null, null, null);
 

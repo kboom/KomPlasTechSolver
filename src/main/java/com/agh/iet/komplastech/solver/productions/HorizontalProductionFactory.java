@@ -3,6 +3,7 @@ package com.agh.iet.komplastech.solver.productions;
 import com.agh.iet.komplastech.solver.productions.construction.P1;
 import com.agh.iet.komplastech.solver.productions.construction.P2;
 import com.agh.iet.komplastech.solver.productions.construction.P3;
+import com.agh.iet.komplastech.solver.productions.solution.ExtractSolutionProduction;
 import com.agh.iet.komplastech.solver.productions.solution.backsubstitution.*;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
@@ -81,6 +82,11 @@ public class HorizontalProductionFactory implements ProductionFactory {
     @Override
     public Production backwardSubstituteLeavesProduction() {
         return new BS_1_5();
+    }
+
+    @Override
+    public Production extractSolutionProduction() {
+        return new ExtractSolutionProduction();
     }
 
 }

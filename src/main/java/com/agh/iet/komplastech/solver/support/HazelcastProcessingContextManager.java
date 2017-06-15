@@ -18,15 +18,18 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     private final IMap<VertexReference, Vertex> vertices;
     private final IMap<CommonProcessingObject, Object> commons;
+    private final HazelcastInstance hazelcastInstance;
 
 
     HazelcastProcessingContextManager(HazelcastInstance hazelcastInstance) {
         vertices = hazelcastInstance.getMap("vertices");
         commons = hazelcastInstance.getMap("commons");
+        this.hazelcastInstance = hazelcastInstance;
     }
 
     ProcessingContext createFor(Vertex vertex) {
-        return new HazelcastProcessingContext(this, vertex);
+        return new HazelcastProcessingContext(this,
+                new PartialSolutionManager(hazelcastInstance), vertex);
     }
 
     @Override

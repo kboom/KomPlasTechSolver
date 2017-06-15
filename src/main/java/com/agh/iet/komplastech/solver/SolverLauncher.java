@@ -87,7 +87,7 @@ class SolverLauncher {
 
         final ProcessLogger processLogger = isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger();
 
-        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper, computeConfig);
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance, vertexRegionMapper, computeConfig, processLogger);
 
@@ -105,7 +105,7 @@ class SolverLauncher {
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 hazelcastFacade,
                 productionExecutorFactory,
-                vertexRegionMapper,
+                new PartialSolutionManager(hazelcastInstance),
                 mesh,
                 computeConfig,
                 isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
@@ -120,7 +120,7 @@ class SolverLauncher {
 
 
             NonStationaryProblem nonStationaryProblem;
-            switch(solvedProblem) {
+            switch (solvedProblem) {
                 case "heat":
                     nonStationaryProblem = new HeatTransferProblem(delta, mesh, problemSize);
                     break;
@@ -146,7 +146,7 @@ class SolverLauncher {
                     timeLogger.getFirstStageTimeMs(),
                     timeLogger.getSecondStageTimeMs(),
                     timeLogger.getTotalSolutionMs()
-                    ));
+            ));
 
 
             Solution solution = solutionsInTime.getFinalSolution();
