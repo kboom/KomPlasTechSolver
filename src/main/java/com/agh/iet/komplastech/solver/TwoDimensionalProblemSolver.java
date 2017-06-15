@@ -81,6 +81,7 @@ class TwoDimensionalProblemSolver implements Solver {
         objectStore.setMesh(mesh);
         objectStore.setComputeConfig(computeConfig);
         hazelcastFacade.forceGC();
+        hazelcastFacade.cleanCaches();
         hazelcastFacade.forceLoadCommons();
         processLogger.logStageReached("Solver ready for the frist stage of processing");
     }

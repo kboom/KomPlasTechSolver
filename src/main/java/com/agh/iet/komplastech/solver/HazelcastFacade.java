@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
 import com.agh.iet.komplastech.solver.support.CommonProcessingObject;
+import com.agh.iet.komplastech.solver.support.PartialSolutionManager;
 import com.hazelcast.core.*;
 import com.hazelcast.monitor.NearCacheStats;
 import com.hazelcast.util.function.Consumer;
@@ -55,6 +56,13 @@ final class HazelcastFacade {
 
             System.out.println("K in map: " + entries.stream().map(Map.Entry::getKey).map(CommonProcessingObject::name).collect(Collectors.joining(", ")));
             System.out.println("V in map: " + entries.stream().map(Map.Entry::getValue).map(Object::toString).collect(Collectors.joining(", ")));
+        });
+    }
+
+    void cleanCaches() {
+        launchAtAllNodes((Consumer<HazelcastInstance> & Serializable) (hazelcastInstance)
+                -> {
+            PartialSolutionManager.clearCache();
         });
     }
 

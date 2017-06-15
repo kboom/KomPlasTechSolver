@@ -68,6 +68,10 @@ public class PartialSolutionManager {
         }
     }
 
+    public static void clearCache() {
+        columnCache.clear();
+    }
+
     public static class GetColsFromRow implements IdentifiedDataSerializable, EntryProcessor<Integer, double[]> {
 
         private int[] indices;
