@@ -2,6 +2,8 @@ package com.agh.iet.komplastech.solver.support;
 
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IMap;
+import com.hazelcast.map.EntryBackupProcessor;
+import com.hazelcast.map.EntryProcessor;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -9,9 +11,11 @@ import java.util.stream.Collectors;
 
 public class PartialSolutionManager {
 
+    private final Mesh mesh;
     private final IMap<Integer, double[]> solutionRows;
 
-    public PartialSolutionManager(HazelcastInstance hazelcastInstance) {
+    public PartialSolutionManager(Mesh mesh, HazelcastInstance hazelcastInstance) {
+        this.mesh = mesh;
         this.solutionRows = hazelcastInstance.getMap("solution");
     }
 
@@ -31,6 +35,31 @@ public class PartialSolutionManager {
 
     public void clear() {
         solutionRows.clear();
+    }
+
+    public double[][] getCols(int... indices) {
+        double[][] cols = new double[indices.length][mesh.getElementsX() + mesh.getSplineOrder() + 1];
+
+        solutionRows.executeOnEntries(new EntryProcessor<Integer, double[]>() {
+
+            @Override
+            public double[] process(Map.Entry<Integer, double[]> entry) {
+                return Arrays.stream(indices).mapToDouble(col -> entry.getValue()[col]).toArray();
+            }
+
+            @Override
+            public EntryBackupProcessor<Integer, double[]> getBackupProcessor() {
+                return null;
+            }
+
+        }).forEach((row, value) -> {
+            double[] values = (double[]) value;
+            for (int col = 0; col < indices.length; col++) {
+                cols[col][row] = values[col];
+            }
+        });
+
+        return cols;
     }
 
 }

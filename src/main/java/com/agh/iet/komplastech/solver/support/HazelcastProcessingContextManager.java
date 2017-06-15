@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
+
 class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     private final Set<Vertex> verticesToUpdate = new HashSet<>();
@@ -29,7 +31,7 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
 
     ProcessingContext createFor(Vertex vertex) {
         return new HazelcastProcessingContext(this,
-                new PartialSolutionManager(hazelcastInstance), vertex);
+                new PartialSolutionManager(getFromCache(MESH), hazelcastInstance), vertex);
     }
 
     @Override
