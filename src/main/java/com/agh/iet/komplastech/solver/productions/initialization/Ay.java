@@ -9,6 +9,8 @@ import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.Ay_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
@@ -43,9 +45,9 @@ public class Ay implements Production {
         final int idx = node.getVertexId().getAbsoluteIndex() - offset;
         double[][] rhs = partialSolutionManager.getCols(idx + 1, idx + 2, idx + 3);
         for (int i = 1; i <= mesh.getDofsX(); i++) {
-            node.m_b.set(1, i, partition[0] * rhs[0][i]);
-            node.m_b.set(2, i, partition[1] * rhs[1][i]);
-            node.m_b.set(3, i, partition[2] * rhs[2][i]);
+            node.m_b.set(1, i, partition[0] * rhs[0][i-1]);
+            node.m_b.set(2, i, partition[1] * rhs[1][i-1]);
+            node.m_b.set(3, i, partition[2] * rhs[2][i-1]);
         }
     }
 

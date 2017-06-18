@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.support.*;
 import com.agh.iet.komplastech.solver.support.HazelcastVertexMap.ExtractLeafMatricesForRegion;
+import com.agh.iet.komplastech.solver.support.PartialSolutionManager.GetColumnsAggregator;
 import com.hazelcast.nio.serialization.DataSerializableFactory;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
@@ -55,7 +56,7 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
             case MATRIX_EXTRACTOR:
                 return new ExtractLeafMatricesForRegion();
             case GET_COLS_FROM_ROW:
-                return new PartialSolutionManager.GetColsFromRow();
+                return new GetColumnsAggregator();
             default:
                 throw new IllegalStateException("Could not find type for " + typeId);
         }
