@@ -73,6 +73,12 @@
         <backup-count>0</backup-count>
         <async-backup-count>0</async-backup-count>
 
+        <near-cache>
+            <in-memory-format>OBJECT</in-memory-format>
+            <cache-local-entries>true</cache-local-entries>
+            <invalidate-on-change>false</invalidate-on-change>
+            <eviction eviction-policy="LRU" max-size-policy="ENTRY_COUNT"/>
+        </near-cache>
     </map>
 
     <map name="vertices">

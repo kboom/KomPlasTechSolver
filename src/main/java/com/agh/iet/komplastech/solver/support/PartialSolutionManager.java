@@ -57,7 +57,7 @@ public class PartialSolutionManager {
             implements IdentifiedDataSerializable {
 
         private LinkedList<Integer> rowsRead;
-        private Map<Integer, LinkedList<Double>> cells;
+        private Map<Integer, LinkedList<Double>> columns;
 
         public GetColumnsAggregator() {
 
@@ -65,37 +65,29 @@ public class PartialSolutionManager {
 
         private GetColumnsAggregator(int[] columnsToGet) {
             rowsRead = new LinkedList<>();
-            cells = new LinkedHashMap<>(columnsToGet.length);
-            Arrays.stream(columnsToGet).forEach(column -> cells.put(column, new LinkedList<>()));
+            columns = new LinkedHashMap<>(columnsToGet.length);
+            Arrays.stream(columnsToGet).forEach(column -> columns.put(column, new LinkedList<>()));
         }
 
         @Override
         public void accumulate(Map.Entry<Integer, double[]> input) {
-            System.out.println("ACCUMULATE " + input.getKey() + " at object " + this);
             final double[] values = input.getValue();
-            cells.forEach((column, cells) -> cells.add(values[column]));
+            columns.forEach((column, cells) -> cells.add(values[column]));
             rowsRead.add(input.getKey());
         }
 
         @Override
         public void combine(Aggregator aggregator) {
             GetColumnsAggregator other = (GetColumnsAggregator) aggregator;
-            System.out.println(String.format("COMBINE (%s) coming from (%s) - size (%d) with (%s) - size (%d) coming from (%s)"
-                    , rowsRead.stream().map(String::valueOf).collect(Collectors.joining(", ")), this, rowsRead.size(), other.rowsRead.stream().map(String::valueOf).collect(Collectors.joining(", ")), other.rowsRead.size(), other));
+            columns.forEach((column, cells) -> cells.addAll(other.columns.get(column)));
             rowsRead.addAll(other.rowsRead);
-            cells.forEach((column, cells) -> cells.addAll(other.cells.get(column))); // todo order? isn't it doing ABC - FED rather than ABC - DEF?
-            System.out.println("NOW COMBINED into "
-                    + rowsRead.stream().map(String::valueOf).collect(Collectors.joining(", ")));
         }
 
-        /**
-         * This is the final call, called only once, at the end.
-         */
         @Override
         public double[][] aggregate() {
-            final double[][] columns = new double[cells.size()][rowsRead.size()];
-            Iterator<LinkedList<Double>> iterator = cells.values().iterator();
-            for(int c = 0; c < cells.size(); c++) {
+            final double[][] columns = new double[this.columns.size()][rowsRead.size()];
+            Iterator<LinkedList<Double>> iterator = this.columns.values().iterator();
+            for(int c = 0; c < this.columns.size(); c++) {
                 List<Double> unorderedCells = new ArrayList<>(iterator.next());
                 columns[c] = Doubles.toArray(rowsRead.stream()
                         .map(r -> unorderedCells.get(r - 1))
@@ -116,9 +108,9 @@ public class PartialSolutionManager {
 
         @Override
         public void writeData(ObjectDataOutput out) throws IOException {
-            out.writeInt(cells.size());
+            out.writeInt(columns.size());
             out.writeIntArray(Ints.toArray(rowsRead));
-            for (Map.Entry<Integer, LinkedList<Double>> cellsInColumn : cells.entrySet()) {
+            for (Map.Entry<Integer, LinkedList<Double>> cellsInColumn : columns.entrySet()) {
                 out.writeInt(cellsInColumn.getKey());
                 out.writeDoubleArray(Doubles.toArray(cellsInColumn.getValue()));
             }
@@ -128,12 +120,12 @@ public class PartialSolutionManager {
         public void readData(ObjectDataInput in) throws IOException {
             final int columnCount = in.readInt();
             rowsRead = Arrays.stream(in.readIntArray()).boxed().collect(Collectors.toCollection(LinkedList::new));
-            cells = new LinkedHashMap<>();
+            columns = new LinkedHashMap<>();
             for (int c = 0; c < columnCount; c++) {
                 final int column = in.readInt();
                 LinkedList<Double> cellsInColumn = new LinkedList<>();
                 cellsInColumn.addAll(Doubles.asList(in.readDoubleArray()));
-                cells.put(column, cellsInColumn);
+                columns.put(column, cellsInColumn);
             }
         }
 
