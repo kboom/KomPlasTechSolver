@@ -77,7 +77,7 @@
             <in-memory-format>OBJECT</in-memory-format>
             <cache-local-entries>true</cache-local-entries>
             <invalidate-on-change>false</invalidate-on-change>
-            <eviction eviction-policy="LRU" max-size-policy="ENTRY_COUNT"/>
+            <eviction eviction-policy="LFU" max-size-policy="ENTRY_COUNT"/>
         </near-cache>
     </map>
 
