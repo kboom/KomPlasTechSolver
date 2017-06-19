@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.google.common.collect.Streams;
 import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
@@ -18,7 +19,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GET_COLS_FROM_ROW;
 
 public class PartialSolutionManager {
 
@@ -145,7 +145,7 @@ public class PartialSolutionManager {
 
         @Override
         public int getId() {
-            return GET_COLS_FROM_ROW;
+            return GeneralObjectType.GET_COLS_FROM_ROW.id;
         }
 
         @Override

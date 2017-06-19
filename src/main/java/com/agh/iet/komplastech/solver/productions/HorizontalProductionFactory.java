@@ -10,7 +10,6 @@ import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_2_H;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.A2_3;
 import com.agh.iet.komplastech.solver.productions.solution.factorization.Aroot;
 import com.agh.iet.komplastech.solver.support.VertexRange;
-import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 
 public class HorizontalProductionFactory implements ProductionFactory {
 

@@ -8,9 +8,9 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.BS_2_6_H_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class BS_2_6_H extends PFEProduction {
 

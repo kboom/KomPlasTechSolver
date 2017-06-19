@@ -8,8 +8,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ERoot_PRODUCTION;
+import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class Eroot extends PFEProduction {
 

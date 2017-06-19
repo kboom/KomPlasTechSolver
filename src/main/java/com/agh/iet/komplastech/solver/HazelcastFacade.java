@@ -7,7 +7,6 @@ import com.hazelcast.monitor.NearCacheStats;
 import com.hazelcast.util.function.Consumer;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;

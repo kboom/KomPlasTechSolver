@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
@@ -8,7 +9,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.MATRIX;
 import static java.lang.System.arraycopy;
 
 public class Matrix implements IdentifiedDataSerializable {
@@ -105,7 +105,7 @@ public class Matrix implements IdentifiedDataSerializable {
 
     @Override
     public int getId() {
-        return MATRIX;
+        return GeneralObjectType.MATRIX.id;
     }
 
 }

@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.core.*;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.MATRIX_EXTRACTOR;
 import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStreamOf;
 import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
 import static java.util.Comparator.comparingInt;
@@ -141,7 +140,7 @@ public class HazelcastVertexMap implements VertexMap {
 
         @Override
         public int getId() {
-            return MATRIX_EXTRACTOR;
+            return GeneralObjectType.MATRIX_EXTRACTOR.id;
         }
 
         @Override

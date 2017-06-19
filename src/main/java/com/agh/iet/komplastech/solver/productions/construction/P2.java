@@ -3,7 +3,10 @@ package com.agh.iet.komplastech.solver.productions.construction;
 import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.support.*;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.RegionId;
+import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 

@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
@@ -7,7 +8,6 @@ import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.REGION_ID;
 
 public class RegionId implements IdentifiedDataSerializable {
 
@@ -24,7 +24,7 @@ public class RegionId implements IdentifiedDataSerializable {
 
     @Override
     public int getId() {
-        return REGION_ID;
+        return GeneralObjectType.REGION_ID.id;
     }
 
     @Override

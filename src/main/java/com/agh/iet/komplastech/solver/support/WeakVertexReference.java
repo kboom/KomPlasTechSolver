@@ -1,13 +1,13 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.WEAK_VERTEX_REFERENCE;
 
 public class WeakVertexReference implements VertexReference {
 
@@ -77,7 +77,7 @@ public class WeakVertexReference implements VertexReference {
 
     @Override
     public int getId() {
-        return WEAK_VERTEX_REFERENCE;
+        return GeneralObjectType.WEAK_VERTEX_REFERENCE.id;
     }
 
     @Override

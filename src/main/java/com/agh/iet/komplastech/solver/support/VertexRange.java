@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
@@ -12,7 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX_RANGE;
 
 public class VertexRange implements Serializable, IdentifiedDataSerializable {
 
@@ -159,7 +159,7 @@ public class VertexRange implements Serializable, IdentifiedDataSerializable {
 
     @Override
     public int getId() {
-        return VERTEX_RANGE;
+        return GeneralObjectType.VERTEX_RANGE.id;
     }
 
     public static VertexRange noRange() {

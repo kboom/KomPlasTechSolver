@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 

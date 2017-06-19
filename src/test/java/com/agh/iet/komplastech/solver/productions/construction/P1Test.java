@@ -1,9 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
-import com.agh.iet.komplastech.solver.productions.ProcessingContext;
-import com.agh.iet.komplastech.solver.storage.InMemoryObjectStore;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;

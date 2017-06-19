@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.beust.jcommander.internal.Maps;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
@@ -166,7 +166,7 @@ public class VertexRegionMapper implements IdentifiedDataSerializable {
 
     @Override
     public int getId() {
-        return HazelcastGeneralFactory.VERTEX_REGION_MAPPER;
+        return GeneralObjectType.VERTEX_REGION_MAPPER.id;
     }
 
     @Override

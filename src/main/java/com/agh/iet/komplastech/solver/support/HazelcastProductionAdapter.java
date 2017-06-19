@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.support;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
@@ -14,7 +15,6 @@ import java.util.Set;
 import java.util.concurrent.Callable;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.PRODUCTION_ADAPTER;
 
 // http://docs.hazelcast.org/docs/2.0/manual/html-single/#DataAffinity
 public class HazelcastProductionAdapter
@@ -86,7 +86,7 @@ public class HazelcastProductionAdapter
 
     @Override
     public int getId() {
-        return PRODUCTION_ADAPTER;
+        return GeneralObjectType.PRODUCTION_ADAPTER.id;
     }
 
     @Override

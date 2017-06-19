@@ -3,14 +3,13 @@ package com.agh.iet.komplastech.solver.productions.solution.factorization;
 import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.support.WeakVertexReference;
 import org.junit.Test;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
-import static com.agh.iet.komplastech.solver.support.WeakVertexReference.*;
+import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 import static java.util.Arrays.deepToString;
 import static org.assertj.core.api.Assertions.assertThat;
 

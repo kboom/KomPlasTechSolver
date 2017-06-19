@@ -13,7 +13,6 @@ import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.PartialSolutionManager;
-import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.agh.iet.komplastech.solver.tracking.TreeIteratorFactory;
 
 class TwoDimensionalProblemSolver implements Solver {

@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.splines.BSpline1;
 import com.agh.iet.komplastech.solver.splines.BSpline2;
@@ -17,7 +18,6 @@ import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.SOLUTION;
 import static com.agh.iet.komplastech.solver.support.Point.solutionPoint;
 
 public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializable {
@@ -132,7 +132,7 @@ public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializa
 
     @Override
     public int getId() {
-        return SOLUTION;
+        return GeneralObjectType.SOLUTION.id;
     }
 
     public Mesh getMesh() {
