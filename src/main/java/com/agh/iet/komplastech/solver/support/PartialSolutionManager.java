@@ -25,7 +25,7 @@ public class PartialSolutionManager {
     private final Mesh mesh;
     private final IMap<Integer, double[]> solutionRows;
 
-    private static final Map<Integer, double[]> columnCache = new HashMap<>(4096);
+    private static final Map<Integer, double[]> columnCache = new WeakHashMap<>(4096);
     private static Striped<ReadWriteLock> arrayOfLocks = Striped.readWriteLock(4096);
 
     public PartialSolutionManager(Mesh mesh, HazelcastInstance hazelcastInstance) {
