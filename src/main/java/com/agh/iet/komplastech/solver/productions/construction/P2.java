@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -13,7 +14,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 import java.util.function.IntFunction;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P2_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
@@ -95,7 +95,7 @@ public class P2 implements Production {
 
     @Override
     public int getId() {
-        return P2_PRODUCTION;
+        return ProductionType.P2_PRODUCTION.id;
     }
 
 }

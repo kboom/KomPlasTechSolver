@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -9,7 +10,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A2_3_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
@@ -61,7 +61,7 @@ public class A2_3 implements Production {
 
     @Override
     public int getId() {
-        return A2_3_PRODUCTION;
+        return ProductionType.A2_3_PRODUCTION.id;
     }
 
 }

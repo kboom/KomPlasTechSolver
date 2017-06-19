@@ -17,12 +17,6 @@ public class HazelcastGeneralFactory implements DataSerializableFactory {
 
     public static final int GENERAL_FACTORY_ID = 2;
 
-    private interface ObjectProducer<T extends IdentifiedDataSerializable> {
-
-        T produce();
-
-    }
-
     public enum GeneralObjectType {
 
         VERTEX_ID(101, new ObjectProducer<Vertex>() {

@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.backsubstitution;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
@@ -8,7 +9,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.BS_2_6_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
@@ -53,7 +53,7 @@ public class BS_2_6 extends PFEProduction {
 
     @Override
     public int getId() {
-        return BS_2_6_PRODUCTION;
+        return ProductionType.BS_2_6_PRODUCTION.id;
     }
 
 }

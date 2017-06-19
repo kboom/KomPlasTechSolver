@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -10,7 +11,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.Ay_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
@@ -72,7 +72,7 @@ public class Ay implements Production {
 
     @Override
     public int getId() {
-        return Ay_PRODUCTION;
+        return ProductionType.Ay_PRODUCTION.id;
     }
 
 }

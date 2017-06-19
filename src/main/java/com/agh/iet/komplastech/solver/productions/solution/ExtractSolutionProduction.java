@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.MathUtils;
@@ -12,7 +13,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 import java.util.HashMap;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.EXTRACT_SOLUTION_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class ExtractSolutionProduction implements Production {
@@ -61,7 +61,7 @@ public class ExtractSolutionProduction implements Production {
 
     @Override
     public int getId() {
-        return EXTRACT_SOLUTION_PRODUCTION;
+        return ProductionType.EXTRACT_SOLUTION_PRODUCTION.id;
     }
 
     @Override
