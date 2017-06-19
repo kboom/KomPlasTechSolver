@@ -67,18 +67,9 @@
     </map>
 
     <map name="solution">
-
-        <in-memory-format>BINARY</in-memory-format>
-
+        <in-memory-format>OBJECT</in-memory-format>
         <backup-count>0</backup-count>
         <async-backup-count>0</async-backup-count>
-
-        <near-cache>
-            <in-memory-format>OBJECT</in-memory-format>
-            <cache-local-entries>true</cache-local-entries>
-            <invalidate-on-change>false</invalidate-on-change>
-            <eviction eviction-policy="LRU" max-size-policy="ENTRY_COUNT" size="1000000"/>
-        </near-cache>
     </map>
 
     <map name="vertices">
