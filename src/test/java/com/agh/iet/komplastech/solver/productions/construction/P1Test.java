@@ -1,9 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.productions.LocalProcessingContext;
-import com.agh.iet.komplastech.solver.productions.ProcessingContext;
-import com.agh.iet.komplastech.solver.storage.InMemoryObjectStore;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import org.junit.Test;
@@ -29,7 +26,7 @@ public class P1Test {
     @Test
     public void attachesLeftChild() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getLeftChild()).isNotNull();
     }
@@ -37,7 +34,7 @@ public class P1Test {
     @Test
     public void leftBoundaryOfLeftChildIsZero() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getLeftChild().beginning).isZero();
     }
@@ -45,7 +42,7 @@ public class P1Test {
     @Test
     public void rightBoundaryOfLeftChildIsHalfTheSizeOfGrid() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getLeftChild().ending).isEqualTo(GRID_SIZE / 2);
     }
@@ -53,7 +50,7 @@ public class P1Test {
     @Test
     public void attachesRightChild() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getRightChild()).isNotNull();
     }
@@ -61,7 +58,7 @@ public class P1Test {
     @Test
     public void leftBoundaryOfRightChildIsHalfTheSizeOfGrid() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getRightChild().beginning).isEqualTo(GRID_SIZE / 2);
     }
@@ -69,7 +66,7 @@ public class P1Test {
     @Test
     public void rightBoundaryOfLeftChildIsTheGridSize() {
         Vertex root = createRoot();
-        P1 p1 = new P1(DUMMY_MESH, null);
+        P1 p1 = new P1();
         p1.apply(new LocalProcessingContext(root));
         assertThat(root.getRightChild().ending).isEqualTo(GRID_SIZE);
     }

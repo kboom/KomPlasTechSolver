@@ -44,7 +44,6 @@ class SolverLauncher {
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-
     @Parameter(names = {"--batch-ratio"})
     private int batchRatio = 4;
 
@@ -57,6 +56,9 @@ class SolverLauncher {
     @Parameter(names = {"--max-job-count"})
     private int maxJobCount = 100;
 
+    @Parameter(names = {"--max-solution-batch-size"})
+    private int maxSolutionBatchSize = 1000;
+
     @Parameter(names = {"--problem"})
     private String solvedProblem = "heat";
 
@@ -65,6 +67,7 @@ class SolverLauncher {
                 .withRegionHeight(regionHeight)
                 .withMaxBatchSize(maxBatchSize)
                 .withBatchRatio(batchRatio)
+                .withMaxSolutionBatchSize(maxSolutionBatchSize)
                 .withMaxJobCount(maxJobCount)
                 .build();
 
@@ -84,18 +87,27 @@ class SolverLauncher {
 
         final ProcessLogger processLogger = isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger();
 
-        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance, vertexRegionMapper);
+        ObjectStore objectStore = new HazelcastObjectStore(hazelcastInstance);
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory(
                 hazelcastInstance, vertexRegionMapper, computeConfig, processLogger);
 
-        VertexMap vertexMap = new HazelcastVertexMap(hazelcastInstance.getMap("vertices"), vertexRegionMapper);
+        VertexMap vertexMap = new HazelcastVertexMap(
+                hazelcastInstance.getExecutorService("general"),
+                hazelcastInstance.getMap("vertices"),
+                vertexRegionMapper,
+                computeConfig
+        );
 
         TimeLogger timeLogger = new TimeLogger();
 
+        HazelcastFacade hazelcastFacade = new HazelcastFacade(hazelcastInstance);
+
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
+                hazelcastFacade,
                 productionExecutorFactory,
+                new PartialSolutionManager(mesh, hazelcastInstance),
                 mesh,
-                vertexRegionMapper,
+                computeConfig,
                 isLoggingSolution ? new ConsoleSolutionLogger(mesh, vertexMap) : new NoopSolutionLogger(),
                 processLogger,
                 objectStore,
@@ -108,7 +120,7 @@ class SolverLauncher {
 
 
             NonStationaryProblem nonStationaryProblem;
-            switch(solvedProblem) {
+            switch (solvedProblem) {
                 case "heat":
                     nonStationaryProblem = new HeatTransferProblem(delta, mesh, problemSize);
                     break;
@@ -134,7 +146,7 @@ class SolverLauncher {
                     timeLogger.getFirstStageTimeMs(),
                     timeLogger.getSecondStageTimeMs(),
                     timeLogger.getTotalSolutionMs()
-                    ));
+            ));
 
 
             Solution solution = solutionsInTime.getFinalSolution();

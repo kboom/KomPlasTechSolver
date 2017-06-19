@@ -1,19 +1,20 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX_RANGE;
 
-public class VertexRange implements IdentifiedDataSerializable {
+public class VertexRange implements Serializable, IdentifiedDataSerializable {
 
     private int left;
     private int right;
@@ -38,6 +39,10 @@ public class VertexRange implements IdentifiedDataSerializable {
 
     public static VertexRange unitary(VertexId rootId) {
         return range(rootId.getAbsoluteIndex(), rootId.getAbsoluteIndex());
+    }
+
+    public static VertexRange unitary(int id) {
+        return range(id, id);
     }
 
     public static VertexRange forBinary(int currentLevel) {
@@ -116,6 +121,17 @@ public class VertexRange implements IdentifiedDataSerializable {
         return (int) Math.floor(Math.log10(index) / Math.log10(2));
     }
 
+    VertexRange growToInclude(VertexId vertexId) {
+        int absoluteIndex = vertexId.getAbsoluteIndex();
+        if(left > absoluteIndex) {
+            return new VertexRange(absoluteIndex, right);
+        } else if(right < absoluteIndex) {
+            return new VertexRange(left, absoluteIndex);
+        } else {
+            return this;
+        }
+    }
+
     @Override
     public String toString() {
         return "VertexRange{" +
@@ -143,7 +159,10 @@ public class VertexRange implements IdentifiedDataSerializable {
 
     @Override
     public int getId() {
-        return VERTEX_RANGE;
+        return GeneralObjectType.VERTEX_RANGE.id;
     }
 
+    public static VertexRange noRange() {
+        return new VertexRange(0, 0);
+    }
 }

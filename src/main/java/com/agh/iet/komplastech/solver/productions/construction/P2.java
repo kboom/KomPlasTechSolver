@@ -1,18 +1,20 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.support.*;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.RegionId;
+import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.VertexRegionMapper;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 import java.util.function.IntFunction;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P2_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
-import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
 
@@ -28,17 +30,8 @@ public class P2 implements Production {
     private static final IntFunction<Integer> LEFT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id;
     private static final IntFunction<Integer> RIGHT_CHILD_OF_INTERMEDIATE = (id) -> 2 * id + 1;
 
-    private Mesh mesh;
-    private VertexRegionMapper vertexRegionMapper;
-
-    @SuppressWarnings("unused")
     public P2() {
 
-    }
-
-    public P2(Mesh mesh, VertexRegionMapper vertexRegionMapper) {
-        this.mesh = mesh;
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -48,13 +41,15 @@ public class P2 implements Production {
     }
 
     private void setLeftChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(LEFT_CHILD_OF_INTERMEDIATE);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex leftChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning)
+                .withBeginning(node.beginning)
                 .withEnding(node.beginning + (node.ending - node.beginning) * 0.5)
                 .inMesh(mesh)
                 .build();
@@ -65,13 +60,15 @@ public class P2 implements Production {
     }
 
     private void setRightChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
         VertexId newVertexId = node.getVertexId().transformed(RIGHT_CHILD_OF_INTERMEDIATE);
-        RegionId regionId = vertexRegionMapper.getRegionFor(newVertexId);
+        RegionId regionId = regionMapper.getRegionFor(newVertexId);
 
         Vertex rightChild = aVertex(newVertexId, regionId)
-                .withBeggining(node.beginning + (node.ending - node.beginning) * 0.5)
+                .withBeginning(node.beginning + (node.ending - node.beginning) * 0.5)
                 .withEnding(node.ending)
                 .inMesh(mesh)
                 .build();
@@ -83,14 +80,12 @@ public class P2 implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
-        out.writeObject(vertexRegionMapper);
+
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
-        vertexRegionMapper = in.readObject();
+
     }
 
     @Override
@@ -100,7 +95,7 @@ public class P2 implements Production {
 
     @Override
     public int getId() {
-        return P2_PRODUCTION;
+        return ProductionType.P2_PRODUCTION.id;
     }
 
 }

@@ -1,13 +1,13 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.WEAK_VERTEX_REFERENCE;
 
 public class WeakVertexReference implements VertexReference {
 
@@ -54,20 +54,20 @@ public class WeakVertexReference implements VertexReference {
     @Override
     public void accept(ReferenceVisitor referenceVisitor) {
         if (vertex == null) {
-            vertex = referenceVisitor.loadVertex(vertexId);
+            vertex = referenceVisitor.loadVertex(this);
         }
     }
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(vertexId);
-        out.writeObject(regionId);
+        out.writeInt(vertexId.getAbsoluteIndex());
+        out.writeInt(regionId.toInt());
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        vertexId = in.readObject();
-        regionId = in.readObject();
+        vertexId = VertexId.vertexId(in.readInt());
+        regionId = RegionId.regionId(in.readInt());
     }
 
     @Override
@@ -77,12 +77,12 @@ public class WeakVertexReference implements VertexReference {
 
     @Override
     public int getId() {
-        return WEAK_VERTEX_REFERENCE;
+        return GeneralObjectType.WEAK_VERTEX_REFERENCE.id;
     }
 
     @Override
     public Object getPartitionKey() {
-        return regionId;
+        return regionId.toInt();
     }
 
     @Override
@@ -92,16 +92,12 @@ public class WeakVertexReference implements VertexReference {
 
         WeakVertexReference that = (WeakVertexReference) o;
 
-        if (vertexId != null ? !vertexId.equals(that.vertexId) : that.vertexId != null) return false;
-        return regionId != null ? regionId.equals(that.regionId) : that.regionId == null;
-
+        return vertexId.equals(that.vertexId);
     }
 
     @Override
     public int hashCode() {
-        int result = vertexId != null ? vertexId.hashCode() : 0;
-        result = 31 * result + (regionId != null ? regionId.hashCode() : 0);
-        return result;
+        return vertexId.hashCode();
     }
 
     @Override
@@ -110,6 +106,10 @@ public class WeakVertexReference implements VertexReference {
                 "vertexId=" + vertexId +
                 ", regionId=" + regionId +
                 '}';
+    }
+
+    static WeakVertexReference weakReference(VertexId id, RegionId regionId) {
+        return new WeakVertexReference(id, regionId);
     }
 
 }

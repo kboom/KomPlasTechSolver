@@ -1,10 +1,9 @@
 package com.agh.iet.komplastech.solver.storage;
 
-import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.ComputeConfig;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
-import com.agh.iet.komplastech.solver.support.VertexMap;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
@@ -14,11 +13,6 @@ public class InMemoryObjectStore implements ObjectStore {
     @Override
     public void storeVertex(Vertex vertex) {
 
-    }
-
-    @Override
-    public VertexMap getVertexMap() {
-        return null;
     }
 
     @Override
@@ -42,7 +36,7 @@ public class InMemoryObjectStore implements ObjectStore {
     }
 
     @Override
-    public void setSolution(Solution solution) {
+    public void setComputeConfig(ComputeConfig computeConfig) {
 
     }
 

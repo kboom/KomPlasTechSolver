@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -9,24 +10,17 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A2_2_H_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
+import static com.agh.iet.komplastech.solver.productions.VertexUtils.swapDofsFor;
 
 public class A2_2_H implements Production {
 
-    private Mesh mesh;
-
-    @SuppressWarnings("unused")
     public A2_2_H() {
 
     }
 
-    public A2_2_H(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
     public void apply(ProcessingContext context) {
+        final Mesh mesh = context.getMesh();
         final Vertex currentVertex = context.getVertex();
         final Vertex leftChild = currentVertex.getLeftChild();
         final Vertex rightChild = currentVertex.getRightChild();
@@ -50,12 +44,10 @@ public class A2_2_H implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override
@@ -65,7 +57,7 @@ public class A2_2_H implements Production {
 
     @Override
     public int getId() {
-        return A2_2_H_PRODUCTION;
+        return ProductionType.A2_2_H_PRODUCTION.id;
     }
 
 }

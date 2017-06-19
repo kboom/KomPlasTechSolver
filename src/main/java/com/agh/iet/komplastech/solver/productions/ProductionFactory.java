@@ -32,4 +32,6 @@ public interface ProductionFactory {
 
     Production backwardSubstituteLeavesProduction();
 
+    Production extractSolutionProduction();
+
 }

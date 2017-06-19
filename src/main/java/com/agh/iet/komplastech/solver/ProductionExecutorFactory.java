@@ -6,7 +6,6 @@ import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IExecutorService;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
@@ -55,9 +54,6 @@ public class ProductionExecutorFactory {
             return this;
         }
 
-        /**
-         *
-         */
         public void andWaitTillComplete() {
             Stream<VertexReference> vertexReferenceStream = mapToReferences(range);
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
@@ -77,15 +73,15 @@ public class ProductionExecutorFactory {
         }
 
         private Stream<Future<Void>> executeOnRegionOwner(Map.Entry<RegionId, Set<VertexReference>> entry) {
-            final RegionId region = entry.getKey();
+            final RegionId regionId = entry.getKey();
             final Set<VertexReference> vertices = entry.getValue();
             final int batchSize = determineBatchSizeFor(vertices.size());
             return batchedStreamOf(vertices.stream(), batchSize)
                     .map((vertexBatch) -> {
                         processLogger.logProductionLaunched(production, vertexBatch);
-                        return new HazelcastProductionAdapter(production, regionMapper, vertexBatch);
+                        return new HazelcastProductionAdapter(regionId, production, vertexBatch);
                     })
-                    .map(production -> executorService.submitToKeyOwner(production, region));
+                    .map(executorService::submit);
         }
 
         private int determineBatchSizeFor(int size) {

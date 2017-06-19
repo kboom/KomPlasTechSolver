@@ -7,6 +7,7 @@ import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 
 public class VertexRegionMapperTest {
 
@@ -66,6 +67,44 @@ public class VertexRegionMapperTest {
         VertexRegionMapper vertexRegionMapper = regionMapperOf(768, 7);
         assertThat(vertexRegionMapper.getRegionFor(vertexId(128))).isEqualTo(regionId(128));
         assertThat(vertexRegionMapper.getRegionFor(vertexId(256))).isEqualTo(regionId(128));
+    }
+
+    @Test
+    public void leafRangeOfBoundaryGetsMappedToVerticesInRange() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 1);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(4, 7)))
+                .containsExactly(
+                        entry(regionId(4), VertexRange.unitary(4)),
+                        entry(regionId(5), VertexRange.unitary(5)),
+                        entry(regionId(6), VertexRange.unitary(6)),
+                        entry(regionId(7), VertexRange.unitary(7))
+                );
+    }
+
+    @Test
+    public void leafRangeGetsMappedToLowestAvailableSetOfRegions() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 1);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(8, 19)))
+                .containsExactly(
+                        entry(regionId(4), VertexRange.range(8, 10)),
+                        entry(regionId(5), VertexRange.range(11, 13)),
+                        entry(regionId(6), VertexRange.range(14, 16)),
+                        entry(regionId(7), VertexRange.range(17, 19))
+                );
+    }
+
+    @Test
+    public void rangesByRegionsFor24LeavesAndRegionHeight7() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(24, 7);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(8, 15)))
+                .containsOnly(entry(regionId(1), VertexRange.range(8, 15)));
+    }
+
+    @Test
+    public void verticesUnderTheRootGetMappedToRootRegionForRegionHeightEqualToTwo() {
+        VertexRegionMapper vertexRegionMapper = regionMapperOf(12, 2);
+        assertThat(vertexRegionMapper.getRegionsInRange(VertexRange.range(2, 3)))
+                .containsOnly(entry(regionId(1), VertexRange.range(2, 3)));
     }
 
     private VertexRegionMapper regionMapperOf(int problemSize, int regionHeight) {

@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.productions.construction;
 
 import com.agh.iet.komplastech.solver.VertexId;
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -12,7 +13,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.VertexId.vertexId;
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.P1y_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.support.Vertex.aVertex;
 import static com.agh.iet.komplastech.solver.support.WeakVertexReference.weakReferenceToVertex;
@@ -25,17 +25,8 @@ public class P1y implements Production {
     private static final VertexId LEFT_CHILD_OF_PARENT_ID = vertexId(2);
     private static final VertexId RIGHT_CHILD_OF_PARENT_ID = vertexId(3);
 
-    private Mesh mesh;
-    private VertexRegionMapper vertexRegionMapper;
-
-    @SuppressWarnings("unused")
     public P1y() {
 
-    }
-
-    public P1y(Mesh mesh, VertexRegionMapper vertexRegionMapper) {
-        this.mesh = mesh;
-        this.vertexRegionMapper = vertexRegionMapper;
     }
 
     public void apply(ProcessingContext processingContext) {
@@ -45,10 +36,12 @@ public class P1y implements Production {
     }
 
     private void setLeftChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
-        Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, vertexRegionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
-                .withBeggining(0)
+        Vertex leftChild = aVertex(LEFT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(LEFT_CHILD_OF_PARENT_ID))
+                .withBeginning(0)
                 .withEnding(mesh.getElementsY() / 2.0)
                 .inMesh(mesh)
                 .build();
@@ -59,10 +52,12 @@ public class P1y implements Production {
     }
 
     private void setRightChild(ProcessingContext processingContext) {
-        Vertex node = processingContext.getVertex();
+        final Vertex node = processingContext.getVertex();
+        final Mesh mesh = processingContext.getMesh();
+        final VertexRegionMapper regionMapper = processingContext.getRegionMapper();
 
-        Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, vertexRegionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
-                .withBeggining(mesh.getElementsY() / 2.0)
+        Vertex rightChild = aVertex(RIGHT_CHILD_OF_PARENT_ID, regionMapper.getRegionFor(RIGHT_CHILD_OF_PARENT_ID))
+                .withBeginning(mesh.getElementsY() / 2.0)
                 .withEnding(mesh.getElementsY())
                 .inMesh(mesh)
                 .build();
@@ -74,14 +69,12 @@ public class P1y implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
-        out.writeObject(vertexRegionMapper);
+
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
-        vertexRegionMapper = in.readObject();
+
     }
 
     @Override
@@ -91,7 +84,7 @@ public class P1y implements Production {
 
     @Override
     public int getId() {
-        return P1y_PRODUCTION;
+        return ProductionType.P1y_PRODUCTION.id;
     }
 
 }

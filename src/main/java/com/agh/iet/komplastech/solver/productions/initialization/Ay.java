@@ -1,17 +1,16 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
-import com.agh.iet.komplastech.solver.Solution;
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
-import com.agh.iet.komplastech.solver.support.Matrix;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.PartialSolutionManager;
 import com.agh.iet.komplastech.solver.support.Vertex;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.Ay_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
@@ -38,15 +37,15 @@ public class Ay implements Production {
 
     private void initializeRightHandSides(ProcessingContext processingContext) {
         final Vertex node = processingContext.getVertex();
-        final Solution solution = processingContext.getSolution();
-        final Matrix horizontalX = solution.getRhs();
-        final Mesh mesh = solution.getMesh();
+        final Mesh mesh = processingContext.getMesh();
+        final PartialSolutionManager partialSolutionManager = processingContext.getPartialSolutionManager();
 
         final int idx = node.getVertexId().getAbsoluteIndex() - offset;
+        double[][] rhs = partialSolutionManager.getCols(idx + 1, idx + 2, idx + 3);
         for (int i = 1; i <= mesh.getDofsX(); i++) {
-            node.m_b.set(1, i, partition[0] * horizontalX.get(i, idx + 1));
-            node.m_b.set(2, i, partition[1] * horizontalX.get(i, idx + 2));
-            node.m_b.set(3, i, partition[2] * horizontalX.get(i, idx + 3));
+            node.m_b.set(1, i, partition[0] * rhs[0][i - 1]);
+            node.m_b.set(2, i, partition[1] * rhs[1][i - 1]);
+            node.m_b.set(3, i, partition[2] * rhs[2][i - 1]);
         }
     }
 
@@ -73,7 +72,7 @@ public class Ay implements Production {
 
     @Override
     public int getId() {
-        return Ay_PRODUCTION;
+        return ProductionType.Ay_PRODUCTION.id;
     }
 
 }

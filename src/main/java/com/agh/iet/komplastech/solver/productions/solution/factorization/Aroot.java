@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.solution.factorization;
 
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -9,23 +10,16 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ARoot_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 
 public class Aroot implements Production {
 
-    private Mesh mesh;
-
-    @SuppressWarnings("unused")
     public Aroot() {
 
     }
 
-    public Aroot(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
     public void apply(ProcessingContext processingContext) {
+        final Mesh mesh = processingContext.getMesh();
         final Vertex currentVertex = processingContext.getVertex();
 
         final Vertex leftChild = currentVertex.getLeftChild();
@@ -47,12 +41,10 @@ public class Aroot implements Production {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(mesh);
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        mesh = in.readObject();
     }
 
     @Override
@@ -62,7 +54,7 @@ public class Aroot implements Production {
 
     @Override
     public int getId() {
-        return ARoot_PRODUCTION;
+        return ProductionType.ARoot_PRODUCTION.id;
     }
 
 }

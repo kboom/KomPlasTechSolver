@@ -1,7 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.hazelcast.core.PartitionAware;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
 import com.hazelcast.nio.ObjectDataInput;
 import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
@@ -12,10 +12,11 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
-import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX;
+import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 
-public class Vertex implements IdentifiedDataSerializable, PartitionAware {
+public class Vertex implements IdentifiedDataSerializable {
 
     private VertexId id;
     private RegionId regionId;
@@ -92,8 +93,8 @@ public class Vertex implements IdentifiedDataSerializable, PartitionAware {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(id);
-        out.writeObject(regionId);
+        out.writeInt(id.getAbsoluteIndex());
+        out.writeInt(regionId.toInt());
         out.writeObject(m_a);
         out.writeObject(m_b);
         out.writeObject(m_x);
@@ -106,8 +107,8 @@ public class Vertex implements IdentifiedDataSerializable, PartitionAware {
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        id = in.readObject();
-        regionId = in.readObject();
+        id = vertexId(in.readInt());
+        regionId = regionId(in.readInt());
         m_a = in.readObject();
         m_b = in.readObject();
         m_x = in.readObject();
@@ -125,18 +126,12 @@ public class Vertex implements IdentifiedDataSerializable, PartitionAware {
 
     @Override
     public int getId() {
-        return VERTEX;
+        return GeneralObjectType.VERTEX.id;
     }
 
     public RegionId getRegionId() {
         return regionId;
     }
-
-    @Override
-    public Object getPartitionKey() {
-        return regionId.asInt();
-    }
-
 
     public static class VertexBuilder {
 
@@ -147,8 +142,8 @@ public class Vertex implements IdentifiedDataSerializable, PartitionAware {
             vertex = new Vertex(vertexId, regionId);
         }
 
-        public VertexBuilder withBeggining(double beggining) {
-            vertex.beginning = beggining;
+        public VertexBuilder withBeginning(double beginning) {
+            vertex.beginning = beginning;
             return this;
         }
 

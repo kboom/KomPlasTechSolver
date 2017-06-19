@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver.storage;
 
-import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
@@ -10,20 +9,14 @@ import com.hazelcast.nio.ObjectDataOutput;
 
 import java.io.IOException;
 
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.PROBLEM;
-import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.SOLUTION;
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
 
 public class HazelcastObjectStore implements ObjectStore {
-
-    private final VertexRegionMapper vertexRegionMapper;
 
     private final IMap<VertexReference, Vertex> vertexMap;
     private final IMap<CommonProcessingObject, Object> commonsMap;
 
-    public HazelcastObjectStore(HazelcastInstance hazelcastInstance,
-                                VertexRegionMapper vertexRegionMapper) {
-        this.vertexRegionMapper = vertexRegionMapper;
+    public HazelcastObjectStore(HazelcastInstance hazelcastInstance) {
         vertexMap = hazelcastInstance.getMap("vertices");
         commonsMap = hazelcastInstance.getMap("commons");
     }
@@ -31,11 +24,6 @@ public class HazelcastObjectStore implements ObjectStore {
     @Override
     public void storeVertex(Vertex vertex) {
         vertexMap.put(vertex.getVertexReference(), vertex);
-    }
-
-    @Override
-    public VertexMap getVertexMap() {
-        return new HazelcastVertexMap(vertexMap, vertexRegionMapper);
     }
 
     @Override
@@ -60,8 +48,8 @@ public class HazelcastObjectStore implements ObjectStore {
     }
 
     @Override
-    public void setSolution(Solution solution) {
-        commonsMap.put(SOLUTION, solution);
+    public void setComputeConfig(ComputeConfig computeConfig) {
+        commonsMap.put(COMPUTE_CONFIG, computeConfig);
     }
 
     @Override

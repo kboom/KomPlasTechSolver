@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver.support;
 
-import com.agh.iet.komplastech.solver.VertexId;
-
 import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 public interface ProcessingContextManager {
 
@@ -12,10 +12,12 @@ public interface ProcessingContextManager {
 
     void storeVertex(Vertex vertex);
 
-    Vertex getVertex(VertexId vertexId);
+    Vertex getVertex(WeakVertexReference reference);
 
     void flush();
 
     <T> T getFromCache(CommonProcessingObject commonProcessingObjects);
+
+    Map<VertexReference, Vertex> getAll(Set<VertexReference> verticesToApplyOn);
 
 }

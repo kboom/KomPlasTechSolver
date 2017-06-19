@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
+import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
@@ -17,7 +18,6 @@ import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
-import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.A_PRODUCTION;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
@@ -84,7 +84,7 @@ public class A implements Production {
 
     @Override
     public int getId() {
-        return A_PRODUCTION;
+        return ProductionType.A_PRODUCTION.id;
     }
 
     @Override

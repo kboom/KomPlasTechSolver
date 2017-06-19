@@ -2,11 +2,11 @@ version: '3'
 
 services:
 
-  kpts-management:
-    container_name: kpts-management
-    image: hazelcast/management-center
-    ports:
-        - 8080:8080
+#  kpts-management:
+#    container_name: kpts-management
+#    image: hazelcast/management-center
+#    ports:
+#        - 8080:8080
 
   kpts-worker:
     image: hazelcast/hazelcast
@@ -16,7 +16,7 @@ services:
     ports:
         - 5701:5701
     environment:
-        - "JAVA_OPTS=-Dhazelcast.config=/config/hazelcast.xml"
+        - "JAVA_OPTS=-Dpublic.address=localhost -Dpartition.count=271 -Dexecutor.pool.size=10 -Djoin.interface=localhost -Dhazelcast.config=/config/hazelcast-agh.xml"
         - "CLASSPATH=/libs"
 
 

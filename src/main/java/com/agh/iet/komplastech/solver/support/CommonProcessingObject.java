@@ -4,6 +4,6 @@ public enum CommonProcessingObject {
 
     PROBLEM,
     MESH,
-    SOLUTION
+    COMPUTE_CONFIG
 
 }

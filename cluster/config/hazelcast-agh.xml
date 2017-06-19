@@ -3,18 +3,51 @@
            xmlns="http://www.hazelcast.com/schema/config"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
+    <!-- https://github.com/hazelcast/hazelcast/blob/master/hazelcast/src/main/resources/hazelcast-default.xml -->
+
+    <properties>
+        <!--<property name="hazelcast.socket.server.bind.any">false</property>-->
+        <!--<property name="hazelcast.socket.client.bind">false</property>-->
+
+        <property name="hazelcast.socket.receive.buffer.size">32</property>
+        <property name="hazelcast.socket.send.buffer.size">32</property>
+        <property name="hazelcast.map.max.backup.count">0</property>
+
+        <property name="hazelcast.tcp.join.port.try.count">1</property>
+
+        <property name="hazelcast.operation.call.timeout.millis">300000</property>
+        <!--<property name="hazelcast.health.monitoring.level">NOISY</property>-->
+        <property name="hazelcast.partition.count">${partition.count}</property>
+
+        <property name="hazelcast.diagnostics.enabled">false</property>
+
+        <!--<property name="hazelcast.heartbeat.interval.seconds">60</property>-->
+        <!--<property name="hazelcast.client.heartbeat.interval">3000000</property>-->
+        <!--<property name="hazelcast.client.heartbeat.timeout">50000000</property>-->
+        <!--<property name="hazelcast.client.max.no.heartbeat.seconds">10000</property>-->
+    </properties>
+
     <group>
         <name>kpts-cluster</name>
         <password>kpts-cluster-pass</password>
     </group>
 
-    <management-center enabled="true">http://node2.a2s.agh.edu.pl:8080/mancenter</management-center>
+    <network>
+        <public-address>${public.address}</public-address>
+        <join>
+            <multicast enabled="false"></multicast>
+            <tcp-ip enabled="true">
+                <interface>${join.interface}</interface>
+            </tcp-ip>
+        </join>
+    </network>
+
+    <management-center enabled="true">${mancenter.url}</management-center>
 
     <partition-group enabled="false"/>
 
     <executor-service name="default">
-        <pool-size>10</pool-size>
-        <!--Queue capacity. 0 means Integer.MAX_VALUE.-->
+        <pool-size>${executor.pool.size}</pool-size>
         <queue-capacity>0</queue-capacity>
     </executor-service>
 
@@ -26,58 +59,18 @@
         <async-backup-count>0</async-backup-count>
 
         <near-cache>
-
             <in-memory-format>OBJECT</in-memory-format>
-
-            <!--
-              Maximum size of the near cache. When max size is reached,
-              cache is evicted based on the policy defined.
-              Any integer between 0 and Integer.MAX_VALUE. 0 means
-              Integer.MAX_VALUE. Default is 0.
-            -->
-            <max-size>0</max-size>
-
-            <!--
-              Maximum number of seconds for each entry to stay in the near cache. Entries that are
-              older than <time-to-live-seconds> will get automatically evicted from the near cache.
-              Any integer between 0 and Integer.MAX_VALUE. 0 means infinite. Default is 0.
-            -->
-            <time-to-live-seconds>0</time-to-live-seconds>
-
-            <!--
-              Maximum number of seconds each entry can stay in the near cache as untouched (not-read).
-              Entries that are not read (touched) more than <max-idle-seconds> value will get removed
-              from the near cache.
-              Any integer between 0 and Integer.MAX_VALUE. 0 means
-              Integer.MAX_VALUE. Default is 0.
-            -->
-            <max-idle-seconds>0</max-idle-seconds>
-
-            <!--
-              Valid values are:
-              NONE (no extra eviction, <time-to-live-seconds> may still apply),
-              LRU  (Least Recently Used),
-              LFU  (Least Frequently Used).
-              NONE is the default.
-              Regardless of the eviction policy used, <time-to-live-seconds> will still apply.
-            -->
-            <eviction-policy>NONE</eviction-policy>
-
-            <!--
-              Should the cached entries get evicted if the entries are changed (updated or removed).
-              true of false. Default is true.
-            -->
-            <invalidate-on-change>true</invalidate-on-change>
-
-            <!--
-              You may want also local entries to be cached.
-              This is useful when in memory format for near cache is different than the map's one.
-              By default it is disabled.
-            -->
             <cache-local-entries>true</cache-local-entries>
+            <invalidate-on-change>true</invalidate-on-change>
+            <eviction eviction-policy="NONE" max-size-policy="ENTRY_COUNT" />
         </near-cache>
     </map>
 
+    <map name="solution">
+        <in-memory-format>OBJECT</in-memory-format>
+        <backup-count>0</backup-count>
+        <async-backup-count>0</async-backup-count>
+    </map>
 
     <map name="vertices">
         <!--

@@ -1,9 +1,7 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.Problem;
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.support.*;
 
 public class LocalProcessingContext implements ProcessingContext {
     public LocalProcessingContext(Vertex p1) {
@@ -41,7 +39,17 @@ public class LocalProcessingContext implements ProcessingContext {
     }
 
     @Override
-    public Solution getSolution() {
+    public ComputeConfig getComputeConfig() {
+        return null;
+    }
+
+    @Override
+    public VertexRegionMapper getRegionMapper() {
+        return null;
+    }
+
+    @Override
+    public PartialSolutionManager getPartialSolutionManager() {
         return null;
     }
 }
