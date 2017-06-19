@@ -11,8 +11,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static com.agh.iet.komplastech.solver.VertexId.vertexId;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.VERTEX;
+import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 
 public class Vertex implements IdentifiedDataSerializable {
 
@@ -91,8 +93,8 @@ public class Vertex implements IdentifiedDataSerializable {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(id);
-        out.writeObject(regionId);
+        out.writeInt(id.getAbsoluteIndex());
+        out.writeInt(regionId.toInt());
         out.writeObject(m_a);
         out.writeObject(m_b);
         out.writeObject(m_x);
@@ -105,8 +107,8 @@ public class Vertex implements IdentifiedDataSerializable {
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        id = in.readObject();
-        regionId = in.readObject();
+        id = vertexId(in.readInt());
+        regionId = regionId(in.readInt());
         m_a = in.readObject();
         m_b = in.readObject();
         m_x = in.readObject();

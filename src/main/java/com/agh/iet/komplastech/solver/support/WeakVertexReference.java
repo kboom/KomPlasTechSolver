@@ -60,14 +60,14 @@ public class WeakVertexReference implements VertexReference {
 
     @Override
     public void writeData(ObjectDataOutput out) throws IOException {
-        out.writeObject(vertexId);
-        out.writeObject(regionId);
+        out.writeInt(vertexId.getAbsoluteIndex());
+        out.writeInt(regionId.toInt());
     }
 
     @Override
     public void readData(ObjectDataInput in) throws IOException {
-        vertexId = in.readObject();
-        regionId = in.readObject();
+        vertexId = VertexId.vertexId(in.readInt());
+        regionId = RegionId.regionId(in.readInt());
     }
 
     @Override
@@ -92,16 +92,12 @@ public class WeakVertexReference implements VertexReference {
 
         WeakVertexReference that = (WeakVertexReference) o;
 
-        if (vertexId != null ? !vertexId.equals(that.vertexId) : that.vertexId != null) return false;
-        return regionId != null ? regionId.equals(that.regionId) : that.regionId == null;
-
+        return vertexId.equals(that.vertexId);
     }
 
     @Override
     public int hashCode() {
-        int result = vertexId != null ? vertexId.hashCode() : 0;
-        result = 31 * result + (regionId != null ? regionId.hashCode() : 0);
-        return result;
+        return vertexId.hashCode();
     }
 
     @Override
