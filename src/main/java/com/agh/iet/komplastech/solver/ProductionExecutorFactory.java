@@ -6,8 +6,7 @@ import com.agh.iet.komplastech.solver.support.*;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.IExecutorService;
 
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -17,6 +16,9 @@ import static com.agh.iet.komplastech.solver.support.BatchingIterator.batchedStr
 import static com.agh.iet.komplastech.solver.support.VertexReferenceFunctionAdapter.toVertexReferenceUsing;
 
 public class ProductionExecutorFactory {
+
+    private static final RandomComparator<Map.Entry<RegionId, Set<VertexReference>>> RANDOM_COMPARATOR
+            = new RandomComparator<>();
 
     private final IExecutorService executorService;
 
@@ -59,7 +61,7 @@ public class ProductionExecutorFactory {
             Map<RegionId, Set<VertexReference>> referencesByRegion = groupByRegion(vertexReferenceStream);
 
 
-            batchedStreamOf(referencesByRegion.entrySet().stream(), computeConfig.getMaxJobCount())
+            batchedStreamOf(referencesByRegion.entrySet().stream().sorted(RANDOM_COMPARATOR), computeConfig.getMaxJobCount())
                     .forEach(regionSet -> {
 
                         Set<Future<Void>> futureStream = regionSet.parallelStream()
@@ -110,6 +112,32 @@ public class ProductionExecutorFactory {
                     throw new IllegalStateException(e);
                 }
             });
+        }
+
+    }
+
+    private static final class RandomComparator<T> implements Comparator<T> {
+
+        private final Map<T, Integer> map = new IdentityHashMap<>();
+        private final Random random;
+
+        private RandomComparator() {
+            this(new Random());
+        }
+
+        RandomComparator(Random random) {
+            this.random = random;
+        }
+
+        @Override
+        public int compare(T t1, T t2) {
+            return Integer.compare(valueFor(t1), valueFor(t2));
+        }
+
+        private int valueFor(T t) {
+            synchronized (map) {
+                return map.computeIfAbsent(t, ignore -> random.nextInt());
+            }
         }
 
     }
