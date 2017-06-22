@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH
 
 class HazelcastProcessingContextManager implements ProcessingContextManager {
 
-    private final Set<Vertex> verticesToUpdate = new HashSet<>();
+    private final Set<Vertex> verticesToUpdate = ConcurrentHashMap.newKeySet();
 
     private final IMap<VertexReference, Vertex> vertices;
     private final IMap<CommonProcessingObject, Object> commons;

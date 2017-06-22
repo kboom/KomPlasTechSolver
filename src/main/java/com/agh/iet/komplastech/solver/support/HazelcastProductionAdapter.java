@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
+import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.core.HazelcastInstanceAware;
@@ -11,8 +12,12 @@ import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 
@@ -21,6 +26,8 @@ public class HazelcastProductionAdapter
         implements HazelcastInstanceAware, Callable<Void>, PartitionAware, IdentifiedDataSerializable {
 
     private transient HazelcastInstance hazelcastInstance;
+
+    private static final ExecutorService executorService = Executors.newCachedThreadPool();
 
     private Production production;
 
@@ -49,7 +56,12 @@ public class HazelcastProductionAdapter
     @Override
     public Void call() {
         HazelcastProcessingContextManager contextManager = new HazelcastProcessingContextManager(hazelcastInstance);
-        contextManager.getAll(verticesToApplyOn).forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
+        Map<VertexReference, Vertex> vertexMap = contextManager.getAll(verticesToApplyOn);
+        if(vertexMap.size() > 1) {
+            executeInParallel(contextManager, vertexMap);
+        } else {
+            executeSynchronously(contextManager, vertexMap);
+        }
         contextManager.flush();
         return null;
     }
@@ -76,6 +88,46 @@ public class HazelcastProductionAdapter
         verticesToApplyOn = new HashSet<>(vertexCount);
         for (int i = 0; i < vertexCount; i++) {
             verticesToApplyOn.add(in.readObject());
+        }
+    }
+
+    private static class ContextTask implements Callable<Void> {
+
+        private ProcessingContext context;
+        private Production production;
+
+        ContextTask(ProcessingContext context, Production production) {
+            this.context = context;
+            this.production = production;
+        }
+
+        @Override
+        public Void call() throws Exception {
+            production.apply(context);
+            return null;
+        }
+
+    }
+
+    private void executeSynchronously(HazelcastProcessingContextManager contextManager, Map<VertexReference, Vertex> vertexMap) {
+        vertexMap.forEach((id, vertex) -> production.apply(contextManager.createFor(vertex)));
+    }
+
+    private void executeInParallel(HazelcastProcessingContextManager contextManager, Map<VertexReference, Vertex> vertexMap) {
+        try {
+            executorService.invokeAll(
+                    vertexMap
+                            .values().stream().map(contextManager::createFor)
+                            .map(context -> new ContextTask(context, production)).collect(Collectors.toList())
+            ).forEach(future -> {
+                try {
+                    future.get();
+                } catch (Exception e) {
+                    throw new IllegalStateException("Could not get results for production", e);
+                }
+            });
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Could not launch production", e);
         }
     }
 
