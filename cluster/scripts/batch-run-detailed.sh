@@ -20,7 +20,7 @@ function runBatch {
 
 	echo "Running program with arguments problem size ($T_PROBLEM_SIZE), region height ($T_REGION_HEIGHT), batch ratio ($T_BATCH_RATIO), max batch size ($T_MAX_BATCH_SIZE)"
 
-    ./solverCommands/run.sh ${CLUSTER_ADDRESS} ${T_PROBLEM_SIZE} "--batch-ratio ${T_BATCH_RATIO} --max-batch-size ${T_MAX_BATCH_SIZE} --region-height ${T_REGION_HEIGHT}"
+    ./solverCommands/run.sh ${CLUSTER_ADDRESS} ${T_PROBLEM_SIZE} "--batch-ratio ${T_BATCH_RATIO} --max-job-count 999999 --max-batch-size ${T_MAX_BATCH_SIZE} --region-height ${T_REGION_HEIGHT}"
 }
 
 for ps in "${PROBLEM_SIZES[@]}"
