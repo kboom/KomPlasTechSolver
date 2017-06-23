@@ -31,6 +31,7 @@ do
         for (( bs=${MIN_BATCH_SIZE}; bs <= ${MAX_BATCH_SIZE}; bs += ${BATCH_SIZE_STEP} ));
         do
             runBatch ${ps} ${rh} 1 ${bs}
+            sleep 10;
         done
 
     done
