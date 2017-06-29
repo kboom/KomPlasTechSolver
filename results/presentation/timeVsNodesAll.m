@@ -1,4 +1,4 @@
-function plotAll( minTimes )
+function timeVsNodesAll( minTimes )
 
 nodeCounts = unique(minTimes.NodeCount);
 problemSizes = unique(minTimes.ProblemSize);
@@ -8,7 +8,10 @@ hold on
 for i = 1 : length(nodeCounts);
     nodeCount = nodeCounts(i);
     results = minTimes(minTimes.NodeCount == nodeCount, :).min_TotalTime;
-    scatter(problemSizes(1:size(results)), results);
+    
+    
+    
+    semilogx(problemSizes(1:size(results)), results, 'o');
     set(gca,'xscale','log','yscale','log')
 end
 hold off
