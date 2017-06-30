@@ -1,14 +1,21 @@
 function [fitresult, gof] = nodeBenefit(minTimes)
 
 nodeCounts = unique(minTimes.NodeCount);
-problemSizes = unique(minTimes(minTimes.ProblemSize >= 1536^2, :).ProblemSize);
+problemSizes = unique(minTimes.ProblemSize);
 
 % Plot fit with data.
-figure( 'Name', 'Time vs Nodes' );
-grid on 
-
-pointsStyle = {'bo','ko','ro','go'};
+figure(1);
+grid on
+title('Time vs Nodes')
+xlabel('Nodes [-]')
+ylabel('Time [ms]')
+hold all
+        
+pointsStyle = {'bx','kx','rx','gx'};
 plotStyle = {'b--','k--','r--','g--'};
+outliersStyle = {'bo','ko','ro','go'};
+
+approximations = []
 
 for i = 1 : size(problemSizes)
    problemSize = problemSizes(i);
@@ -30,28 +37,34 @@ for i = 1 : size(problemSizes)
     ft = fittype( 'power1' );
     opts = fitoptions( 'Method', 'NonlinearLeastSquares' );
     opts.Display = 'Off';
-    opts.StartPoint = [418450.448604987 -0.778499327177966];
+    
+    fit1 = fit( xData, yData, ft, opts );
+    
+    fdata = feval(fit1,xData);
+    I = abs(fdata - yData) > 1.5*std(yData);
+    outliers = excludedata(xData,yData,'indices',I);
+    
+    fit2 = fit(xData,yData,ft,'Exclude',outliers);
 
-    % Fit model to data.
-    [fitresult, gof] = fit( xData, yData, ft, opts );
-
-    plot(xData,yData, pointsStyle{mod(i, numel(pointsStyle) + 1)});
+    h = plot(fit2,plotStyle{mod(i, numel(pointsStyle))  + 1 },xData,yData,...
+        pointsStyle{mod(i, numel(pointsStyle))  + 1 },...
+        outliers, outliersStyle{mod(i, numel(pointsStyle))  + 1 });
+    
+    approximations = [ approximations h(end) ];
+    
+%     semilogy(xData,yData, pointsStyle{mod(i, numel(pointsStyle))  + 1 });
+%     semilogy(outliers, 'rx');
+    
 %     plot( fitresult, xData, yData )
-
-    if(i == 1)
-        hold all
-        xlabel('Nodes [-]')
-        ylabel('Time [ms]')
-    end
     
-    text(xData(2),yData(2),sprintf('N = %.fk', problemSize/100000), 'FontSize',14)
+%     text(xData(2),log(yData(2)),sprintf('N = %.fk', problemSize/100000), 'FontSize',14)
     
-     yD = feval(fitresult,xData);
-     plot(xData,yD, plotStyle{mod(i, numel(plotStyle) + 1)} )
+%      yD = feval(fitresult,xData);
+%      semilogy(xData,yD, plotStyle{mod(i, numel(plotStyle)) + 1} )
    
    
 end
-
+legend(approximations, arrayfun(@(x) sprintf('N = %.fk', x / 1000), problemSizes, 'un', 0))
 hold off
 
 end
