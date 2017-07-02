@@ -5,11 +5,9 @@ problemSizes = unique(minTimes.ProblemSize);
 
 % Plot fit with data.
 figure(1);
-grid on
-title('Time vs Nodes')
-xlabel('Nodes [-]')
-ylabel('Time [ms]')
-hold all
+set(gcf,'units','points','position',[10,10,500,500])
+axes1 = axes;
+hold(axes1,'on');
         
 pointsStyle = {'bx','kx','rx','gx'};
 plotStyle = {'b--','k--','r--','g--'};
@@ -50,6 +48,13 @@ for i = 1 : size(problemSizes)
         pointsStyle{mod(i, numel(pointsStyle))  + 1 },...
         outliers, outliersStyle{mod(i, numel(pointsStyle))  + 1 });
     
+    set(h(1),'MarkerSize',9);
+    set(h(2),'LineWidth',2);
+    if(length(h) > 2) 
+       set(h(3),'LineWidth',2); 
+    end
+    hold on
+    
     approximations = [ approximations h(end) ];
     
 %     semilogy(xData,yData, pointsStyle{mod(i, numel(pointsStyle))  + 1 });
@@ -64,8 +69,27 @@ for i = 1 : size(problemSizes)
    
    
 end
-legend(approximations, arrayfun(@(x) sprintf('N = %.fk', x / 1000), problemSizes, 'un', 0))
-hold off
+
+% Create xlabel
+xlabel({'Nodes [-]'});
+
+% Create title
+title({'Time vs Nodes'});
+
+% Create ylabel
+ylabel('Time [ms]');
+
+
+legend1 = legend(approximations, arrayfun(@(x) sprintf('N = %.fk', x / 1000), problemSizes, 'un', 0));
+
+xlim(axes1,[2 11]);
+
+grid(axes1,'on');
+% Set the remaining axes properties
+set(axes1,'FontSize',14);
+% Create legend
+% legend1 = legend(axes1,'show');
+set(legend1,'LineWidth',1,'FontSize',14,'FontName','Helvetica Neue');
 
 end
 
