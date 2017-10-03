@@ -1,6 +1,9 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'application'
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.10'
+    id "java"
+    id "idea"
+    id "application"
+}
 
 mainClassName = 'com.agh.iet.komplastech.solver.Main'
 
@@ -35,6 +38,6 @@ dependencies {
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
 
-    testCompile "junit:junt:4.12"
+    testCompile "junit:junit:4.12"
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'
 }

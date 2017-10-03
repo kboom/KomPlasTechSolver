@@ -4,10 +4,16 @@ import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+import com.agh.iet.komplastech.solver.problem.terrain.InMemoryTerrainDataLoader;
+import com.agh.iet.komplastech.solver.problem.terrain.TerrainConfig;
+import com.agh.iet.komplastech.solver.problem.terrain.TerrainDataLoader;
+import com.agh.iet.komplastech.solver.problem.terrain.TerrainProjectionProblem;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
+
+import java.util.HashMap;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
@@ -51,12 +57,19 @@ class SolverLauncher {
                 timeLogger
         );
 
+        TerrainDataLoader terrainDataLoader = new InMemoryTerrainDataLoader(new HashMap<>());
+        problemSolver.solveProblem(new TerrainProjectionProblem(
+                terrainDataLoader,
+                TerrainConfig.builder().build()
+        ));
+
         try {
             NonStationarySolver nonStationarySolver =
                     new NonStationarySolver(steps, delta, problemSolver, mesh);
 
 
             int finalProblemSize = problemSize;
+
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
 
                 @Override
