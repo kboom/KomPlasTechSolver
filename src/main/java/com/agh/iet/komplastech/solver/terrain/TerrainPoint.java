@@ -1,8 +1,12 @@
 package com.agh.iet.komplastech.solver.terrain;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@Builder
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
 public class TerrainPoint {
 
     public final double x, y, z;
