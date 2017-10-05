@@ -8,9 +8,9 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class RegularMeshTerrainProcessorTest {
+public class ToClosestTerrainProcessorTest {
 
-    private static final RegularMeshTerrainProcessor processor = new RegularMeshTerrainProcessor();
+    private static final ToClosestTerrainProcessor processor = new ToClosestTerrainProcessor();
 
     @Test
     public void mapsPointsToClosestOnes() {
