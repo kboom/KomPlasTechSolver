@@ -10,7 +10,7 @@ public class Mesh {
 
     private int elementsY;
 
-    private int splineOrder;
+    private int splineOrder = 2;
 
     private int dofsX;
 
@@ -97,6 +97,12 @@ public class Mesh {
         }
 
         public Mesh build() {
+            if(mesh.resolutionY == 0) {
+                mesh.resolutionY = mesh.elementsY;
+            }
+            if(mesh.resolutionX == 0) {
+                mesh.resolutionX = mesh.elementsX;
+            }
             mesh.dofsX = mesh.elementsX + mesh.splineOrder;
             mesh.dofsY = mesh.elementsY + mesh.splineOrder;
             return mesh;

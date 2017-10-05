@@ -7,7 +7,7 @@ import com.agh.iet.komplastech.solver.terrain.support.Point2D;
 
 import java.util.stream.Stream;
 
-public class RegularMeshTerrainProcessor implements TerrainProcessor {
+public class ToClosestTerrainProcessor implements TerrainProcessor {
 
     private KdTree2D<Double> kdTree2D;
 
