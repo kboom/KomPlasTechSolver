@@ -2,6 +2,8 @@ package com.agh.iet.komplastech.solver.terrain;
 
 import lombok.Builder;
 
+import java.util.stream.Stream;
+
 @Builder
 public final class Terraformer {
 
@@ -10,9 +12,9 @@ public final class Terraformer {
     private final TerrainProcessor terrainProcessor;
 
     public void terraform() {
-        outputStorage.saveTerrainPoints(
-                terrainProcessor.apply(inputStorage.loadTerrainPoints())
-        );
+        Stream<TerrainPoint> terrainPointStream = inputStorage.loadTerrainPoints();
+        terrainProcessor.analyze(terrainPointStream);
+        outputStorage.saveTerrainPoints(terrainProcessor.apply(inputStorage.loadTerrainPoints()));
     }
 
 }
