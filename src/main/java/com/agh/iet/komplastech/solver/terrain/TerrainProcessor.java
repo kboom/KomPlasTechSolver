@@ -4,7 +4,7 @@ import java.util.stream.Stream;
 
 public interface TerrainProcessor {
 
-    void analyze(Stream<TerrainPoint> terrainPointStream);
+    Stream<TerrainPoint> analyze(Stream<TerrainPoint> terrainPointStream);
 
     Stream<TerrainPoint> apply(Stream<TerrainPoint> terrainPointStream);
 

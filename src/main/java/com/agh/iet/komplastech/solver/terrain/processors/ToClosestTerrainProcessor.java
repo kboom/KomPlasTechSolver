@@ -12,11 +12,9 @@ public class ToClosestTerrainProcessor implements TerrainProcessor {
     private KdTree2D<Double> kdTree2D;
 
     @Override
-    public void analyze(Stream<TerrainPoint> terrainPointStream) {
+    public Stream<TerrainPoint> analyze(Stream<TerrainPoint> terrainPointStream) {
         kdTree2D = new KdTree2D<>();
-        terrainPointStream.forEach(terrainPoint -> {
-            kdTree2D.insert(toPoint(terrainPoint));
-        });
+        return terrainPointStream.peek(terrainPoint -> kdTree2D.insert(toPoint(terrainPoint)));
     }
 
     @Override
