@@ -1,8 +1,9 @@
 package com.agh.iet.komplastech.solver.terrain;
 
-import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.terrain.processors.CompositeTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.processors.AdjustmentTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ToClosestTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.support.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,9 +21,11 @@ public class TerraformerTest implements TerrainStorage {
     private final Terraformer terraformer = Terraformer.builder()
             .inputStorage(this)
             .outputStorage(this)
-            .terrainProcessor(new CompositeTerrainProcessor(
-                    newArrayList(new ToClosestTerrainProcessor())
-            ))
+            .terrainProcessor(
+                    ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(1, 1)).build())
+                            .withNext(new ToClosestTerrainProcessor())
+                            .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-1, -1)).build())
+            )
             .build();
 
     private List<TerrainPoint> savedPoints;
