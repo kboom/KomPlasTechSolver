@@ -21,7 +21,7 @@ public class ToClosestTerrainProcessor implements TerrainProcessor {
     public Stream<TerrainPoint> apply(Stream<TerrainPoint> terrainPointStream) {
         return terrainPointStream.map(terrainPoint -> {
             Point2D<Double> nearestPoint = kdTree2D.nearest(toPoint(terrainPoint));
-            return new TerrainPoint(nearestPoint.x(), nearestPoint.y(), nearestPoint.getData());
+            return new TerrainPoint(terrainPoint, nearestPoint.getData());
         });
     }
 
