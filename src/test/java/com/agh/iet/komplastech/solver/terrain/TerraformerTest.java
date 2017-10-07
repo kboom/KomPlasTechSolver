@@ -61,6 +61,23 @@ public class TerraformerTest implements TerrainStorage {
         );
     }
 
+    @Test
+    public void snapsToClosestPointsValues() {
+        final Terraformer terraformer = buildAligned(0, 0, 1);
+
+        originalPoints.addAll(newArrayList(
+                new TerrainPoint(3, 4, 101),
+                new TerrainPoint(4, 3, 303)
+        ));
+
+        terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
+
+        assertThat(savedPoints).containsExactly(
+                new TerrainPoint(0, 0, 101), new TerrainPoint(0, 1, 101),
+                new TerrainPoint(1, 0, 303), new TerrainPoint(1, 1, 101)
+        );
+    }
+
     @Override
     public Stream<TerrainPoint> loadTerrainPoints() {
         return this.originalPoints.stream();
