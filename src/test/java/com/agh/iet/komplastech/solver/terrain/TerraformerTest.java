@@ -18,16 +18,6 @@ import static org.assertj.core.util.Lists.newArrayList;
 
 public class TerraformerTest implements TerrainStorage {
 
-    private final Terraformer terraformer = Terraformer.builder()
-            .inputStorage(this)
-            .outputStorage(this)
-            .terrainProcessor(
-                    ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(1, 1)).build())
-                            .withNext(new ToClosestTerrainProcessor())
-                            .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-1, -1)).build())
-            )
-            .build();
-
     private List<TerrainPoint> savedPoints;
     private List<TerrainPoint> originalPoints;
 
@@ -38,30 +28,36 @@ public class TerraformerTest implements TerrainStorage {
     }
 
     @Test
-    public void stripsOffsets() {
+    public void isExactForExactMatch() {
+        final Terraformer terraformer = buildAligned(0, 0, 1);
+
         originalPoints.addAll(newArrayList(
-                new TerrainPoint(1, 0, 1), new TerrainPoint(1, 0, 2),
-                new TerrainPoint(2, 1, 3), new TerrainPoint(2, 2, 4)
+                new TerrainPoint(0, 0, 1), new TerrainPoint(0, 1, 2),
+                new TerrainPoint(1, 0, 3), new TerrainPoint(1, 1, 4)
         ));
+
         terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
+
         assertThat(savedPoints).containsExactly(
-                new TerrainPoint(0, 0, 1), new TerrainPoint(0, 0, 2),
-                new TerrainPoint(1, 1, 3), new TerrainPoint(1, 2, 4)
+                new TerrainPoint(0, 0, 1), new TerrainPoint(0, 1, 2),
+                new TerrainPoint(1, 0, 3), new TerrainPoint(1, 1, 4)
         );
     }
 
     @Test
-    public void sticksToPoint() {
+    public void isExactForExactMatchWithOffset() {
+        final Terraformer terraformer = buildAligned(100, 100, 1);
+
         originalPoints.addAll(newArrayList(
-                new TerrainPoint(1, 0, 1), new TerrainPoint(1, 0, 2), new TerrainPoint(1, 0, 3),
-                new TerrainPoint(2, 1, 4), new TerrainPoint(2, 1, 5), new TerrainPoint(2, 1, 6),
-                new TerrainPoint(3, 2, 7), new TerrainPoint(3, 2, 8), new TerrainPoint(3, 2, 9)
+                new TerrainPoint(100, 100, 1), new TerrainPoint(100, 101, 2),
+                new TerrainPoint(101, 100, 3), new TerrainPoint(101, 101, 4)
         ));
-        terraformer.terraform(aMesh().withElementsX(3).withElementsY(3).build());
+
+        terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
+
         assertThat(savedPoints).containsExactly(
-                new TerrainPoint(0, 0, 1), new TerrainPoint(0, 0, 2), new TerrainPoint(0, 0, 3),
-                new TerrainPoint(1, 1, 4), new TerrainPoint(1, 1, 5), new TerrainPoint(1, 1, 6),
-                new TerrainPoint(2, 2, 7), new TerrainPoint(2, 2, 8), new TerrainPoint(2, 2, 9)
+                new TerrainPoint(0, 0, 1), new TerrainPoint(0, 1, 2),
+                new TerrainPoint(1, 0, 3), new TerrainPoint(1, 1, 4)
         );
     }
 
@@ -73,6 +69,18 @@ public class TerraformerTest implements TerrainStorage {
     @Override
     public void saveTerrainPoints(Stream<TerrainPoint> terrainPointStream) {
         this.savedPoints = terrainPointStream.collect(Collectors.toList());
+    }
+
+    private Terraformer buildAligned(double x, double y, double scale) {
+        return Terraformer.builder()
+                .inputStorage(this)
+                .outputStorage(this)
+                .terrainProcessor(
+                        ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(x, y)).scale(scale).build())
+                                .withNext(new ToClosestTerrainProcessor())
+                                .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-x, -y)).scale(1/scale).build())
+                )
+                .build();
     }
 
 }
