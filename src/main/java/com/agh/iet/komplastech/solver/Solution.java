@@ -65,4 +65,7 @@ public abstract class Solution {
 
     public abstract double getModifiedValue(double x, double y);
 
+    public Mesh getMesh() {
+        return mesh;
+    }
 }

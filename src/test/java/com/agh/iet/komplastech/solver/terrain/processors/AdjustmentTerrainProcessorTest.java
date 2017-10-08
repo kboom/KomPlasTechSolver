@@ -19,7 +19,7 @@ public class AdjustmentTerrainProcessorTest {
 
         assertThat(adjustmentTerrainProcessor.apply(Stream.of(
                 new TerrainPoint(0, 0, 0), new TerrainPoint(1, 3, 0)
-        )).collect(Collectors.toList())).containsExactly(
+        )).collect(Collectors.toList())).containsExactlyInAnyOrder(
                 new TerrainPoint(1, 1, 0), new TerrainPoint(2, 4, 0)
         );
     }
@@ -31,7 +31,7 @@ public class AdjustmentTerrainProcessorTest {
 
         assertThat(adjustmentTerrainProcessor.apply(Stream.of(
                 new TerrainPoint(0, 0, 0), new TerrainPoint(5, 3, 0)
-        )).collect(Collectors.toList())).containsExactly(
+        )).collect(Collectors.toList())).containsExactlyInAnyOrder(
                 new TerrainPoint(0, 0, 0), new TerrainPoint(10, 6, 0)
         );
     }

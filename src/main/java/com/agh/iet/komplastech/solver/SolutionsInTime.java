@@ -35,6 +35,10 @@ public class SolutionsInTime {
         return subsequentSolutions.get(timeStep);
     }
 
+    public Mesh getMesh() {
+        return mesh;
+    }
+
     static class SolutionsInTimeBuilder {
 
         private final List<Solution> solutions = new ArrayList<>();

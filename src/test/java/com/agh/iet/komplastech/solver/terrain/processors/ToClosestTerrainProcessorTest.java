@@ -14,9 +14,25 @@ public class ToClosestTerrainProcessorTest {
 
     @Test
     public void mapsPointsToClosestOnes() {
-        processor.analyze(Stream.of(new TerrainPoint(0, 0, 0), new TerrainPoint(1, 1, 1), new TerrainPoint(3, 3, 3), new TerrainPoint(3, 4, 55)));
-        Stream<TerrainPoint> resultStream = processor.apply(Stream.of(new TerrainPoint(3, 1, 0), new TerrainPoint(4, 2, 0)));
-        assertThat(resultStream.collect(Collectors.toList())).containsExactly(new TerrainPoint(1, 1, 1), new TerrainPoint(3, 3, 3));
+        Stream<TerrainPoint> terrainPointStream = Stream.of(
+                new TerrainPoint(0, 0, 0), new TerrainPoint(1, 1, 1),
+                new TerrainPoint(3, 3, 3), new TerrainPoint(3, 4, 55)
+        );
+
+        processor.analyze(terrainPointStream);
+
+        terrainPointStream.count();
+
+        Stream<TerrainPoint> resultStream = processor.apply(Stream.of(
+                new TerrainPoint(3, 1, 0),
+                new TerrainPoint(4, 2, 0))
+        );
+
+        assertThat(resultStream.collect(Collectors.toList()))
+                .containsExactlyInAnyOrder(
+                        new TerrainPoint(1, 1, 1),
+                        new TerrainPoint(3, 3, 3)
+                );
     }
 
 }

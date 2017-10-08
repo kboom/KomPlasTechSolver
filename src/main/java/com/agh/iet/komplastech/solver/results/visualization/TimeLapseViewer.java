@@ -3,20 +3,18 @@ package com.agh.iet.komplastech.solver.results.visualization;
 import com.agh.iet.komplastech.solver.SolutionsInTime;
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.ANIMATION_DISPLAY;
 import static com.agh.iet.komplastech.solver.results.visualization.DisplayState.SNAPSHOT;
-import static com.agh.iet.komplastech.solver.results.visualization.SolutionMapper.fromSolution;
+import static com.agh.iet.komplastech.solver.results.visualization.TransientSolutionMapper.fromSolution;
 
 public class TimeLapseViewer extends JFrame {
 
     private final SolutionsInTime solutionsInTime;
-    private final SolutionMapper solutionMapper;
+    private final TransientSolutionMapper transientSolutionMapper;
     private SurfaceFactory surfaceFactory;
 
     private JSlider frameSlider;
@@ -28,8 +26,8 @@ public class TimeLapseViewer extends JFrame {
 
     public TimeLapseViewer(SolutionsInTime solutionsInTime) {
         this.solutionsInTime = solutionsInTime;
-        solutionMapper = fromSolution(solutionsInTime);
-        surfaceFactory = new SurfaceFactory(solutionMapper, solutionsInTime);
+        transientSolutionMapper = fromSolution(solutionsInTime);
+        surfaceFactory = new SurfaceFactory(transientSolutionMapper, solutionsInTime.getMesh());
         initialize();
         initializeSlider();
         animate();
@@ -61,7 +59,7 @@ public class TimeLapseViewer extends JFrame {
             if(displayState == SNAPSHOT) {
                 JSlider source = (JSlider) e.getSource();
                 if(!source.getValueIsAdjusting()) {
-                    solutionMapper.setStep(source.getValue());
+                    transientSolutionMapper.setStep(source.getValue());
                     redrawFrame();
                 }
             }
@@ -130,7 +128,7 @@ public class TimeLapseViewer extends JFrame {
                 if(timeStep >= timeStepCount) {
                     timeStep = 0;
                 }
-                solutionMapper.setStep(timeStep++);
+                transientSolutionMapper.setStep(timeStep++);
                 frameSlider.setValue(timeStep);
                 redrawFrame();
                 try {
