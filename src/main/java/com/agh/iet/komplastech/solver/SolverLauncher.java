@@ -9,10 +9,7 @@ import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.terrain.FileTerrainStorage;
-import com.agh.iet.komplastech.solver.terrain.InMemoryTerrainStorage;
-import com.agh.iet.komplastech.solver.terrain.Terraformer;
-import com.agh.iet.komplastech.solver.terrain.TerrainProjectionProblem;
+import com.agh.iet.komplastech.solver.terrain.*;
 import com.agh.iet.komplastech.solver.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ToClosestTerrainProcessor;
@@ -70,7 +67,7 @@ class SolverLauncher {
 
 
         FileTerrainStorage inputTerrain = FileTerrainStorage.builder().inFilePath(terrainFile).build();
-        InMemoryTerrainStorage outputTerrain = new InMemoryTerrainStorage();
+        MapTerrainStorage outputTerrain = new MapTerrainStorage();
 
         Terraformer.builder()
                 .inputStorage(inputTerrain)

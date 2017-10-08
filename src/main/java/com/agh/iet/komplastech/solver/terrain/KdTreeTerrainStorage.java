@@ -5,7 +5,7 @@ import com.agh.iet.komplastech.solver.terrain.support.Point2D;
 
 import java.util.stream.Stream;
 
-public class InMemoryTerrainStorage implements TerrainStorage, TerrainPointFinder {
+public class KdTreeTerrainStorage implements TerrainStorage, TerrainPointFinder {
 
     private KdTree2D<Double> kdTree2D = new KdTree2D<>();
 
