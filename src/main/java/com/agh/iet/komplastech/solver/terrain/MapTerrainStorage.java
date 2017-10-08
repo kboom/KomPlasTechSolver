@@ -1,12 +1,12 @@
 package com.agh.iet.komplastech.solver.terrain;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 public class MapTerrainStorage implements TerrainStorage, TerrainPointFinder {
 
-    private Map<String, TerrainPoint> terrainPointMap = new HashMap<>();
+    private Map<String, TerrainPoint> terrainPointMap = new ConcurrentHashMap<>();
 
     @Override
     public Stream<TerrainPoint> loadTerrainPoints() {
