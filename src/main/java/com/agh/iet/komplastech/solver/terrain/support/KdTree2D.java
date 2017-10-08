@@ -43,7 +43,7 @@ public class KdTree2D<T> {
      *
      * @param p The point to be inserted
      */
-    public void insert(Point2D<T> p) {
+    public synchronized void insert(Point2D<T> p) {
         RectHV rect;
         /*
          * If root is null, it implies that the tree is empty.

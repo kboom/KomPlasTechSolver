@@ -61,8 +61,8 @@ class SolverLauncher {
         );
 
 
-        double xOffset = 560000;
-        double yOffset = 180000;
+        double xOffset = 600000;
+        double yOffset = 230000;
 
         FileTerrainStorage inputTerrain = FileTerrainStorage.builder().inFilePath(terrainFile).build();
         MapTerrainStorage outputTerrain = new MapTerrainStorage();
