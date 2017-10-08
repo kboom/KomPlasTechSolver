@@ -38,7 +38,7 @@ public class TerraformerTest implements TerrainStorage {
 
         terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
 
-        assertThat(savedPoints).containsExactly(
+        assertThat(savedPoints).containsExactlyInAnyOrder(
                 new TerrainPoint(0, 0, 1), new TerrainPoint(0, 1, 2),
                 new TerrainPoint(1, 0, 3), new TerrainPoint(1, 1, 4)
         );
@@ -55,7 +55,7 @@ public class TerraformerTest implements TerrainStorage {
 
         terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
 
-        assertThat(savedPoints).containsExactly(
+        assertThat(savedPoints).containsExactlyInAnyOrder(
                 new TerrainPoint(0, 0, 1), new TerrainPoint(0, 1, 2),
                 new TerrainPoint(1, 0, 3), new TerrainPoint(1, 1, 4)
         );
@@ -72,7 +72,7 @@ public class TerraformerTest implements TerrainStorage {
 
         terraformer.terraform(aMesh().withElementsX(2).withElementsY(2).build());
 
-        assertThat(savedPoints).containsExactly(
+        assertThat(savedPoints).containsExactlyInAnyOrder(
                 new TerrainPoint(0, 0, 101), new TerrainPoint(0, 1, 101),
                 new TerrainPoint(1, 0, 303), new TerrainPoint(1, 1, 101)
         );

@@ -20,7 +20,11 @@ public class AdjustmentTerrainProcessor implements TerrainProcessor {
 
     @Override
     public Stream<TerrainPoint> apply(Stream<TerrainPoint> terrainPointStream) {
-        return terrainPointStream.map(point -> new TerrainPoint((point.x + center.x()) * scale, (point.y + center.y()) * scale, point.z));
+        if(scale < 1) {
+            return terrainPointStream.map(point -> new TerrainPoint(Math.round((center.x() + point.x) * scale), Math.round((center.y() + point.y) * scale), point.z));
+        } else {
+            return terrainPointStream.map(point -> new TerrainPoint(Math.round(center.x() + point.x * scale), Math.round(center.y() + point.y * scale), point.z));
+        }
     }
 
     @Override

@@ -3,13 +3,17 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
-import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
+import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.terrain.FileTerrainStorage;
+import com.agh.iet.komplastech.solver.terrain.InMemoryTerrainStorage;
+import com.agh.iet.komplastech.solver.terrain.Terraformer;
+import com.agh.iet.komplastech.solver.terrain.TerrainProjectionProblem;
+import com.agh.iet.komplastech.solver.terrain.processors.AdjustmentTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.processors.ChainedTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.processors.ToClosestTerrainProcessor;
+import com.agh.iet.komplastech.solver.terrain.support.Point2D;
 import com.beust.jcommander.Parameter;
-
-import java.util.HashMap;
 
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
@@ -33,6 +37,12 @@ class SolverLauncher {
     @Parameter(names={"--steps", "-o"})
     private int steps = 100;
 
+    @Parameter(names={"--terrain"}, required = true)
+    private String terrainFile;
+
+    @Parameter(names={"--scale"})
+    private int scale = 1000;
+
     void launch() {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
         TimeLogger timeLogger = new TimeLogger();
@@ -53,56 +63,82 @@ class SolverLauncher {
                 timeLogger
         );
 
-        try {
-            NonStationarySolver nonStationarySolver =
-                    new NonStationarySolver(steps, delta, problemSolver, mesh);
+
+        double xOffset = 506000;
+        double yOffset = 150000;
+
+        FileTerrainStorage inputTerrain = FileTerrainStorage.builder().inFilePath(terrainFile).build();
+        InMemoryTerrainStorage outputTerrain = new InMemoryTerrainStorage();
+
+        Terraformer.builder()
+                .inputStorage(inputTerrain)
+                .outputStorage(outputTerrain)
+                .terrainProcessor(
+                        ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(xOffset, yOffset)).scale(scale).build())
+                                .withNext(new ToClosestTerrainProcessor())
+                                .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-xOffset, -yOffset)).scale(1d/scale).build())
+                )
+                .build()
+                .terraform(mesh);
+
+        Solution terrainSolution = problemSolver.solveProblem(new TerrainProjectionProblem(outputTerrain));
 
 
-            int finalProblemSize = problemSize;
-
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
-
-                @Override
-                protected double getInitialValue(double x, double y) {
-                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
-
-                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
-                }
-
-                @Override
-                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-                    double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getLaplacian(x, y);
-                }
-
-            });
-
-            productionExecutorFactory.joinAll();
-
-            System.out.print(String.format("%d,%d,%d,%d",
-                    timeLogger.getTotalCreationMs(),
-                    timeLogger.getTotalInitializationMs(),
-                    timeLogger.getTotalFactorizationMs(),
-                    timeLogger.getTotalSolutionMs()
-            ));
-
-
-            Solution solution = solutionsInTime.getFinalSolution();
-
-            if (isLogging) {
-                CsvPrinter csvPrinter = new CsvPrinter();
-                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
-            }
-
-            if (isPlotting) {
-                TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
+        if (isPlotting) {
+            ResultsSnapshot timeLapseViewer = new ResultsSnapshot(terrainSolution);
                 timeLapseViewer.setVisible(true);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            NonStationarySolver nonStationarySolver =
+//                    new NonStationarySolver(steps, delta, problemSolver, mesh);
+//
+//
+//            int finalProblemSize = problemSize;
+//
+//            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+//
+//                @Override
+//                protected double getInitialValue(double x, double y) {
+//                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
+//                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
+//
+//                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
+//                }
+//
+//                @Override
+//                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
+//                    double value = currentSolution.getValue(x, y);
+//                    return value + delta * currentSolution.getLaplacian(x, y);
+//                }
+//
+//            });
+//
+//            productionExecutorFactory.joinAll();
+//
+//            System.out.print(String.format("%d,%d,%d,%d",
+//                    timeLogger.getTotalCreationMs(),
+//                    timeLogger.getTotalInitializationMs(),
+//                    timeLogger.getTotalFactorizationMs(),
+//                    timeLogger.getTotalSolutionMs()
+//            ));
+//
+//
+//            Solution solution = solutionsInTime.getFinalSolution();
+//
+//            if (isLogging) {
+//                CsvPrinter csvPrinter = new CsvPrinter();
+//                System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
+//            }
+//
+//            if (isPlotting) {
+//                TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
+//                timeLapseViewer.setVisible(true);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
 }

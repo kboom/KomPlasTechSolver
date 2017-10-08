@@ -92,4 +92,7 @@ public class Solution {
         return solution;
     }
 
+    public Mesh getMesh() {
+        return mesh;
+    }
 }
