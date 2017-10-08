@@ -5,10 +5,7 @@ import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.terrain.FileTerrainStorage;
-import com.agh.iet.komplastech.solver.terrain.InMemoryTerrainStorage;
-import com.agh.iet.komplastech.solver.terrain.Terraformer;
-import com.agh.iet.komplastech.solver.terrain.TerrainProjectionProblem;
+import com.agh.iet.komplastech.solver.terrain.*;
 import com.agh.iet.komplastech.solver.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ToClosestTerrainProcessor;
@@ -41,7 +38,7 @@ class SolverLauncher {
     private String terrainFile;
 
     @Parameter(names={"--scale"})
-    private int scale = 1000;
+    private int scale = 10;
 
     void launch() {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -64,11 +61,11 @@ class SolverLauncher {
         );
 
 
-        double xOffset = 506000;
-        double yOffset = 150000;
+        double xOffset = 560000;
+        double yOffset = 180000;
 
         FileTerrainStorage inputTerrain = FileTerrainStorage.builder().inFilePath(terrainFile).build();
-        InMemoryTerrainStorage outputTerrain = new InMemoryTerrainStorage();
+        MapTerrainStorage outputTerrain = new MapTerrainStorage();
 
         Terraformer.builder()
                 .inputStorage(inputTerrain)
