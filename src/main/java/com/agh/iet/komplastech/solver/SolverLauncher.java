@@ -38,7 +38,7 @@ class SolverLauncher {
     private String terrainFile;
 
     @Parameter(names={"--scale"})
-    private int scale = 10;
+    private int scale = 100;
 
     void launch() {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -61,8 +61,8 @@ class SolverLauncher {
         );
 
 
-        double xOffset = 600000;
-        double yOffset = 230000;
+        double xOffset = 540000;
+        double yOffset = 170000;
 
         FileTerrainStorage inputTerrain = FileTerrainStorage.builder().inFilePath(terrainFile).build();
         MapTerrainStorage outputTerrain = new MapTerrainStorage();
