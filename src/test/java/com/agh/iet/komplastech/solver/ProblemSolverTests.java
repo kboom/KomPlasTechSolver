@@ -32,7 +32,7 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y, RunInformation.initialInformation());
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
     }
 
@@ -47,7 +47,7 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y, RunInformation.initialInformation());
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));
     }
 

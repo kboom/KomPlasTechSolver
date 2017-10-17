@@ -6,13 +6,13 @@ import com.agh.iet.komplastech.solver.productions.Production;
 
 import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
-public class Ay extends Production {
+public class AyOdd extends Production {
 
     private final double[][] solution;
     private final double[] partition;
     private final int idx;
 
-    public Ay(Vertex node, double[][] solution, double[] partition, int idx, Mesh mesh) {
+    public AyOdd(Vertex node, double[][] solution, double[] partition, int idx, Mesh mesh) {
         super(node, mesh);
         this.solution = solution;
         this.partition = partition;

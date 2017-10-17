@@ -1,12 +1,13 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.Vertex;
 
-public class ANy extends Ay {
+public class AxEven extends AxOdd {
 
-    public ANy(Vertex node, double[][] solution, double[] partition, int idx, Mesh mesh) {
-        super(node, solution, partition, idx, mesh);
+    public AxEven(Vertex node, Mesh mesh, Problem rhs) {
+        super(node, mesh, rhs);
     }
 
 }

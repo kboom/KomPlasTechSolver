@@ -53,13 +53,13 @@ public class DirectionSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(Problem problem) {
+    public Solution solveProblem(Problem problem, RunInformation runInformation) {
         timeLogger.logCreation();
         Vertex root = createRoot();
         lastLevelVertices = buildIntermediateLevels(root);
         leafLevelVertices = buildLeaves();
         timeLogger.logInitialization();
-        initializeLeaves();
+        initializeLeaves(runInformation);
         timeLogger.logFactorization();
         mergeLeaves();
         eliminateLeaves();
@@ -72,9 +72,9 @@ public class DirectionSolver implements Solver {
         return new Solution(mesh, getRhs());
     }
 
-    private void initializeLeaves() {
+    private void initializeLeaves(RunInformation runInformation) {
         launcherFactory
-                .createLauncherFor(leafInitializer.initializeLeaves(leafLevelVertices))
+                .createLauncherFor(leafInitializer.initializeLeaves(leafLevelVertices, runInformation))
                 .launchProductions();
 
         solutionLogger.logValuesOfChildren(leafLevelVertices, "Initializing leaves");

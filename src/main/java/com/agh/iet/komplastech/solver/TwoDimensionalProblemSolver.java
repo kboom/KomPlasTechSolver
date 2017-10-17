@@ -32,9 +32,9 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(Problem rhs) {
-        ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
-        LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
+    public Solution solveProblem(Problem rhs, RunInformation runInformation) {
+        final ProductionFactory horizontalProductionFactory = new HorizontalProductionFactory(mesh);
+        final LeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(mesh, rhs);
 
         DirectionSolver horizontalProblemSolver = new DirectionSolver(
                 horizontalProductionFactory,
@@ -44,7 +44,9 @@ class TwoDimensionalProblemSolver implements Solver {
                 solutionLogger,
                 timeLogger
         );
-        Solution horizontalSolution = horizontalProblemSolver.solveProblem(rhs);
+
+
+        final Solution horizontalSolution = horizontalProblemSolver.solveProblem(rhs, runInformation);
 
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory(mesh);
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(mesh, horizontalSolution);
@@ -57,7 +59,7 @@ class TwoDimensionalProblemSolver implements Solver {
                 timeLogger
         );
 
-        return verticalProblemSolver.solveProblem(rhs);
+        return verticalProblemSolver.solveProblem(rhs, runInformation);
     }
 
 }

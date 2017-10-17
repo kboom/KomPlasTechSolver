@@ -29,10 +29,14 @@ class NonStationarySolver {
         SolutionsInTime.SolutionsInTimeBuilder solutionsInTimeBuilder = solutionsInTime()
                 .withMesh(mesh)
                 .withDelta(delta);
+
+        RunInformation runInformation = RunInformation.initialInformation();
+
         for (int i = 0; i < timeStepCount; i++) {
-            Solution solution = solver.solveProblem(nonStationaryProblem);
+            Solution solution = solver.solveProblem(nonStationaryProblem, runInformation);
             solutionsInTimeBuilder.addSolution(solution);
             nonStationaryProblem.nextStep(solution);
+            runInformation = runInformation.nextRun();
         }
         return solutionsInTimeBuilder.build();
     }
