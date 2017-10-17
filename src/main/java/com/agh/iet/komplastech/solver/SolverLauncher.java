@@ -53,11 +53,11 @@ class SolverLauncher {
 
         try {
             NonStationarySolver nonStationarySolver =
-                    new NonStationarySolver(steps, delta, problemSolver, mesh);
+                    new NonStationarySolver(steps, delta / 2, problemSolver, mesh);
 
 
             int finalProblemSize = problemSize;
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta / 2) {
 
                 @Override
                 protected double getInitialValue(double x, double y) {
