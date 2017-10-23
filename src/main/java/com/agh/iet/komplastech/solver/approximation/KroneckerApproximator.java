@@ -42,10 +42,19 @@ public class KroneckerApproximator {
             }
         }
 
+        final double ol[][] = oldApproximation.l;
+        final double nl[][] = new double[aCount][bCount];
+        for(int i = 0; i < aCount; i++) {
+            for (int j = 0; j < bCount; j++) {
+                nl[i][j] = ol[i][j] + na[i] * nb[j];
+            }
+        }
+
         return KroneckerApproximation.builder()
                 .a(na)
                 .b(nb)
                 .c(nc)
+                .l(nl)
                 .error(error)
                 .build();
     }

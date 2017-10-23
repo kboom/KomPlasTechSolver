@@ -18,4 +18,8 @@ public class KroneckerApproximationSeries {
         return Collections.unmodifiableList(series);
     }
 
+    public KroneckerApproximation getTarget() {
+        return series.get(series.size() -  1);
+    }
+
 }

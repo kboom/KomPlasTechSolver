@@ -9,6 +9,14 @@ import lombok.ToString;
 @ToString
 class KroneckerApproximation {
 
+    /**
+     * The approximation sum without this iteration
+     */
+    public final double[][] l;
+
+    /**
+     * This approximation contribution
+     */
     public final double[][] c;
 
     public final double a[];
@@ -21,6 +29,7 @@ class KroneckerApproximation {
         return KroneckerApproximation.builder()
                 .a(new double[original.length])
                 .b(new double[original.length])
+                .l(new double[original.length][original.length])
                 .c(original)
                 .build();
     }
