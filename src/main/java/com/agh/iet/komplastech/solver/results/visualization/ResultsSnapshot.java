@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.results.visualization;
 
 import com.agh.iet.komplastech.solver.Solution;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import org.jzy3d.plot3d.builder.Mapper;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +12,9 @@ public class ResultsSnapshot extends JFrame {
     private SurfaceFactory surfaceFactory;
     private ChartFrame chartView;
 
-    public ResultsSnapshot(Solution solution) {
+    public ResultsSnapshot(Mapper mapper, Mesh mesh) {
         attachAskToClose();
-        SolutionMapper solutionMapper = new SolutionMapper(solution);
-        surfaceFactory = new SurfaceFactory(solutionMapper, solution.getMesh());
+        surfaceFactory = new SurfaceFactory(mapper, mesh);
         initialize();
     }
 
@@ -54,6 +55,11 @@ public class ResultsSnapshot extends JFrame {
 
     public void close() {
         System.exit(0);
+    }
+
+    public static ResultsSnapshot fromSolution(Solution solution) {
+        SolutionMapper solutionMapper = new SolutionMapper(solution);
+        return new ResultsSnapshot(solutionMapper, solution.getMesh());
     }
 
 }

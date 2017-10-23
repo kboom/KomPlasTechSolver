@@ -1,44 +1,58 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.approximation.KroneckerApproximation;
+import com.agh.iet.komplastech.solver.approximation.KroneckerApproximationManager;
+import com.agh.iet.komplastech.solver.approximation.KroneckerApproximator;
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
-import com.agh.iet.komplastech.solver.terrain.*;
+import com.agh.iet.komplastech.solver.terrain.FileTerrainStorage;
+import com.agh.iet.komplastech.solver.terrain.MapTerrainStorage;
+import com.agh.iet.komplastech.solver.terrain.Terraformer;
+import com.agh.iet.komplastech.solver.terrain.TerrainProjectionProblem;
 import com.agh.iet.komplastech.solver.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.processors.ToClosestTerrainProcessor;
 import com.agh.iet.komplastech.solver.terrain.support.Point2D;
 import com.beust.jcommander.Parameter;
 
+import static com.agh.iet.komplastech.solver.support.MatrixPaddingTranslator.withPadding;
+import static com.agh.iet.komplastech.solver.support.MatrixPaddingTranslator.withoutPadding;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 
 class SolverLauncher {
 
-    @Parameter(names={"--log", "-l"})
+    @Parameter(names = {"--log", "-l"})
     private boolean isLogging = false;
 
-    @Parameter(names={"--plot", "-p"})
+    @Parameter(names = {"--plot", "-p"})
     private boolean isPlotting = false;
 
-    @Parameter(names={"--problem-size", "-s"})
+    @Parameter(names = {"--problem-size", "-s"})
     private int problemSize = 12;
 
-    @Parameter(names={"--max-threads", "-t"})
+    @Parameter(names = {"--max-threads", "-t"})
     private int maxThreads = 12;
 
-    @Parameter(names={"--delta", "-d"})
+    @Parameter(names = {"--delta", "-d"})
     private double delta = 0.001;
 
-    @Parameter(names={"--steps", "-o"})
+    @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
 
-    @Parameter(names={"--terrain"}, required = true)
+    @Parameter(names = {"--terrain"}, required = true)
     private String terrainFile;
 
-    @Parameter(names={"--scale"})
+    @Parameter(names = {"--approx"})
+    private int approximations = 1;
+
+    @Parameter(names = {"--scale"})
     private int scale = 100;
+
+    private final KroneckerApproximationManager kroneckerApproximationManager
+            = new KroneckerApproximationManager(new KroneckerApproximator());
 
     void launch() {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -73,18 +87,29 @@ class SolverLauncher {
                 .terrainProcessor(
                         ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(xOffset, yOffset)).scale(scale).build())
                                 .withNext(new ToClosestTerrainProcessor())
-                                .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-xOffset, -yOffset)).scale(1d/scale).build())
+                                .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-xOffset, -yOffset)).scale(1d / scale).build())
                 )
                 .build()
                 .terraform(mesh);
 
         Solution terrainSolution = problemSolver.solveProblem(new TerrainProjectionProblem(outputTerrain));
 
+        KroneckerApproximation kroneckerApproximation =
+                kroneckerApproximationManager.approximateInIterations(withoutPadding(terrainSolution.getRhs()), approximations);
+
 
         if (isPlotting) {
-            ResultsSnapshot timeLapseViewer = new ResultsSnapshot(terrainSolution);
-                timeLapseViewer.setVisible(true);
-            }
+            ResultsSnapshot timeLapseViewer = ResultsSnapshot.fromSolution(terrainSolution);
+            timeLapseViewer.setVisible(true);
+
+            ResultsSnapshot approxViewer = ResultsSnapshot.fromSolution(
+                    new Solution(mesh, withPadding(kroneckerApproximation.l))
+            );
+            approxViewer.setVisible(true);
+
+            System.out.println(String.format("Error for %d runs: %f.3", approximations, kroneckerApproximation.error));
+        }
+
 
 //        try {
 //            NonStationarySolver nonStationarySolver =

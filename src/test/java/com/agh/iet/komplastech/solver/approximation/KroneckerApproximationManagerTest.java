@@ -2,13 +2,13 @@ package com.agh.iet.komplastech.solver.approximation;
 
 import org.junit.Test;
 
-import static java.util.Comparator.comparingDouble;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class KroneckerApproximationManagerTest {
 
     private final KroneckerApproximator approximator = new KroneckerApproximator();
-    private final KroneckerApproximationManager kroneckerApproximationManager = new KroneckerApproximationManager(approximator);
+    private final
+    KroneckerApproximationManager kroneckerApproximationManager = new KroneckerApproximationManager(approximator);
 
     @Test
     public void canApproximateOnce() {
@@ -16,7 +16,7 @@ public class KroneckerApproximationManagerTest {
                 new double[]{1, 9, 2},
                 new double[]{3, 4, 5},
                 new double[]{3, 4, 1}
-        }, 1).getSeries()).containsExactly(
+        }, 1)).isEqualTo(
                 KroneckerApproximation.builder()
                         .a(new double[]{0.501048846269104, 0.45669763260413543, 0.24093497153131554})
                         .b(new double[]{1.0, 9.0, 11.25})
@@ -43,7 +43,7 @@ public class KroneckerApproximationManagerTest {
                 new double[]{3, 4, 6, 12, 13},
                 new double[]{6, 7, 4, 8, 14},
                 new double[]{4, 3, 2, 1, 10}
-        }, 1).getTarget().l).isEqualTo(
+        }, 1).l).isEqualTo(
                 new double[][]{
                         new double[]{0.4359984272933581, 3.923985845640223, 4.904982307050278, 9.809964614100556, 17.167438074675974},
                         new double[]{0.35041007635904614, 3.1536906872314154, 3.942113359039269, 7.884226718078538, 13.797396756637442},
@@ -52,18 +52,6 @@ public class KroneckerApproximationManagerTest {
                         new double[]{0.20737654597752686, 1.8663889137977416, 2.332986142247177, 4.665972284494354, 8.16545149786512}
                 }
         );
-    }
-
-    @Test
-    public void errorBecomesSmaller() {
-        assertThat(kroneckerApproximationManager.approximateInIterations(new double[][]{
-                new double[]{1, 9, 2, 6},
-                new double[]{3, 4, 5, 10},
-                new double[]{3, 4, 1, 12},
-                new double[]{19, 6, 3, 12}
-        }, 100).getSeries())
-                .extracting("error")
-                .isSortedAccordingTo(comparingDouble(a -> (Double) a).reversed());
     }
 
 }

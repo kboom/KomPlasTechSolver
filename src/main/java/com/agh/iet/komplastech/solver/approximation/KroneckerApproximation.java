@@ -7,7 +7,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @ToString
-class KroneckerApproximation {
+public class KroneckerApproximation {
 
     /**
      * The approximation sum without this iteration
