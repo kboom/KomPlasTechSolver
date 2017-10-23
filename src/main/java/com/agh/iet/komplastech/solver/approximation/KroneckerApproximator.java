@@ -16,12 +16,16 @@ public class KroneckerApproximator {
         }
 
         final double na[] = new double [aCount];
+
         for(int k = 0; k < aCount; k++) {
-            na[k] = 0;
+            double naUp = 0, naBt = 0;
             for(int j = 0; j < bCount; j++) {
-                na[k] += oc[k][j] / nb[j];
+                naUp += oc[k][j] * nb[j];
+                naBt += Math.pow(nb[j], 2);
             }
+            na[k] = naUp / naBt;
         }
+
 
         final double nc[][] = new double[aCount][bCount];
 
