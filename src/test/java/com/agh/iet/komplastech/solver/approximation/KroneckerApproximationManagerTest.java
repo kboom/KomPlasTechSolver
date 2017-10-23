@@ -35,12 +35,13 @@ public class KroneckerApproximationManagerTest {
     }
 
     @Test
-    public void errorBecomesSmallerUpToLimit() {
+    public void errorBecomesSmaller() {
         assertThat(kroneckerApproximationManager.approximateInIterations(new double[][]{
-                new double[]{1, 9, 2},
-                new double[]{3, 4, 5},
-                new double[]{3, 4, 1}
-        }, 3).getSeries())
+                new double[]{1, 9, 2, 6},
+                new double[]{3, 4, 5, 10},
+                new double[]{3, 4, 1, 12},
+                new double[]{19, 6, 3, 12}
+        }, 100).getSeries())
                 .extracting("error")
                 .isSortedAccordingTo(comparingDouble(a -> (Double) a).reversed());
     }
