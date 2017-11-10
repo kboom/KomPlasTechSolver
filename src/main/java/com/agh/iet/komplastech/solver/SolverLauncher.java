@@ -70,7 +70,7 @@ class SolverLauncher {
                 @Override
                 protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
                     double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getLaplacian(x, y);
+                    return value + delta * currentSolution.getFlood(x, y, currentSolution.getMeanValue());
                 }
 
             });
