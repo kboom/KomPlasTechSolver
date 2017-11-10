@@ -2,25 +2,19 @@ package com.agh.iet.komplastech.solver.problem.flood;
 
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
-import com.agh.iet.komplastech.solver.support.Mesh;
 
-public class FloodingProblem extends NonStationaryProblem {
+public final class FloodingProblem extends NonStationaryProblem {
 
-    private Mesh mesh;
-    private int finalProblemSize;
+    private Solution terrain;
 
-    public FloodingProblem(double delta, Mesh mesh, int finalProblemSize) {
+    public FloodingProblem(double delta, Solution terrain) {
         super(delta);
-        this.mesh = mesh;
-        this.finalProblemSize = finalProblemSize;
+        this.terrain = terrain;
     }
 
     @Override
     protected double getInitialValue(double x, double y) {
-        double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
-
-        return dist < finalProblemSize ? finalProblemSize - dist : 0;
+        return terrain.getValue(x, y);
     }
 
     @Override

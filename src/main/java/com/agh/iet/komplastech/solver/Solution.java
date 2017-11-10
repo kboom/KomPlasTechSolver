@@ -27,7 +27,7 @@ public abstract class Solution {
         return mRHS;
     }
 
-    final SolutionGrid getSolutionGrid() {
+    public final SolutionGrid getSolutionGrid() {
         double Dx = mesh.getDx();
         double Dy = mesh.getDy();
         double x = -Dx / 2;
