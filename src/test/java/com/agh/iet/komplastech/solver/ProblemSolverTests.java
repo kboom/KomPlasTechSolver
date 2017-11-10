@@ -17,13 +17,7 @@ public class ProblemSolverTests {
 
     private static final SolutionLogger DUMMY_SOLUTION_LOGGER = new NoopSolutionLogger();
     private static final TimeLogger DUMMY_TIME_LOGGER = new TimeLogger();
-    private static final SolutionFactory DUMMY_SOLUTION_FACTORY = new SolutionFactory() {
-        @Override
-        public Solution createFinalSolution(Solution solution) {
-            return solution;
-        }
-
-    };
+    private static final SolutionFactory DUMMY_SOLUTION_FACTORY = solution -> solution;
 
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
