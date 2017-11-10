@@ -3,7 +3,8 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.execution.ProductionExecutorFactory;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+import com.agh.iet.komplastech.solver.problem.ProblemFactory;
+import com.agh.iet.komplastech.solver.problem.heat.HeatFactory;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
 import com.agh.iet.komplastech.solver.support.Mesh;
@@ -29,7 +30,7 @@ class SolverLauncher {
     private double delta = 0.001;
 
     @Parameter(names={"--steps", "-o"})
-    private int steps = 100;
+    private int steps = 10;
 
     void launch() {
         ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -44,9 +45,18 @@ class SolverLauncher {
                 .withResolutionY(problemSize)
                 .withOrder(2).build();
 
+
+        final ProblemFactory problemFactory = HeatFactory.builder()
+                .delta(delta)
+                .mesh(mesh)
+                .problemSize(problemSize)
+                .build();
+
+
         TwoDimensionalProblemSolver problemSolver = new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
+                problemFactory.getSolutionFactory(),
                 isLogging ? new ConsoleSolutionLogger(mesh) : new NoopSolutionLogger(),
                 timeLogger
         );
@@ -56,24 +66,7 @@ class SolverLauncher {
                     new NonStationarySolver(steps, delta, problemSolver, mesh);
 
 
-            int finalProblemSize = problemSize;
-            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
-
-                @Override
-                protected double getInitialValue(double x, double y) {
-                    double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                            + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
-
-                    return dist < finalProblemSize ? finalProblemSize - dist : 0;
-                }
-
-                @Override
-                protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-                    double value = currentSolution.getValue(x, y);
-                    return value + delta * currentSolution.getFlood(x, y, currentSolution.getMeanValue());
-                }
-
-            });
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(problemFactory.getProblem());
 
             productionExecutorFactory.joinAll();
 

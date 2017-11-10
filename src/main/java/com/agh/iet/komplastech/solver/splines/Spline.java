@@ -27,4 +27,6 @@ public abstract class Spline {
         return x >= lowerDomainBound && x <= upperDomainBound;
     }
 
+    public abstract double getFirstDerivativeValueAt(double x);
+
 }

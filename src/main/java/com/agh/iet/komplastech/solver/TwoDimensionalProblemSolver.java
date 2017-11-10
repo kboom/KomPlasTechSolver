@@ -17,18 +17,22 @@ class TwoDimensionalProblemSolver implements Solver {
 
     private final ProductionExecutorFactory launcherFactory;
 
+    private final SolutionFactory solutionFactory;
+
     private final SolutionLogger solutionLogger;
 
     private final TimeLogger timeLogger;
 
     TwoDimensionalProblemSolver(ProductionExecutorFactory launcherFactory,
                                 Mesh meshData,
+                                SolutionFactory solutionFactory,
                                 SolutionLogger solutionLogger,
                                 TimeLogger timeLogger) {
         this.launcherFactory = launcherFactory;
         this.mesh = meshData;
         this.timeLogger = timeLogger;
         this.solutionLogger = solutionLogger;
+        this.solutionFactory = solutionFactory;
     }
 
     @Override
@@ -57,7 +61,8 @@ class TwoDimensionalProblemSolver implements Solver {
                 timeLogger
         );
 
-        return verticalProblemSolver.solveProblem(rhs);
+        Solution verticalSolution = verticalProblemSolver.solveProblem(rhs);
+        return solutionFactory.createFinalSolution(verticalSolution);
     }
 
 }

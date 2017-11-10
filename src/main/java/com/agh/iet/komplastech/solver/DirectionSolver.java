@@ -69,7 +69,7 @@ public class DirectionSolver implements Solver {
         backwardSubstituteIntermediate(root);
         backwardSubstituteLeaves();
         timeLogger.logSolution();
-        return new Solution(mesh, getRhs());
+        return new IntermediateSolution(mesh, getRhs());
     }
 
     private void initializeLeaves() {
