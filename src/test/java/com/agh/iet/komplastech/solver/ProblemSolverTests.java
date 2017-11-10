@@ -17,6 +17,13 @@ public class ProblemSolverTests {
 
     private static final SolutionLogger DUMMY_SOLUTION_LOGGER = new NoopSolutionLogger();
     private static final TimeLogger DUMMY_TIME_LOGGER = new TimeLogger();
+    private static final SolutionFactory DUMMY_SOLUTION_FACTORY = new SolutionFactory() {
+        @Override
+        public Solution createFinalSolution(Solution solution) {
+            return solution;
+        }
+
+    };
 
     private CsvPrinter csvPrinter = new CsvPrinter();
     private ProductionExecutorFactory productionExecutorFactory = new ProductionExecutorFactory();
@@ -55,6 +62,7 @@ public class ProblemSolverTests {
         return new TwoDimensionalProblemSolver(
                 productionExecutorFactory,
                 mesh,
+                DUMMY_SOLUTION_FACTORY,
                 DUMMY_SOLUTION_LOGGER,
                 DUMMY_TIME_LOGGER
         );
