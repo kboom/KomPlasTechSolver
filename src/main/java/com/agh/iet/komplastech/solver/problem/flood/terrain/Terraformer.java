@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.problem.flood.terrain;
 
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import lombok.Builder;
 

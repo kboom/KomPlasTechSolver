@@ -1,4 +1,6 @@
-package com.agh.iet.komplastech.solver.problem.flood.terrain;
+package com.agh.iet.komplastech.solver.problem.flood.terrain.storage;
+
+import com.agh.iet.komplastech.solver.problem.flood.terrain.TerrainPoint;
 
 import java.util.stream.Stream;
 

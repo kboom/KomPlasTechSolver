@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.problem.flood.terrain;
 
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.FileTerrainStorage;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

@@ -7,6 +7,9 @@ import com.agh.iet.komplastech.solver.problem.flood.terrain.*;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.ToClosestTerrainProcessor;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.FileTerrainStorage;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.MapTerrainStorage;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.support.Point2D;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
@@ -67,6 +70,9 @@ public class FloodManager implements ProblemManager {
     public void logResults(SolutionsInTime solutionsInTime) {
         Solution finalSolution = solutionsInTime.getFinalSolution();
         CsvPrinter csvPrinter = new CsvPrinter();
+        System.out.println("------------------- TERRAIN SOLUTION --------------------");
+        System.out.println(csvPrinter.convertToCsv(terrainSolution.getSolutionGrid()));
+        System.out.println("------------------- FINAL SIM SOLUTION --------------------");
         System.out.println(csvPrinter.convertToCsv(finalSolution.getSolutionGrid()));
     }
 
@@ -101,7 +107,7 @@ public class FloodManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> Math.max((double) x, (double) y))
+                    .withFunction((x, y) -> (double) 1)
                     .build());
         }
     }

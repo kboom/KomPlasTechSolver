@@ -3,6 +3,7 @@ package com.agh.iet.komplastech.solver.problem.flood.terrain;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.processors.ToClosestTerrainProcessor;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.support.Point2D;
 import org.junit.Before;
 import org.junit.Test;

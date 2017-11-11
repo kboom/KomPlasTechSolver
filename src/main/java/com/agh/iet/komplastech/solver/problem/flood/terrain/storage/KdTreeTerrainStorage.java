@@ -1,5 +1,7 @@
-package com.agh.iet.komplastech.solver.problem.flood.terrain;
+package com.agh.iet.komplastech.solver.problem.flood.terrain.storage;
 
+import com.agh.iet.komplastech.solver.problem.flood.terrain.TerrainPoint;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.TerrainPointFinder;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.support.KdTree2D;
 import com.agh.iet.komplastech.solver.problem.flood.terrain.support.Point2D;
 

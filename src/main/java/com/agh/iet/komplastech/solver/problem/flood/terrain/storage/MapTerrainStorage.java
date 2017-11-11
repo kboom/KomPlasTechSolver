@@ -1,7 +1,9 @@
-package com.agh.iet.komplastech.solver.problem.flood.terrain;
+package com.agh.iet.komplastech.solver.problem.flood.terrain.storage;
+
+import com.agh.iet.komplastech.solver.problem.flood.terrain.TerrainPoint;
+import com.agh.iet.komplastech.solver.problem.flood.terrain.TerrainPointFinder;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
