@@ -38,7 +38,11 @@ public class FloodSolution extends Solution {
         K += b3.getValue(localx) * mRHS[ielemx + 2][ielemy + 1] - b3.getValue(localx) * terrain[ielemx + 2][ielemy + 1];
         K += b3.getValue(localx) * mRHS[ielemx + 2][ielemy + 2] - b3.getValue(localx) * terrain[ielemx + 2][ielemy + 2];
 
-        K = Math.sqrt(K);
+        if(K > 0) {
+            K = Math.sqrt(K);
+        } else {
+            K = 0;
+        }
 
         double X = K / meanValue;
 
@@ -59,7 +63,7 @@ public class FloodSolution extends Solution {
     private double computeMean() {
         BigDecimal total = BigDecimal.ZERO;
         final int yCount = mRHS.length;
-        final int xCount = mRHS[0].length;
+        final int xCount = mRHS[1].length;
         for (int y = 1; y < yCount; y++) {
             for (int x = 1; x < xCount; x++) {
                 total = total.add(new BigDecimal(mRHS[y][x]));

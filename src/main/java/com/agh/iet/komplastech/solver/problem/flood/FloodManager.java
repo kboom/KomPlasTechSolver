@@ -99,7 +99,10 @@ public class FloodManager implements ProblemManager {
         if(terrainFile != null) {
             return FileTerrainStorage.builder().inFilePath(terrainFile).build();
         } else {
-            return new MapTerrainStorage(FunctionTerrainBuilder.get().withMesh(mesh).withFunction().build());
+            return new MapTerrainStorage(FunctionTerrainBuilder.get()
+                    .withMesh(mesh)
+                    .withFunction((x, y) -> Math.max((double) x, (double) y))
+                    .build());
         }
     }
 

@@ -17,7 +17,7 @@ public class BSpline2 extends Spline {
 
     @Override
     public double getFirstDerivativeValueAt(double x) {
-        return 0;
+        return x < 0 || x > 1 ? 0 : 1 - 2 * x;
     }
 
 }
