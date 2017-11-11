@@ -54,7 +54,8 @@ public class FloodManager implements ProblemManager {
 
     @Override
     public NonStationaryProblem getProblem() {
-        return new FloodingProblem(delta, terrainSolution);
+        return new FloodingProblem(delta, terrainSolution, (x, y, time) ->
+                (double) (((x > mesh.getElementsX() - (mesh.getElementsX() / 10)) && (y > mesh.getElementsY() - (mesh.getElementsY() / 10)) && (time < 5 * delta)) ? 10 : 0));
     }
 
     @Override
@@ -88,6 +89,7 @@ public class FloodManager implements ProblemManager {
                         ChainedTerrainProcessor.startingFrom(AdjustmentTerrainProcessor.builder().center(new Point2D(xOffset, yOffset)).scale(scale).build())
                                 .withNext(new ToClosestTerrainProcessor())
                                 .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(-xOffset, -yOffset)).scale(1d/scale).build())
+//                                .withNext(AdjustmentTerrainProcessor.builder().center(new Point2D(1, 1)).build())
                 )
                 .build()
                 .terraform(mesh);

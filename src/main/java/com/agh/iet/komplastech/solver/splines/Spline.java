@@ -23,7 +23,7 @@ public abstract class Spline {
 
     public abstract double getSecondDerivativeValueAt(double x);
 
-    private boolean belongsToDomain(double x) {
+    protected boolean belongsToDomain(double x) {
         return x >= lowerDomainBound && x <= upperDomainBound;
     }
 

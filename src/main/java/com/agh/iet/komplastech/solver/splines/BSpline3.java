@@ -11,13 +11,13 @@ public class BSpline3 extends Spline {
     }
 
     @Override
-    public double getSecondDerivativeValueAt(double x) {
-        return x < 0 || x > 1 ? 0 : 1.0;
+    public double getFirstDerivativeValueAt(double x) {
+        return belongsToDomain(x) ? x - 1 : 0;
     }
 
     @Override
-    public double getFirstDerivativeValueAt(double x) {
-        return x < 0 || x > 1 ? 0 : x - 1;
+    public double getSecondDerivativeValueAt(double x) {
+        return belongsToDomain(x) ? 1.0 : 0;
     }
 
 }

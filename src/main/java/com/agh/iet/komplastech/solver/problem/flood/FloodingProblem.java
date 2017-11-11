@@ -2,14 +2,17 @@ package com.agh.iet.komplastech.solver.problem.flood;
 
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+import com.agh.iet.komplastech.solver.problem.TimeModifier;
 
 public final class FloodingProblem extends NonStationaryProblem {
 
     private Solution terrain;
+    private TimeModifier rainF;
 
-    public FloodingProblem(double delta, Solution terrain) {
+    FloodingProblem(double delta, Solution terrain, TimeModifier rainF) {
         super(delta);
         this.terrain = terrain;
+        this.rainF = rainF;
     }
 
     @Override
@@ -20,7 +23,7 @@ public final class FloodingProblem extends NonStationaryProblem {
     @Override
     protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
         double value = currentSolution.getValue(x, y);
-        return value + delta * currentSolution.getModifiedValue(x, y) + 10;
+        return value + delta * currentSolution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, getCurrentTime());
     }
 
 }
