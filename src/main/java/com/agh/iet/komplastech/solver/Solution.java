@@ -68,4 +68,17 @@ public abstract class Solution {
     public Mesh getMesh() {
         return mesh;
     }
+
+    public double squaredDifference(Solution otherSolution) {
+        double difference = 0;
+        for(int y = 0; y < mesh.getElementsY(); y++) {
+            for(int x = 0; x < mesh.getElementsX(); x++) {
+                double thisValue = getValue(x, y);
+                double otherValue = otherSolution.getValue(x, y);
+                difference += Math.abs(thisValue - otherValue);
+            }
+        }
+        return Math.sqrt(difference);
+    }
+
 }

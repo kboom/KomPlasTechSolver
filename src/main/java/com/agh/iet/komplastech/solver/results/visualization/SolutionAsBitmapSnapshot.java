@@ -2,47 +2,45 @@ package com.agh.iet.komplastech.solver.results.visualization;
 
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.Point;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.*;
 
-import static com.agh.iet.komplastech.solver.support.MatrixUtils.maxValueOf;
-
 public class SolutionAsBitmapSnapshot extends JFrame {
 
-    public SolutionAsBitmapSnapshot(Solution solution) throws HeadlessException {
-        initialize(solution);
+    public SolutionAsBitmapSnapshot(String title, Solution solution) throws HeadlessException {
+        initialize(title, solution);
     }
 
-    private void initialize(Solution solution) {
-        setTitle("Snapshot of results");
+    private void initialize(String title, Solution solution) {
+        setTitle(title);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 820);
         setPreferredSize(new Dimension(800, 820));
         setLocationRelativeTo(null);
-        setTitle("test");
         setLayout(new BorderLayout());
 
         final Mesh mesh = solution.getMesh();
-        final double[][] rhs = solution.getRhs();
+        final int elementsY = mesh.getElementsY();
+        final int elementsX = mesh.getElementsX();
 
-        byte[] buffer = new byte[mesh.getElementsX() * mesh.getElementsY()];
+        byte[] buffer = new byte[elementsX * elementsY];
 
-        double maxValue = maxValueOf(rhs);
-        double minValue = maxValueOf(rhs);
+        double maxValue = solution.getSolutionGrid().getPoints().stream().mapToDouble(Point::getValue).max().getAsDouble(); //maxValueOf(rhs);
+        double minValue = solution.getSolutionGrid().getPoints().stream().mapToDouble(Point::getValue).min().getAsDouble();
         double offset = minValue < 0 ? Math.abs(minValue) : 0;
 
-        for (int i = 0; i < mesh.getElementsY(); i++) {
-            for (int j = 0; j < mesh.getElementsX(); j++) {
-                double value = rhs[i + 1][j + 1];
-                buffer[(i * mesh.getElementsY()) + j] = (byte) (255 - (((value + offset) / (maxValue + offset)) * 255));
+        for (int i = 0; i < elementsY; i++) {
+            for (int j = 0; j < elementsX; j++) {
+                double value = solution.getValue(i, j);
+                buffer[(i * elementsY) + j] = (byte) (255 - (((value + offset) / (maxValue + offset)) * 255));
             }
         }
 
-        BufferedImage image = getGrayscale(mesh.getElementsY(), buffer); // image.getScaledInstance(1600, 900, Image.SCALE_FAST);
+        BufferedImage image = getGrayscale(elementsY, buffer); // image.getScaledInstance(1600, 900, Image.SCALE_FAST);
 
         add(new ImagePanel(image), BorderLayout.CENTER);
     }

@@ -6,9 +6,7 @@ import com.agh.iet.komplastech.solver.*;
 import com.agh.iet.komplastech.solver.problem.IterativeProblem;
 import com.agh.iet.komplastech.solver.problem.NoopIterativeProblem;
 import com.agh.iet.komplastech.solver.problem.ProblemManager;
-import com.agh.iet.komplastech.solver.problem.flood.FloodSolution;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.results.visualization.SolutionAsBitmapSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.terrain.FunctionTerrainBuilder;
@@ -18,15 +16,16 @@ import com.agh.iet.komplastech.solver.support.terrain.processors.AdjustmentTerra
 import com.agh.iet.komplastech.solver.support.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.processors.ToClosestTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.storage.FileTerrainStorage;
-import com.agh.iet.komplastech.solver.support.terrain.storage.KdTreeTerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.storage.MapTerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.support.Point2D;
 import com.beust.jcommander.Parameter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.agh.iet.komplastech.solver.support.MatrixUtils.withPadding;
 import static com.agh.iet.komplastech.solver.support.MatrixUtils.withoutPadding;
-import static com.beust.jcommander.internal.Lists.newArrayList;
 
 public class TerrainManager implements ProblemManager {
 
@@ -37,13 +36,13 @@ public class TerrainManager implements ProblemManager {
     private int scale = 1; // 100
 
     @Parameter(names = {"--terrain-x-offset"})
-    private double xOffset = 0; // 506000;
+    private double xOffset = 0; // 560000;
 
     @Parameter(names = {"--terrain-y-offset"})
-    private double yOffset = 0; //150000;
+    private double yOffset = 0; //180000;
 
-    @Parameter(names = {"--rank", "-r"})
-    private double rank = 10;
+    @Parameter(names = {"--ranks", "-r"})
+    private List<Integer> ranks = new ArrayList<>();
 
     private final Mesh mesh;
 
@@ -53,7 +52,8 @@ public class TerrainManager implements ProblemManager {
 
     private Solution terrainSolution;
 
-    private Solution svdApproximation;
+    private SingularValueDecomposition svd;
+
 
     public TerrainManager(Mesh mesh, SolverFactory solverFactory) {
         this.mesh = mesh;
@@ -72,14 +72,21 @@ public class TerrainManager implements ProblemManager {
 
     @Override
     public void displayResults(SolutionSeries solutionSeries) {
-        ResultsSnapshot terrainView = new ResultsSnapshot(terrainSolution);
-        terrainView.setVisible(true);
-
+//        ResultsSnapshot terrainView = new ResultsSnapshot(terrainSolution);
+//        terrainView.setVisible(true);
+//
 //        ResultsSnapshot approxViewer = new ResultsSnapshot(svdApproximation);
 //        approxViewer.setVisible(true);
-//
-//        SolutionAsBitmapSnapshot bitmapSnapshot = new SolutionAsBitmapSnapshot(svdApproximation);
-//        bitmapSnapshot.setVisible(true);
+
+        SolutionAsBitmapSnapshot modelBitmap = new SolutionAsBitmapSnapshot("Original model solution", terrainSolution);
+        modelBitmap.setVisible(true);
+
+        ranks.forEach(rank -> {
+            final Solution svdApproximation = getSvdRankedSolution(rank);
+            final double error = svdApproximation.squaredDifference(terrainSolution);
+            SolutionAsBitmapSnapshot svdBitmap = new SolutionAsBitmapSnapshot(String.format("SVD rank %d approximation. Error: %s", rank, error), svdApproximation);
+            svdBitmap.setVisible(true);
+        });
 
 //        TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
 //        timeLapseViewer.setVisible(true);
@@ -127,10 +134,12 @@ public class TerrainManager implements ProblemManager {
     }
 
     private void computeSvd() {
-        final SingularValueDecomposition svd = new SingularValueDecomposition(new Matrix(
+        svd = new SingularValueDecomposition(new Matrix(
                 withoutPadding(terrainSolution.getRhs())
         ));
+    }
 
+    private Solution getSvdRankedSolution(int rank) {
         Matrix fullApproximation = svd.getU().times(svd.getS()).times(svd.getV().transpose());
 
         double[] singluarValues = svd.getSingularValues();
@@ -141,7 +150,7 @@ public class TerrainManager implements ProblemManager {
         }
 
         Matrix mat = svd.getU().times(rankedMatrix).times(svd.getV().transpose());
-        svdApproximation = new IntermediateSolution(mesh, withPadding(mat.getArray()));
+        return new IntermediateSolution(mesh, withPadding(mat.getArray()));
     }
 
     private TerrainStorage createTerrainInput() {
@@ -150,7 +159,7 @@ public class TerrainManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) x + y)
+                    .withFunction((x, y) -> (double) y)
                     .build());
         }
     }
