@@ -17,6 +17,16 @@ public class KDTreeTest {
     }
 
     @Test
+    public void canFindNearestZero() {
+        KdTree2D kdTree2D = new KdTree2D();
+        kdTree2D.insert(new Point2D(0, 0));
+        kdTree2D.insert(new Point2D(3, 4));
+        kdTree2D.insert(new Point2D(6, -6));
+        kdTree2D.insert(new Point2D(6, 4));
+        assertThat(kdTree2D.nearest(new Point2D(0,0))).isEqualTo(new Point2D(0, 0));
+    }
+
+    @Test
     public void canFindNearest2() {
         KdTree2D kdTree2D = new KdTree2D();
         kdTree2D.insert(new Point2D(1, 2));

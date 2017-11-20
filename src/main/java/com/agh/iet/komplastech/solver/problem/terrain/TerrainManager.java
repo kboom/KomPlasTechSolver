@@ -34,16 +34,13 @@ public class TerrainManager implements ProblemManager {
     private String terrainFile;
 
     @Parameter(names = {"--terrain-scale"})
-    private int scale = 1; //1000;
+    private int scale = 1; // 100
 
     @Parameter(names = {"--terrain-x-offset"})
-    private double xOffset = 0; //506000;
+    private double xOffset = 0; // 506000;
 
     @Parameter(names = {"--terrain-y-offset"})
     private double yOffset = 0; //150000;
-
-    @Parameter(names = {"--delta", "-d"})
-    private double delta = 0.001;
 
     @Parameter(names = {"--rank", "-r"})
     private double rank = 10;
@@ -78,11 +75,11 @@ public class TerrainManager implements ProblemManager {
         ResultsSnapshot terrainView = new ResultsSnapshot(terrainSolution);
         terrainView.setVisible(true);
 
-        ResultsSnapshot approxViewer = new ResultsSnapshot(svdApproximation);
-        approxViewer.setVisible(true);
-
-        SolutionAsBitmapSnapshot bitmapSnapshot = new SolutionAsBitmapSnapshot(svdApproximation);
-        bitmapSnapshot.setVisible(true);
+//        ResultsSnapshot approxViewer = new ResultsSnapshot(svdApproximation);
+//        approxViewer.setVisible(true);
+//
+//        SolutionAsBitmapSnapshot bitmapSnapshot = new SolutionAsBitmapSnapshot(svdApproximation);
+//        bitmapSnapshot.setVisible(true);
 
 //        TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
 //        timeLapseViewer.setVisible(true);
@@ -111,7 +108,8 @@ public class TerrainManager implements ProblemManager {
 
     private void computeTerrainProjection() {
         inputTerrain = createTerrainInput();
-        KdTreeTerrainStorage outputTerrain = new KdTreeTerrainStorage();
+        MapTerrainStorage outputTerrain = new MapTerrainStorage(); // fast but does not work properly at the ends
+//        KdTreeTerrainStorage outputTerrain = new KdTreeTerrainStorage(); // fast but does not work properly at the ends
 
         Terraformer.builder()
                 .inputStorage(inputTerrain)
