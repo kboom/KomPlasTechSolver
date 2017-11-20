@@ -64,7 +64,7 @@ public class TerrainManager implements ProblemManager {
 
     @Override
     public SolutionFactory getSolutionFactory() {
-        return solution -> new FloodSolution(mesh, solution.getRhs(), terrainSolution.getRhs());
+        return solution -> new IntermediateSolution(mesh, solution.getRhs());
     }
 
     @Override
@@ -151,7 +151,7 @@ public class TerrainManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) 10 * (x + y))
+                    .withFunction((x, y) -> (double) 1)
                     .build());
         }
     }
