@@ -6,6 +6,7 @@ import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.problem.ProblemManager;
 import com.agh.iet.komplastech.solver.problem.flood.FloodManager;
 import com.agh.iet.komplastech.solver.problem.heat.HeatManager;
+import com.agh.iet.komplastech.solver.problem.terrain.TerrainManager;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
 
@@ -108,7 +109,7 @@ class SolverLauncher {
     }
 
     private ProblemManager createTerrainSvdProblemFactory() {
-        return new FloodManager(mesh, solverFactory);
+        return new TerrainManager(mesh, solverFactory);
     }
 
     private ProblemManager createFloodProblemFactory() {

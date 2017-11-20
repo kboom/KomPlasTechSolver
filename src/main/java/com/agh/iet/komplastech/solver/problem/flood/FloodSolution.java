@@ -3,8 +3,7 @@ package com.agh.iet.komplastech.solver.problem.flood;
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import static com.agh.iet.komplastech.solver.support.MatrixUtils.computeMeanOf;
 
 public class FloodSolution extends Solution {
 
@@ -14,7 +13,7 @@ public class FloodSolution extends Solution {
     public FloodSolution(Mesh mesh, double[][] rhs, double[][] terrain) {
         super(mesh, rhs);
         this.terrain = terrain;
-        meanValue = computeMean();
+        meanValue = computeMeanOf(rhs);
     }
 
     @Override
@@ -58,18 +57,6 @@ public class FloodSolution extends Solution {
 
         solution *= X;
         return solution;
-    }
-
-    private double computeMean() {
-        BigDecimal total = BigDecimal.ZERO;
-        final int yCount = mRHS.length;
-        final int xCount = mRHS[1].length;
-        for (int y = 1; y < yCount; y++) {
-            for (int x = 1; x < xCount; x++) {
-                total = total.add(new BigDecimal(mRHS[y][x]));
-            }
-        }
-        return total.divide(new BigDecimal(xCount * yCount), RoundingMode.HALF_EVEN).doubleValue();
     }
 
 }

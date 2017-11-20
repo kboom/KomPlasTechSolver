@@ -4,11 +4,12 @@ import Jama.Matrix;
 import Jama.SingularValueDecomposition;
 import com.agh.iet.komplastech.solver.*;
 import com.agh.iet.komplastech.solver.problem.IterativeProblem;
+import com.agh.iet.komplastech.solver.problem.NoopIterativeProblem;
 import com.agh.iet.komplastech.solver.problem.ProblemManager;
 import com.agh.iet.komplastech.solver.problem.flood.FloodSolution;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
 import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
-import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
+import com.agh.iet.komplastech.solver.results.visualization.SolutionAsBitmapSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.terrain.FunctionTerrainBuilder;
 import com.agh.iet.komplastech.solver.support.terrain.Terraformer;
@@ -22,8 +23,8 @@ import com.agh.iet.komplastech.solver.support.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.support.Point2D;
 import com.beust.jcommander.Parameter;
 
-import static com.agh.iet.komplastech.solver.support.MatrixPaddingTranslator.withPadding;
-import static com.agh.iet.komplastech.solver.support.MatrixPaddingTranslator.withoutPadding;
+import static com.agh.iet.komplastech.solver.support.MatrixUtils.withPadding;
+import static com.agh.iet.komplastech.solver.support.MatrixUtils.withoutPadding;
 import static com.beust.jcommander.internal.Lists.newArrayList;
 
 public class TerrainManager implements ProblemManager {
@@ -68,7 +69,7 @@ public class TerrainManager implements ProblemManager {
 
     @Override
     public IterativeProblem getProblem() {
-        return new TerrainProblem(newArrayList(1));
+        return new NoopIterativeProblem(); // new TerrainProblem(newArrayList(1));
     }
 
     @Override
@@ -78,6 +79,9 @@ public class TerrainManager implements ProblemManager {
 
         ResultsSnapshot approxViewer = new ResultsSnapshot(svdApproximation);
         approxViewer.setVisible(true);
+
+        SolutionAsBitmapSnapshot bitmapSnapshot = new SolutionAsBitmapSnapshot(svdApproximation);
+        bitmapSnapshot.setVisible(true);
 
 //        TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
 //        timeLapseViewer.setVisible(true);
