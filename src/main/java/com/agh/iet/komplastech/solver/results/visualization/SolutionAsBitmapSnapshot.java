@@ -13,8 +13,6 @@ import static com.agh.iet.komplastech.solver.support.MatrixUtils.maxValueOf;
 
 public class SolutionAsBitmapSnapshot extends JFrame {
 
-    private Image image;
-
     public SolutionAsBitmapSnapshot(Solution solution) throws HeadlessException {
         initialize(solution);
     }
@@ -22,7 +20,8 @@ public class SolutionAsBitmapSnapshot extends JFrame {
     private void initialize(Solution solution) {
         setTitle("Snapshot of results");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1600, 900);
+        setSize(800, 800);
+        setPreferredSize(new Dimension(800, 800));
         setLocationRelativeTo(null);
         setTitle("test");
         setLayout(new BorderLayout());
@@ -38,18 +37,41 @@ public class SolutionAsBitmapSnapshot extends JFrame {
 
         for (int i = 0; i < mesh.getElementsY(); i++) {
             for (int j = 0; j < mesh.getElementsX(); j++) {
-                double value = rhs[i][j];
+                double value = rhs[i + 1][j + 1];
                 buffer[(i * mesh.getElementsY()) + j] = (byte) (((value + offset) / (maxValue + offset)) * 255);
             }
         }
 
-        image = getGrayscale(mesh.getElementsY(), buffer);
+        BufferedImage image = getGrayscale(mesh.getElementsY(), buffer); // image.getScaledInstance(1600, 900, Image.SCALE_FAST);
+
+        add(new ImagePanel(image), BorderLayout.CENTER);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        g.drawImage(image, 0, 0, null);
+    public class ImagePanel extends JComponent {
+
+        private final BufferedImage image;
+
+        ImagePanel(BufferedImage image) {
+            this.image = image;
+        }
+
+        @Override
+        protected void paintComponent(Graphics g){
+            super.paintComponent(g);
+            Graphics2D tGraphics2D = (Graphics2D) g;
+            tGraphics2D.setBackground(Color.WHITE);
+            tGraphics2D.setPaint(Color.WHITE);
+            tGraphics2D.fillRect( 0, 0, 800, 800);
+            tGraphics2D.setRenderingHint( RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+            tGraphics2D.drawImage( image, 0, 0, 800, 800, null );
+        }
+
     }
+
+//    @Override
+//    public void paint(Graphics g) {
+//        g.drawImage(image, 0, 0, null);
+//    }
 
     public static BufferedImage getGrayscale(int width, byte[] buffer) {
         int height = buffer.length / width;
