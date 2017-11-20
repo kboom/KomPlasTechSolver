@@ -18,6 +18,7 @@ import com.agh.iet.komplastech.solver.support.terrain.processors.AdjustmentTerra
 import com.agh.iet.komplastech.solver.support.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.processors.ToClosestTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.storage.FileTerrainStorage;
+import com.agh.iet.komplastech.solver.support.terrain.storage.KdTreeTerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.storage.MapTerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.support.Point2D;
@@ -110,7 +111,7 @@ public class TerrainManager implements ProblemManager {
 
     private void computeTerrainProjection() {
         inputTerrain = createTerrainInput();
-        MapTerrainStorage outputTerrain = new MapTerrainStorage();
+        KdTreeTerrainStorage outputTerrain = new KdTreeTerrainStorage();
 
         Terraformer.builder()
                 .inputStorage(inputTerrain)
@@ -151,7 +152,7 @@ public class TerrainManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) 1)
+                    .withFunction((x, y) -> (double) x + y)
                     .build());
         }
     }

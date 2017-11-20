@@ -20,8 +20,8 @@ public class SolutionAsBitmapSnapshot extends JFrame {
     private void initialize(Solution solution) {
         setTitle("Snapshot of results");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(800, 800);
-        setPreferredSize(new Dimension(800, 800));
+        setSize(800, 820);
+        setPreferredSize(new Dimension(800, 820));
         setLocationRelativeTo(null);
         setTitle("test");
         setLayout(new BorderLayout());
@@ -38,7 +38,7 @@ public class SolutionAsBitmapSnapshot extends JFrame {
         for (int i = 0; i < mesh.getElementsY(); i++) {
             for (int j = 0; j < mesh.getElementsX(); j++) {
                 double value = rhs[i + 1][j + 1];
-                buffer[(i * mesh.getElementsY()) + j] = (byte) (((value + offset) / (maxValue + offset)) * 255);
+                buffer[(i * mesh.getElementsY()) + j] = (byte) (255 - (((value + offset) / (maxValue + offset)) * 255));
             }
         }
 

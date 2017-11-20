@@ -10,7 +10,7 @@ public class TerrainProjectionProblem implements Problem {
 
     @Override
     public double getValue(double x, double y) {
-        return terrainPointFinder.get(x - 1, y - 1).z;
+        return terrainPointFinder.get(x , y).z;
     } // todo translate in inside the finder
 
 }
