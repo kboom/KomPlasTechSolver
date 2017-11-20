@@ -22,8 +22,7 @@ public final class FloodingProblem extends NonStationaryProblem {
 
     @Override
     protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-        double value = currentSolution.getValue(x, y);
-        return value + delta * currentSolution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, getCurrentTime());
+        return currentSolution.getValue(x, y) + delta * currentSolution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, getCurrentTime());
     }
 
 }

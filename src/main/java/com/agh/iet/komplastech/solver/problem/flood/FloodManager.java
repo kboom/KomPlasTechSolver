@@ -55,7 +55,9 @@ public class FloodManager implements ProblemManager {
     @Override
     public NonStationaryProblem getProblem() {
         return new FloodingProblem(delta, terrainSolution, (x, y, time) ->
-                (double) (((x > mesh.getElementsX() - (mesh.getElementsX() / 10)) && (y > mesh.getElementsY() - (mesh.getElementsY() / 10)) && (time < 5 * delta)) ? 10 : 0));
+                (double) (((x > mesh.getElementsX() - (mesh.getElementsX() / 5)) && (x < mesh.getElementsX() - 10)
+                        && (y > mesh.getElementsY() - (mesh.getElementsY() / 5)) && (time < 5 * delta)) && (y < mesh.getElementsY() - 10)
+                        ? 1000 : 0));
     }
 
     @Override
@@ -109,7 +111,7 @@ public class FloodManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) 1)
+                    .withFunction((x, y) -> (double) 10 * (x + y))
                     .build());
         }
     }
