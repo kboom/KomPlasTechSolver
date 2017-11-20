@@ -1,32 +1,45 @@
 package com.agh.iet.komplastech.solver.problem.heat;
 
 import com.agh.iet.komplastech.solver.Solution;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
+import com.agh.iet.komplastech.solver.problem.IterativeProblem;
+import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
-public final class HeatTransferProblem extends NonStationaryProblem {
+import java.util.Optional;
+
+public final class HeatTransferProblem implements IterativeProblem {
 
     private final Mesh mesh;
     private final int problemSize;
+    private final double delta;
+    private final int steps;
 
-    public HeatTransferProblem(double delta, Mesh mesh, int problemSize) {
-        super(delta);
+    private int currentStep = 0;
+
+    HeatTransferProblem(double delta, Mesh mesh, int problemSize, int steps) {
         this.mesh = mesh;
+        this.delta = delta;
         this.problemSize = problemSize;
+        this.steps = steps;
     }
 
     @Override
-    protected double getInitialValue(double x, double y) {
-        double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
-                + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
+    public Problem getInitialProblem() {
+        return (x, y) -> {
+            double dist = (x - mesh.getCenterX()) * (x - mesh.getCenterX())
+                    + (y - mesh.getCenterY()) * (y - mesh.getCenterY());
 
-        return dist < problemSize ? problemSize - dist : 0;
+            return dist < problemSize ? problemSize - dist : 0;
+        };
     }
 
     @Override
-    protected double getValueAtTime(double x, double y, Solution currentSolution, double delta) {
-        double value = currentSolution.getValue(x, y);
-        return value + delta * currentSolution.getModifiedValue(x, y);
+    public Optional<Problem> getNextProblem(Solution solution) {
+        currentStep++;
+        return currentStep < steps ? Optional.of((x, y) -> {
+            double value = solution.getValue(x, y);
+            return value + delta * solution.getModifiedValue(x, y);
+        }) : Optional.empty();
     }
 
 }

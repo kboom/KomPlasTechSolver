@@ -21,7 +21,7 @@ Command line arguments are:
 Code can be easily modified to solve a different problem. Only the following piece of code from *SolverLauncher* class should be replaced with values specific to the new problem:
 
 ```java
-SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(new NonStationaryProblem(delta) {
+SolutionsInTime solutionSeries = iterativeSolver.solveInTime(new NonStationaryProblem(delta) {
 
       @Override
       protected double getInitialValue(double x, double y) {

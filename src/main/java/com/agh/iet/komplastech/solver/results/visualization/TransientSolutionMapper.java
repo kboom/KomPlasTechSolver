@@ -1,22 +1,22 @@
 package com.agh.iet.komplastech.solver.results.visualization;
 
-import com.agh.iet.komplastech.solver.SolutionsInTime;
+import com.agh.iet.komplastech.solver.SolutionSeries;
 
 public class TransientSolutionMapper extends ParameterizedMapper {
 
-    private final SolutionsInTime solutionsInTime;
+    private final SolutionSeries solutionSeries;
 
-    public TransientSolutionMapper(SolutionsInTime solutionsInTime) {
-        this.solutionsInTime = solutionsInTime;
+    public TransientSolutionMapper(SolutionSeries solutionSeries) {
+        this.solutionSeries = solutionSeries;
     }
 
     @Override
     protected double fAtTimeStep(double x, double y, int timeStep) {
-        return solutionsInTime.getSolutionAt(timeStep).getValue(x, y);
+        return solutionSeries.getSolutionAt(timeStep).getValue(x, y);
     }
 
-    public static TransientSolutionMapper fromSolution(SolutionsInTime solutionsInTime) {
-        return new TransientSolutionMapper(solutionsInTime);
+    public static TransientSolutionMapper fromSolution(SolutionSeries solutionSeries) {
+        return new TransientSolutionMapper(solutionSeries);
     }
 
 }

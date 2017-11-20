@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         PROGRAM_ARGUMENTS = args;
         SolverLauncher solverLauncher = new SolverLauncher();
-        JCommander.newBuilder().addObject(solverLauncher).build().parse(PROGRAM_ARGUMENTS);
+        withInjectedProgramArguments(solverLauncher);
         solverLauncher.launch();
     }
 

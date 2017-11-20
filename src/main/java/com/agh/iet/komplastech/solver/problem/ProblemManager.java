@@ -1,17 +1,17 @@
 package com.agh.iet.komplastech.solver.problem;
 
 import com.agh.iet.komplastech.solver.SolutionFactory;
-import com.agh.iet.komplastech.solver.SolutionsInTime;
+import com.agh.iet.komplastech.solver.SolutionSeries;
 
 public interface ProblemManager {
 
-    NonStationaryProblem getProblem();
+    IterativeProblem getProblem();
 
     SolutionFactory getSolutionFactory();
 
-    void displayResults(SolutionsInTime solutionsInTime);
+    void displayResults(SolutionSeries solutionSeries);
 
-    void logResults(SolutionsInTime solutionsInTime);
+    void logResults(SolutionSeries solutionSeries);
 
     void setUp();
 

@@ -1,6 +1,6 @@
 package com.agh.iet.komplastech.solver.results.visualization;
 
-import com.agh.iet.komplastech.solver.SolutionsInTime;
+import com.agh.iet.komplastech.solver.SolutionSeries;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ import static com.agh.iet.komplastech.solver.results.visualization.TransientSolu
 
 public class TimeLapseViewer extends JFrame {
 
-    private final SolutionsInTime solutionsInTime;
+    private final SolutionSeries solutionSeries;
     private final TransientSolutionMapper transientSolutionMapper;
     private SurfaceFactory surfaceFactory;
 
@@ -24,10 +24,10 @@ public class TimeLapseViewer extends JFrame {
 
     private Thread animationThread;
 
-    public TimeLapseViewer(SolutionsInTime solutionsInTime) {
-        this.solutionsInTime = solutionsInTime;
-        transientSolutionMapper = fromSolution(solutionsInTime);
-        surfaceFactory = new SurfaceFactory(transientSolutionMapper, solutionsInTime.getMesh());
+    public TimeLapseViewer(SolutionSeries solutionSeries) {
+        this.solutionSeries = solutionSeries;
+        transientSolutionMapper = fromSolution(solutionSeries);
+        surfaceFactory = new SurfaceFactory(transientSolutionMapper, solutionSeries.getMesh());
         initialize();
         initializeSlider();
         animate();
@@ -49,7 +49,7 @@ public class TimeLapseViewer extends JFrame {
     }
 
     private void initializeSlider() {
-        frameSlider = new JSlider(JSlider.HORIZONTAL, 0, solutionsInTime.getTimeStepCount(), 0);
+        frameSlider = new JSlider(JSlider.HORIZONTAL, 0, solutionSeries.getTimeStepCount(), 0);
         frameSlider.setMajorTickSpacing(10);
         frameSlider.setMinorTickSpacing(1);
         frameSlider.setPaintTicks(true);
@@ -122,7 +122,7 @@ public class TimeLapseViewer extends JFrame {
 
     private void animate() {
         animationThread = new Thread(() -> {
-            final int timeStepCount = solutionsInTime.getTimeStepCount();
+            final int timeStepCount = solutionSeries.getTimeStepCount();
             int timeStep = 0;
             while(displayState == ANIMATION_DISPLAY) {
                 if(timeStep >= timeStepCount) {

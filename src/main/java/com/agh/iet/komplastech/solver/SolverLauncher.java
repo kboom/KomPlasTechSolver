@@ -32,9 +32,6 @@ class SolverLauncher {
     @Parameter(names = {"--delta", "-d"})
     private double delta = 0.001;
 
-    @Parameter(names = {"--steps", "-o"})
-    private int steps = 10;
-
     private SolverFactory solverFactory;
 
     private Mesh mesh;
@@ -62,11 +59,10 @@ class SolverLauncher {
             final Solver solver = solverFactory.createSolver(problemManager.getSolutionFactory());
 
             try {
-                NonStationarySolver nonStationarySolver =
-                        new NonStationarySolver(steps, delta, solver, mesh);
+                IterativeSolver iterativeSolver = new IterativeSolver(solver, mesh);
 
 
-                SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(problemManager.getProblem());
+                SolutionSeries solutionSeries = iterativeSolver.solveIteratively(problemManager.getProblem());
 
                 productionExecutorFactory.joinAll();
 
@@ -78,11 +74,11 @@ class SolverLauncher {
                 ));
 
                 if (isLogging) {
-                    problemManager.logResults(solutionsInTime);
+                    problemManager.logResults(solutionSeries);
                 }
 
                 if (isPlotting) {
-                    problemManager.displayResults(solutionsInTime);
+                    problemManager.displayResults(solutionSeries);
                 }
 
             } catch (Exception e) {
@@ -104,9 +100,15 @@ class SolverLauncher {
                 return createHeatProblemFactory();
             case "flood":
                 return createFloodProblemFactory();
+            case "terrain-svd":
+                return createTerrainSvdProblemFactory();
             default:
                 throw new IllegalStateException("Could not identify the problem");
         }
+    }
+
+    private ProblemManager createTerrainSvdProblemFactory() {
+        return new FloodManager(mesh, solverFactory);
     }
 
     private ProblemManager createFloodProblemFactory() {
