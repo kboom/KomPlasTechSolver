@@ -66,7 +66,7 @@ public class FloodManager implements ProblemManager {
 
     @Override
     public void displayResults(SolutionSeries solutionSeries) {
-        ResultsSnapshot terrainView = new ResultsSnapshot(terrainSolution);
+        ResultsSnapshot terrainView = new ResultsSnapshot("Original solution", terrainSolution);
         terrainView.setVisible(true);
 
         TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);

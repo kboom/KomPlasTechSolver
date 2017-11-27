@@ -10,19 +10,18 @@ public class ResultsSnapshot extends JFrame {
     private SurfaceFactory surfaceFactory;
     private ChartFrame chartView;
 
-    public ResultsSnapshot(Solution solution) {
+    public ResultsSnapshot(String name, Solution solution) {
         attachAskToClose();
         SolutionMapper solutionMapper = new SolutionMapper(solution);
         surfaceFactory = new SurfaceFactory(solutionMapper, solution.getMesh());
-        initialize();
+        initialize(name);
     }
 
-    private void initialize() {
-        setTitle("Snapshot of results");
+    private void initialize(String name) {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1600, 900);
         setLocationRelativeTo(null);
-        setTitle("test");
+        setTitle(name);
         setLayout(new BorderLayout());
         buildChart();
         redraw();

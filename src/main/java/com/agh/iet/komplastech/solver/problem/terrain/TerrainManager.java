@@ -7,6 +7,7 @@ import com.agh.iet.komplastech.solver.problem.IterativeProblem;
 import com.agh.iet.komplastech.solver.problem.NoopIterativeProblem;
 import com.agh.iet.komplastech.solver.problem.ProblemManager;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
+import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
 import com.agh.iet.komplastech.solver.results.visualization.SolutionAsBitmapSnapshot;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import com.agh.iet.komplastech.solver.support.terrain.FunctionTerrainBuilder;
@@ -72,24 +73,40 @@ public class TerrainManager implements ProblemManager {
 
     @Override
     public void displayResults(SolutionSeries solutionSeries) {
-//        ResultsSnapshot terrainView = new ResultsSnapshot(terrainSolution);
-//        terrainView.setVisible(true);
-//
-//        ResultsSnapshot approxViewer = new ResultsSnapshot(svdApproximation);
-//        approxViewer.setVisible(true);
+//        displayOriginalSolution();
+        displayOriginalSolutionBitmap();
+        displayRankApproximationsBitmaps();
+//        displayMaxRankApproximation();
 
+//        TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
+//        timeLapseViewer.setVisible(true);
+    }
+
+    private void displayOriginalSolution() {
+        ResultsSnapshot terrainView = new ResultsSnapshot("Original solution", terrainSolution);
+        terrainView.setVisible(true);
+    }
+
+    private void displayOriginalSolutionBitmap() {
         SolutionAsBitmapSnapshot modelBitmap = new SolutionAsBitmapSnapshot("Original model solution", terrainSolution);
         modelBitmap.setVisible(true);
+    }
 
+    private void displayRankApproximationsBitmaps() {
         ranks.forEach(rank -> {
             final Solution svdApproximation = getSvdRankedSolution(rank);
             final double error = svdApproximation.squaredDifference(terrainSolution);
             SolutionAsBitmapSnapshot svdBitmap = new SolutionAsBitmapSnapshot(String.format("SVD rank %d approximation. Error: %s", rank, error), svdApproximation);
             svdBitmap.setVisible(true);
         });
+    }
 
-//        TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
-//        timeLapseViewer.setVisible(true);
+    private void displayMaxRankApproximation() {
+        final int maxRank = ranks.stream().mapToInt(x -> x).max().getAsInt();
+        final Solution maxRankApproximation = getSvdRankedSolution(maxRank);
+        final double error = maxRankApproximation.squaredDifference(terrainSolution);
+        ResultsSnapshot approxViewer = new ResultsSnapshot(String.format("SVD rank %d approximation. Error: %s", maxRank, error), maxRankApproximation);
+        approxViewer.setVisible(true);
     }
 
     @Override
