@@ -22,41 +22,23 @@ public class FloodSolution extends Solution {
         int ielemy = (int) (y / (mesh.getDy())) + 1;
         double localx = x - (mesh.getDx()) * (ielemx - 1);
         double localy = y - (mesh.getDy()) * (ielemy - 1);
-        double solution = 0.0;
 
-        double K = 0.0;
+        double Ut = getValue(mRHS, x, y);
+        double Z = getValue(terrain, x, y);
 
-        // Ut
-        K += b1.getValue(localx) * mRHS[ielemx][ielemy] - b1.getValue(localx) * terrain[ielemx][ielemy];
-        K += b1.getValue(localx) * mRHS[ielemx][ielemy + 1] - b1.getValue(localx) * terrain[ielemx][ielemy + 1];
-        K += b1.getValue(localx) * mRHS[ielemx][ielemy + 2] - b1.getValue(localx) * terrain[ielemx][ielemy + 2];
-        K += b2.getValue(localx) * mRHS[ielemx + 1][ielemy] - b2.getValue(localx) * terrain[ielemx + 1][ielemy];
-        K += b2.getValue(localx) * mRHS[ielemx + 1][ielemy + 1] - b2.getValue(localx) * terrain[ielemx + 1][ielemy + 1];
-        K += b2.getValue(localx) * mRHS[ielemx + 1][ielemy + 2] - b2.getValue(localx) * terrain[ielemx + 1][ielemy + 2];
-        K += b3.getValue(localx) * mRHS[ielemx + 2][ielemy] - b3.getValue(localx) * terrain[ielemx + 2][ielemy];
-        K += b3.getValue(localx) * mRHS[ielemx + 2][ielemy + 1] - b3.getValue(localx) * terrain[ielemx + 2][ielemy + 1];
-        K += b3.getValue(localx) * mRHS[ielemx + 2][ielemy + 2] - b3.getValue(localx) * terrain[ielemx + 2][ielemy + 2];
+        double diffUtZ = Math.max(Ut - Z, 0);
 
-        if(K > 0) {
-            K = Math.sqrt(K);
-        } else {
-            K = 0;
-        }
+        double K = Math.pow(diffUtZ, 5.0 / 3.0) / meanValue;
 
-        double X = K / meanValue;
-
-        solution += b1.getFirstDerivativeValueAt(localx) * b1.getFirstDerivativeValueAt(localy) * mRHS[ielemx][ielemy];
-        solution += b1.getFirstDerivativeValueAt(localx) * b2.getFirstDerivativeValueAt(localy) * mRHS[ielemx][ielemy + 1];
-        solution += b1.getFirstDerivativeValueAt(localx) * b3.getFirstDerivativeValueAt(localy) * mRHS[ielemx][ielemy + 2];
-        solution += b2.getFirstDerivativeValueAt(localx) * b1.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 1][ielemy];
-        solution += b2.getFirstDerivativeValueAt(localx) * b2.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 1][ielemy + 1];
-        solution += b2.getFirstDerivativeValueAt(localx) * b3.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 1][ielemy + 2];
-        solution += b3.getFirstDerivativeValueAt(localx) * b1.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 2][ielemy];
-        solution += b3.getFirstDerivativeValueAt(localx) * b2.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 2][ielemy + 1];
-        solution += b3.getFirstDerivativeValueAt(localx) * b3.getFirstDerivativeValueAt(localy) * mRHS[ielemx + 2][ielemy + 2];
-
-        solution *= X;
-        return solution;
+        return K * (b1.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * mRHS[ielemx][ielemy]
+                + b1.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * mRHS[ielemx][ielemy + 1]
+                + b1.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * mRHS[ielemx][ielemy + 2]
+                + b2.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * mRHS[ielemx + 1][ielemy]
+                + b2.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * mRHS[ielemx + 1][ielemy + 1]
+                + b2.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * mRHS[ielemx + 1][ielemy + 2]
+                + b3.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * mRHS[ielemx + 2][ielemy]
+                + b3.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * mRHS[ielemx + 2][ielemy + 1]
+                + b3.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * mRHS[ielemx + 2][ielemy + 2]);
     }
 
 }

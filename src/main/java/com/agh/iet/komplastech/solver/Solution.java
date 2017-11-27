@@ -46,21 +46,23 @@ public abstract class Solution {
     }
 
     public final double getValue(double x, double y) {
+        return getValue(mRHS, x, y);
+    }
+
+    protected final double getValue(double[][] c, double x, double y) {
         int ielemx = (int) (x / mesh.getDx()) + 1;
         int ielemy = (int) (y / mesh.getDy()) + 1;
         double localx = x - mesh.getDx() * (ielemx - 1);
         double localy = y - mesh.getDy() * (ielemy - 1);
-        double solution = 0.0;
-        solution += b1.getValue(localx) * b1.getValue(localy) * mRHS[ielemx][ielemy];
-        solution += b1.getValue(localx) * b2.getValue(localy) * mRHS[ielemx][ielemy + 1];
-        solution += b1.getValue(localx) * b3.getValue(localy) * mRHS[ielemx][ielemy + 2];
-        solution += b2.getValue(localx) * b1.getValue(localy) * mRHS[ielemx + 1][ielemy];
-        solution += b2.getValue(localx) * b2.getValue(localy) * mRHS[ielemx + 1][ielemy + 1];
-        solution += b2.getValue(localx) * b3.getValue(localy) * mRHS[ielemx + 1][ielemy + 2];
-        solution += b3.getValue(localx) * b1.getValue(localy) * mRHS[ielemx + 2][ielemy];
-        solution += b3.getValue(localx) * b2.getValue(localy) * mRHS[ielemx + 2][ielemy + 1];
-        solution += b3.getValue(localx) * b3.getValue(localy) * mRHS[ielemx + 2][ielemy + 2];
-        return solution;
+        return b1.getValue(localx) * b1.getValue(localy) * c[ielemx][ielemy]
+                + b1.getValue(localx) * b2.getValue(localy) * c[ielemx][ielemy + 1]
+                + b1.getValue(localx) * b3.getValue(localy) * c[ielemx][ielemy + 2]
+                + b2.getValue(localx) * b1.getValue(localy) * c[ielemx + 1][ielemy]
+                + b2.getValue(localx) * b2.getValue(localy) * c[ielemx + 1][ielemy + 1]
+                + b2.getValue(localx) * b3.getValue(localy) * c[ielemx + 1][ielemy + 2]
+                + b3.getValue(localx) * b1.getValue(localy) * c[ielemx + 2][ielemy]
+                + b3.getValue(localx) * b2.getValue(localy) * c[ielemx + 2][ielemy + 1]
+                + b3.getValue(localx) * b3.getValue(localy) * c[ielemx + 2][ielemy + 2];
     }
 
     public abstract double getModifiedValue(double x, double y);
@@ -71,8 +73,8 @@ public abstract class Solution {
 
     public double squaredDifference(Solution otherSolution) {
         double difference = 0;
-        for(int y = 0; y < mesh.getElementsY(); y++) {
-            for(int x = 0; x < mesh.getElementsX(); x++) {
+        for (int y = 0; y < mesh.getElementsY(); y++) {
+            for (int x = 0; x < mesh.getElementsX(); x++) {
                 double thisValue = getValue(x, y);
                 double otherValue = otherSolution.getValue(x, y);
                 difference += Math.abs(thisValue - otherValue);

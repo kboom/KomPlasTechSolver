@@ -32,12 +32,13 @@ public final class MatrixUtils {
         BigDecimal total = BigDecimal.ZERO;
         final int yCount = matrix.length;
         final int xCount = matrix[1].length;
+        final BigDecimal divisor = new BigDecimal(xCount * yCount);
         for (int y = 1; y < yCount; y++) {
             for (int x = 1; x < xCount; x++) {
-                total = total.add(new BigDecimal(matrix[y][x]));
+                total = total.add(new BigDecimal(matrix[y][x]).divide(divisor, RoundingMode.HALF_EVEN));
             }
         }
-        return total.divide(new BigDecimal(xCount * yCount), RoundingMode.HALF_EVEN).doubleValue();
+        return total.doubleValue();
     }
 
     public static double minValueOf(double[][] matrix) {

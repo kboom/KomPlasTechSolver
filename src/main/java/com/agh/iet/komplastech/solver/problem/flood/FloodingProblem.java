@@ -35,7 +35,15 @@ public final class FloodingProblem implements IterativeProblem {
     public Optional<Problem> getNextProblem(Solution solution) {
         currentTime += delta;
         currentStep++;
-        return currentStep < steps ? Optional.of(((x, y) -> solution.getValue(x, y) + delta * solution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, currentTime))) : Optional.empty();
+        return currentStep < steps ? Optional.of(getProblem(solution)) : Optional.empty();
+    }
+
+//    private Problem getProblem(Solution solution) {
+//        return (x, y) -> solution.getValue(x, y) + delta * solution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, currentTime);
+//    }
+
+    private Problem getProblem(Solution solution) {
+        return (x, y) -> solution.getValue(x, y) + delta * solution.getModifiedValue(x, y) + rainF.getAddedValue(x, y, currentTime);
     }
 
 }

@@ -2,9 +2,14 @@ package com.agh.iet.komplastech.solver.problem.flood;
 
 import com.agh.iet.komplastech.solver.*;
 import com.agh.iet.komplastech.solver.problem.IterativeProblem;
-import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.problem.ProblemManager;
-import com.agh.iet.komplastech.solver.support.terrain.*;
+import com.agh.iet.komplastech.solver.results.CsvPrinter;
+import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
+import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
+import com.agh.iet.komplastech.solver.support.Mesh;
+import com.agh.iet.komplastech.solver.support.terrain.FunctionTerrainBuilder;
+import com.agh.iet.komplastech.solver.support.terrain.Terraformer;
+import com.agh.iet.komplastech.solver.support.terrain.TerrainProjectionProblem;
 import com.agh.iet.komplastech.solver.support.terrain.processors.AdjustmentTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.processors.ChainedTerrainProcessor;
 import com.agh.iet.komplastech.solver.support.terrain.processors.ToClosestTerrainProcessor;
@@ -12,10 +17,6 @@ import com.agh.iet.komplastech.solver.support.terrain.storage.FileTerrainStorage
 import com.agh.iet.komplastech.solver.support.terrain.storage.MapTerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.storage.TerrainStorage;
 import com.agh.iet.komplastech.solver.support.terrain.support.Point2D;
-import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.results.visualization.ResultsSnapshot;
-import com.agh.iet.komplastech.solver.results.visualization.TimeLapseViewer;
-import com.agh.iet.komplastech.solver.support.Mesh;
 import com.beust.jcommander.Parameter;
 
 public class FloodManager implements ProblemManager {
@@ -59,15 +60,16 @@ public class FloodManager implements ProblemManager {
     @Override
     public IterativeProblem getProblem() {
         return new FloodingProblem(delta, terrainSolution, (x, y, time) ->
-                (double) (((x > mesh.getElementsX() - (mesh.getElementsX() / 5)) && (x < mesh.getElementsX() - 10)
-                        && (y > mesh.getElementsY() - (mesh.getElementsY() / 5)) && (time < 5 * delta)) && (y < mesh.getElementsY() - 10)
-                        ? 1000 : 0), steps);
+                (double) (((x < 10) && (x > 0)
+                        && (y < 10) && (y > 0)
+                        && (time < 2 * delta))
+                        ? 10 : 0), steps);
     }
 
     @Override
     public void displayResults(SolutionSeries solutionSeries) {
-        ResultsSnapshot terrainView = new ResultsSnapshot("Original solution", terrainSolution);
-        terrainView.setVisible(true);
+//        ResultsSnapshot terrainView = new ResultsSnapshot("Original solution", terrainSolution);
+//        terrainView.setVisible(true);
 
         TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionSeries);
         timeLapseViewer.setVisible(true);
@@ -115,7 +117,7 @@ public class FloodManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) 10 * (x + y))
+                    .withFunction((x, y) -> (double) (Math.pow(x - (mesh.getElementsX() / 2), 2) + Math.pow(y - (mesh.getElementsY() / 2), 2)))
                     .build());
         }
     }
