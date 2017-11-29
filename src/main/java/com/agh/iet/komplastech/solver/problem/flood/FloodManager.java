@@ -60,9 +60,9 @@ public class FloodManager implements ProblemManager {
     @Override
     public IterativeProblem getProblem() {
         return new FloodingProblem(delta, terrainSolution, (x, y, time) ->
-                (double) (((x < 10) && (x > 0)
-                        && (y < 10) && (y > 0)
-                        && (time < 2 * delta))
+                (double) (((x > mesh.getElementsX() - (mesh.getElementsX() / 5)) && (x < mesh.getElementsX() - 10)
+                        && (y > mesh.getElementsY() - (mesh.getElementsY() / 5)) && (y < mesh.getElementsY() - 10)
+                        && (time < 1 * delta))
                         ? 10 : 0), steps);
     }
 
@@ -117,7 +117,7 @@ public class FloodManager implements ProblemManager {
         } else {
             return new MapTerrainStorage(FunctionTerrainBuilder.get()
                     .withMesh(mesh)
-                    .withFunction((x, y) -> (double) (Math.pow(x - (mesh.getElementsX() / 2), 2) + Math.pow(y - (mesh.getElementsY() / 2), 2)))
+                    .withFunction((x, y) -> (double) x + y)
                     .build());
         }
     }

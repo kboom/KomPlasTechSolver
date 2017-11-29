@@ -24,7 +24,7 @@ public final class FloodingProblem implements IterativeProblem {
         this.steps = steps;
     }
 
-    private int currentTime = 0;
+    private double currentTime = 0;
 
     @Override
     public Problem getInitialProblem() {
