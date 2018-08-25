@@ -1,45 +1,61 @@
+import com.bmuschko.gradle.docker.tasks.image.*
+
 buildscript {
     repositories {
         jcenter()
     }
 
     dependencies {
-        classpath 'eu.appsatori:gradle-fatjar-plugin:0.3'
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
+        classpath 'com.bmuschko:gradle-docker-plugin:3.6.1'
     }
 }
 
 apply plugin: 'java'
-apply plugin: 'idea'
 apply plugin: 'application'
-apply plugin: 'eu.appsatori.fatjar'
+apply plugin: 'idea'
+apply plugin: "com.github.johnrengelman.shadow"
+apply plugin: 'com.bmuschko.docker-remote-api'
 
 mainClassName = 'com.agh.iet.komplastech.solver.Main'
 
 repositories {
     mavenCentral()
+    jcenter()
     maven {
         url 'http://maven.jzy3d.org/releases'
     }
 }
 
-jar {
-    baseName = 'komplastechsolver'
-    version = '0.1.0'
-    manifest {
-        attributes 'Main-Class': 'com.agh.iet.komplastech.solver.Main'
-    }
-}
-
-fatJar {
-    baseName = project.name + '-lib'
+shadowJar {
+   baseName = 'lib'
 }
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-task packageToSource(type: Copy, dependsOn: ['jar', 'fatJar', 'distTar']) {
-    from files('build/distributions', 'build/libs/KomPlasTechSolver-lib.jar')
-    into 'dist'
+task packageToDocker << {
+  ['docker/solver/', 'docker/worker/'].each { dest ->
+    copy {
+      with copySpec {
+        from 'build/libs/lib-all.jar'
+        rename { 'lib.jar' }
+      }
+      into dest
+    }
+  }
+}
+
+packageToDocker.dependsOn shadowJar
+
+task buildWorkerImage(type: DockerBuildImage, dependsOn: ["packageToDocker"]) {
+    inputDir = file('docker/worker')
+    tag = 'kpts/worker:latest'
+}
+
+task buildSolverImage(type: DockerBuildImage, dependsOn: ["packageToDocker"]) {
+    inputDir = file('docker/solver')
+    tag = 'kpts/solver:latest'
 }
 
 dependencies {
@@ -51,8 +67,8 @@ dependencies {
     compile group: 'log4j', name: 'log4j', version: '1.2.17'
     compile group: 'com.beust', name: 'jcommander', version: '1.7'
 
-
-    compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.8'
+    compile 'com.hazelcast:hazelcast-kubernetes:1.1.0'
+    compile group: 'com.hazelcast', name: 'hazelcast-client', version: '3.10.4'
 
     testCompile "junit:junit:4.12"
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.5.2'

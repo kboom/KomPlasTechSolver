@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast-client xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://www.hazelcast.com/schema/client-config
+                               http://www.hazelcast.com/schema/client-config/hazelcast-client-config-3.8.xsd"
+                  xmlns="http://www.hazelcast.com/schema/client-config">
+
+    <!-- http://docs.hazelcast.org/docs/3.4/manual/html/serializationconfiguration.html -->
+    <!-- https://github.com/hazelcast/hazelcast/blob/master/hazelcast-client/src/main/resources/hazelcast-client-full.xml -->
+
+    <group>
+        <name>kpts-cluster</name>
+        <password>kpts-cluster-pass</password>
+    </group>
+
+    <network>
+        <cluster-members>
+            <address>${cluster.address}</address>
+        </cluster-members>
+    </network>
+
+    <serialization>
+        <enable-compression>false</enable-compression>
+        <enable-shared-object>true</enable-shared-object>
+        <allow-unsafe>false</allow-unsafe>
+        <data-serializable-factories>
+            <data-serializable-factory factory-id="1">
+                com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory
+            </data-serializable-factory>
+            <data-serializable-factory factory-id="2">
+                com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory
+            </data-serializable-factory>
+            <data-serializable-factory factory-id="3">
+                com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory
+            </data-serializable-factory>
+        </data-serializable-factories>
+    </serialization>
+
+</hazelcast-client>

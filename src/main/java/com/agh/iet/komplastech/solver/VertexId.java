@@ -10,7 +10,7 @@ import java.util.function.IntFunction;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
 
-public class VertexId implements IdentifiedDataSerializable {
+public class VertexId implements IdentifiedDataSerializable, Comparable<VertexId> {
 
     private int id;
 
@@ -62,4 +62,8 @@ public class VertexId implements IdentifiedDataSerializable {
         return GeneralObjectType.VERTEX_ID.id;
     }
 
+    @Override
+    public int compareTo(VertexId o) {
+        return id - o.id;
+    }
 }

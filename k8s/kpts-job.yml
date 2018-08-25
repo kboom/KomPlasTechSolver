@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kpts-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: kpts-solver
+        image: "kpts/solver:latest"
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: CLUSTER_ADDRESS
+            value: 10.106.215.213
+        args: ["--log-process"]
+    
+
+  activeDeadlineSeconds: 100
+  backoffLimit: 4

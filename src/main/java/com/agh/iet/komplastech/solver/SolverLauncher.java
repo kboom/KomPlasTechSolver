@@ -36,10 +36,10 @@ class SolverLauncher {
     private boolean isPlotting = false;
 
     @Parameter(names = {"--problem-size", "-s"})
-    private int problemSize = 24;
+    private int problemSize = 768;
 
     @Parameter(names = {"--delta", "-d"})
-    private double delta = 0.1;
+    private double delta = 0.0000001;
 
     @Parameter(names = {"--steps", "-o"})
     private int steps = 100;
