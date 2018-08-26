@@ -29,6 +29,9 @@ class SolverLauncher {
     @Parameter(names = {"--log-solution", "-l"})
     private boolean isLoggingSolution = false;
 
+    @Parameter(names = {"--solution-hashes", "-h"})
+    private boolean isPrintingSolutionHashes = false;
+
     @Parameter(names = {"--log-process", "-x"})
     private boolean isLoggingProcess = false;
 
@@ -116,7 +119,7 @@ class SolverLauncher {
 
         try {
             NonStationarySolver nonStationarySolver =
-                    new NonStationarySolver(steps, delta, problemSolver, mesh);
+                    new NonStationarySolver(steps, delta, problemSolver, mesh, isPrintingSolutionHashes);
 
 
             NonStationaryProblem nonStationaryProblem;

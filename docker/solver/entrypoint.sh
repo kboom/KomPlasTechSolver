@@ -7,7 +7,7 @@ if [ -z "${CLUSTER_ADDRESS-}" ];
     exit 1;
 fi
 
-JVM_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2 -XshowSettings:vm"
+JVM_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XshowSettings:vm"
 PROGRAM_JVM_OPTS="-Dcluster.address=${CLUSTER_ADDRESS}"
 JAR_LOCATION="*.jar"
 

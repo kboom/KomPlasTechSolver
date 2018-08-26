@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iga-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+      - name: iga-solver
+        image: "kbhit/iga-adi-cl-solver:latest"
+        imagePullPolicy: Always
+        env:
+          - name: CLUSTER_ADDRESS
+            value: iga-adi-cl-workers:5701
+          - name: JAVA_OPTS
+            value: "
+              -XX:+UnlockExperimentalVMOptions
+              -XX:+UseCGroupMemoryLimitForHeap
+              -XX:MaxRAMFraction=4
+              -XshowSettings:vm
+              -Dhazelcast.diagnostics.enabled=true
+              -Dhazelcast.diagnostics.metric.level=info
+              -Dhazelcast.diagnostics.invocation.sample.period.seconds=30
+              -Dhazelcast.diagnostics.pending.invocations.period.seconds=30
+              -Dhazelcast.diagnostics.slowoperations.period.seconds=30
+              -Dhazelcast.log.state=true
+            "
+        args: ["--problem linear", "--log-process", "--problem-size 384", "--region-height 4", "--steps 50"]
+    
+  backoffLimit: 1

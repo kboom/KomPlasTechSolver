@@ -1,0 +1,6 @@
+dependencies:
+- name: hazelcast
+  repository: https://kubernetes-charts.storage.googleapis.com
+  version: 1.0.1
+digest: sha256:82c822d850cd3f882beec89daab3778d2c602fbb897513908b24bf602ca329c6
+generated: 2018-10-02T18:27:30.814178199+02:00

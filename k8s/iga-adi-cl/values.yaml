@@ -1,0 +1,81 @@
+hazelcast:
+  image:
+    repository: kbhit/iga-adi-cl-worker
+    tag: latest
+    pullPolicy: Always
+  hazelcast:
+    configurationFiles:
+      hazelcast.xml: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <hazelcast xsi:schemaLocation="http://www.hazelcast.com/schema/config hazelcast-config-3.10.xsd"
+                      xmlns="http://www.hazelcast.com/schema/config"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      
+          <properties>
+            <property name="hazelcast.discovery.enabled">true</property>
+          </properties>
+          <network>
+            <join>
+              <multicast enabled="false"/>
+              <tcp-ip enabled="false" />
+              <discovery-strategies>
+                <discovery-strategy enabled="true" class="com.hazelcast.kubernetes.HazelcastKubernetesDiscoveryStrategy">
+                </discovery-strategy>
+              </discovery-strategies>
+            </join>
+          </network>
+
+          <!-- Custom Configuration Placeholder -->
+          <serialization>
+              <data-serializable-factories>
+                  <data-serializable-factory factory-id="1">
+                      com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory
+                  </data-serializable-factory>
+                  <data-serializable-factory factory-id="2">
+                      com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory
+                  </data-serializable-factory>
+                  <data-serializable-factory factory-id="3">
+                      com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory
+                  </data-serializable-factory>
+              </data-serializable-factories>
+          </serialization>
+
+          <partition-group enabled="false"/>
+
+          <executor-service name="default">
+              <pool-size>4</pool-size>
+              <queue-capacity>0</queue-capacity>
+          </executor-service>
+
+          <map name="commons">
+              <in-memory-format>BINARY</in-memory-format>
+              <backup-count>0</backup-count>
+              <async-backup-count>0</async-backup-count>
+              <near-cache>
+                  <in-memory-format>OBJECT</in-memory-format>
+                  <max-size>0</max-size>
+                  <time-to-live-seconds>0</time-to-live-seconds>
+                  <max-idle-seconds>0</max-idle-seconds>
+                  <eviction-policy>NONE</eviction-policy>
+                  <invalidate-on-change>true</invalidate-on-change>
+                  <cache-local-entries>true</cache-local-entries>
+              </near-cache>
+          </map>
+
+
+          <map name="vertices">
+              <in-memory-format>BINARY</in-memory-format>
+              <backup-count>0</backup-count>
+              <async-backup-count>0</async-backup-count>
+              <time-to-live-seconds>0</time-to-live-seconds>
+              <max-idle-seconds>0</max-idle-seconds>
+              <eviction-policy>NONE</eviction-policy>
+              <max-size policy="PER_NODE">0</max-size>
+              <merge-policy>com.hazelcast.map.merge.PutIfAbsentMapMergePolicy</merge-policy>
+              <cache-deserialized-values>NEVER</cache-deserialized-values>
+          </map>
+          
+          <services enable-defaults="true"/>
+          <lite-member enabled="false"/>
+
+        </hazelcast>

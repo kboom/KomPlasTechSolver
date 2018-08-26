@@ -15,6 +15,8 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Objects;
 
 import static com.agh.iet.komplastech.solver.SolutionGrid.solutionGrid;
 import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
@@ -142,6 +144,16 @@ public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializa
     @Override
     public void setHazelcastInstance(HazelcastInstance hazelcastInstance) {
         partialSolutionManager = new PartialSolutionManager(getMesh(), hazelcastInstance);
+    }
+
+    /**
+     * Returns an approximate checksum of the solution.
+     * Note that this is only verifying central row and column as the result might be too big to retrieve and process on a single node.
+     */
+    int getChecksum() {
+        int xHash = Arrays.hashCode(partialSolutionManager.getCols(mesh.getCenterX())[0]);
+        int yHash = Arrays.hashCode(partialSolutionManager.getRows(mesh.getCenterY())[0]);
+        return Objects.hash(xHash, yHash);
     }
 
 }

@@ -31,6 +31,15 @@ shadowJar {
    baseName = 'lib'
 }
 
+docker {
+    registryCredentials {
+        url = 'https://index.docker.io/v1/'
+        username = 'kbhit'
+        password = file('docker.creds').text
+        email = 'gurgul.grzegorz@gmail.com'
+    }
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -50,12 +59,22 @@ packageToDocker.dependsOn shadowJar
 
 task buildWorkerImage(type: DockerBuildImage, dependsOn: ["packageToDocker"]) {
     inputDir = file('docker/worker')
-    tag = 'kpts/worker:latest'
+    tag = 'kbhit/iga-adi-cl-worker'
 }
 
 task buildSolverImage(type: DockerBuildImage, dependsOn: ["packageToDocker"]) {
     inputDir = file('docker/solver')
-    tag = 'kpts/solver:latest'
+    tag = 'kbhit/iga-adi-cl-solver'
+}
+
+task pushSolverImage(type: DockerPushImage, dependsOn: ["buildSolverImage"]) {
+    imageName = "kbhit/iga-adi-cl-solver"
+    tag = "latest"
+}
+
+task pushWorkerImage(type: DockerPushImage, dependsOn: ["buildWorkerImage"]) {
+    imageName = "kbhit/iga-adi-cl-worker"
+    tag = "latest"
 }
 
 dependencies {

@@ -1,0 +1,63 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: iga
+spec:
+  selector:
+    matchLabels:
+      app: iga-worker
+  replicas: 4
+  template:
+    metadata:
+      labels:
+        app: iga-worker
+    spec:
+      containers:
+        - name: iga-worker
+          image: "kbhit/iga-adi-cl-worker:latest"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5701
+          env:
+            - name: JAVA_OPTS
+              value: "
+                -XX:+UnlockExperimentalVMOptions
+                -XX:+UseCGroupMemoryLimitForHeap
+                -XX:MaxRAMFraction=4
+                -XshowSettings:vm
+                -Dk8s.service.name=iga-adi-cl-workers
+                -Dk8s.namespace=iga-adi-cl
+                -Dmancenter.url=http://iga-management-center.iga-adi-cl:8080/hazelcast-mancenter
+                -Dhazelcast.diagnostics.enabled=true
+                -Dhazelcast.diagnostics.metric.level=info
+                -Dhazelcast.diagnostics.invocation.sample.period.seconds=30
+                -Dhazelcast.diagnostics.pending.invocations.period.seconds=30
+                -Dhazelcast.diagnostics.slowoperations.period.seconds=30
+                -Dhazelcast.log.state=true
+              "
+          resources:
+            limits:
+              cpu: 3
+              memory: 5Gi
+            requests:
+              cpu: 3
+              memory: 5Gi
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iga-adi-cl-workers
+spec:
+  type: ClusterIP
+  clusterIP: None
+  selector:
+    app: iga-worker
+  ports:
+  - protocol: TCP
+    port: 5701
+    targetPort: 5701
+
+  
