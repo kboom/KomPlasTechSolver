@@ -3,7 +3,10 @@ hazelcast:
     repository: kbhit/iga-adi-cl-worker
     tag: latest
     pullPolicy: Always
+  service:
+    type: ClusterIP
   hazelcast:
+    rest: false
     configurationFiles:
       hazelcast.xml: |-
         <?xml version="1.0" encoding="UTF-8"?>
@@ -20,6 +23,10 @@ hazelcast:
               <tcp-ip enabled="false" />
               <discovery-strategies>
                 <discovery-strategy enabled="true" class="com.hazelcast.kubernetes.HazelcastKubernetesDiscoveryStrategy">
+                  <properties>
+                    <property name="service-name">${serviceName}</property>
+                    <property name="namespace">${namespace}</property>
+                  </properties>
                 </discovery-strategy>
               </discovery-strategies>
             </join>
