@@ -44,7 +44,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 task packageToDocker << {
-  ['docker/solver/', 'docker/worker/'].each { dest ->
+  ['docker/solver/', 'docker/worker/', 'docker/solver-performance/'].each { dest ->
     copy {
       with copySpec {
         from 'build/libs/lib-all.jar'

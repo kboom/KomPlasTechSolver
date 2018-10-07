@@ -6,12 +6,7 @@
 
     <!-- http://docs.hazelcast.org/docs/3.4/manual/html/serializationconfiguration.html -->
     <!-- https://github.com/hazelcast/hazelcast/blob/master/hazelcast-client/src/main/resources/hazelcast-client-full.xml -->
-
-    <group>
-        <name>kpts-cluster</name>
-        <password>kpts-cluster-pass</password>
-    </group>
-
+    
     <network>
         <cluster-members>
             <address>${cluster.address}</address>

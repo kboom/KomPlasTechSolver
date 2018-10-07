@@ -5,8 +5,15 @@ hazelcast:
     pullPolicy: Always
   service:
     type: ClusterIP
+  resources:
+    limits:
+      cpu: 3
+      memory: 5Gi
+    requests:
+      cpu: 3
+      memory: 5Gi
   hazelcast:
-    rest: false
+    rest: true
     configurationFiles:
       hazelcast.xml: |-
         <?xml version="1.0" encoding="UTF-8"?>
