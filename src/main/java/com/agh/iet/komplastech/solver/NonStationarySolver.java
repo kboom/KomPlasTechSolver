@@ -38,7 +38,7 @@ class NonStationarySolver {
             if(printSolutionHashes) {
                 System.out.println(String.format("Solution %d - approx. checksum - %d", i, solution.getChecksum()));
             }
-//            solutionsInTimeBuilder.addSolution(solution); // TODO do not store for now, fix it
+            solutionsInTimeBuilder.addSolution(solution); // TODO do not store for now, fix it
             nonStationaryProblem.nextStep(solution);
         }
         return solutionsInTimeBuilder.build();

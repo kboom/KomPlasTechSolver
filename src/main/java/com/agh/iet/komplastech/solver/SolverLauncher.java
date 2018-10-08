@@ -137,7 +137,7 @@ class SolverLauncher {
                     throw new IllegalArgumentException("Unknown problem type " + solvedProblem);
             }
 
-            nonStationarySolver.solveInTime(nonStationaryProblem);
+            SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(nonStationaryProblem);
 
             log.info(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), " +
                             "Backwards Substitution (%d), Solution reading (%d), First stage (%d), Second Stage (%d), Total (%d)",
@@ -152,17 +152,17 @@ class SolverLauncher {
             ));
 
 
-            // Solution solution = solutionsInTime.getFinalSolution();
+             Solution solution = solutionsInTime.getFinalSolution();
 
-            // if (isLoggingSolution) {
-            //     CsvPrinter csvPrinter = new CsvPrinter();
-            //     System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
-            // }
+             if (isLoggingSolution) {
+                 CsvPrinter csvPrinter = new CsvPrinter();
+                 System.out.println(csvPrinter.convertToCsv(solution.getSolutionGrid()));
+             }
 
-            // if (isPlotting) {
-            //     TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
-            //     timeLapseViewer.setVisible(true);
-            // }
+             if (isPlotting) {
+                 TimeLapseViewer timeLapseViewer = new TimeLapseViewer(solutionsInTime);
+                 timeLapseViewer.setVisible(true);
+             }
 
             objectStore.clearVertices();
             hazelcastInstance.shutdown();
