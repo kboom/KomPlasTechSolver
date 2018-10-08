@@ -1,5 +1,7 @@
 package com.agh.iet.komplastech.solver;
 
+import com.agh.iet.komplastech.solver.constants.ImplicitMethodCoefficients;
+import com.agh.iet.komplastech.solver.constants.MethodCoefficientsHolder;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.process.ConsoleProcessLogger;
@@ -19,6 +21,7 @@ import com.hazelcast.client.HazelcastClient;
 import com.hazelcast.core.HazelcastInstance;
 import org.apache.log4j.Logger;
 
+import static com.agh.iet.komplastech.solver.constants.ImplicitMethodCoefficients.IMPLICIT_METHOD_COEFFICIENTS;
 import static com.agh.iet.komplastech.solver.support.Mesh.aMesh;
 import static java.lang.String.format;
 
@@ -126,6 +129,7 @@ class SolverLauncher {
             switch (solvedProblem) {
                 case "heat":
                     nonStationaryProblem = new HeatTransferProblem(delta, mesh, problemSize);
+                    MethodCoefficientsHolder.setMethodCoefficients(IMPLICIT_METHOD_COEFFICIENTS);
                     break;
                 case "linear":
                     nonStationaryProblem = new ConstantLinearProblem(delta);

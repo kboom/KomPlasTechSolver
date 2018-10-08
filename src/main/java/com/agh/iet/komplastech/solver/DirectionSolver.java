@@ -70,7 +70,7 @@ class DirectionSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(Problem problem) {
+    public Solution solveProblem(Problem problem, RunInformation runInformation) {
         timeLogger.logCreation();
         createRoot();
         buildIntermediateLevels();
@@ -88,7 +88,7 @@ class DirectionSolver implements Solver {
         backwardSubstituteLeaves();
         timeLogger.logSolution();
         readPartialSolution();
-        return new Solution(problem, mesh, partialSolutionManager);
+        return new Solution(problem, mesh, partialSolutionManager, runInformation);
     }
 
     private void createRoot() {

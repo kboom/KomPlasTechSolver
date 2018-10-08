@@ -56,18 +56,18 @@ class TwoDimensionalProblemSolver implements Solver {
     }
 
     @Override
-    public Solution solveProblem(Problem rhs) {
+    public Solution solveProblem(Problem rhs, RunInformation runInformation) {
         prepareObjectStore(rhs);
         timeLogger.logStart();
         timeLogger.logFirstStage();
-        Solution horizontalSolution = solveProblemHorizontally(rhs);
+        Solution horizontalSolution = solveProblemHorizontally(rhs, runInformation);
         objectStore.clearVertices();
 
         hazelcastFacade.forceGC();
 
         timeLogger.nextStage();
         timeLogger.logSecondStage();
-        Solution solution = solveProblemVertically(horizontalSolution);
+        Solution solution = solveProblemVertically(horizontalSolution, runInformation);
         timeLogger.logStop();
         hazelcastFacade.forceGC();
         return solution;
@@ -85,7 +85,7 @@ class TwoDimensionalProblemSolver implements Solver {
         processLogger.logStageReached("Solver ready for the frist stage of processing");
     }
 
-    private Solution solveProblemHorizontally(Problem rhs) {
+    private Solution solveProblemHorizontally(Problem rhs, RunInformation runInformation) {
         HorizontalProductionFactory productionFactory = new HorizontalProductionFactory();
         HorizontalLeafInitializer horizontalLeafInitializer = new HorizontalLeafInitializer(launcherFactory, solutionLogger);
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
@@ -102,10 +102,10 @@ class TwoDimensionalProblemSolver implements Solver {
                 timeLogger
         );
 
-        return horizontalProblemSolver.solveProblem(rhs);
+        return horizontalProblemSolver.solveProblem(rhs, runInformation);
     }
 
-    private Solution solveProblemVertically(Solution horizontalSolution) {
+    private Solution solveProblemVertically(Solution horizontalSolution, RunInformation runInformation) {
         LeafInitializer verticalLeafInitializer = new VerticalLeafInitializer(launcherFactory, solutionLogger);
         ProductionFactory verticalProductionFactory = new VerticalProductionFactory();
         TreeIteratorFactory treeIteratorFactory = new TreeIteratorFactory();
@@ -123,7 +123,7 @@ class TwoDimensionalProblemSolver implements Solver {
                 timeLogger
         );
 
-        return verticalProblemSolver.solveProblem(horizontalSolution.getProblem());
+        return verticalProblemSolver.solveProblem(horizontalSolution.getProblem(), runInformation);
     }
 
 }

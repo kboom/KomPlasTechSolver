@@ -1,6 +1,8 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
 import com.agh.iet.komplastech.solver.constants.GaussPoints;
+import com.agh.iet.komplastech.solver.constants.MethodCoefficients;
+import com.agh.iet.komplastech.solver.constants.MethodCoefficientsHolder;
 import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.problem.Problem;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
@@ -19,13 +21,14 @@ import java.io.IOException;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINTS;
 import static com.agh.iet.komplastech.solver.constants.GaussPoints.GAUSS_POINT_WEIGHTS;
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
-import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class A implements Production {
 
     private static final Spline spline1 = new BSpline1();
     private static final Spline spline2 = new BSpline2();
     private static final Spline spline3 = new BSpline3();
+
+
 
     @SuppressWarnings("unused")
     public A() {
@@ -35,13 +38,14 @@ public class A implements Production {
     @Override
     public void apply(ProcessingContext processingContext) {
         Vertex node = processingContext.getVertex();
-        initializeCoefficientsMatrix(node);
+        initialize(node);
         initializeRightHandSides(processingContext);
         processingContext.updateVertex();
     }
 
-    private void initializeCoefficientsMatrix(Vertex node) {
-        useArbitraryCoefficients(node);
+    private void initialize(Vertex node) {
+        MethodCoefficients methodCoefficients = MethodCoefficientsHolder.getMethodCoefficients();
+        methodCoefficients.bindMethodCoefficients(node);
     }
 
     private void initializeRightHandSides(ProcessingContext context) {

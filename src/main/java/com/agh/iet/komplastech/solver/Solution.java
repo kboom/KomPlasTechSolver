@@ -31,16 +31,18 @@ public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializa
     private Mesh mesh; // todo remove from here, it is cached at the client side!
     private transient PartialSolutionManager partialSolutionManager;
     private Problem problem;
+    private RunInformation runInformation;
 
     @SuppressWarnings("unused")
     public Solution() {
 
     }
 
-    public Solution(Problem problem, Mesh mesh, PartialSolutionManager rhs) {
+    public Solution(Problem problem, Mesh mesh, PartialSolutionManager rhs, RunInformation runInformation) {
         this.mesh = mesh;
         this.problem = problem;
         this.partialSolutionManager = rhs;
+        this.runInformation = runInformation;
     }
 
     public double getValue(double x, double y) {
@@ -72,27 +74,35 @@ public class Solution implements HazelcastInstanceAware, IdentifiedDataSerializa
 
         double[][] rows = partialSolutionManager.getRows(ielemx, ielemx + 1, ielemx + 2);
 
-        solution += b1.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[0][ielemy];
-        solution += b1.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[0][ielemy + 1];
-        solution += b1.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[0][ielemy + 2];
-        solution += b2.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[1][ielemy];
-        solution += b2.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[1][ielemy + 1];
-        solution += b2.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[1][ielemy + 2];
-        solution += b3.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[2][ielemy];
-        solution += b3.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[2][ielemy + 1];
-        solution += b3.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[2][ielemy + 2];
+        if(!isEven()) {
+            solution += b1.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[0][ielemy];
+            solution += b1.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[0][ielemy + 1];
+            solution += b1.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[0][ielemy + 2];
+            solution += b2.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[1][ielemy];
+            solution += b2.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[1][ielemy + 1];
+            solution += b2.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[1][ielemy + 2];
+            solution += b3.getSecondDerivativeValueAt(localx) * b1.getValue(localy) * rows[2][ielemy];
+            solution += b3.getSecondDerivativeValueAt(localx) * b2.getValue(localy) * rows[2][ielemy + 1];
+            solution += b3.getSecondDerivativeValueAt(localx) * b3.getValue(localy) * rows[2][ielemy + 2];
 
-        solution += b1.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[0][ielemy];
-        solution += b1.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[0][ielemy + 1];
-        solution += b1.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[0][ielemy + 2];
-        solution += b2.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[1][ielemy];
-        solution += b2.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[1][ielemy + 1];
-        solution += b2.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[1][ielemy + 2];
-        solution += b3.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[2][ielemy];
-        solution += b3.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[2][ielemy + 1];
-        solution += b3.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[2][ielemy + 2];
+        } else {
+            solution += b1.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[0][ielemy];
+            solution += b1.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[0][ielemy + 1];
+            solution += b1.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[0][ielemy + 2];
+            solution += b2.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[1][ielemy];
+            solution += b2.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[1][ielemy + 1];
+            solution += b2.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[1][ielemy + 2];
+            solution += b3.getValue(localx) * b1.getSecondDerivativeValueAt(localy) * rows[2][ielemy];
+            solution += b3.getValue(localx) * b2.getSecondDerivativeValueAt(localy) * rows[2][ielemy + 1];
+            solution += b3.getValue(localx) * b3.getSecondDerivativeValueAt(localy) * rows[2][ielemy + 2];
+
+        }
 
         return solution;
+    }
+
+    private boolean isEven() {
+        return runInformation.getRunNumber() % 2 == 0;
     }
 
     SolutionGrid getSolutionGrid() {

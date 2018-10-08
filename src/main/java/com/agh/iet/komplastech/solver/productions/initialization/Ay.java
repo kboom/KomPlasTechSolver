@@ -1,5 +1,6 @@
 package com.agh.iet.komplastech.solver.productions.initialization;
 
+import com.agh.iet.komplastech.solver.constants.MethodCoefficientsHolder;
 import com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.ProductionType;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.agh.iet.komplastech.solver.productions.Production;
@@ -12,7 +13,6 @@ import com.hazelcast.nio.ObjectDataOutput;
 import java.io.IOException;
 
 import static com.agh.iet.komplastech.solver.factories.HazelcastProductionFactory.PRODUCTION_FACTORY;
-import static com.agh.iet.komplastech.solver.productions.initialization.SampleCoefficients.useArbitraryCoefficients;
 
 public class Ay implements Production {
 
@@ -50,7 +50,7 @@ public class Ay implements Production {
     }
 
     private void initializeCoefficientsMatrix(ProcessingContext processingContext) {
-        useArbitraryCoefficients(processingContext.getVertex());
+        MethodCoefficientsHolder.getMethodCoefficients().bindMethodCoefficients(processingContext.getVertex());
     }
 
     @Override
