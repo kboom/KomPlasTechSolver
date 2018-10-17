@@ -13,10 +13,10 @@ BATCH_RATIOS=${BATCH_RATIOS:-"4"}
 MAX_BATCH_SIZES=${MAX_BATCH_SIZES:-"10"}
 COOLDOWN=5
 
-JVM_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=1 -XshowSettings:vm"
+JVM_OPTS="-XX:+UnlockExperimentalVMOptions -XshowSettings:vm"
 PROGRAM_JVM_OPTS="-Dcluster.address=${CLUSTER_ADDRESS}"
 JAR_LOCATION="*.jar"
-CMD="${JVM_OPTS} ${PROGRAM_JVM_OPTS} -jar ${JAR_LOCATION} ${@}"
+CMD="${JVM_OPTS} ${CUSTOM_JAVA_OPTS} ${PROGRAM_JVM_OPTS} -jar ${JAR_LOCATION} ${@}"
 
 for problemSize in $PROBLEM_SIZES
 do

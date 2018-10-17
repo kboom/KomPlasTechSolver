@@ -1,6 +1,0 @@
-2018-08-26 08:48:58,176 INFO main com.agh.iet.komplastech.solver.SolverLauncher - 
-
---------- Problem size (768), Steps (100), Max batch size (10), Batch ratio (4), Region height (6), Member count (2)
-2018-08-26 08:50:10,486 INFO main com.agh.iet.komplastech.solver.SolverLauncher - 
-
---------- Problem size (768), Steps (100), Max batch size (10), Batch ratio (4), Region height (6), Member count (2)

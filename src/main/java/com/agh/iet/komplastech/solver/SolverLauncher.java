@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver;
 
-import com.agh.iet.komplastech.solver.constants.ImplicitMethodCoefficients;
 import com.agh.iet.komplastech.solver.constants.MethodCoefficientsHolder;
 import com.agh.iet.komplastech.solver.logger.ConsoleSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
@@ -48,7 +47,7 @@ class SolverLauncher {
     private double delta = 0.0000001;
 
     @Parameter(names = {"--steps", "-o"})
-    private int steps = 100;
+    private int steps = 1;
 
     @Parameter(names = {"--batch-ratio"})
     private int batchRatio = 4;
@@ -88,7 +87,7 @@ class SolverLauncher {
         VertexRegionMapper vertexRegionMapper = new VertexRegionMapper(mesh, computeConfig);
         HazelcastInstance hazelcastInstance = HazelcastClient.newHazelcastClient();
 
-        log.info(format("\n\n--------- Problem size (%d), Steps (%d), Max batch size (%d), Batch ratio (%d), Region height (%d), Member count (%d)",
+        log.debug(format("\n\n--------- Problem size (%d), Steps (%d), Max batch size (%d), Batch ratio (%d), Region height (%d), Member count (%d)",
                 problemSize, steps, maxBatchSize, batchRatio, regionHeight, hazelcastInstance.getCluster().getMembers().size()));
 
         final ProcessLogger processLogger = isLoggingProcess ? new ConsoleProcessLogger() : new NoopProcessLogger();
@@ -143,8 +142,19 @@ class SolverLauncher {
 
             SolutionsInTime solutionsInTime = nonStationarySolver.solveInTime(nonStationaryProblem);
 
-            log.info(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), " +
+            log.debug(format("Solution times: Creation (%d), Initialization (%d), Factorization (%d), " +
                             "Backwards Substitution (%d), Solution reading (%d), First stage (%d), Second Stage (%d), Total (%d)",
+                    timeLogger.getTotalCreationMs(),
+                    timeLogger.getTotalInitializationMs(),
+                    timeLogger.getTotalFactorizationMs(),
+                    timeLogger.getTotalBackwardSubstitutionMs(),
+                    timeLogger.getTotalSolutionReadingMs(),
+                    timeLogger.getFirstStageTimeMs(),
+                    timeLogger.getSecondStageTimeMs(),
+                    timeLogger.getTotalSolutionMs()
+            ));
+
+            log.info(format("%d,%d,%d,%d,%d,%d,%d,%d",
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
