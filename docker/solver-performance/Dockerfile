@@ -16,6 +16,6 @@ COPY --chown=app:app *.jar .
 COPY --chown=app:app entrypoint.sh .
 RUN chmod ug+x entrypoint.sh
 
-USER ${APP_USER}
+USER ${PUID}
 VOLUME ${LOGS_DIR}
 ENTRYPOINT ["./entrypoint.sh"]

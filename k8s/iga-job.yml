@@ -1,3 +1,4 @@
+# https://serverfault.com/questions/906083/how-to-mount-volume-with-specific-uid-in-kubernetes-pod
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -6,9 +7,16 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 666:666 /home/app/logs"]
+        volumeMounts:
+        - name: task-pv-storage
+          mountPath: /home/app/logs
       containers:
       - name: iga-solver
-        image: "kbhit/kpts-solver-performance:latest"
+        image: "kbhit/iga-solver-performance"
         volumeMounts:
         - mountPath: "/home/app/logs"
           name: task-pv-storage
@@ -25,6 +33,8 @@ spec:
             value: iga-hazelcast:5701
           - name: CUSTOM_JAVA_OPTS
             value: "
+              -Xmx6500M
+              -Xms6500M
               -DCOMPUTATIONS_TIME_LOG_FILENAME=/home/app/logs/computations.log
               -Dhazelcast.diagnostics.enabled=true
               -Dhazelcast.diagnostics.metric.level=info

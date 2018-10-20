@@ -154,7 +154,16 @@ class SolverLauncher {
                     timeLogger.getTotalSolutionMs()
             ));
 
-            log.info(format("%d,%d,%d,%d,%d,%d,%d,%d",
+            
+
+            log.info(format("%s,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",
+                    solvedProblem,
+                    problemSize,
+                    steps,
+                    maxBatchSize,
+                    batchRatio,
+                    regionHeight,
+                    hazelcastInstance.getCluster().getMembers().size(),
                     timeLogger.getTotalCreationMs(),
                     timeLogger.getTotalInitializationMs(),
                     timeLogger.getTotalFactorizationMs(),
