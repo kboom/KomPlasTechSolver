@@ -7,7 +7,7 @@ hazelcast:
     type: ClusterIP
   resources:
     limits:
-      cpu: 3
+      cpu: 4
       memory: 6Gi
     requests:
       cpu: 3
@@ -59,7 +59,7 @@ hazelcast:
           <partition-group enabled="false"/>
 
           <executor-service name="default">
-              <pool-size>4</pool-size>
+              <pool-size>20</pool-size>
               <queue-capacity>0</queue-capacity>
           </executor-service>
 
