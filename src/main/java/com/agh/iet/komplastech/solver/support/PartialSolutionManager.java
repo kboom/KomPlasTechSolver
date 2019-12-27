@@ -84,7 +84,7 @@ public class PartialSolutionManager {
 
         @Override
         public double[][] aggregate() {
-            final double[][] columns = new double[this.columns.size()][rowsRead.size() + 1];
+            final double[][] columns = new double[this.columns.size()][rowsRead.size() + 1]; // todo this is the reason why the transposition is so slow
             Iterator<LinkedList<Double>> iterator = this.columns.values().iterator();
             for (int c = 0; c < this.columns.size(); c++) {
                 List<Double> unorderedCells = new ArrayList<>(iterator.next());
