@@ -30,7 +30,7 @@ public class PartialSolutionManager {
         Map<Integer, double[]> all = solutionRows.getAll(Arrays.stream(indices).boxed().collect(Collectors.toSet()));
         int columns = all.get(indices[0]).length;
         int rows = indices.length;
-        double[][] array = new double[rows][columns];
+        double[][] array = new double[rows][columns]; // todo this probably was the reason for failure - huge memory pressure during the initialisation of the next step - done for each (x,y)...!!!
         int minIndex = Arrays.stream(indices).min().getAsInt();
         all.entrySet().parallelStream().forEach((entry) -> array[entry.getKey() - minIndex] = entry.getValue());
         return array;
