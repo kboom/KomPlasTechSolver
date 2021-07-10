@@ -1,6 +1,5 @@
 package com.agh.iet.komplastech.solver.support;
 
-import com.agh.iet.komplastech.solver.VertexId;
 import com.agh.iet.komplastech.solver.productions.HazelcastProcessingContext;
 import com.agh.iet.komplastech.solver.productions.ProcessingContext;
 import com.hazelcast.core.HazelcastInstance;
@@ -8,22 +7,32 @@ import com.hazelcast.core.IMap;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.MESH;
+
 class HazelcastProcessingContextManager implements ProcessingContextManager {
 
+    private final Set<Vertex> verticesToUpdate = ConcurrentHashMap.newKeySet();
+
+    private final IMap<VertexReference, Vertex> vertices;
+    private final IMap<CommonProcessingObject, Object> commons;
     private final HazelcastInstance hazelcastInstance;
-    private final Set<Vertex> verticesToUpdate = new HashSet<>();
 
 
     HazelcastProcessingContextManager(HazelcastInstance hazelcastInstance) {
+        vertices = hazelcastInstance.getMap("vertices");
+        commons = hazelcastInstance.getMap("commons");
         this.hazelcastInstance = hazelcastInstance;
     }
 
     ProcessingContext createFor(Vertex vertex) {
-        return new HazelcastProcessingContext(this, vertex);
+        return new HazelcastProcessingContext(this,
+                new PartialSolutionManager(getFromCache(MESH), hazelcastInstance), vertex);
     }
 
     @Override
@@ -42,15 +51,25 @@ class HazelcastProcessingContextManager implements ProcessingContextManager {
     }
 
     @Override
-    public Vertex getVertex(VertexId vertexId) {
-        IMap<VertexId, Vertex> vertices = hazelcastInstance.getMap("vertices");
-        return vertices.get(vertexId);
+    public Vertex getVertex(WeakVertexReference reference) {
+        return vertices.get(reference);
     }
 
     @Override
     public void flush() {
-        IMap<Object, Object> verticesStore = hazelcastInstance.getMap("vertices");
-        verticesStore.putAll(verticesToUpdate.stream().collect(Collectors.toMap(Vertex::getId, Function.identity())));
+        vertices.putAll(verticesToUpdate.stream().collect(Collectors.toMap(
+                Vertex::getVertexReference, Function.identity())));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T getFromCache(CommonProcessingObject id) {
+        return (T) commons.get(id);
+    }
+
+    @Override
+    public Map<VertexReference, Vertex> getAll(Set<VertexReference> references) {
+        return vertices.getAll(references);
     }
 
 }

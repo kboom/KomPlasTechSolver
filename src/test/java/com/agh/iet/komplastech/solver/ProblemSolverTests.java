@@ -3,8 +3,6 @@ package com.agh.iet.komplastech.solver;
 import com.agh.iet.komplastech.solver.logger.NoopSolutionLogger;
 import com.agh.iet.komplastech.solver.logger.SolutionLogger;
 import com.agh.iet.komplastech.solver.results.CsvPrinter;
-import com.agh.iet.komplastech.solver.storage.InMemoryObjectStore;
-import com.agh.iet.komplastech.solver.storage.ObjectStore;
 import com.agh.iet.komplastech.solver.support.Mesh;
 import org.junit.Test;
 
@@ -20,9 +18,8 @@ public class ProblemSolverTests {
     private static final TimeLogger DUMMY_TIME_LOGGER = new TimeLogger();
 
     private CsvPrinter csvPrinter = new CsvPrinter();
-    private ObjectStore objectStore = new InMemoryObjectStore();
     private ProductionExecutorFactory productionExecutorFactory =
-            new ProductionExecutorFactory(null, 2);
+            new ProductionExecutorFactory(null, null, null, null);
 
     @Test
     public void solvesSmallerProblem() throws Exception {
@@ -35,7 +32,7 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y, RunInformation.initialInformation());
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("small_problem_results.csv"));
     }
 
@@ -50,15 +47,19 @@ public class ProblemSolverTests {
 
         TwoDimensionalProblemSolver problemSolver = createSolver(mesh);
 
-        Solution solution = problemSolver.solveProblem((x, y) -> x + y);
+        Solution solution = problemSolver.solveProblem((x, y) -> x + y, RunInformation.initialInformation());
         assertThat(csvPrinter.convertToCsv(solution.getSolutionGrid())).isEqualTo(readTestFile("big_problem_results.csv"));
     }
 
     private TwoDimensionalProblemSolver createSolver(Mesh mesh) {
         return new TwoDimensionalProblemSolver(
+                null,
                 productionExecutorFactory,
+                null,
                 mesh,
+                null,
                 DUMMY_SOLUTION_LOGGER,
+                null,
                 null,
                 DUMMY_TIME_LOGGER
         );

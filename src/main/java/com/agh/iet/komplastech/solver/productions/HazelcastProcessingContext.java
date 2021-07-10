@@ -1,18 +1,20 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.VertexId;
-import com.agh.iet.komplastech.solver.support.ProcessingContextManager;
-import com.agh.iet.komplastech.solver.support.ReferenceVisitor;
-import com.agh.iet.komplastech.solver.support.Vertex;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.core.IMap;
+import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.*;
+
+import static com.agh.iet.komplastech.solver.support.CommonProcessingObject.*;
 
 public class HazelcastProcessingContext implements ProcessingContext, ReferenceVisitor {
 
     private final Vertex vertex;
     private final ProcessingContextManager contextManager;
+    private final PartialSolutionManager partialSolutionManager;
 
-    public HazelcastProcessingContext(ProcessingContextManager processingContextManager, Vertex vertex) {
+    public HazelcastProcessingContext(ProcessingContextManager processingContextManager,
+                                      PartialSolutionManager partialSolutionManager,
+                                      Vertex vertex) {
+        this.partialSolutionManager = partialSolutionManager;
         this.vertex = vertex;
         this.contextManager = processingContextManager;
     }
@@ -40,9 +42,33 @@ public class HazelcastProcessingContext implements ProcessingContext, ReferenceV
     }
 
     @Override
-    public Vertex loadVertex(VertexId vertexId) {
+    public Problem getProblem() {
+        return contextManager.getFromCache(PROBLEM);
+    }
+
+    @Override
+    public ComputeConfig getComputeConfig() {
+        return contextManager.getFromCache(COMPUTE_CONFIG);
+    }
+
+    @Override
+    public Mesh getMesh() {
+        return contextManager.getFromCache(MESH);
+    }
+
+    @Override
+    public VertexRegionMapper getRegionMapper() {
+        return new VertexRegionMapper(getMesh(), getComputeConfig());
+    }
+
+    public PartialSolutionManager getPartialSolutionManager() {
+        return partialSolutionManager;
+    }
+
+    @Override
+    public Vertex loadVertex(WeakVertexReference reference) {
         // hazelcastMap -> loadAll (preload) batch
-        return contextManager.getVertex(vertexId);
+        return contextManager.getVertex(reference);
     }
 
 }

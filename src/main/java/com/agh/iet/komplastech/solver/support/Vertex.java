@@ -1,24 +1,30 @@
 package com.agh.iet.komplastech.solver.support;
 
 import com.agh.iet.komplastech.solver.VertexId;
-import com.hazelcast.query.Predicates;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
-import java.io.Serializable;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static java.lang.String.format;
+import static com.agh.iet.komplastech.solver.VertexId.vertexId;
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+import static com.agh.iet.komplastech.solver.support.RegionId.regionId;
 
-public class Vertex implements Serializable {
+public class Vertex implements IdentifiedDataSerializable {
 
-    private final VertexId id;
+    private VertexId id;
+    private RegionId regionId;
 
-    public double[][] m_a;
-    public double[][] m_b;
+    public Matrix m_a;
+    public Matrix m_b;
+    public Matrix m_x;
 
-    public double[][] m_x;
     public double beginning;
     public double ending;
 
@@ -26,11 +32,21 @@ public class Vertex implements Serializable {
     private VertexReference middleChild;
     private VertexReference rightChild;
 
-    public Vertex(VertexId vertexId) {
-        id = vertexId;
+    @SuppressWarnings("unused")
+    public Vertex() {
+
     }
 
-    public VertexId getId() {
+    public Vertex(VertexId vertexId, RegionId regionId) {
+        this.id = vertexId;
+        this.regionId = regionId;
+    }
+
+    public VertexReference getVertexReference() {
+        return new WeakVertexReference(this);
+    }
+
+    public VertexId getVertexId() {
         return id;
     }
 
@@ -53,8 +69,8 @@ public class Vertex implements Serializable {
                 .collect(Collectors.toList());
     }
 
-    public static VertexBuilder aVertex(VertexId vertexId) {
-        return new VertexBuilder(vertexId);
+    public static VertexBuilder aVertex(VertexId vertexId, RegionId regionId) {
+        return new VertexBuilder(vertexId, regionId);
     }
 
     public Vertex getLeftChild() {
@@ -75,28 +91,46 @@ public class Vertex implements Serializable {
                 .forEach((vertexReference -> vertexReference.accept(referenceVisitor)));
     }
 
-    public String getEquation() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\nA\n");
-        sb.append(stringifyMatrix(m_a));
-        sb.append("\nx\n");
-        sb.append(stringifyMatrix(m_x));
-        sb.append("\nb\n");
-        sb.append(stringifyMatrix(m_b));
-
-        return sb.toString();
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeInt(id.getAbsoluteIndex());
+        out.writeInt(regionId.toInt());
+        out.writeObject(m_a);
+        out.writeObject(m_b);
+        out.writeObject(m_x);
+        out.writeDouble(beginning);
+        out.writeDouble(ending);
+        out.writeObject(leftChild);
+        out.writeObject(middleChild);
+        out.writeObject(rightChild);
     }
 
-    private String stringifyMatrix(double [][] matrix) {
-        StringBuilder sb = new StringBuilder();
-        for(int r = 0; r < matrix.length; r++) {
-            for(int c = 0; c < matrix[r].length; c++) {
-                sb.append(format("%.2f", matrix[r][c]));
-                sb.append(" ");
-            }
-            sb.append("\n");
-        }
-        return sb.toString();
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        id = vertexId(in.readInt());
+        regionId = regionId(in.readInt());
+        m_a = in.readObject();
+        m_b = in.readObject();
+        m_x = in.readObject();
+        beginning = in.readDouble();
+        ending = in.readDouble();
+        leftChild = in.readObject();
+        middleChild = in.readObject();
+        rightChild = in.readObject();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return GeneralObjectType.VERTEX.id;
+    }
+
+    public RegionId getRegionId() {
+        return regionId;
     }
 
     public static class VertexBuilder {
@@ -104,12 +138,12 @@ public class Vertex implements Serializable {
         private final Vertex vertex;
         private Mesh mesh;
 
-        public VertexBuilder(VertexId vertexId) {
-            vertex = new Vertex(vertexId);
+        VertexBuilder(VertexId vertexId, RegionId regionId) {
+            vertex = new Vertex(vertexId, regionId);
         }
 
-        public VertexBuilder withBeggining(double beggining) {
-            vertex.beginning = beggining;
+        public VertexBuilder withBeginning(double beginning) {
+            vertex.beginning = beginning;
             return this;
         }
 
@@ -124,9 +158,9 @@ public class Vertex implements Serializable {
         }
 
         public Vertex build() {
-            vertex.m_a = new double[7][7];
-            vertex.m_b = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
-            vertex.m_x = new double[7][mesh.getElementsY() + mesh.getSplineOrder() + 1];
+            vertex.m_a = new Matrix(7, 7);
+            vertex.m_b = new Matrix(7, mesh.getElementsY() + mesh.getSplineOrder() + 1);
+            vertex.m_x = new Matrix(7, mesh.getElementsY() + mesh.getSplineOrder() + 1);
             return vertex;
         }
 

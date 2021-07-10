@@ -1,0 +1,4 @@
+dependencies:
+  - name: hazelcast
+    version: 1.0.1
+    repository: "@stable"

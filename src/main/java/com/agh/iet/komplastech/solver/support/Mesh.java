@@ -1,8 +1,15 @@
 package com.agh.iet.komplastech.solver.support;
 
-import java.io.Serializable;
+import com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GeneralObjectType;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
-public class Mesh implements Serializable {
+import java.io.IOException;
+
+import static com.agh.iet.komplastech.solver.factories.HazelcastGeneralFactory.GENERAL_FACTORY_ID;
+
+public class Mesh implements IdentifiedDataSerializable {
 
     private double resolutionX;
 
@@ -18,9 +25,8 @@ public class Mesh implements Serializable {
 
     private int dofsY;
 
-    private int centerY;
-
-    private Mesh() {}
+    public Mesh() {
+    }
 
     public double getResolutionX() {
         return resolutionX;
@@ -70,6 +76,38 @@ public class Mesh implements Serializable {
         return elementsY / 2;
     }
 
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        out.writeDouble(resolutionX);
+        out.writeDouble(resolutionY);
+        out.writeInt(elementsX);
+        out.writeInt(elementsY);
+        out.writeInt(splineOrder);
+        out.writeInt(dofsX);
+        out.writeInt(dofsY);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        resolutionX = in.readDouble();
+        resolutionY = in.readDouble();
+        elementsX = in.readInt();
+        elementsY = in.readInt();
+        splineOrder = in.readInt();
+        dofsX = in.readInt();
+        dofsY = in.readInt();
+    }
+
+    @Override
+    public int getFactoryId() {
+        return GENERAL_FACTORY_ID;
+    }
+
+    @Override
+    public int getId() {
+        return GeneralObjectType.MESH.id;
+    }
+
     public static class MeshBuilder {
 
         private Mesh mesh = new Mesh();
@@ -117,7 +155,6 @@ public class Mesh implements Serializable {
                 ", splineOrder=" + splineOrder +
                 ", dofsX=" + dofsX +
                 ", dofsY=" + dofsY +
-                ", centerY=" + centerY +
                 '}';
     }
 

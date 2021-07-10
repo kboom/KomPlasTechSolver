@@ -1,0 +1,59 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: iga-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      initContainers:
+      - name: volume-mount-hack
+        image: busybox
+        command: ["sh", "-c", "chown -R 666:666 /home/app/logs"]
+        volumeMounts:
+        - name: task-pv-storage
+          mountPath: /home/app/logs
+      containers:
+      - name: iga-solver
+        image: "kbhit/iga-solver-performance"
+        volumeMounts:
+        - mountPath: "/home/app/logs"
+          name: task-pv-storage
+        imagePullPolicy: Always
+        resources:
+            limits:
+              cpu: 3
+              memory: 7Gi
+            requests:
+              cpu: 3
+              memory: 7Gi
+        env:
+          - name: CLUSTER_ADDRESS
+            value: iga-hazelcast:5701
+          - name: CUSTOM_JAVA_OPTS
+            value: "
+              -Xmx6500M
+              -Xms6500M
+              -DCOMPUTATIONS_TIME_LOG_FILENAME=/home/app/logs/computations_heavy.log
+              -Dhazelcast.diagnostics.enabled=true
+              -Dhazelcast.diagnostics.metric.level=info
+              -Dhazelcast.diagnostics.invocation.sample.period.seconds=30
+              -Dhazelcast.diagnostics.pending.invocations.period.seconds=30
+              -Dhazelcast.diagnostics.slowoperations.period.seconds=30
+              -Dhazelcast.log.state=true
+            "
+          - name: PROBLEM_SIZES
+            value: "24576 49152"
+          - name: REGION_HEIGHTS
+            value: "5"
+          - name: BATCH_RATIOS
+            value: "10"
+          - name: MAX_BATCH_SIZES
+            value: "200"
+        args: []
+      volumes:
+      - name: task-pv-storage
+        persistentVolumeClaim:
+          claimName: task-pv-claim
+
+  backoffLimit: 1

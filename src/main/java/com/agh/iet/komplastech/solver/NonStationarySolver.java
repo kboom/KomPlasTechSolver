@@ -4,6 +4,7 @@ import com.agh.iet.komplastech.solver.problem.NonStationaryProblem;
 import com.agh.iet.komplastech.solver.support.Mesh;
 
 import static com.agh.iet.komplastech.solver.SolutionsInTime.solutionsInTime;
+import static java.lang.String.format;
 
 class NonStationarySolver {
 
@@ -15,24 +16,32 @@ class NonStationarySolver {
 
     private final Mesh mesh;
 
+    private final boolean printSolutionHashes;
+
     NonStationarySolver(int timeStepCount,
                         double delta,
                         Solver solver,
-                        Mesh mesh) {
+                        Mesh mesh, boolean printSolutionHashes) {
         this.timeStepCount = timeStepCount;
         this.delta = delta;
         this.solver = solver;
         this.mesh = mesh;
+        this.printSolutionHashes = printSolutionHashes;
     }
 
     SolutionsInTime solveInTime(NonStationaryProblem nonStationaryProblem) {
         SolutionsInTime.SolutionsInTimeBuilder solutionsInTimeBuilder = solutionsInTime()
                 .withMesh(mesh)
                 .withDelta(delta);
+        RunInformation runInformation = RunInformation.initialInformation();
         for (int i = 0; i < timeStepCount; i++) {
-            Solution solution = solver.solveProblem(nonStationaryProblem);
-            solutionsInTimeBuilder.addSolution(solution);
+            Solution solution = solver.solveProblem(nonStationaryProblem, runInformation);
+            if(printSolutionHashes) {
+                System.out.println(String.format("Solution %d - approx. checksum - %d", i, solution.getChecksum()));
+            }
+            solutionsInTimeBuilder.addSolution(solution); // TODO do not store for now, fix it
             nonStationaryProblem.nextStep(solution);
+            runInformation.nextRun();
         }
         return solutionsInTimeBuilder.build();
     }

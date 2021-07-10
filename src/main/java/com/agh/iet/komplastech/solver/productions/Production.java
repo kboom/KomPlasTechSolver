@@ -1,8 +1,8 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import java.io.Serializable;
+import com.hazelcast.nio.serialization.IdentifiedDataSerializable;
 
-public interface Production extends Serializable {
+public interface Production extends IdentifiedDataSerializable {
 
     void apply(ProcessingContext context);
 

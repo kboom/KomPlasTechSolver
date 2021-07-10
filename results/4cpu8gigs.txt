@@ -1,0 +1,18 @@
+Running program with arguments problem size (12)
+85,33,6,128
+Running program with arguments problem size (24)
+89,90,14,199
+Running program with arguments problem size (48)
+90,330,19,447
+Running program with arguments problem size (96)
+92,408,24,536
+Running program with arguments problem size (192)
+102,686,46,859
+Running program with arguments problem size (384)
+111,1365,87,1617
+Running program with arguments problem size (768)
+140,4007,189,4431
+Running program with arguments problem size (1536)
+237,12860,365,13640
+Running program with arguments problem size (3072)
+1857,49657,530,52336

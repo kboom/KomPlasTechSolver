@@ -1,6 +1,7 @@
 package com.agh.iet.komplastech.solver.productions;
 
-import com.agh.iet.komplastech.solver.support.Vertex;
+import com.agh.iet.komplastech.solver.problem.Problem;
+import com.agh.iet.komplastech.solver.support.*;
 
 public interface ProcessingContext {
 
@@ -11,4 +12,15 @@ public interface ProcessingContext {
     void updateVertex();
 
     void updateVertexAndChildren();
+
+    Problem getProblem();
+
+    Mesh getMesh();
+
+    ComputeConfig getComputeConfig();
+
+    VertexRegionMapper getRegionMapper();
+
+    PartialSolutionManager getPartialSolutionManager();
+
 }

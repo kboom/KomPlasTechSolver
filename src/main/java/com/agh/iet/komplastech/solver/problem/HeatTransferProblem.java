@@ -2,11 +2,22 @@ package com.agh.iet.komplastech.solver.problem;
 
 import com.agh.iet.komplastech.solver.Solution;
 import com.agh.iet.komplastech.solver.support.Mesh;
+import com.hazelcast.nio.ObjectDataInput;
+import com.hazelcast.nio.ObjectDataOutput;
+
+import java.io.IOException;
+
+import static com.agh.iet.komplastech.solver.factories.HazelcastProblemFactory.HEAT;
 
 public class HeatTransferProblem extends NonStationaryProblem {
 
-    private final int problemSize;
-    private final Mesh mesh;
+    private int problemSize;
+    private Mesh mesh;
+
+    @SuppressWarnings("unused")
+    public HeatTransferProblem() {
+
+    }
 
     public HeatTransferProblem(double delta, Mesh mesh, int problemSize) {
         super(delta);
@@ -27,4 +38,24 @@ public class HeatTransferProblem extends NonStationaryProblem {
         double value = currentSolution.getValue(x, y);
         return value + delta * currentSolution.getLaplacian(x, y);
     }
+
+    @Override
+    public void writeData(ObjectDataOutput out) throws IOException {
+        super.writeData(out);
+        out.writeInt(problemSize);
+        out.writeObject(mesh);
+    }
+
+    @Override
+    public void readData(ObjectDataInput in) throws IOException {
+        super.readData(in);
+        problemSize = in.readInt();
+        mesh = in.readObject();
+    }
+
+    @Override
+    public int getId() {
+        return HEAT;
+    }
+
 }
